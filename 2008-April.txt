@@ -1,0 +1,2817 @@
+From ivop at mail.berlios.de  Wed Apr  2 21:37:02 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Wed, 2 Apr 2008 21:37:02 +0200
+Subject: [fpm-cvslog] r156 - trunk/blog
+Message-ID: <200804021937.m32Jb2xd029318@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-02 21:37:02 +0200 (Wed, 02 Apr 2008)
+New Revision: 156
+
+Modified:
+   trunk/blog/fpm.xml
+Log:
+typo
+
+
+Modified: trunk/blog/fpm.xml
+===================================================================
+--- trunk/blog/fpm.xml	2008-03-30 22:46:02 UTC (rev 155)
++++ trunk/blog/fpm.xml	2008-04-02 19:37:02 UTC (rev 156)
+@@ -44,7 +44,7 @@
+             </p>
+             <p>
+             Soon thereafter, I stumbled upon this Mozilla
+-            <a href"https://bugzilla.mozilla.org/show_bug.cgi?id=98168#c11">
++            <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=98168#c11">
+                 'Feature'</a>, which I had to work around with the infamous
+             <a href="http://fadshop.net/xsl_mop-up.js">
+                 xsl_mop-up.js
+
+
+
+From ivop at mail.berlios.de  Wed Apr  2 22:21:17 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Wed, 2 Apr 2008 22:21:17 +0200
+Subject: [fpm-cvslog] r157 - trunk/blog
+Message-ID: <200804022021.m32KLH6Q000952@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-02 22:21:17 +0200 (Wed, 02 Apr 2008)
+New Revision: 157
+
+Modified:
+   trunk/blog/fpm.xml
+Log:
+cosmetics
+
+
+Modified: trunk/blog/fpm.xml
+===================================================================
+--- trunk/blog/fpm.xml	2008-04-02 19:37:02 UTC (rev 156)
++++ trunk/blog/fpm.xml	2008-04-02 20:21:17 UTC (rev 157)
+@@ -45,7 +45,7 @@
+             <p>
+             Soon thereafter, I stumbled upon this Mozilla
+             <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=98168#c11">
+-                'Feature'</a>, which I had to work around with the infamous
++                <i>Feature</i></a>, which I had to work around with the infamous
+             <a href="http://fadshop.net/xsl_mop-up.js">
+                 xsl_mop-up.js
+             </a>
+
+
+
+From ivop at mail.berlios.de  Thu Apr  3 02:08:48 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Thu, 3 Apr 2008 02:08:48 +0200
+Subject: [fpm-cvslog] r158 - trunk/fpm2/include/fpm
+Message-ID: <200804030008.m3308mim011161@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-03 02:08:47 +0200 (Thu, 03 Apr 2008)
+New Revision: 158
+
+Added:
+   trunk/fpm2/include/fpm/fpmbasic.h
+   trunk/fpm2/include/fpm/fpmconversion.h
+   trunk/fpm2/include/fpm/fpmsqrt.h
+Modified:
+   trunk/fpm2/include/fpm/fpmcode.h
+Log:
+split fpmcode for better readability and make it easier to find specific code
+
+
+Copied: trunk/fpm2/include/fpm/fpmbasic.h (from rev 154, trunk/fpm2/include/fpm/fpmcode.h)
+===================================================================
+--- trunk/fpm2/include/fpm/fpmcode.h	2008-03-26 17:52:47 UTC (rev 154)
++++ trunk/fpm2/include/fpm/fpmbasic.h	2008-04-03 00:08:47 UTC (rev 158)
+@@ -0,0 +1,104 @@
++/* -------------------------------------------------------------------------
++ *
++ * Fixed Point Math Library
++ *
++ * Copyright (C) 2005, 2006, 2008 by Ivo van Poorten
++ *
++ * This library is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU Lesser General Public
++ * License as published by the Free Software Foundation; either
++ * version 2.1 of the License, or (at your option) any later version.
++ *
++ * This library is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * Lesser General Public License for more details.
++ *
++ * You should have received a copy of the GNU Lesser General Public
++ * License along with this library; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
++ * 02110-1301 USA
++ *
++ * ------------------------------------------------------------------------- */
++
++#ifndef FPM_INTERNAL
++#error "This header file should NOT be included directly!"
++#else
++
++#ifndef FPM_FPMBASIC_H
++#define FPM_FPMBASIC_H
++
++/* ------------------------------------------------------------------------- */
++
++/* BASIC MATH */
++
++/* multiplication (x*y) */
++
++#define FPMMUL(a,b,c) FPMFUNC a##_t mul##a(a##_t x, a##_t y){return (b)x*y>>c;}
++
++FPMMUL( fp8p8  ,  int32_t, 8 )  FPMMUL( fp24p8 ,  int64_t, 8 )
++FPMMUL( fp16p16,  int64_t, 16)  FPMMUL( fp8p24 ,  int64_t, 24)
++FPMMUL(ufp8p8  , uint32_t, 8 )  FPMMUL(ufp24p8 , uint64_t, 8 )
++FPMMUL(ufp16p16, uint64_t, 16)  FPMMUL(ufp8p24 , uint64_t, 24)
++
++/* fast multiplication, less precision */
++
++#define FPMFMUL(a,b) FPMFUNC a##_t fastmul##a(a##_t x, a##_t y) { \
++    return (x>>b) * (y>>b); \
++}
++
++FPMFMUL(fp8p8, 4) FPMFMUL(fp24p8, 4) FPMFMUL(fp16p16, 8) FPMFMUL(fp8p24, 12)
++FPMFMUL(ufp8p8,4) FPMFMUL(ufp24p8,4) FPMFMUL(ufp16p16,8) FPMFMUL(ufp8p24,12)
++
++/* division (x/y) */
++
++#define FPMDIV(a,b,c) FPMFUNC a##_t div##a(a##_t x, a##_t y) { \
++    return ((b)x<<c) / y; }
++
++FPMDIV( fp8p8  ,  int32_t, 8 )  FPMDIV( fp24p8 ,  int64_t, 8 )
++FPMDIV( fp16p16,  int64_t, 16)  FPMDIV( fp8p24 ,  int64_t, 24)
++FPMDIV(ufp8p8  , uint32_t, 8 )  FPMDIV(ufp24p8 , uint64_t, 8 )
++FPMDIV(ufp16p16, uint64_t, 16)  FPMDIV(ufp8p24 , uint64_t, 24)
++
++/* fast division, less precision, smaller range, perhaps not that useful */
++
++#define FPMFDIV(a,b,c) FPMFUNC a##_t fastdiv##a(a##_t x, a##_t y) { \
++    return ((x<<b) / y) << c; }
++
++FPMFDIV( fp8p8  , 4, 4 )    FPMFDIV( fp24p8 , 8, 0 )
++FPMFDIV( fp16p16, 8, 8 )    FPMFDIV( fp8p24 , 4, 20)
++FPMFDIV(ufp8p8  , 4, 4 )    FPMFDIV(ufp24p8 , 8, 0 )
++FPMFDIV(ufp16p16, 8, 8 )    FPMFDIV(ufp8p24 , 4, 20)
++
++/* floor (round down to nearest integer) */
++
++#define FPMFLOOR(a,b) FPMFUNC a##_t floor##a(a##_t x) { return x & b; }; \
++               FPMFUNC u##a##_t flooru##a(u##a##_t x) { return x & b; };
++
++FPMFLOOR(fp8p8  , 0xff00    )   FPMFLOOR(fp24p8 , 0xffffff00)
++FPMFLOOR(fp16p16, 0xffff0000)   FPMFLOOR(fp8p24 , 0xff000000)
++
++/* ceil (round up to nearest integer) */
++
++#define FPMCEIL(a,b,c) FPMFUNC a##_t ceil##a(a##_t x) { return (x+b) & c; }; \
++              FPMFUNC u##a##_t ceil##u##a(u##a##_t x) { return (x+b) & c; };
++
++FPMCEIL(fp8p8  , 0x0100    ,0xff00    ) FPMCEIL(fp24p8, 0x00000100,0xffffff00)
++FPMCEIL(fp16p16, 0x00010000,0xffff0000) FPMCEIL(fp8p24, 0x01000000,0xff000000)
++
++/* fract (return fraction of fixed point value) */
++
++#define FPMFRAC(a) FPMFUNC a##_t fract##a(a##_t x) { \
++    if (x>= 0) return fractu##a(x); else return fractu##a(~x)+1; }
++
++FPMFRAC(fp8p8) FPMFRAC(fp24p8) FPMFRAC(fp16p16) FPMFRAC(fp8p24)
++
++FPMFUNC ufp8p8_t   fractufp8p8  (ufp8p8_t   x) { return x & 0x00ff; }
++FPMFUNC ufp24p8_t  fractufp24p8 (ufp24p8_t  x) { return x & 0x000000ff; }
++FPMFUNC ufp16p16_t fractufp16p16(ufp16p16_t x) { return x & 0x0000ffff; }
++FPMFUNC ufp8p24_t  fractufp8p24 (ufp8p24_t  x) { return x & 0x00ffffff; }
++
++/* ------------------------------------------------------------------------- */
++
++#endif
++#endif
+
+Modified: trunk/fpm2/include/fpm/fpmcode.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpmcode.h	2008-04-02 20:21:17 UTC (rev 157)
++++ trunk/fpm2/include/fpm/fpmcode.h	2008-04-03 00:08:47 UTC (rev 158)
+@@ -49,305 +49,11 @@
+ 
+ /* ------------------------------------------------------------------------- */
+ 
+-/* CONVERSION */
++#include <fpm/fpmconversion.h>
++#include <fpm/fpmbasic.h>
++#include <fpm/fpmsqrt.h>
+ 
+-/* int to fixed point */
+-
+-#define FPMI2FP(a,c) FPMFUNC a##_t    ito##a (         int x) { return x c; } \
+-                     FPMFUNC u##a##_t itou##a(unsigned int x) { return x c; }
+-
+-FPMI2FP(fp8p8  , <<8 )      FPMI2FP(fp24p8 , <<8 )
+-FPMI2FP(fp16p16, <<16)      FPMI2FP(fp8p24 , <<24)
+-
+-/* float to fixed point */
+-
+-#ifndef FPM_NO_FPU_MUL_CONVERSIONS
+-
+-#define FPMF2FP(a,c) FPMFUNC a##_t    fto##a (float x) { return x * c; } \
+-                     FPMFUNC u##a##_t ftou##a(float x) { return x * c; }
+-
+-FPMF2FP(fp8p8  ,   256.0f)      FPMF2FP(fp24p8 ,      256.0f)
+-FPMF2FP(fp16p16, 65536.0f)      FPMF2FP(fp8p24 , 16777216.0f)
+-
+-#else
+-
+-#define FPMF2FP(a,b,c) a##_t fto##a(float f) { \
+-    fpm_funion_t x = { .f = f }; \
+-    a##_t fp, s = x.u8[3] >> 7;         /* extract sign */      \
+-    x.u8[3] &= 0x7f;                    /* abs() */             \
+-    x.f += b;                           /* range 0.0 ... b */   \
+-    fp   = (x.u32 & 0x7fffff) c;        /* extract mantissa */  \
+-    fp  ^= -s;                          /* one's complement */  \
+-    return fp + s;                      /* two's complement */  \
+-}
+-
+-FPMF2FP(fp8p8  ,   128.0f, >>8)     FPMF2FP(fp24p8 , 8388608.0f, <<8)
+-FPMF2FP(fp16p16, 32768.0f, <<8)     FPMF2FP(fp8p24 ,     128.0f, <<8)
+-
+-#define FPMF2UFP(a,b,c) a##_t fto##a(float f) { \
+-    fpm_funion_t x = { .f = f }; \
+-    x.f += b; \
+-    return (x.u32 & 0x7fffff) c; \
+-}
+-
+-FPMF2UFP(ufp8p8  ,   256.0f, >>7)   FPMF2UFP(ufp24p8 , 16777216.0f, <<9)
+-FPMF2UFP(ufp16p16, 65536.0f, <<9)   FPMF2UFP(ufp8p24 ,      256.0f, <<9)
+-
+-#endif
+-
+-/* double to fixed point */
+-
+-#ifndef FPM_NO_FPU_MUL_CONVERSIONS
+-
+-#define FPMD2FP(a,c) FPMFUNC a##_t    dto##a (double x) { return x * c; } \
+-                     FPMFUNC u##a##_t dtou##a(double x) { return x * c; }
+-
+-FPMD2FP(fp8p8  ,   256.0f)      FPMD2FP(fp24p8 ,      256.0f)
+-FPMD2FP(fp16p16, 65536.0f)      FPMD2FP(fp8p24 , 16777216.0f)
+-
+-#else
+-
+-#define FPMD2FP(a,b,c) a##_t dto##a(double d) { \
+-    fpm_dunion_t x = { .d = d }; \
+-    a##_t fp, s = x.u8[7] >> 7;                 /* extract sign */      \
+-    x.u8[7] &= 0x7f;                            /* abs() */             \
+-    x.d += b;                                   /* range 0.0 ... b */   \
+-    fp   = (x.u64 & 0x000fffffffffffffULL) c;   /* extract mantissa */  \
+-    fp  ^= -s;                                  /* one's complement */  \
+-    return fp + s;                              /* two's complement */  \
+-}
+-
+-FPMD2FP(fp8p8  ,   128.0, >>37)   FPMD2FP(fp24p8 , 8388608.0, >>21)
+-FPMD2FP(fp16p16, 32768.0, >>21)   FPMD2FP(fp8p24 ,     128.0, >>21)
+-
+-#define FPMD2UFP(a,b,c) a##_t dto##a(double d) { \
+-    fpm_dunion_t x = { .d = d }; \
+-    x.d += b; \
+-    return (x.u64 & 0x000fffffffffffffULL) c; \
+-}
+-
+-FPMD2UFP(ufp8p8  ,   256.0, >>36)   FPMD2UFP(ufp24p8 , 16777216.0, >>20)
+-FPMD2UFP(ufp16p16, 65536.0, >>20)   FPMD2UFP(ufp8p24 ,      256.0, >>20)
+-
+-#endif
+-
+-/* fixed point to int (truncated) */
+-
+-#define FPMFP2I(a,c) FPMFUNC int a##toi (a##_t x) { return x c; } \
+-      FPMFUNC unsigned int u##a##toi (u##a##_t x) { return x c; }
+-
+-FPMFP2I(fp8p8  , >>8 )      FPMFP2I(fp24p8 , >>8 )
+-FPMFP2I(fp16p16, >>16)      FPMFP2I(fp8p24 , >>24)
+-
+-/* fixed point to float */
+-
+-#define FPMFP2F(a,c) FPMFUNC float a##tof (a##_t x) { return x / c; } \
+-               FPMFUNC float u##a##tof (u##a##_t x) { return x / c; }
+-
+-FPMFP2F(fp8p8  ,   256.0f)      FPMFP2F(fp24p8 ,      256.0f)
+-FPMFP2F(fp16p16, 65536.0f)      FPMFP2F(fp8p24 , 16777216.0f)
+-
+-/* fixed point to double */
+-
+-#define FPMFP2D(a,c) FPMFUNC double a##tod (a##_t x) { return x / c; } \
+-               FPMFUNC double u##a##tod (u##a##_t x) { return x / c; }
+-
+-FPMFP2D(fp8p8  ,   256.0)       FPMFP2D(fp24p8 ,      256.0)
+-FPMFP2D(fp16p16, 65536.0)       FPMFP2D(fp8p24 , 16777216.0)
+-
+-/* fixed point to fixed point */
+-
+-#define FPMA2B(a,b,c) FPMFUNC b##_t a##to##b(a##_t x) { return x c; } \
+-          FPMFUNC u##b##_t u##a##to##u##b(u##a##_t x) { return x c; }
+-
+-FPMA2B(fp8p8  , fp8p8  ,     )      FPMA2B(fp8p8  , fp24p8 ,     )
+-FPMA2B(fp8p8  , fp16p16, <<8 )      FPMA2B(fp8p8  , fp8p24 , <<16)
+-FPMA2B(fp24p8 , fp8p8  ,     )      FPMA2B(fp24p8 , fp24p8 ,     )
+-FPMA2B(fp24p8 , fp16p16, <<8 )      FPMA2B(fp24p8 , fp8p24 , <<16)
+-FPMA2B(fp16p16, fp8p8  , >>8 )      FPMA2B(fp16p16, fp24p8 , >>8 )
+-FPMA2B(fp16p16, fp16p16,     )      FPMA2B(fp16p16, fp8p24 , <<8 )
+-FPMA2B(fp8p24 , fp8p8  , >>16)      FPMA2B(fp8p24 , fp24p8 , >>16)
+-FPMA2B(fp8p24 , fp16p16, >>8 )      FPMA2B(fp8p24 , fp8p24 ,     )
+-
+ /* ------------------------------------------------------------------------- */
+ 
+-/* BASIC MATH */
+-
+-/* multiplication (x*y) */
+-
+-#define FPMMUL(a,b,c) FPMFUNC a##_t mul##a(a##_t x, a##_t y){return (b)x*y>>c;}
+-
+-FPMMUL( fp8p8  ,  int32_t, 8 )  FPMMUL( fp24p8 ,  int64_t, 8 )
+-FPMMUL( fp16p16,  int64_t, 16)  FPMMUL( fp8p24 ,  int64_t, 24)
+-FPMMUL(ufp8p8  , uint32_t, 8 )  FPMMUL(ufp24p8 , uint64_t, 8 )
+-FPMMUL(ufp16p16, uint64_t, 16)  FPMMUL(ufp8p24 , uint64_t, 24)
+-
+-/* fast multiplication, less precision */
+-
+-#define FPMFMUL(a,b) FPMFUNC a##_t fastmul##a(a##_t x, a##_t y) { \
+-    return (x>>b) * (y>>b); \
+-}
+-
+-FPMFMUL(fp8p8, 4) FPMFMUL(fp24p8, 4) FPMFMUL(fp16p16, 8) FPMFMUL(fp8p24, 12)
+-FPMFMUL(ufp8p8,4) FPMFMUL(ufp24p8,4) FPMFMUL(ufp16p16,8) FPMFMUL(ufp8p24,12)
+-
+-/* division (x/y) */
+-
+-#define FPMDIV(a,b,c) FPMFUNC a##_t div##a(a##_t x, a##_t y) { \
+-    return ((b)x<<c) / y; }
+-
+-FPMDIV( fp8p8  ,  int32_t, 8 )  FPMDIV( fp24p8 ,  int64_t, 8 )
+-FPMDIV( fp16p16,  int64_t, 16)  FPMDIV( fp8p24 ,  int64_t, 24)
+-FPMDIV(ufp8p8  , uint32_t, 8 )  FPMDIV(ufp24p8 , uint64_t, 8 )
+-FPMDIV(ufp16p16, uint64_t, 16)  FPMDIV(ufp8p24 , uint64_t, 24)
+-
+-/* fast division, less precision, smaller range, perhaps not that useful */
+-
+-#define FPMFDIV(a,b,c) FPMFUNC a##_t fastdiv##a(a##_t x, a##_t y) { \
+-    return ((x<<b) / y) << c; }
+-
+-FPMFDIV( fp8p8  , 4, 4 )    FPMFDIV( fp24p8 , 8, 0 )
+-FPMFDIV( fp16p16, 8, 8 )    FPMFDIV( fp8p24 , 4, 20)
+-FPMFDIV(ufp8p8  , 4, 4 )    FPMFDIV(ufp24p8 , 8, 0 )
+-FPMFDIV(ufp16p16, 8, 8 )    FPMFDIV(ufp8p24 , 4, 20)
+-
+-/* floor (round down to nearest integer) */
+-
+-#define FPMFLOOR(a,b) FPMFUNC a##_t floor##a(a##_t x) { return x & b; }; \
+-               FPMFUNC u##a##_t flooru##a(u##a##_t x) { return x & b; };
+-
+-FPMFLOOR(fp8p8  , 0xff00    )   FPMFLOOR(fp24p8 , 0xffffff00)
+-FPMFLOOR(fp16p16, 0xffff0000)   FPMFLOOR(fp8p24 , 0xff000000)
+-
+-/* ceil (round up to nearest integer) */
+-
+-#define FPMCEIL(a,b,c) FPMFUNC a##_t ceil##a(a##_t x) { return (x+b) & c; }; \
+-              FPMFUNC u##a##_t ceil##u##a(u##a##_t x) { return (x+b) & c; };
+-
+-FPMCEIL(fp8p8  , 0x0100    ,0xff00    ) FPMCEIL(fp24p8, 0x00000100,0xffffff00)
+-FPMCEIL(fp16p16, 0x00010000,0xffff0000) FPMCEIL(fp8p24, 0x01000000,0xff000000)
+-
+-/* fract (return fraction of fixed point value) */
+-
+-#define FPMFRAC(a) FPMFUNC a##_t fract##a(a##_t x) { \
+-    if (x>= 0) return fractu##a(x); else return fractu##a(~x)+1; }
+-
+-FPMFRAC(fp8p8) FPMFRAC(fp24p8) FPMFRAC(fp16p16) FPMFRAC(fp8p24)
+-
+-FPMFUNC ufp8p8_t   fractufp8p8  (ufp8p8_t   x) { return x & 0x00ff; }
+-FPMFUNC ufp24p8_t  fractufp24p8 (ufp24p8_t  x) { return x & 0x000000ff; }
+-FPMFUNC ufp16p16_t fractufp16p16(ufp16p16_t x) { return x & 0x0000ffff; }
+-FPMFUNC ufp8p24_t  fractufp8p24 (ufp8p24_t  x) { return x & 0x00ffffff; }
+-
+-/* ------------------------------------------------------------------------- */
+-
+-/* ADVANCED MATH */
+-
+-/* square root */
+-
+-#ifndef FPM_SQUARE_ROOT_METHOD
+-#   define FPM_SQUARE_ROOT_METHOD 2
+ #endif
+-
+-#if FPM_SQUARE_ROOT_METHOD == 1
+-/* babylonian method */
+-
+-#define FPMSQRT8p8(a,b) FPMFUNC a##_t sqrt##a(a##_t x) { \
+-    register a##_t r; \
+-    if (b) return 0;  \
+-    r = x >> 2;       \
+-    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
+-    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
+-    return r; \
+-}
+-FPMSQRT8p8(fp8p8 , !x  )
+-FPMSQRT8p8(ufp8p8, x<=0)
+-
+-#define FPMSQRT24p8(a,b) FPMFUNC a##_t sqrt##a(a##_t x) { \
+-    register a##_t r; \
+-    if (b) return 0;  \
+-    r = x >> 2;       \
+-    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
+-    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
+-    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
+-    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
+-    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
+-    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
+-    return r; \
+-}
+-FPMSQRT24p8(fp24p8 , !x  )
+-FPMSQRT24p8(ufp24p8, x<=0)
+-
+-#define FPMSQRT16p16(a,b) FPMFUNC a##_t sqrt##a(a##_t x) { \
+-    register a##_t r; \
+-    if (b) return 0;  \
+-    r = x >> 2;       \
+-    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
+-    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
+-    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
+-    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
+-    return r; \
+-}
+-FPMSQRT16p16(fp16p16 , !x  )
+-FPMSQRT16p16(ufp16p16, x<=0)
+-
+-#define FPMSQRT8p24(a,b) FPMFUNC a##_t sqrt##a(a##_t x) { \
+-    register a##_t r; \
+-    if (b) return 0;  \
+-    r = x >> 2;       \
+-    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
+-    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
+-    r += div##a(x,r); r >>= 1; \
+-    return r; \
+-}
+-FPMSQRT8p24(fp8p24 , !x  )
+-FPMSQRT8p24(ufp8p24, x<=0)
+-
+-#elif FPM_SQUARE_ROOT_METHOD == 2
+-
+-/* digit-by-digit method, upper range of x is halved, result is less precise */
+-
+-#define FPMSQRT(a,b,c) FPMFUNC a##_t sqrt##a(a##_t x) { \
+-    a##_t r = 0, s = 1<<b; \
+-    while (s>x) s >>= 2;   \
+-    while (s) {            \
+-        if (x >= r+s) {    \
+-            x -= r+s;      \
+-            r += s<<1;     \
+-        }                  \
+-        r >>= 1; s >>= 2;  \
+-    }                      \
+-    return r<<c;           \
+-}
+-
+-FPMSQRT( fp8p8  , 14, 4 )   FPMSQRT(ufp8p8  , 14, 4 )
+-FPMSQRT( fp24p8 , 30, 4 )   FPMSQRT(ufp24p8 , 30, 4 )
+-FPMSQRT( fp16p16, 30, 8 )   FPMSQRT(ufp16p16, 30, 8 )
+-FPMSQRT( fp8p24 , 30, 12)   FPMSQRT(ufp8p24 , 30, 12)
+-
+-#elif FPM_SQUARE_ROOT_METHOD == 3
+-
+-/* John Carmack's Quake III algorithm with Chris Lomont's Initial Guess.
+- * http://www.lomont.org/Math/Papers/2003/InvSqrt.pdf
+- * Carmack: 0x5f3759df, Lomont: 0x5f375a86
+- * Version for CPU's with an FPU
+- */
+-
+-#define FPMSQRT(a) FPMFUNC a##_t sqrt##a(a##_t x) { \
+-    register union { float f; uint32_t i; } u = { .f = a##tof(x) }; \
+-    float xhalf = 0.5f * x;      \
+-    u.i = 0x5f375a86 - (u.i>>1); \
+-    return fto##a(u.f * (1.5f - xhalf * u.f * u.f)); \
+-}
+-
+-FPMSQRT( fp8p8  )   FPMSQRT(ufp8p8  )   FPMSQRT( fp24p8 )   FPMSQRT(ufp24p8 )
+-FPMSQRT( fp16p16)   FPMSQRT(ufp16p16)   FPMSQRT( fp8p24 )   FPMSQRT(ufp8p24 )
+-
+-#else
+-#   error "Invalid FPM_SQUARE_ROOT_METHOD"
+ #endif
+-
+-/* ------------------------------------------------------------------------- */
+-
+-#endif
+-#endif
+
+Copied: trunk/fpm2/include/fpm/fpmconversion.h (from rev 154, trunk/fpm2/include/fpm/fpmcode.h)
+===================================================================
+--- trunk/fpm2/include/fpm/fpmcode.h	2008-03-26 17:52:47 UTC (rev 154)
++++ trunk/fpm2/include/fpm/fpmconversion.h	2008-04-03 00:08:47 UTC (rev 158)
+@@ -0,0 +1,156 @@
++/* -------------------------------------------------------------------------
++ *
++ * Fixed Point Math Library
++ *
++ * Copyright (C) 2005, 2006, 2008 by Ivo van Poorten
++ *
++ * This library is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU Lesser General Public
++ * License as published by the Free Software Foundation; either
++ * version 2.1 of the License, or (at your option) any later version.
++ *
++ * This library is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * Lesser General Public License for more details.
++ *
++ * You should have received a copy of the GNU Lesser General Public
++ * License along with this library; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
++ * 02110-1301 USA
++ *
++ * ------------------------------------------------------------------------- */
++
++#ifndef FPM_INTERNAL
++#error "This header file should NOT be included directly!"
++#else
++
++#ifndef FPM_FPMCONVERSION_H
++#define FPM_FPMCONVERSION_H
++
++/* ------------------------------------------------------------------------- */
++
++/* CONVERSION */
++
++/* int to fixed point */
++
++#define FPMI2FP(a,c) FPMFUNC a##_t    ito##a (         int x) { return x c; } \
++                     FPMFUNC u##a##_t itou##a(unsigned int x) { return x c; }
++
++FPMI2FP(fp8p8  , <<8 )      FPMI2FP(fp24p8 , <<8 )
++FPMI2FP(fp16p16, <<16)      FPMI2FP(fp8p24 , <<24)
++
++/* float to fixed point */
++
++#ifndef FPM_NO_FPU_MUL_CONVERSIONS
++
++#define FPMF2FP(a,c) FPMFUNC a##_t    fto##a (float x) { return x * c; } \
++                     FPMFUNC u##a##_t ftou##a(float x) { return x * c; }
++
++FPMF2FP(fp8p8  ,   256.0f)      FPMF2FP(fp24p8 ,      256.0f)
++FPMF2FP(fp16p16, 65536.0f)      FPMF2FP(fp8p24 , 16777216.0f)
++
++#else
++
++#define FPMF2FP(a,b,c) a##_t fto##a(float f) { \
++    fpm_funion_t x = { .f = f }; \
++    a##_t fp, s = x.u8[3] >> 7;         /* extract sign */      \
++    x.u8[3] &= 0x7f;                    /* abs() */             \
++    x.f += b;                           /* range 0.0 ... b */   \
++    fp   = (x.u32 & 0x7fffff) c;        /* extract mantissa */  \
++    fp  ^= -s;                          /* one's complement */  \
++    return fp + s;                      /* two's complement */  \
++}
++
++FPMF2FP(fp8p8  ,   128.0f, >>8)     FPMF2FP(fp24p8 , 8388608.0f, <<8)
++FPMF2FP(fp16p16, 32768.0f, <<8)     FPMF2FP(fp8p24 ,     128.0f, <<8)
++
++#define FPMF2UFP(a,b,c) a##_t fto##a(float f) { \
++    fpm_funion_t x = { .f = f }; \
++    x.f += b; \
++    return (x.u32 & 0x7fffff) c; \
++}
++
++FPMF2UFP(ufp8p8  ,   256.0f, >>7)   FPMF2UFP(ufp24p8 , 16777216.0f, <<9)
++FPMF2UFP(ufp16p16, 65536.0f, <<9)   FPMF2UFP(ufp8p24 ,      256.0f, <<9)
++
++#endif
++
++/* double to fixed point */
++
++#ifndef FPM_NO_FPU_MUL_CONVERSIONS
++
++#define FPMD2FP(a,c) FPMFUNC a##_t    dto##a (double x) { return x * c; } \
++                     FPMFUNC u##a##_t dtou##a(double x) { return x * c; }
++
++FPMD2FP(fp8p8  ,   256.0f)      FPMD2FP(fp24p8 ,      256.0f)
++FPMD2FP(fp16p16, 65536.0f)      FPMD2FP(fp8p24 , 16777216.0f)
++
++#else
++
++#define FPMD2FP(a,b,c) a##_t dto##a(double d) { \
++    fpm_dunion_t x = { .d = d }; \
++    a##_t fp, s = x.u8[7] >> 7;                 /* extract sign */      \
++    x.u8[7] &= 0x7f;                            /* abs() */             \
++    x.d += b;                                   /* range 0.0 ... b */   \
++    fp   = (x.u64 & 0x000fffffffffffffULL) c;   /* extract mantissa */  \
++    fp  ^= -s;                                  /* one's complement */  \
++    return fp + s;                              /* two's complement */  \
++}
++
++FPMD2FP(fp8p8  ,   128.0, >>37)   FPMD2FP(fp24p8 , 8388608.0, >>21)
++FPMD2FP(fp16p16, 32768.0, >>21)   FPMD2FP(fp8p24 ,     128.0, >>21)
++
++#define FPMD2UFP(a,b,c) a##_t dto##a(double d) { \
++    fpm_dunion_t x = { .d = d }; \
++    x.d += b; \
++    return (x.u64 & 0x000fffffffffffffULL) c; \
++}
++
++FPMD2UFP(ufp8p8  ,   256.0, >>36)   FPMD2UFP(ufp24p8 , 16777216.0, >>20)
++FPMD2UFP(ufp16p16, 65536.0, >>20)   FPMD2UFP(ufp8p24 ,      256.0, >>20)
++
++#endif
++
++/* fixed point to int (truncated) */
++
++#define FPMFP2I(a,c) FPMFUNC int a##toi (a##_t x) { return x c; } \
++      FPMFUNC unsigned int u##a##toi (u##a##_t x) { return x c; }
++
++FPMFP2I(fp8p8  , >>8 )      FPMFP2I(fp24p8 , >>8 )
++FPMFP2I(fp16p16, >>16)      FPMFP2I(fp8p24 , >>24)
++
++/* fixed point to float */
++
++#define FPMFP2F(a,c) FPMFUNC float a##tof (a##_t x) { return x / c; } \
++               FPMFUNC float u##a##tof (u##a##_t x) { return x / c; }
++
++FPMFP2F(fp8p8  ,   256.0f)      FPMFP2F(fp24p8 ,      256.0f)
++FPMFP2F(fp16p16, 65536.0f)      FPMFP2F(fp8p24 , 16777216.0f)
++
++/* fixed point to double */
++
++#define FPMFP2D(a,c) FPMFUNC double a##tod (a##_t x) { return x / c; } \
++               FPMFUNC double u##a##tod (u##a##_t x) { return x / c; }
++
++FPMFP2D(fp8p8  ,   256.0)       FPMFP2D(fp24p8 ,      256.0)
++FPMFP2D(fp16p16, 65536.0)       FPMFP2D(fp8p24 , 16777216.0)
++
++/* fixed point to fixed point */
++
++#define FPMA2B(a,b,c) FPMFUNC b##_t a##to##b(a##_t x) { return x c; } \
++          FPMFUNC u##b##_t u##a##to##u##b(u##a##_t x) { return x c; }
++
++FPMA2B(fp8p8  , fp8p8  ,     )      FPMA2B(fp8p8  , fp24p8 ,     )
++FPMA2B(fp8p8  , fp16p16, <<8 )      FPMA2B(fp8p8  , fp8p24 , <<16)
++FPMA2B(fp24p8 , fp8p8  ,     )      FPMA2B(fp24p8 , fp24p8 ,     )
++FPMA2B(fp24p8 , fp16p16, <<8 )      FPMA2B(fp24p8 , fp8p24 , <<16)
++FPMA2B(fp16p16, fp8p8  , >>8 )      FPMA2B(fp16p16, fp24p8 , >>8 )
++FPMA2B(fp16p16, fp16p16,     )      FPMA2B(fp16p16, fp8p24 , <<8 )
++FPMA2B(fp8p24 , fp8p8  , >>16)      FPMA2B(fp8p24 , fp24p8 , >>16)
++FPMA2B(fp8p24 , fp16p16, >>8 )      FPMA2B(fp8p24 , fp8p24 ,     )
++
++/* ------------------------------------------------------------------------- */
++
++#endif
++#endif
+
+Copied: trunk/fpm2/include/fpm/fpmsqrt.h (from rev 154, trunk/fpm2/include/fpm/fpmcode.h)
+===================================================================
+--- trunk/fpm2/include/fpm/fpmcode.h	2008-03-26 17:52:47 UTC (rev 154)
++++ trunk/fpm2/include/fpm/fpmsqrt.h	2008-04-03 00:08:47 UTC (rev 158)
+@@ -0,0 +1,140 @@
++/* -------------------------------------------------------------------------
++ *
++ * Fixed Point Math Library
++ *
++ * Copyright (C) 2005, 2006, 2008 by Ivo van Poorten
++ *
++ * This library is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU Lesser General Public
++ * License as published by the Free Software Foundation; either
++ * version 2.1 of the License, or (at your option) any later version.
++ *
++ * This library is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * Lesser General Public License for more details.
++ *
++ * You should have received a copy of the GNU Lesser General Public
++ * License along with this library; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
++ * 02110-1301 USA
++ *
++ * ------------------------------------------------------------------------- */
++
++#ifndef FPM_INTERNAL
++#error "This header file should NOT be included directly!"
++#else
++
++#ifndef FPM_FPMSQRT_H
++#define FPM_FPMSQRT_H
++
++/* ------------------------------------------------------------------------- */
++
++/* square root */
++
++#ifndef FPM_SQUARE_ROOT_METHOD
++#   define FPM_SQUARE_ROOT_METHOD 2
++#endif
++
++#if FPM_SQUARE_ROOT_METHOD == 1
++/* babylonian method */
++
++#define FPMSQRT8p8(a,b) FPMFUNC a##_t sqrt##a(a##_t x) { \
++    register a##_t r; \
++    if (b) return 0;  \
++    r = x >> 2;       \
++    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
++    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
++    return r; \
++}
++FPMSQRT8p8(fp8p8 , !x  )
++FPMSQRT8p8(ufp8p8, x<=0)
++
++#define FPMSQRT24p8(a,b) FPMFUNC a##_t sqrt##a(a##_t x) { \
++    register a##_t r; \
++    if (b) return 0;  \
++    r = x >> 2;       \
++    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
++    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
++    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
++    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
++    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
++    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
++    return r; \
++}
++FPMSQRT24p8(fp24p8 , !x  )
++FPMSQRT24p8(ufp24p8, x<=0)
++
++#define FPMSQRT16p16(a,b) FPMFUNC a##_t sqrt##a(a##_t x) { \
++    register a##_t r; \
++    if (b) return 0;  \
++    r = x >> 2;       \
++    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
++    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
++    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
++    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
++    return r; \
++}
++FPMSQRT16p16(fp16p16 , !x  )
++FPMSQRT16p16(ufp16p16, x<=0)
++
++#define FPMSQRT8p24(a,b) FPMFUNC a##_t sqrt##a(a##_t x) { \
++    register a##_t r; \
++    if (b) return 0;  \
++    r = x >> 2;       \
++    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
++    r += div##a(x,r); r >>= 1; r += div##a(x,r); r >>= 1; \
++    r += div##a(x,r); r >>= 1; \
++    return r; \
++}
++FPMSQRT8p24(fp8p24 , !x  )
++FPMSQRT8p24(ufp8p24, x<=0)
++
++#elif FPM_SQUARE_ROOT_METHOD == 2
++
++/* digit-by-digit method, upper range of x is halved, result is less precise */
++
++#define FPMSQRT(a,b,c) FPMFUNC a##_t sqrt##a(a##_t x) { \
++    a##_t r = 0, s = 1<<b; \
++    while (s>x) s >>= 2;   \
++    while (s) {            \
++        if (x >= r+s) {    \
++            x -= r+s;      \
++            r += s<<1;     \
++        }                  \
++        r >>= 1; s >>= 2;  \
++    }                      \
++    return r<<c;           \
++}
++
++FPMSQRT( fp8p8  , 14, 4 )   FPMSQRT(ufp8p8  , 14, 4 )
++FPMSQRT( fp24p8 , 30, 4 )   FPMSQRT(ufp24p8 , 30, 4 )
++FPMSQRT( fp16p16, 30, 8 )   FPMSQRT(ufp16p16, 30, 8 )
++FPMSQRT( fp8p24 , 30, 12)   FPMSQRT(ufp8p24 , 30, 12)
++
++#elif FPM_SQUARE_ROOT_METHOD == 3
++
++/* John Carmack's Quake III algorithm with Chris Lomont's Initial Guess.
++ * http://www.lomont.org/Math/Papers/2003/InvSqrt.pdf
++ * Carmack: 0x5f3759df, Lomont: 0x5f375a86
++ * Version for CPU's with an FPU
++ */
++
++#define FPMSQRT(a) FPMFUNC a##_t sqrt##a(a##_t x) { \
++    register union { float f; uint32_t i; } u = { .f = a##tof(x) }; \
++    float xhalf = 0.5f * x;      \
++    u.i = 0x5f375a86 - (u.i>>1); \
++    return fto##a(u.f * (1.5f - xhalf * u.f * u.f)); \
++}
++
++FPMSQRT( fp8p8  )   FPMSQRT(ufp8p8  )   FPMSQRT( fp24p8 )   FPMSQRT(ufp24p8 )
++FPMSQRT( fp16p16)   FPMSQRT(ufp16p16)   FPMSQRT( fp8p24 )   FPMSQRT(ufp8p24 )
++
++#else
++#   error "Invalid FPM_SQUARE_ROOT_METHOD"
++#endif
++
++/* ------------------------------------------------------------------------- */
++
++#endif
++#endif
+
+
+
+From ivop at mail.berlios.de  Thu Apr  3 12:21:22 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Thu, 3 Apr 2008 12:21:22 +0200
+Subject: [fpm-cvslog] r159 - trunk/fpm2
+Message-ID: <200804031021.m33ALMdH015459@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-03 12:21:21 +0200 (Thu, 03 Apr 2008)
+New Revision: 159
+
+Modified:
+   trunk/fpm2/TODO
+   trunk/fpm2/benchmark.c
+Log:
+floor and ceil are done
+
+
+Modified: trunk/fpm2/TODO
+===================================================================
+--- trunk/fpm2/TODO	2008-04-03 00:08:47 UTC (rev 158)
++++ trunk/fpm2/TODO	2008-04-03 10:21:21 UTC (rev 159)
+@@ -1,2 +1,2 @@
+ * better benchmark framework
+-* floor, ceil, pow, ln, exp, sin, cos, tan, acos, asin, atan
++* exp, pow, ln, sin, cos, tan, acos, asin, atan
+
+Modified: trunk/fpm2/benchmark.c
+===================================================================
+--- trunk/fpm2/benchmark.c	2008-04-03 00:08:47 UTC (rev 158)
++++ trunk/fpm2/benchmark.c	2008-04-03 10:21:21 UTC (rev 159)
+@@ -26,7 +26,7 @@
+ /* ------------------------------------------------------------------------- */
+ 
+ #define INNERLOOP   10000
+-#define OUTERLOOP   1000        /* adjust for slower machines */
++#define OUTERLOOP   10000        /* adjust for slower machines */
+ #define VAL1        2.9
+ #define VAL2        213
+ #define VAL3        3.1
+
+
+
+From ivop at mail.berlios.de  Thu Apr  3 13:02:42 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Thu, 3 Apr 2008 13:02:42 +0200
+Subject: [fpm-cvslog] r160 - in trunk/fpm2: . include/fpm
+Message-ID: <200804031102.m33B2ghA028310@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-03 13:02:40 +0200 (Thu, 03 Apr 2008)
+New Revision: 160
+
+Modified:
+   trunk/fpm2/benchmark.c
+   trunk/fpm2/include/fpm/fpmsqrt.h
+Log:
+fix sqrt method 3 (invert);
+sqrt method 4 (same as 3 but without float mul/div)
+
+
+Modified: trunk/fpm2/benchmark.c
+===================================================================
+--- trunk/fpm2/benchmark.c	2008-04-03 10:21:21 UTC (rev 159)
++++ trunk/fpm2/benchmark.c	2008-04-03 11:02:40 UTC (rev 160)
+@@ -26,7 +26,7 @@
+ /* ------------------------------------------------------------------------- */
+ 
+ #define INNERLOOP   10000
+-#define OUTERLOOP   10000        /* adjust for slower machines */
++#define OUTERLOOP   1000        /* adjust for slower machines */
+ #define VAL1        2.9
+ #define VAL2        213
+ #define VAL3        3.1
+
+Modified: trunk/fpm2/include/fpm/fpmsqrt.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpmsqrt.h	2008-04-03 10:21:21 UTC (rev 159)
++++ trunk/fpm2/include/fpm/fpmsqrt.h	2008-04-03 11:02:40 UTC (rev 160)
+@@ -122,14 +122,31 @@
+ 
+ #define FPMSQRT(a) FPMFUNC a##_t sqrt##a(a##_t x) { \
+     register union { float f; uint32_t i; } u = { .f = a##tof(x) }; \
+-    float xhalf = 0.5f * x;      \
++    float xhalf = 0.5f * u.f;      \
+     u.i = 0x5f375a86 - (u.i>>1); \
+-    return fto##a(u.f * (1.5f - xhalf * u.f * u.f)); \
++    u.f *= 1.5f - xhalf * u.f * u.f; \
++    return fto##a(1.0f/u.f);\
+ }
+ 
+ FPMSQRT( fp8p8  )   FPMSQRT(ufp8p8  )   FPMSQRT( fp24p8 )   FPMSQRT(ufp24p8 )
+ FPMSQRT( fp16p16)   FPMSQRT(ufp16p16)   FPMSQRT( fp8p24 )   FPMSQRT(ufp8p24 )
+ 
++#elif FPM_SQUARE_ROOT_METHOD == 4
++
++/* Same as 3 but without possibly slow float mul (depends on CPU) */
++
++#define FPMSQRT(a) FPMFUNC a##_t sqrt##a(a##_t x) { \
++    register union { float f; uint32_t i; } u = { .f = a##tof(x) }; \
++    a##_t xhalf = x >> 1; \
++    u.i = 0x5f375a86 - (u.i>>1); \
++    x = fto##a(u.f); \
++    x = mul##a(x, fto##a(1.5f) - mul##a(mul##a(xhalf,x),x)); \
++    return div##a(ito##a(1),x); \
++}
++
++FPMSQRT( fp8p8  )   FPMSQRT(ufp8p8  )   FPMSQRT( fp24p8 )   FPMSQRT(ufp24p8 )
++FPMSQRT( fp16p16)   FPMSQRT(ufp16p16)   FPMSQRT( fp8p24 )   FPMSQRT(ufp8p24 )
++
+ #else
+ #   error "Invalid FPM_SQUARE_ROOT_METHOD"
+ #endif
+
+
+
+From ivop at mail.berlios.de  Thu Apr  3 14:53:25 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Thu, 3 Apr 2008 14:53:25 +0200
+Subject: [fpm-cvslog] r161 - trunk/fpm2/include/fpm
+Message-ID: <200804031253.m33CrPeH021834@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-03 14:53:24 +0200 (Thu, 03 Apr 2008)
+New Revision: 161
+
+Modified:
+   trunk/fpm2/include/fpm/fpmsqrt.h
+Log:
+replace div by mul (sqrt method 3 and 4)
+
+
+Modified: trunk/fpm2/include/fpm/fpmsqrt.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpmsqrt.h	2008-04-03 11:02:40 UTC (rev 160)
++++ trunk/fpm2/include/fpm/fpmsqrt.h	2008-04-03 12:53:24 UTC (rev 161)
+@@ -125,7 +125,7 @@
+     float xhalf = 0.5f * u.f;      \
+     u.i = 0x5f375a86 - (u.i>>1); \
+     u.f *= 1.5f - xhalf * u.f * u.f; \
+-    return fto##a(1.0f/u.f);\
++    return fto##a(a##tof(x) * u.f);\
+ }
+ 
+ FPMSQRT( fp8p8  )   FPMSQRT(ufp8p8  )   FPMSQRT( fp24p8 )   FPMSQRT(ufp24p8 )
+@@ -137,11 +137,11 @@
+ 
+ #define FPMSQRT(a) FPMFUNC a##_t sqrt##a(a##_t x) { \
+     register union { float f; uint32_t i; } u = { .f = a##tof(x) }; \
+-    a##_t xhalf = x >> 1; \
++    register a##_t xhalf = x >> 1, y; \
+     u.i = 0x5f375a86 - (u.i>>1); \
+-    x = fto##a(u.f); \
+-    x = mul##a(x, fto##a(1.5f) - mul##a(mul##a(xhalf,x),x)); \
+-    return div##a(ito##a(1),x); \
++    y = fto##a(u.f); \
++    y = mul##a(y, fto##a(1.5f) - mul##a(mul##a(xhalf,y),y)); \
++    return mul##a(y,x); \
+ }
+ 
+ FPMSQRT( fp8p8  )   FPMSQRT(ufp8p8  )   FPMSQRT( fp24p8 )   FPMSQRT(ufp24p8 )
+
+
+
+From ivop at mail.berlios.de  Thu Apr  3 14:55:06 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Thu, 3 Apr 2008 14:55:06 +0200
+Subject: [fpm-cvslog] r162 - trunk/fpm2/include/fpm
+Message-ID: <200804031255.m33Ct6Ug021990@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-03 14:55:06 +0200 (Thu, 03 Apr 2008)
+New Revision: 162
+
+Modified:
+   trunk/fpm2/include/fpm/fpm.h
+Log:
+explain sqrt method 4
+
+
+Modified: trunk/fpm2/include/fpm/fpm.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpm.h	2008-04-03 12:53:24 UTC (rev 161)
++++ trunk/fpm2/include/fpm/fpm.h	2008-04-03 12:55:06 UTC (rev 162)
+@@ -73,6 +73,7 @@
+  * FPM_SQUARE_ROOT_METHOD   1   Babylonian Method
+  *                          2   Digit-by-digit Method   (default)
+  *                          3   Quake III + Lomont's improvement (needs FPU)
++ *                          4   Same as 3, but without float mul
+  *
+  * FPM_NO_FPU_MUL_CONVERSIONS
+  *      Convert from float/double to fpXpY without using a multiply.
+
+
+
+From ivop at mail.berlios.de  Thu Apr  3 17:31:12 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Thu, 3 Apr 2008 17:31:12 +0200
+Subject: [fpm-cvslog] r163 - trunk/fpm2/include/fpm
+Message-ID: <200804031531.m33FVCi9007714@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-03 17:31:11 +0200 (Thu, 03 Apr 2008)
+New Revision: 163
+
+Modified:
+   trunk/fpm2/include/fpm/fpm.h
+   trunk/fpm2/include/fpm/fpmsqrt.h
+Log:
+x87 and sse sqrt methods
+
+
+Modified: trunk/fpm2/include/fpm/fpm.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpm.h	2008-04-03 12:55:06 UTC (rev 162)
++++ trunk/fpm2/include/fpm/fpm.h	2008-04-03 15:31:11 UTC (rev 163)
+@@ -74,6 +74,10 @@
+  *                          2   Digit-by-digit Method   (default)
+  *                          3   Quake III + Lomont's improvement (needs FPU)
+  *                          4   Same as 3, but without float mul
++ *                          5   x87 fsqrt + to/from fixed point conversions
++ *                          6   SSE sqrtss + conversions
++ *                          7   SSE rsqrtss + rcpss + conversions
++ *                          8   SSE rsqrtss + minss + mulss + conversions
+  *
+  * FPM_NO_FPU_MUL_CONVERSIONS
+  *      Convert from float/double to fpXpY without using a multiply.
+
+Modified: trunk/fpm2/include/fpm/fpmsqrt.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpmsqrt.h	2008-04-03 12:55:06 UTC (rev 162)
++++ trunk/fpm2/include/fpm/fpmsqrt.h	2008-04-03 15:31:11 UTC (rev 163)
+@@ -147,6 +147,79 @@
+ FPMSQRT( fp8p8  )   FPMSQRT(ufp8p8  )   FPMSQRT( fp24p8 )   FPMSQRT(ufp24p8 )
+ FPMSQRT( fp16p16)   FPMSQRT(ufp16p16)   FPMSQRT( fp8p24 )   FPMSQRT(ufp8p24 )
+ 
++#elif FPM_SQUARE_ROOT_METHOD == 5
++
++/* x87 FPU */
++
++FPMFUNC float fpm_x87sqrt(float f) {
++    asm(    "fld    %1  \n\t"
++            "fsqrt      \n\t"
++            "fstp   %0  \n\t"
++            : "=m" (f) : "m" (f)    );
++    return f;
++}
++
++#define FPMSQRT(a) FPMFUNC a##_t sqrt##a(a##_t x) { \
++                                    return fto##a(fpm_x87sqrt(a##tof(x))); }
++
++FPMSQRT( fp8p8  )   FPMSQRT(ufp8p8  )   FPMSQRT( fp24p8 )   FPMSQRT(ufp24p8 )
++FPMSQRT( fp16p16)   FPMSQRT(ufp16p16)   FPMSQRT( fp8p24 )   FPMSQRT(ufp8p24 )
++
++#elif FPM_SQUARE_ROOT_METHOD == 6
++
++/* SSE sqrtss */
++
++FPMFUNC float fpm_ssesqrt(float f) {
++    asm(    "sqrtss %1,     %%xmm0  \n\t"
++            "movss  %%xmm0, %0      \n\t"
++            : "=m" (f) : "m" (f)    );
++    return f;
++}
++
++#define FPMSQRT(a) FPMFUNC a##_t sqrt##a(a##_t x) { \
++                                    return fto##a(fpm_ssesqrt(a##tof(x))); }
++
++FPMSQRT( fp8p8  )   FPMSQRT(ufp8p8  )   FPMSQRT( fp24p8 )   FPMSQRT(ufp24p8 )
++FPMSQRT( fp16p16)   FPMSQRT(ufp16p16)   FPMSQRT( fp8p24 )   FPMSQRT(ufp8p24 )
++
++#elif FPM_SQUARE_ROOT_METHOD == 7
++
++/* SSE rsqrtss */
++
++FPMFUNC float fpm_ssesqrt(float f) {
++    asm(    "rsqrtss    %1,     %%xmm0  \n\t"
++            "rcpss      %%xmm0, %%xmm0  \n\t"
++            "movss      %%xmm0, %0      \n\t"
++            : "=m" (f) : "m" (f)    );
++    return f;
++}
++
++#define FPMSQRT(a) FPMFUNC a##_t sqrt##a(a##_t x) { \
++                                    return fto##a(fpm_ssesqrt(a##tof(x))); }
++
++FPMSQRT( fp8p8  )   FPMSQRT(ufp8p8  )   FPMSQRT( fp24p8 )   FPMSQRT(ufp24p8 )
++FPMSQRT( fp16p16)   FPMSQRT(ufp16p16)   FPMSQRT( fp8p24 )   FPMSQRT(ufp8p24 )
++
++#elif FPM_SQUARE_ROOT_METHOD == 8
++
++/* SSE rsqrtss (alternate version) */
++
++FPMFUNC float fpm_ssesqrt(float f) {
++    static int big = 0x7f7fffff;
++    asm(    "rsqrtss    %1,     %%xmm0  \n\t"
++            "minss      %2,     %%xmm0  \n\t"
++            "mulss      %1,     %%xmm0  \n\t"
++            "movss      %%xmm0, %0      \n\t"
++            : "=m" (f) : "m" (f), "m" (big) );
++    return f;
++}
++
++#define FPMSQRT(a) FPMFUNC a##_t sqrt##a(a##_t x) { \
++                                    return fto##a(fpm_ssesqrt(a##tof(x))); }
++
++FPMSQRT( fp8p8  )   FPMSQRT(ufp8p8  )   FPMSQRT( fp24p8 )   FPMSQRT(ufp24p8 )
++FPMSQRT( fp16p16)   FPMSQRT(ufp16p16)   FPMSQRT( fp8p24 )   FPMSQRT(ufp8p24 )
++
+ #else
+ #   error "Invalid FPM_SQUARE_ROOT_METHOD"
+ #endif
+
+
+
+From ivop at mail.berlios.de  Thu Apr  3 18:02:23 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Thu, 3 Apr 2008 18:02:23 +0200
+Subject: [fpm-cvslog] r164 - trunk/fpm2/include/fpm
+Message-ID: <200804031602.m33G2NT9010889@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-03 18:02:23 +0200 (Thu, 03 Apr 2008)
+New Revision: 164
+
+Modified:
+   trunk/fpm2/include/fpm/fpm.h
+   trunk/fpm2/include/fpm/fpmsqrt.h
+Log:
+intrinsics versions of sqrt method 6-8 for benchmarking
+
+
+Modified: trunk/fpm2/include/fpm/fpm.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpm.h	2008-04-03 15:31:11 UTC (rev 163)
++++ trunk/fpm2/include/fpm/fpm.h	2008-04-03 16:02:23 UTC (rev 164)
+@@ -78,6 +78,9 @@
+  *                          6   SSE sqrtss + conversions
+  *                          7   SSE rsqrtss + rcpss + conversions
+  *                          8   SSE rsqrtss + minss + mulss + conversions
++ *                          9   Same as 6, but w/ intrinsics instead of asm
++ *                          10  Same as 7, but w/ intrinsics instead of asm
++ *                          11  Same as 8, but w/ intrinsics instead of asm
+  *
+  * FPM_NO_FPU_MUL_CONVERSIONS
+  *      Convert from float/double to fpXpY without using a multiply.
+
+Modified: trunk/fpm2/include/fpm/fpmsqrt.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpmsqrt.h	2008-04-03 15:31:11 UTC (rev 163)
++++ trunk/fpm2/include/fpm/fpmsqrt.h	2008-04-03 16:02:23 UTC (rev 164)
+@@ -220,6 +220,70 @@
+ FPMSQRT( fp8p8  )   FPMSQRT(ufp8p8  )   FPMSQRT( fp24p8 )   FPMSQRT(ufp24p8 )
+ FPMSQRT( fp16p16)   FPMSQRT(ufp16p16)   FPMSQRT( fp8p24 )   FPMSQRT(ufp8p24 )
+ 
++#elif FPM_SQUARE_ROOT_METHOD == 9
++
++/* SSE sqrtss w/ intrinsics */
++
++#include <xmmintrin.h>
++
++FPMFUNC float fpm_ssesqrt(float f) {
++    __m128 mm;
++    mm = _mm_set_ss(f);
++    mm = _mm_sqrt_ss(mm);
++    _mm_store_ss(&f, mm);
++    return f;
++}
++
++#define FPMSQRT(a) FPMFUNC a##_t sqrt##a(a##_t x) { \
++                                    return fto##a(fpm_ssesqrt(a##tof(x))); }
++
++FPMSQRT( fp8p8  )   FPMSQRT(ufp8p8  )   FPMSQRT( fp24p8 )   FPMSQRT(ufp24p8 )
++FPMSQRT( fp16p16)   FPMSQRT(ufp16p16)   FPMSQRT( fp8p24 )   FPMSQRT(ufp8p24 )
++
++#elif FPM_SQUARE_ROOT_METHOD == 10
++
++/* SSE rsqrtss w/ intrinsics */
++
++#include <xmmintrin.h>
++
++FPMFUNC float fpm_ssesqrt(float f) {
++    __m128 mm;
++    mm = _mm_set_ss(f);
++    mm = _mm_rsqrt_ss(mm);
++    mm = _mm_rcp_ss(mm);
++    _mm_store_ss(&f, mm);
++    return f;
++}
++
++#define FPMSQRT(a) FPMFUNC a##_t sqrt##a(a##_t x) { \
++                                    return fto##a(fpm_ssesqrt(a##tof(x))); }
++
++FPMSQRT( fp8p8  )   FPMSQRT(ufp8p8  )   FPMSQRT( fp24p8 )   FPMSQRT(ufp24p8 )
++FPMSQRT( fp16p16)   FPMSQRT(ufp16p16)   FPMSQRT( fp8p24 )   FPMSQRT(ufp8p24 )
++
++#elif FPM_SQUARE_ROOT_METHOD == 11
++
++/* SSE rsqrtss (alternate version) w/ intrinsics */
++
++#include <xmmintrin.h>
++
++FPMFUNC float fpm_ssesqrt(float f) {
++    __m128 mm0, mm1;
++    mm0 = _mm_set_ss(f);
++    mm1 = _mm_set_ss(3.40282347e+38F);
++    mm0 = _mm_rsqrt_ss(mm0);
++    mm1 = _mm_min_ss(mm0, mm1);
++    mm0 = _mm_mul_ss(mm0, mm1);
++    _mm_store_ss(&f, mm0);
++    return f;
++}
++
++#define FPMSQRT(a) FPMFUNC a##_t sqrt##a(a##_t x) { \
++                                    return fto##a(fpm_ssesqrt(a##tof(x))); }
++
++FPMSQRT( fp8p8  )   FPMSQRT(ufp8p8  )   FPMSQRT( fp24p8 )   FPMSQRT(ufp24p8 )
++FPMSQRT( fp16p16)   FPMSQRT(ufp16p16)   FPMSQRT( fp8p24 )   FPMSQRT(ufp8p24 )
++
+ #else
+ #   error "Invalid FPM_SQUARE_ROOT_METHOD"
+ #endif
+
+
+
+From ivop at mail.berlios.de  Thu Apr  3 18:18:58 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Thu, 3 Apr 2008 18:18:58 +0200
+Subject: [fpm-cvslog] r165 - trunk/fpm2/include/fpm
+Message-ID: <200804031618.m33GIwKC012611@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-03 18:18:58 +0200 (Thu, 03 Apr 2008)
+New Revision: 165
+
+Modified:
+   trunk/fpm2/include/fpm/fpm.h
+   trunk/fpm2/include/fpm/fpmsqrt.h
+Log:
+fallback to other method if there's no sse, x87 or intrinsics
+sse needs at least -march=pentium2
+intrinsics need at least -march=pentium3
+
+
+Modified: trunk/fpm2/include/fpm/fpm.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpm.h	2008-04-03 16:02:23 UTC (rev 164)
++++ trunk/fpm2/include/fpm/fpm.h	2008-04-03 16:18:58 UTC (rev 165)
+@@ -85,6 +85,14 @@
+  * FPM_NO_FPU_MUL_CONVERSIONS
+  *      Convert from float/double to fpXpY without using a multiply.
+  *
++ * FPM_HAVE_X87
++ *      Needs to be set for method 5
++ *
++ * FPM_HAVE_SSE
++ *      Needs to be set for method 6-11
++ *
++ * FPM_HAVE_INTRINSICS
++ *      Needs to be set for method 9-11
+  */
+ 
+ /* ------------------------------------------------------------------------- */
+
+Modified: trunk/fpm2/include/fpm/fpmsqrt.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpmsqrt.h	2008-04-03 16:02:23 UTC (rev 164)
++++ trunk/fpm2/include/fpm/fpmsqrt.h	2008-04-03 16:18:58 UTC (rev 165)
+@@ -36,6 +36,46 @@
+ #   define FPM_SQUARE_ROOT_METHOD 2
+ #endif
+ 
++#if FPM_SQUARE_ROOT_METHOD == 6  || FPM_SQUARE_ROOT_METHOD == 7  || \
++    FPM_SQUARE_ROOT_METHOD == 8  || FPM_SQUARE_ROOT_METHOD == 9  || \
++    FPM_SQUARE_ROOT_METHOD == 10 || FPM_SQUARE_ROOT_METHOD == 11
++#   ifndef FPM_HAVE_SSE
++#       warning "SSE SQRT Method selected without having SSE"
++#       warning "Falling back to x87 inline assembly"
++#       undef FPM_SQUARE_ROOT_METHOD
++#       define FPM_SQUARE_ROOT_METHOD 5
++#   endif
++#endif
++
++#if FPM_SQUARE_ROOT_METHOD == 9 || FPM_SQUARE_ROOT_METHOD == 10 || \
++    FPM_SQUARE_ROOT_METHOD == 11
++#   ifndef FPM_HAVE_INTRINSICS
++#       warning "SSE Intrinsics SQRT Method selected without having intrinsics"
++#       warning "Falling back to inline assembly"
++#       if FPM_SQUARE_ROOT_METHOD == 9
++#           undef FPM_SQUARE_ROOT_METHOD
++#           define FPM_SQUARE_ROOT_METHOD 6
++#       endif
++#       if FPM_SQUARE_ROOT_METHOD == 10
++#           undef FPM_SQUARE_ROOT_METHOD
++#           define FPM_SQUARE_ROOT_METHOD 7
++#       endif
++#       if FPM_SQUARE_ROOT_METHOD == 11
++#           undef FPM_SQUARE_ROOT_METHOD
++#           define FPM_SQUARE_ROOT_METHOD 8
++#       endif
++#   endif
++#endif
++
++#if FPM_SQUARE_ROOT_METHOD == 5
++#   ifndef FPM_HAVE_X87
++#       warning "x87 SQRT Method selected without having x87"
++#       warning "Falling back to method 4 (QIII w/ integer math)"
++#       undef FPM_SQUARE_ROOT_METHOD
++#       define FPM_SQUARE_ROOT_METHOD 4
++#   endif
++#endif
++
+ #if FPM_SQUARE_ROOT_METHOD == 1
+ /* babylonian method */
+ 
+
+
+
+From ivop at mail.berlios.de  Thu Apr  3 18:56:47 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Thu, 3 Apr 2008 18:56:47 +0200
+Subject: [fpm-cvslog] r166 - trunk/fpm2/include/fpm
+Message-ID: <200804031656.m33Gul27021934@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-03 18:56:45 +0200 (Thu, 03 Apr 2008)
+New Revision: 166
+
+Modified:
+   trunk/fpm2/include/fpm/fpmsqrt.h
+Log:
+faster sqrt method 8 and 11
+
+
+Modified: trunk/fpm2/include/fpm/fpmsqrt.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpmsqrt.h	2008-04-03 16:18:58 UTC (rev 165)
++++ trunk/fpm2/include/fpm/fpmsqrt.h	2008-04-03 16:56:45 UTC (rev 166)
+@@ -245,12 +245,10 @@
+ /* SSE rsqrtss (alternate version) */
+ 
+ FPMFUNC float fpm_ssesqrt(float f) {
+-    static int big = 0x7f7fffff;
+     asm(    "rsqrtss    %1,     %%xmm0  \n\t"
+-            "minss      %2,     %%xmm0  \n\t"
+             "mulss      %1,     %%xmm0  \n\t"
+             "movss      %%xmm0, %0      \n\t"
+-            : "=m" (f) : "m" (f), "m" (big) );
++            : "=m" (f) : "m" (f) );
+     return f;
+ }
+ 
+@@ -310,9 +308,7 @@
+ FPMFUNC float fpm_ssesqrt(float f) {
+     __m128 mm0, mm1;
+     mm0 = _mm_set_ss(f);
+-    mm1 = _mm_set_ss(3.40282347e+38F);
+-    mm0 = _mm_rsqrt_ss(mm0);
+-    mm1 = _mm_min_ss(mm0, mm1);
++    mm1 = _mm_rsqrt_ss(mm0);
+     mm0 = _mm_mul_ss(mm0, mm1);
+     _mm_store_ss(&f, mm0);
+     return f;
+
+
+
+From ivop at mail.berlios.de  Fri Apr 11 02:05:20 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Fri, 11 Apr 2008 02:05:20 +0200
+Subject: [fpm-cvslog] r167 - in trunk/fpm2: . bench
+Message-ID: <200804110005.m3B05KeU029223@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-11 02:05:19 +0200 (Fri, 11 Apr 2008)
+New Revision: 167
+
+Added:
+   trunk/fpm2/bench/
+   trunk/fpm2/bench/Makefile
+   trunk/fpm2/bench/bench.c
+Log:
+new benchmark framework
+
+
+Added: trunk/fpm2/bench/Makefile
+===================================================================
+--- trunk/fpm2/bench/Makefile	2008-04-03 16:56:45 UTC (rev 166)
++++ trunk/fpm2/bench/Makefile	2008-04-11 00:05:19 UTC (rev 167)
+@@ -0,0 +1,49 @@
++
++all:	bench-float 	\
++		bench-double 	\
++		all-fixed
++
++all-fixed:	bench-fp8p8 	\
++			bench-fp24p8 	\
++			bench-fp16p16 	\
++			bench-fp8p24 	\
++			bench-ufp8p8 	\
++			bench-ufp24p8 	\
++			bench-ufp16p16 	\
++			bench-ufp8p24
++
++bench-float:	bench.c
++	$(CC) -o bench-float bench.c -I`pwd`/../include -lm -DDOFLOAT
++
++bench-double: 	bench.c
++	$(CC) -o bench-double bench.c -I`pwd`/../include -lm -DDODOUBLE
++
++bench-fp8p8: 	bench.c
++	$(CC) -o bench-fp8p8 bench.c -I`pwd`/../include -lm -DDOFP8P8
++
++bench-fp24p8: 	bench.c
++	$(CC) -o bench-fp24p8 bench.c -I`pwd`/../include -lm -DDOFP24P8
++
++bench-fp16p16: 	bench.c
++	$(CC) -o bench-fp16p16 bench.c -I`pwd`/../include -lm -DDOFP16P16
++
++bench-fp8p24: 	bench.c
++	$(CC) -o bench-fp8p24 bench.c -I`pwd`/../include -lm -DDOFP8P24
++
++bench-ufp8p8: 	bench.c
++	$(CC) -o bench-ufp8p8 bench.c -I`pwd`/../include -lm -DDOUFP8P8
++
++bench-ufp24p8: 	bench.c
++	$(CC) -o bench-ufp24p8 bench.c -I`pwd`/../include -lm -DDOUFP24P8
++
++bench-ufp16p16: 	bench.c
++	$(CC) -o bench-ufp16p16 bench.c -I`pwd`/../include -lm -DDOUFP16P16
++
++bench-ufp8p24: 	bench.c
++	$(CC) -o bench-ufp8p24 bench.c -I`pwd`/../include -lm -DDOUFP8P24
++
++clean:
++	rm -f bench-*
++
++distclean:	clean
++	rm -f *~
+
+Added: trunk/fpm2/bench/bench.c
+===================================================================
+--- trunk/fpm2/bench/bench.c	2008-04-03 16:56:45 UTC (rev 166)
++++ trunk/fpm2/bench/bench.c	2008-04-11 00:05:19 UTC (rev 167)
+@@ -0,0 +1,255 @@
++/* ------------------------------------------------------------------------- */
++
++#include <stdio.h>
++#include <math.h>
++#include <string.h>
++#include <stdarg.h>
++#include <assert.h>
++
++#include "fpm/fpm.h"
++
++#ifndef HAVE_RDTSC
++#include <sys/time.h>
++#include <time.h>
++#endif
++
++/* ------------------------------------------------------------------------- */
++
++#define OUTER   10
++#define LOOP    1000000
++#define VAL1      2.987654321
++#define VAL2    113.546546546
++#define VAL3     17.123456789
++
++/* ------------------------------------------------------------------------- */
++
++#if defined(DOFLOAT)
++
++#   define FPTYPE       float
++#   define FPFROMI(a)   ((float)(a))
++#   define FPFROMF(a)   (a)
++#   define FPFROMD(a)   ((float)(a))
++#   define FPTOI(a)     ((int)(a))
++#   define FPTOF(a)     (a)
++#   define FPTOD(a)     ((double)(a))
++#   define FPMUL(a,b)   (a*b)
++#   define FPDIV(a,b)   (a/b)
++#   define FPSQRT(a)    sqrt(a)
++
++#elif defined(DODOUBLE)
++
++#   define FPTYPE       double
++#   define FPFROMI(a)   ((double)(a))
++#   define FPFROMF(a)   ((double)(a))
++#   define FPFROMD(a)   (a)
++#   define FPTOI(a)     ((int)(a))
++#   define FPTOF(a)     ((float)(a))
++#   define FPTOD(a)     (a)
++#   define FPMUL(a,b)   (a*b)
++#   define FPDIV(a,b)   (a/b)
++#   define FPSQRT(a)    sqrt(a)
++
++#elif defined(DOFP8P8)
++
++#   define FPTYPE       fp8p8_t
++#   define FPFROMI(a)   itofp8p8(a)
++#   define FPFROMF(a)   ftofp8p8(a)
++#   define FPFROMD(a)   dtofp8p8(a)
++#   define FPTOI(a)     fp8p8toi(a)
++#   define FPTOF(a)     fp8p8tof(a)
++#   define FPTOD(a)     fp8p8tod(a)
++#   define FPMUL(a,b)   mulfp8p8(a,b)
++#   define FPDIV(a,b)   divfp8p8(a,b)
++#   define FPSQRT(a)    sqrtfp8p8(a)
++
++#elif defined(DOFP24P8)
++
++#   define FPTYPE       fp24p8_t
++#   define FPFROMI(a)   itofp24p8(a)
++#   define FPFROMF(a)   ftofp24p8(a)
++#   define FPFROMD(a)   dtofp24p8(a)
++#   define FPTOI(a)     fp24p8toi(a)
++#   define FPTOF(a)     fp24p8tof(a)
++#   define FPTOD(a)     fp24p8tod(a)
++#   define FPMUL(a,b)   mulfp24p8(a,b)
++#   define FPDIV(a,b)   divfp24p8(a,b)
++#   define FPSQRT(a)    sqrtfp24p8(a)
++
++#elif defined(DOFP16P16)
++
++#   define FPTYPE       fp16p16_t
++#   define FPFROMI(a)   itofp16p16(a)
++#   define FPFROMF(a)   ftofp16p16(a)
++#   define FPFROMD(a)   dtofp16p16(a)
++#   define FPTOI(a)     fp16p16toi(a)
++#   define FPTOF(a)     fp16p16tof(a)
++#   define FPTOD(a)     fp16p16tod(a)
++#   define FPMUL(a,b)   mulfp16p16(a,b)
++#   define FPDIV(a,b)   divfp16p16(a,b)
++#   define FPSQRT(a)    sqrtfp16p16(a)
++
++#elif defined(DOFP8P24)
++
++#   define FPTYPE       fp8p24_t
++#   define FPFROMI(a)   itofp8p24(a)
++#   define FPFROMF(a)   ftofp8p24(a)
++#   define FPFROMD(a)   dtofp8p24(a)
++#   define FPTOI(a)     fp8p24toi(a)
++#   define FPTOF(a)     fp8p24tof(a)
++#   define FPTOD(a)     fp8p24tod(a)
++#   define FPMUL(a,b)   mulfp8p24(a,b)
++#   define FPDIV(a,b)   divfp8p24(a,b)
++#   define FPSQRT(a)    sqrtfp8p24(a)
++
++#elif defined(DOUFP8P8)
++
++#   define FPTYPE       ufp8p8_t
++#   define FPFROMI(a)   itoufp8p8(a)
++#   define FPFROMF(a)   ftoufp8p8(a)
++#   define FPFROMD(a)   dtoufp8p8(a)
++#   define FPTOI(a)     ufp8p8toi(a)
++#   define FPTOF(a)     ufp8p8tof(a)
++#   define FPTOD(a)     ufp8p8tod(a)
++#   define FPMUL(a,b)   mulufp8p8(a,b)
++#   define FPDIV(a,b)   divufp8p8(a,b)
++#   define FPSQRT(a)    sqrtufp8p8(a)
++
++#elif defined(DOUFP24P8)
++
++#   define FPTYPE       ufp24p8_t
++#   define FPFROMI(a)   itoufp24p8(a)
++#   define FPFROMF(a)   ftoufp24p8(a)
++#   define FPFROMD(a)   dtoufp24p8(a)
++#   define FPTOI(a)     ufp24p8toi(a)
++#   define FPTOF(a)     ufp24p8tof(a)
++#   define FPTOD(a)     ufp24p8tod(a)
++#   define FPMUL(a,b)   mulufp24p8(a,b)
++#   define FPDIV(a,b)   divufp24p8(a,b)
++#   define FPSQRT(a)    sqrtufp24p8(a)
++
++#elif defined(DOUFP16P16)
++
++#   define FPTYPE       ufp16p16_t
++#   define FPFROMI(a)   itoufp16p16(a)
++#   define FPFROMF(a)   ftoufp16p16(a)
++#   define FPFROMD(a)   dtoufp16p16(a)
++#   define FPTOI(a)     ufp16p16toi(a)
++#   define FPTOF(a)     ufp16p16tof(a)
++#   define FPTOD(a)     ufp16p16tod(a)
++#   define FPMUL(a,b)   mulufp16p16(a,b)
++#   define FPDIV(a,b)   divufp16p16(a,b)
++#   define FPSQRT(a)    sqrtufp16p16(a)
++
++#elif defined(DOUFP8P24)
++
++#   define FPTYPE       ufp8p24_t
++#   define FPFROMI(a)   itoufp8p24(a)
++#   define FPFROMF(a)   ftoufp8p24(a)
++#   define FPFROMD(a)   dtoufp8p24(a)
++#   define FPTOI(a)     ufp8p24toi(a)
++#   define FPTOF(a)     ufp8p24tof(a)
++#   define FPTOD(a)     ufp8p24tod(a)
++#   define FPMUL(a,b)   mulufp8p24(a,b)
++#   define FPDIV(a,b)   divufp8p24(a,b)
++#   define FPSQRT(a)    sqrtufp8p24(a)
++
++#endif
++
++/* ------------------------------------------------------------------------- */
++
++static fpm_always_inline long long rdtsc()
++{
++#ifdef FPM_HAVE_RDTSC
++    long long timestamp;
++    asm volatile ("rdtsc\n" : "=A"(timestamp));
++    return timestamp;
++#else
++    struct timeval tv;
++    struct timezone tz;
++
++    gettimeofday(&tv, &tz);
++    
++    return (tv.tv_sec*1000000LL + tv.tv_usec) * 1000LL;
++#endif
++}
++
++static int print = 1;
++
++static void PRINT(const char *fmt, ...) {
++    va_list ap;
++
++    if (print) {
++        va_start(ap, fmt);
++        vprintf(fmt, ap);
++        va_end(ap);
++    }
++}
++
++/* ------------------------------------------------------------------------- */
++
++static int llcompare(const void *p1, const void *p2) {
++    long long a = *(long long *)p1;
++    long long b = *(long long *)p2;
++    if (a<b) return -1;
++    else if (a>b) return 1;
++    return 0;
++}
++
++
++int main(int argc, char **argv)
++{
++    unsigned int i, j;
++    volatile long long times[OUTER], tstart, tend, tsum;
++    volatile FPTYPE a, b, c, d;
++    volatile int xi;
++    volatile float xf;
++    volatile double xd;
++
++#define LOOPSTART(name) \
++    PRINT("%-12s : ", name); \
++    for (i=0; i<OUTER; i++) { \
++        tstart = rdtsc(); \
++        for (j=0; j<LOOP; j++) {
++
++#define LOOPEND \
++        } \
++        tend = rdtsc(); \
++        assert(tend>tstart); \
++        times[i] = tend - tstart; \
++    } \
++    /* now sort and drop fastest and slowest result when taking average */ \
++    qsort(times, OUTER, sizeof(long long), llcompare); \
++    for (tsum=0, i=1; i<OUTER-1; i++) { \
++        tsum += times[i]; \
++    } \
++    tsum /= OUTER-2; \
++    PRINT("%10llu\n", tsum);
++
++    PRINT("Conversions\n-----------\n\n");
++
++    LOOPSTART("FROMI")  a  = FPFROMI(xi);   LOOPEND
++    LOOPSTART("FROMF")  a  = FPFROMF(xi);   LOOPEND
++    LOOPSTART("FROMD")  a  = FPFROMD(xi);   LOOPEND
++    LOOPSTART("TOI")    xi = FPTOI(a);      LOOPEND
++    LOOPSTART("TOF")    xf = FPTOF(a);      LOOPEND
++    LOOPSTART("TOD")    xd = FPTOD(a);      LOOPEND
++
++    a = FPFROMF(12.3456789f);
++    b = FPFROMF(98.7654321f);
++
++    PRINT("\nBasic Math\n----------\n\n");
++
++    LOOPSTART("ADD")    c = a + b;          LOOPEND
++    LOOPSTART("SUB")    c = a - b;          LOOPEND
++    LOOPSTART("MUL")    c = FPMUL(a,b);     LOOPEND
++    LOOPSTART("DIV")    c = FPDIV(a,b);     LOOPEND
++
++    PRINT("\nAdvanced Math\n-------------\n\n");
++
++    LOOPSTART("SQRT")   c = FPSQRT(b);      LOOPEND
++
++    return 0;
++}
++
++/* ------------------------------------------------------------------------- */
++
+
+
+
+From ivop at mail.berlios.de  Fri Apr 11 02:06:17 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Fri, 11 Apr 2008 02:06:17 +0200
+Subject: [fpm-cvslog] r168 - trunk/fpm2
+Message-ID: <200804110006.m3B06HI6029279@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-11 02:06:17 +0200 (Fri, 11 Apr 2008)
+New Revision: 168
+
+Removed:
+   trunk/fpm2/benchmark.c
+Modified:
+   trunk/fpm2/Makefile
+Log:
+remove old benchmark program
+
+
+Modified: trunk/fpm2/Makefile
+===================================================================
+--- trunk/fpm2/Makefile	2008-04-11 00:05:19 UTC (rev 167)
++++ trunk/fpm2/Makefile	2008-04-11 00:06:17 UTC (rev 168)
+@@ -1,10 +1,6 @@
+ 
+ clean:
+-	rm -f benchmark
+ 
+ distclean: clean
+ 	rm -f *~ */*~ */*/*~ */*/*/*~
+ 
+-benchmark: benchmark.c include/fpm/fpm.h include/fpm/fpmcode.h
+-	gcc -I `pwd`/include -o benchmark benchmark.c -W -Wall -O3 -lm -s
+-
+
+Deleted: trunk/fpm2/benchmark.c
+===================================================================
+--- trunk/fpm2/benchmark.c	2008-04-11 00:05:19 UTC (rev 167)
++++ trunk/fpm2/benchmark.c	2008-04-11 00:06:17 UTC (rev 168)
+@@ -1,267 +0,0 @@
+-/* ------------------------------------------------------------------------- */
+-
+-/*
+- * Fixed Point Math Macro Library - Benchmark
+- *
+- * (C)2005,2006 by Ivo van Poorten
+- * Licensed under version 2 of the GPL
+- *
+- * $Id$
+- *
+- */
+-
+-/* ------------------------------------------------------------------------- */
+-
+-#include <stdio.h>
+-#include <math.h>
+-#include <string.h>
+-
+-#include "fpm/fpm.h"
+-
+-#ifndef HAVE_RDTSC
+-#include <sys/time.h>
+-#include <time.h>
+-#endif
+-
+-/* ------------------------------------------------------------------------- */
+-
+-#define INNERLOOP   10000
+-#define OUTERLOOP   1000        /* adjust for slower machines */
+-#define VAL1        2.9
+-#define VAL2        213
+-#define VAL3        3.1
+-
+-/* ------------------------------------------------------------------------- */
+-
+-static inline long long rdtsc()
+-{
+-#ifdef HAVE_RDTSC
+-    long long timestamp;
+-    asm volatile ("rdtsc\n" : "=A"(timestamp));
+-    return timestamp;
+-#else
+-    struct timeval tv;
+-    struct timezone tz;
+-
+-    gettimeofday(&tv, &tz);
+-    
+-    return tv.tv_sec*1000000L + tv.tv_usec;
+-#endif
+-}
+-
+-/* ------------------------------------------------------------------------- */
+-
+-#define timeloop(AVG, CODE) \
+-    do { \
+-        sum = (uint64_t) 0; \
+-        for (j=0; j<OUTERLOOP; j++) { \
+-            start = rdtsc(); \
+-            for (i=0; i<INNERLOOP; i++) { \
+-                CODE; \
+-            } \
+-            end = rdtsc(); \
+-            sum += (end-start); \
+-        } \
+-        AVG = sum / OUTERLOOP; \
+-    } while(0)
+-
+-#define NINEi "%i %i %i %i %i %i %i %i %i\n"
+-
+-#define printreport(HEADER, a) \
+-    do { \
+-        printf("#"HEADER"\n"); \
+-        num=a*10; \
+-        printf(NINEi, num++, 0, 0, 0, 0, 0, 0, 0, 0); \
+-        printf(NINEi, num++, 0, prca, 0, 0, 0, 0, 0, 0); \
+-        printf(NINEi, num++, 0, 0, prcb, 0, 0, 0, 0, 0); \
+-        printf(NINEi, num++, 0, 0, 0, prcc, 0, 0, 0, 0); \
+-        printf(NINEi, num++, 0, 0, 0, 0, prcd, 0, 0, 0); \
+-        printf(NINEi, num++, 0, 0, 0, 0, 0, prcf, 0, 0); \
+-        printf(NINEi, num++, 0, 0, 0, 0, 0, 0, prcg, 0); \
+-        printf(NINEi, num++, 0, 0, 0, 0, 0, 0, 0, 0); \
+-        printf("\n"); \
+-        fflush(stdout); \
+-        fprintf(stderr, "#"HEADER"\n"); \
+-        fprintf(stderr, "# %-10s - % 4i%%\n", "fp8p8_t", prca); \
+-        fprintf(stderr, "# %-10s - % 4i%%\n", "fp24p8_t", prcb); \
+-        fprintf(stderr, "# %-10s - % 4i%%\n", "fp16p16_t", prcc); \
+-        fprintf(stderr, "# %-10s - % 4i%%\n", "fp8p24_t", prcd); \
+-        fprintf(stderr, "# %-10s - % 4i%%\n", "float", prcf); \
+-        fprintf(stderr, "# %-10s - % 4i%%\n\n", "double", prcg); \
+-        fflush(stderr); \
+-    } while(0)
+-
+-#define calcperc(PRC, AVG, AVGR) \
+-    do { \
+-        PRC = (AVG*100)/(AVGR?AVGR:1); \
+-    } while(0)
+-
+-#define calcallperc \
+-    do { \
+-        calcperc(prca, avga, avgf); \
+-        calcperc(prcb, avgb, avgf); \
+-        calcperc(prcc, avgc, avgf); \
+-        calcperc(prcd, avgd, avgf); \
+-        calcperc(prcf, avgf, avgf); \
+-        calcperc(prcg, avgg, avgf); \
+-    } while(0)
+-
+-/* ------------------------------------------------------------------------- */
+-
+-/* There's a foobar timeloop between the fp8p8 add/sub test and fp24p8 test,
+- * because somehow (can anybody explain?) one needs to "kick" the CPU out of
+- * 16-bit short int mode */
+-
+-int main(int argc, char **argv)
+-{
+-    unsigned int i, j, num;
+-    volatile ufp8p8_t   a1, a2, a3, a4;
+-    volatile ufp24p8_t  b1, b2, b3, b4;
+-    volatile ufp16p16_t c1, c2, c3, c4;
+-    volatile ufp8p24_t  d1, d2, d3, d4;
+-    volatile float      f1, f2, f3, f4;
+-    volatile double     g1, g2, g3, g4;
+-    volatile uint64_t   start, end, sum;
+-    uint64_t   avga, avgb, avgc, avgd, avgf, avgg;
+-    int        prca, prcb, prcc, prcd, prcf, prcg;
+-    int        foo, bar;
+-    int        doall, doadd, dosub, domul, dodiv, dosqrt;
+-
+-    doall = doadd = dosub = domul = dodiv = dosqrt = 0;
+-
+-#define ELSIF(a) else if (!strcmp(*argv, #a)) do##a = 1
+-    argv++;
+-    while (--argc) {
+-        if (0) ; ELSIF(add); ELSIF(sub); ELSIF(mul); ELSIF(div); ELSIF(sqrt);
+-        ELSIF(all);
+-    }
+-    if (doall)
+-        doadd = dosub = domul = dodiv = dosqrt = 1;
+-
+-    a2 = dtoufp8p8(VAL1);
+-    b2 = dtoufp24p8(VAL1);
+-    c2 = dtoufp16p16(VAL1);
+-    d2 = dtoufp8p24(VAL1);
+-    f2 = VAL1;
+-    g2 = VAL1;
+-
+-    a3 = dtoufp8p8(VAL2);
+-    b3 = dtoufp24p8(VAL2);
+-    c3 = dtoufp16p16(VAL2);
+-    d3 = dtoufp8p24(VAL2);
+-    f3 = VAL2;
+-    g3 = VAL2;
+-
+-    a4 = dtoufp8p8(VAL3);
+-    b4 = dtoufp24p8(VAL3);
+-    c4 = dtoufp16p16(VAL3);
+-    d4 = dtoufp8p24(VAL3);
+-    f4 = VAL3;
+-    g4 = VAL3;
+-
+-  if (doadd) {
+-    /* ADD */
+-
+-    timeloop(avga, a1=a2+a3);
+-    timeloop(foo, bar=bar);
+-    timeloop(avgb, b1=b2+b3);
+-    timeloop(avgc, c1=c2+c3);
+-    timeloop(avgd, d1=d2+d3);
+-    timeloop(avgf, f1=f2+f3);
+-    timeloop(avgg, g1=g2+g3);
+-    calcallperc;
+-    printreport("ADD", 0);
+-  }
+-
+-  if (dosub) {
+-    /* SUB */
+-
+-    timeloop(avga, a1=a2-a3);
+-    timeloop(foo, bar=bar);
+-    timeloop(avgb, b1=b2-b3);
+-    timeloop(avgc, c1=c2-c3);
+-    timeloop(avgd, d1=d2-d3);
+-    timeloop(avgf, f1=f2-f3);
+-    timeloop(avgg, g1=g2-g3);
+-    calcallperc;
+-    printreport("SUB", 1);
+-  }
+-
+-  if (domul) {
+-    /* MUL */
+-
+-    timeloop(avga, a1=mulufp8p8(a2,a3)  );
+-    timeloop(avgb, b1=mulufp24p8(b2,b3) );
+-    timeloop(avgc, c1=mulufp16p16(c2,c3));
+-    timeloop(avgd, d1=mulufp8p24(d2,d3) );
+-    timeloop(avgf, f1=f2*f3);
+-    timeloop(avgg, g1=g2*g3);
+-    calcallperc;
+-    printreport("MUL", 2);
+-  }
+-
+-  if (dodiv) {
+-    /* DIV */
+-
+-    timeloop(avga, a1=divufp8p8(a2,a3)  );
+-    timeloop(avgb, b1=divufp24p8(b2,b3) );
+-    timeloop(avgc, c1=divufp16p16(c2,c3));
+-    timeloop(avgd, d1=divufp8p24(d2,d3) );
+-    timeloop(avgf, f1=f2/f3);
+-    timeloop(avgg, g1=g2/g3);
+-    calcallperc;
+-    printreport("DIV", 3);
+-  }
+-
+-  if (dosqrt) {
+-    /* SQRT */
+-
+-    timeloop(avga, a1=sqrtufp8p8(a2)  );
+-    timeloop(avgb, b1=sqrtufp24p8(b2) );
+-    timeloop(avgc, c1=sqrtufp16p16(c2));
+-    timeloop(avgd, d1=sqrtufp8p24(d2) );
+-    timeloop(avgf, f1=sqrt(f2));
+-    timeloop(avgg, g1=sqrt(g2));
+-    calcallperc;
+-    printreport("SQRT", 4);
+-  }
+-
+-#if 0
+-    /* EXP */
+-
+-    timeloop(avga, a1=expufp8p8(a2)  );
+-    timeloop(avgb, b1=expufp24p8(b2) );
+-    timeloop(avgc, c1=expufp16p16(c2));
+-    timeloop(avgd, d1=expufp8p24(d2) );
+-    timeloop(avgf, f1=exp(f2));
+-    timeloop(avgg, g1=exp(g2));
+-    calcallperc;
+-    printreport("EXP", 5);
+-
+-    /* LN */
+-
+-    timeloop(avga, a1=lnufp8p8(a3)  );
+-    timeloop(avgb, b1=lnufp24p8(b3) );
+-    timeloop(avgc, c1=lnufp16p16(c3));
+-    timeloop(avgd, d1=lnufp8p24(d3) );
+-    timeloop(avgf, f1=log(f3));
+-    timeloop(avgg, g1=log(g3));
+-    calcallperc;
+-    printreport("LN", 6);
+-
+-    /* POW */
+-
+-    timeloop(avga, a1=powufp8p8(a3,a4)  );
+-    timeloop(avgb, b1=powufp24p8(b3,b4) );
+-    timeloop(avgc, c1=powufp16p16(c3,c4));
+-    timeloop(avgd, d1=powufp8p24(d3,d4) );
+-    timeloop(avgf, f1=pow(f3,f4));
+-    timeloop(avgg, g1=pow(g3,g4));
+-    calcallperc;
+-    printreport("POW", 7);
+-#endif
+-    return 0;
+-}
+-
+-/* ------------------------------------------------------------------------- */
+-
+
+
+
+From ivop at mail.berlios.de  Fri Apr 11 02:09:01 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Fri, 11 Apr 2008 02:09:01 +0200
+Subject: [fpm-cvslog] r169 - trunk/fpm2/bench
+Message-ID: <200804110009.m3B091Cn029359@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-11 02:09:01 +0200 (Fri, 11 Apr 2008)
+New Revision: 169
+
+Modified:
+   trunk/fpm2/bench/Makefile
+Log:
+do not forget about the flags
+
+
+Modified: trunk/fpm2/bench/Makefile
+===================================================================
+--- trunk/fpm2/bench/Makefile	2008-04-11 00:06:17 UTC (rev 168)
++++ trunk/fpm2/bench/Makefile	2008-04-11 00:09:01 UTC (rev 169)
+@@ -1,4 +1,9 @@
+ 
++# -DFPM_HAVE_RDTSC
++# -DFPM_SQUARE_ROOT_METHOD=x	(and -DFPM_HAVE_X87, -DFPM_HAVE_SSE,
++#  								 -DFPM_HAVE_INTRINSICS)
++#
++
+ all:	bench-float 	\
+ 		bench-double 	\
+ 		all-fixed
+
+
+
+From ivop at mail.berlios.de  Fri Apr 11 02:22:04 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Fri, 11 Apr 2008 02:22:04 +0200
+Subject: [fpm-cvslog] r170 - trunk/fpm2/bench
+Message-ID: <200804110022.m3B0M4fp031280@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-11 02:22:03 +0200 (Fri, 11 Apr 2008)
+New Revision: 170
+
+Modified:
+   trunk/fpm2/bench/bench.c
+Log:
+license/author + remove a few unused constants
+
+
+Modified: trunk/fpm2/bench/bench.c
+===================================================================
+--- trunk/fpm2/bench/bench.c	2008-04-11 00:09:01 UTC (rev 169)
++++ trunk/fpm2/bench/bench.c	2008-04-11 00:22:03 UTC (rev 170)
+@@ -1,5 +1,14 @@
+ /* ------------------------------------------------------------------------- */
+ 
++/* FPM Benchmark Program
++ *
++ * Copyright (C) 2008 by Ivo van Poorten
++ *
++ * License: LGPL v2.1
++ */
++
++/* ------------------------------------------------------------------------- */
++
+ #include <stdio.h>
+ #include <math.h>
+ #include <string.h>
+@@ -17,9 +26,6 @@
+ 
+ #define OUTER   10
+ #define LOOP    1000000
+-#define VAL1      2.987654321
+-#define VAL2    113.546546546
+-#define VAL3     17.123456789
+ 
+ /* ------------------------------------------------------------------------- */
+ 
+
+
+
+From ivop at mail.berlios.de  Wed Apr 23 02:03:31 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Wed, 23 Apr 2008 02:03:31 +0200
+Subject: [fpm-cvslog] r171 - trunk/fpm2/bench
+Message-ID: <200804230003.m3N03VEg003345@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-23 02:03:30 +0200 (Wed, 23 Apr 2008)
+New Revision: 171
+
+Modified:
+   trunk/fpm2/bench/bench.c
+Log:
+switch tests on and off from the command line, i.e.
+./bench-* -all +add +sub
+
+
+Modified: trunk/fpm2/bench/bench.c
+===================================================================
+--- trunk/fpm2/bench/bench.c	2008-04-11 00:22:03 UTC (rev 170)
++++ trunk/fpm2/bench/bench.c	2008-04-23 00:03:30 UTC (rev 171)
+@@ -201,7 +201,26 @@
+     return 0;
+ }
+ 
++static int fromi, fromf, fromd, toi, tof, tod, add, sub, mul, div, sqr;
++#define ALL fromi = fromf = fromd = toi = tof = tod = add = sub = mul = div = sqr
++#define ELSIF(a)    else if (!strcmp(*argv, #a))    a = v
+ 
++static void command_line(int argc, char **argv) {
++    ALL = 1;
++
++    ++argv;
++    while (--argc) {
++        char f = *(*argv)++, v = f == '+';
++        if (!strcmp(*argv, "all")) ALL = v;
++        ELSIF(fromi);   ELSIF(fromf);   ELSIF(fromd);
++        ELSIF(toi);     ELSIF(tof);     ELSIF(tod);
++        ELSIF(add);     ELSIF(sub);     ELSIF(mul);     ELSIF(div);
++        ELSIF(sqr);
++        ELSIF(print);
++        argv++;
++    }
++}
++
+ int main(int argc, char **argv)
+ {
+     unsigned int i, j;
+@@ -211,6 +230,8 @@
+     volatile float xf;
+     volatile double xd;
+ 
++    command_line(argc, argv);
++
+ #define LOOPSTART(name) \
+     PRINT("%-12s : ", name); \
+     for (i=0; i<OUTER; i++) { \
+@@ -231,29 +252,23 @@
+     tsum /= OUTER-2; \
+     PRINT("%10llu\n", tsum);
+ 
+-    PRINT("Conversions\n-----------\n\n");
++    if(fromi){  LOOPSTART("FROMI")  a  = FPFROMI(xi);   LOOPEND }
++    if(fromf){  LOOPSTART("FROMF")  a  = FPFROMF(xi);   LOOPEND }
++    if(fromd){  LOOPSTART("FROMD")  a  = FPFROMD(xi);   LOOPEND }
++    if(toi){    LOOPSTART("TOI")    xi = FPTOI(a);      LOOPEND }
++    if(tof){    LOOPSTART("TOF")    xf = FPTOF(a);      LOOPEND }
++    if(tod){    LOOPSTART("TOD")    xd = FPTOD(a);      LOOPEND }
+ 
+-    LOOPSTART("FROMI")  a  = FPFROMI(xi);   LOOPEND
+-    LOOPSTART("FROMF")  a  = FPFROMF(xi);   LOOPEND
+-    LOOPSTART("FROMD")  a  = FPFROMD(xi);   LOOPEND
+-    LOOPSTART("TOI")    xi = FPTOI(a);      LOOPEND
+-    LOOPSTART("TOF")    xf = FPTOF(a);      LOOPEND
+-    LOOPSTART("TOD")    xd = FPTOD(a);      LOOPEND
+-
+     a = FPFROMF(12.3456789f);
+     b = FPFROMF(98.7654321f);
+ 
+-    PRINT("\nBasic Math\n----------\n\n");
++    if(add){    LOOPSTART("ADD")    c = a + b;          LOOPEND }
++    if(sub){    LOOPSTART("SUB")    c = a - b;          LOOPEND }
++    if(mul){    LOOPSTART("MUL")    c = FPMUL(a,b);     LOOPEND }
++    if(div){    LOOPSTART("DIV")    c = FPDIV(a,b);     LOOPEND }
+ 
+-    LOOPSTART("ADD")    c = a + b;          LOOPEND
+-    LOOPSTART("SUB")    c = a - b;          LOOPEND
+-    LOOPSTART("MUL")    c = FPMUL(a,b);     LOOPEND
+-    LOOPSTART("DIV")    c = FPDIV(a,b);     LOOPEND
++    if(sqr){    LOOPSTART("SQRT")   c = FPSQRT(b);      LOOPEND }
+ 
+-    PRINT("\nAdvanced Math\n-------------\n\n");
+-
+-    LOOPSTART("SQRT")   c = FPSQRT(b);      LOOPEND
+-
+     return 0;
+ }
+ 
+
+
+
+From ivop at mail.berlios.de  Wed Apr 23 02:11:11 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Wed, 23 Apr 2008 02:11:11 +0200
+Subject: [fpm-cvslog] r172 - trunk/fpm2/bench
+Message-ID: <200804230011.m3N0BBn9004429@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-23 02:11:10 +0200 (Wed, 23 Apr 2008)
+New Revision: 172
+
+Modified:
+   trunk/fpm2/bench/Makefile
+Log:
+use $@
+
+
+Modified: trunk/fpm2/bench/Makefile
+===================================================================
+--- trunk/fpm2/bench/Makefile	2008-04-23 00:03:30 UTC (rev 171)
++++ trunk/fpm2/bench/Makefile	2008-04-23 00:11:10 UTC (rev 172)
+@@ -4,6 +4,8 @@
+ #  								 -DFPM_HAVE_INTRINSICS)
+ #
+ 
++-include "config.mak"
++
+ all:	bench-float 	\
+ 		bench-double 	\
+ 		all-fixed
+@@ -18,34 +20,34 @@
+ 			bench-ufp8p24
+ 
+ bench-float:	bench.c
+-	$(CC) -o bench-float bench.c -I`pwd`/../include -lm -DDOFLOAT
++	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOFLOAT
+ 
+ bench-double: 	bench.c
+-	$(CC) -o bench-double bench.c -I`pwd`/../include -lm -DDODOUBLE
++	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDODOUBLE
+ 
+ bench-fp8p8: 	bench.c
+-	$(CC) -o bench-fp8p8 bench.c -I`pwd`/../include -lm -DDOFP8P8
++	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOFP8P8
+ 
+ bench-fp24p8: 	bench.c
+-	$(CC) -o bench-fp24p8 bench.c -I`pwd`/../include -lm -DDOFP24P8
++	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOFP24P8
+ 
+ bench-fp16p16: 	bench.c
+-	$(CC) -o bench-fp16p16 bench.c -I`pwd`/../include -lm -DDOFP16P16
++	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOFP16P16
+ 
+ bench-fp8p24: 	bench.c
+-	$(CC) -o bench-fp8p24 bench.c -I`pwd`/../include -lm -DDOFP8P24
++	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOFP8P24
+ 
+ bench-ufp8p8: 	bench.c
+-	$(CC) -o bench-ufp8p8 bench.c -I`pwd`/../include -lm -DDOUFP8P8
++	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOUFP8P8
+ 
+ bench-ufp24p8: 	bench.c
+-	$(CC) -o bench-ufp24p8 bench.c -I`pwd`/../include -lm -DDOUFP24P8
++	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOUFP24P8
+ 
+ bench-ufp16p16: 	bench.c
+-	$(CC) -o bench-ufp16p16 bench.c -I`pwd`/../include -lm -DDOUFP16P16
++	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOUFP16P16
+ 
+ bench-ufp8p24: 	bench.c
+-	$(CC) -o bench-ufp8p24 bench.c -I`pwd`/../include -lm -DDOUFP8P24
++	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOUFP8P24
+ 
+ clean:
+ 	rm -f bench-*
+
+
+
+From ivop at mail.berlios.de  Wed Apr 23 02:25:13 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Wed, 23 Apr 2008 02:25:13 +0200
+Subject: [fpm-cvslog] r173 - trunk/fpm2/bench
+Message-ID: <200804230025.m3N0PDSf006325@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-23 02:25:10 +0200 (Wed, 23 Apr 2008)
+New Revision: 173
+
+Added:
+   trunk/fpm2/bench/build.sh
+Log:
+build script instead of clumsy makefile
+
+
+Copied: trunk/fpm2/bench/build.sh (from rev 167, trunk/fpm2/bench/Makefile)
+===================================================================
+--- trunk/fpm2/bench/Makefile	2008-04-11 00:05:19 UTC (rev 167)
++++ trunk/fpm2/bench/build.sh	2008-04-23 00:25:10 UTC (rev 173)
+@@ -0,0 +1,22 @@
++#! /bin/sh
++
++LC_ALL=C
++CC=cc
++
++toupper() {
++    echo "$@" | tr '[abcdefghijklmnopqrstuvwxyz]' \
++                   '[ABCDEFGHIJKLMNOPQRSTUVWXYZ]'
++}
++
++build_all() {
++    for i in float double \
++             fp8p8 fp24p8 fp16p16 fp8p24 \
++             ufp8p8 ufp24p8 ufp16p16 ufp8p24
++    do
++        j=`toupper $i`
++        $CC -o bench-$i$1 bench.c -I`pwd`/../include -lm -DDO$j $2
++    done
++}
++
++build_all
++build_all -no-fpu-mul -DFPM_NO_FPU_MUL_CONVERSIONS
+
+
+
+From ivop at mail.berlios.de  Wed Apr 23 02:26:10 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Wed, 23 Apr 2008 02:26:10 +0200
+Subject: [fpm-cvslog] r174 - trunk/fpm2/bench
+Message-ID: <200804230026.m3N0QAp8006391@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-23 02:26:10 +0200 (Wed, 23 Apr 2008)
+New Revision: 174
+
+Modified:
+   trunk/fpm2/bench/Makefile
+Log:
+just a few handy targets
+
+
+Modified: trunk/fpm2/bench/Makefile
+===================================================================
+--- trunk/fpm2/bench/Makefile	2008-04-23 00:25:10 UTC (rev 173)
++++ trunk/fpm2/bench/Makefile	2008-04-23 00:26:10 UTC (rev 174)
+@@ -1,54 +1,5 @@
++all:
+ 
+-# -DFPM_HAVE_RDTSC
+-# -DFPM_SQUARE_ROOT_METHOD=x	(and -DFPM_HAVE_X87, -DFPM_HAVE_SSE,
+-#  								 -DFPM_HAVE_INTRINSICS)
+-#
+-
+--include "config.mak"
+-
+-all:	bench-float 	\
+-		bench-double 	\
+-		all-fixed
+-
+-all-fixed:	bench-fp8p8 	\
+-			bench-fp24p8 	\
+-			bench-fp16p16 	\
+-			bench-fp8p24 	\
+-			bench-ufp8p8 	\
+-			bench-ufp24p8 	\
+-			bench-ufp16p16 	\
+-			bench-ufp8p24
+-
+-bench-float:	bench.c
+-	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOFLOAT
+-
+-bench-double: 	bench.c
+-	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDODOUBLE
+-
+-bench-fp8p8: 	bench.c
+-	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOFP8P8
+-
+-bench-fp24p8: 	bench.c
+-	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOFP24P8
+-
+-bench-fp16p16: 	bench.c
+-	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOFP16P16
+-
+-bench-fp8p24: 	bench.c
+-	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOFP8P24
+-
+-bench-ufp8p8: 	bench.c
+-	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOUFP8P8
+-
+-bench-ufp24p8: 	bench.c
+-	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOUFP24P8
+-
+-bench-ufp16p16: 	bench.c
+-	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOUFP16P16
+-
+-bench-ufp8p24: 	bench.c
+-	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOUFP8P24
+-
+ clean:
+ 	rm -f bench-*
+ 
+
+
+
+From ivop at mail.berlios.de  Wed Apr 23 11:11:19 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Wed, 23 Apr 2008 11:11:19 +0200
+Subject: [fpm-cvslog] r175 - trunk/fpm2/bench
+Message-ID: <200804230911.m3N9BJr6024945@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-23 11:11:19 +0200 (Wed, 23 Apr 2008)
+New Revision: 175
+
+Modified:
+   trunk/fpm2/bench/build.sh
+Log:
+allow more extra flags for various builds
+
+
+Modified: trunk/fpm2/bench/build.sh
+===================================================================
+--- trunk/fpm2/bench/build.sh	2008-04-23 00:26:10 UTC (rev 174)
++++ trunk/fpm2/bench/build.sh	2008-04-23 09:11:19 UTC (rev 175)
+@@ -9,12 +9,14 @@
+ }
+ 
+ build_all() {
++    pf=$1
++    shift 1
+     for i in float double \
+              fp8p8 fp24p8 fp16p16 fp8p24 \
+              ufp8p8 ufp24p8 ufp16p16 ufp8p24
+     do
+         j=`toupper $i`
+-        $CC -o bench-$i$1 bench.c -I`pwd`/../include -lm -DDO$j $2
++        $CC -o bench-$i$pf bench.c -I`pwd`/../include -lm -DDO$j $@
+     done
+ }
+ 
+
+
+
+From ivop at mail.berlios.de  Wed Apr 23 11:18:11 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Wed, 23 Apr 2008 11:18:11 +0200
+Subject: [fpm-cvslog] r176 - trunk/fpm2/bench
+Message-ID: <200804230918.m3N9IBNn025354@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-23 11:18:10 +0200 (Wed, 23 Apr 2008)
+New Revision: 176
+
+Modified:
+   trunk/fpm2/bench/build.sh
+Log:
+see compile commands during build
+
+
+Modified: trunk/fpm2/bench/build.sh
+===================================================================
+--- trunk/fpm2/bench/build.sh	2008-04-23 09:11:19 UTC (rev 175)
++++ trunk/fpm2/bench/build.sh	2008-04-23 09:18:10 UTC (rev 176)
+@@ -8,6 +8,11 @@
+                    '[ABCDEFGHIJKLMNOPQRSTUVWXYZ]'
+ }
+ 
++build() {
++    echo "$@"
++    $CC $@
++}
++
+ build_all() {
+     pf=$1
+     shift 1
+@@ -16,7 +21,7 @@
+              ufp8p8 ufp24p8 ufp16p16 ufp8p24
+     do
+         j=`toupper $i`
+-        $CC -o bench-$i$pf bench.c -I`pwd`/../include -lm -DDO$j $@
++        build bench.c -o bench-$i$pf -I`pwd`/../include -lm -DDO$j $@
+     done
+ }
+ 
+
+
+
+From ivop at mail.berlios.de  Thu Apr 24 01:40:03 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Thu, 24 Apr 2008 01:40:03 +0200
+Subject: [fpm-cvslog] r177 - trunk/fpm2/bench
+Message-ID: <200804232340.m3NNe38D008290@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-24 01:40:02 +0200 (Thu, 24 Apr 2008)
+New Revision: 177
+
+Added:
+   trunk/fpm2/bench/tests.c
+Modified:
+   trunk/fpm2/bench/build.sh
+Log:
+a little bit of 'configure' before building the benchmarks
+CC, arch and CFLAGS can be overridden from the command line, e.g.
+
+CC=/opt/gcc-2.95.3/bin/gcc ./build.sh
+
+
+
+Modified: trunk/fpm2/bench/build.sh
+===================================================================
+--- trunk/fpm2/bench/build.sh	2008-04-23 09:18:10 UTC (rev 176)
++++ trunk/fpm2/bench/build.sh	2008-04-23 23:40:02 UTC (rev 177)
+@@ -1,29 +1,154 @@
+ #! /bin/sh
+ 
+ LC_ALL=C
+-CC=cc
+ 
++# these can be overridden from the command line (and CFLAGS is effective too)
++CC=${CC:-cc}
++arch=${arch:-`uname -m`}
++
++ARCH=
++OPTIMIZE=
++FPM_HAVE_X87=
++FPM_HAVE_SSE=
++FPM_HAVE_INTRINSICS=
++
++cc_vendor=unknown
++if test "`$CC --help | grep -qi gcc >/dev/null 2>&1 && echo yes`" == "yes" ; then
++    cc_vendor=gnu
++elif test "`$CC -flags | grep -qi sun >/dev/null 2>&1 && echo yes`" == "yes" ; then
++    cc_vendor=sun
++fi
++
++case "$cc_vendor" in
++    gnu|unknown)
++        OPTIMIZE=-O3
++        ;;
++    sun)
++        OPTIMIZE=-xO5
++        ;;
++esac
++
++echo "cc vendor: $cc_vendor"
++echo "optimize: $OPTIMIZE"
++
++cctest() {
++    $CC $OPTIMIZE $ARCH $CFLAGS -o /dev/null tests.c $@ 1>/dev/null 2>&1
++}
++
++addcflags() {
++    CFLAGS="$CFLAGS $@"
++}
++
++archflags() {
++    if test "$cc_vendor" == "gnu" ; then
++        cctest -march=$arch && ARCH="$ARCH -march=$arch"
++        cctest -mtune=$arch && ARCH="$ARCH -mtune=$arch"
++        cctest -mcpu=$arch && ARCH="$ARCH -mcpu=$arch"
++    fi
++    echo "arch flags: $ARCH"
++}
++
++archflags
++
++cctest -DTEST_ALWAYS_INLINE && addcflags -DHAVE_ALWAYS_INLINE && echo have_always_inline
++cctest -DTEST_X87 && FPM_HAVE_X87=1 && echo have_x87
++cctest -DTEST_SSE && FPM_HAVE_SSE=1 && echo have_sse && case "$arch" in i?86) arch=pentium3; ARCH= ; archflags ;; esac
++cctest -DTEST_INTRINSICS && FPM_HAVE_INTRINSICS=1 && echo have_intrinsics
++
+ toupper() {
+     echo "$@" | tr '[abcdefghijklmnopqrstuvwxyz]' \
+                    '[ABCDEFGHIJKLMNOPQRSTUVWXYZ]'
+ }
+ 
+ build() {
+-    echo "$@"
+-    $CC $@
++    echo $CC $OPTIMIZE $ARCH $CFLAGS $@
++    $CC $OPTIMIZE $ARCH $CFLAGS $@
+ }
+ 
+ build_all() {
+     pf=$1
+     shift 1
+-    for i in float double \
++    for _i in float double \
+              fp8p8 fp24p8 fp16p16 fp8p24 \
+              ufp8p8 ufp24p8 ufp16p16 ufp8p24
+     do
+-        j=`toupper $i`
+-        build bench.c -o bench-$i$pf -I`pwd`/../include -lm -DDO$j $@
++        _j=`toupper $_i`
++        build bench.c -o bench-$_i$pf -I`pwd`/../include -lm -DDO$_j $@
+     done
+ }
+ 
++check_config() {
++    eval f=\$$1
++    test "$f" == "1"
++}
++
++make_false() {
++    for _i in float double \
++             fp8p8 fp24p8 fp16p16 fp8p24 \
++             ufp8p8 ufp24p8 ufp16p16 ufp8p24
++    do
++        echo skip: bench-$_i$1
++        cat > bench-$_i$1 <<__EOF__
++#! /bin/sh
++exit 1
++__EOF__
++        chmod 755 bench-$_i$1
++    done
++}
++
+ build_all
+-build_all -no-fpu-mul -DFPM_NO_FPU_MUL_CONVERSIONS
++build_all -nfmc -DFPM_NO_FPU_MUL_CONVERSIONS
++
++for i in 1 2 ; do
++    build_all -srm$i -DFPM_SQUARE_ROOT_METHOD=$i
++done
++
++for i in 3 4 ; do
++    for j in "" "-nfmc -DFPM_NO_FPU_MUL_CONVERSIONS" ; do
++        m=`echo $j | cut -d ' ' -f 1`
++        n=`echo $j | cut -d ' ' -f 2`
++        build_all $m-srm$i -DFPM_SQUARE_ROOT_METHOD=$i $n
++    done
++done
++
++if check_config FPM_HAVE_X87 ; then
++    for j in "" "-nfmc -DFPM_NO_FPU_MUL_CONVERSIONS" ; do
++        m=`echo $j | cut -d ' ' -f 1`
++        n=`echo $j | cut -d ' ' -f 2`
++        build_all $m-srm5 -DFPM_SQUARE_ROOT_METHOD=5 -DFPM_HAVE_X87 $n
++    done
++else
++    make_false -srm5
++    make_false -nfmc-srm5
++fi
++
++if check_config FPM_HAVE_SSE ; then
++    for i in 6 7 8 ; do
++        for j in "" "-nfmc -DFPM_NO_FPU_MUL_CONVERSIONS" ; do
++            m=`echo $j | cut -d ' ' -f 1`
++            n=`echo $j | cut -d ' ' -f 2`
++            build_all $m-srm$i -DFPM_SQUARE_ROOT_METHOD=$i -DFPM_HAVE_SSE $n
++        done
++    done
++else
++    for i in 6 7 8 ; do
++        make_false -srm$i
++        make_false -nfmc-srm$i
++    done
++fi
++
++if check_config FPM_HAVE_SSE && check_config FPM_HAVE_INTRINSICS ; then
++    for i in 9 10 11 ; do
++        for j in "" "-nfmc -DFPM_NO_FPU_MUL_CONVERSIONS" ; do
++            m=`echo $j | cut -d ' ' -f 1`
++            n=`echo $j | cut -d ' ' -f 2`
++            build_all $m-srm$i -DFPM_SQUARE_ROOT_METHOD=$i -DFPM_HAVE_SSE -DFPM_HAVE_INTRINSICS $n
++        done
++    done
++else
++    for i in 9 10 11 ; do
++        make_false -srm$i
++        make_false -nfmc-srm$i
++    done
++fi
++
+
+Added: trunk/fpm2/bench/tests.c
+===================================================================
+--- trunk/fpm2/bench/tests.c	2008-04-23 09:18:10 UTC (rev 176)
++++ trunk/fpm2/bench/tests.c	2008-04-23 23:40:02 UTC (rev 177)
+@@ -0,0 +1,34 @@
++#ifdef TEST_INTRINSICS
++#include <xmmintrin.h>
++#endif
++
++#ifdef TEST_ALWAYS_INLINE
++static __attribute__((always_inline)) inline foo(int a) {
++    return a+a;
++}
++#endif
++
++int main(int argc, char **argv) {
++    volatile float f = 9.0f;
++
++#ifdef TEST_X87
++    asm("fld %1\n\tfsqrt\n\tfstp %0\n\t" : "=m" (f) : "m" (f) );
++#endif
++
++#ifdef TEST_SSE
++    asm("sqrtss %1, %%xmm0\n\tmovss %%xmm0, %0\n\t" : "=m" (f) : "m" (f) );
++#endif
++
++#ifdef TEST_INTRINSICS
++    __m128 mm;
++    mm = _mm_set_ss(f);
++    mm = _mm_sqrt_ss(mm);
++    _mm_store_ss(&f, mm);
++#endif
++
++#ifdef TEST_ALWAYS_INLINE
++    return foo(f);
++#else
++    return f;
++#endif
++}
+
+
+
+From ivop at mail.berlios.de  Thu Apr 24 01:42:04 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Thu, 24 Apr 2008 01:42:04 +0200
+Subject: [fpm-cvslog] r178 - trunk/fpm2/bench
+Message-ID: <200804232342.m3NNg4VJ009207@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-24 01:42:04 +0200 (Thu, 24 Apr 2008)
+New Revision: 178
+
+Modified:
+   trunk/fpm2/bench/build.sh
+Log:
+compilers that do not have always_inline attribute only give a warning, so
+we need -Werror to test reliably
+
+
+Modified: trunk/fpm2/bench/build.sh
+===================================================================
+--- trunk/fpm2/bench/build.sh	2008-04-23 23:40:02 UTC (rev 177)
++++ trunk/fpm2/bench/build.sh	2008-04-23 23:42:04 UTC (rev 178)
+@@ -50,7 +50,7 @@
+ 
+ archflags
+ 
+-cctest -DTEST_ALWAYS_INLINE && addcflags -DHAVE_ALWAYS_INLINE && echo have_always_inline
++cctest -DTEST_ALWAYS_INLINE -Werror && addcflags -DHAVE_ALWAYS_INLINE && echo have_always_inline
+ cctest -DTEST_X87 && FPM_HAVE_X87=1 && echo have_x87
+ cctest -DTEST_SSE && FPM_HAVE_SSE=1 && echo have_sse && case "$arch" in i?86) arch=pentium3; ARCH= ; archflags ;; esac
+ cctest -DTEST_INTRINSICS && FPM_HAVE_INTRINSICS=1 && echo have_intrinsics
+
+
+
+From ivop at mail.berlios.de  Thu Apr 24 01:43:39 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Thu, 24 Apr 2008 01:43:39 +0200
+Subject: [fpm-cvslog] r179 - trunk/fpm2/bench
+Message-ID: <200804232343.m3NNhd7D009901@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-24 01:43:39 +0200 (Thu, 24 Apr 2008)
+New Revision: 179
+
+Modified:
+   trunk/fpm2/bench/Makefile
+Log:
+call build.sh for target all
+
+
+Modified: trunk/fpm2/bench/Makefile
+===================================================================
+--- trunk/fpm2/bench/Makefile	2008-04-23 23:42:04 UTC (rev 178)
++++ trunk/fpm2/bench/Makefile	2008-04-23 23:43:39 UTC (rev 179)
+@@ -1,4 +1,6 @@
+ all:
++	@echo "*** there are no build rules here, calling build.sh instead ***"
++	./build.sh
+ 
+ clean:
+ 	rm -f bench-*
+
+
+
+From ivop at mail.berlios.de  Thu Apr 24 01:45:17 2008
+From: ivop at mail.berlios.de (ivop at BerliOS)
+Date: Thu, 24 Apr 2008 01:45:17 +0200
+Subject: [fpm-cvslog] r180 - trunk/fpm2
+Message-ID: <200804232345.m3NNjHPO009998@sheep.berlios.de>
+
+Author: ivop
+Date: 2008-04-24 01:45:17 +0200 (Thu, 24 Apr 2008)
+New Revision: 180
+
+Modified:
+   trunk/fpm2/TODO
+Log:
+bench framework almost done; need xml/xslt output now
+
+
+Modified: trunk/fpm2/TODO
+===================================================================
+--- trunk/fpm2/TODO	2008-04-23 23:43:39 UTC (rev 179)
++++ trunk/fpm2/TODO	2008-04-23 23:45:17 UTC (rev 180)
+@@ -1,2 +1,3 @@
+-* better benchmark framework
++* run benchmarks --> script --> xml file with data --> xslt file for proper
++  display in modern browsers
+ * exp, pow, ln, sin, cos, tan, acos, asin, atan
+
+
+

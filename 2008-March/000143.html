@@ -1,0 +1,213 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] r121 - trunk/fpm2/include/fpm
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r121%20-%20trunk/fpm2/include/fpm&In-Reply-To=%3C200803202034.m2KKYbVB014936%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000140.html">
+   <LINK REL="Next"  HREF="000144.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] r121 - trunk/fpm2/include/fpm</H1>
+    <B>ivop at BerliOS</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r121%20-%20trunk/fpm2/include/fpm&In-Reply-To=%3C200803202034.m2KKYbVB014936%40sheep.berlios.de%3E"
+       TITLE="[fpm-cvslog] r121 - trunk/fpm2/include/fpm">ivop at mail.berlios.de
+       </A><BR>
+    <I>Thu Mar 20 21:34:37 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000140.html">[fpm-cvslog] r120 - trunk/fpm2/include/fpm
+</A></li>
+        <LI>Next message: <A HREF="000144.html">[fpm-cvslog] r122 - trunk/fpm2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#143">[ date ]</a>
+              <a href="thread.html#143">[ thread ]</a>
+              <a href="subject.html#143">[ subject ]</a>
+              <a href="author.html#143">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: ivop
+Date: 2008-03-20 21:34:37 +0100 (Thu, 20 Mar 2008)
+New Revision: 121
+
+Modified:
+   trunk/fpm2/include/fpm/fpm.h
+   trunk/fpm2/include/fpm/fpmcode.h
+Log:
+reduce amount of code
+
+
+Modified: trunk/fpm2/include/fpm/fpm.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpm.h	2008-03-20 16:43:25 UTC (rev 120)
++++ trunk/fpm2/include/fpm/fpm.h	2008-03-20 20:34:37 UTC (rev 121)
+@@ -95,10 +95,10 @@
+ FPMFUNC  fp24p8_t  itofp24p8  (int x);
+ FPMFUNC  fp16p16_t itofp16p16 (int x);
+ FPMFUNC  fp8p24_t  itofp8p24  (int x);
+-FPMFUNC ufp8p8_t   itoufp8p8  (int x);
+-FPMFUNC ufp24p8_t  itoufp24p8 (int x);
+-FPMFUNC ufp16p16_t itoufp16p16(int x);
+-FPMFUNC ufp8p24_t  itoufp8p24 (int x);
++FPMFUNC ufp8p8_t   itoufp8p8  (unsigned int x);
++FPMFUNC ufp24p8_t  itoufp24p8 (unsigned int x);
++FPMFUNC ufp16p16_t itoufp16p16(unsigned int x);
++FPMFUNC ufp8p24_t  itoufp8p24 (unsigned int x);
+ 
+ /* float to fixed point */
+ 
+@@ -128,10 +128,10 @@
+ FPMFUNC int  fp24p8toi ( fp24p8_t  x);
+ FPMFUNC int  fp16p16toi( fp16p16_t x);
+ FPMFUNC int  fp8p24toi ( fp8p24_t  x);
+-FPMFUNC int ufp8p8toi  (ufp8p8_t   x);
+-FPMFUNC int ufp24p8toi (ufp24p8_t  x);
+-FPMFUNC int ufp16p16toi(ufp16p16_t x);
+-FPMFUNC int ufp8p24toi (ufp8p24_t  x);
++FPMFUNC unsigned int ufp8p8toi  (ufp8p8_t   x);
++FPMFUNC unsigned int ufp24p8toi (ufp24p8_t  x);
++FPMFUNC unsigned int ufp16p16toi(ufp16p16_t x);
++FPMFUNC unsigned int ufp8p24toi (ufp8p24_t  x);
+ 
+ /* fixed point to float */
+ 
+
+Modified: trunk/fpm2/include/fpm/fpmcode.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpmcode.h	2008-03-20 16:43:25 UTC (rev 120)
++++ trunk/fpm2/include/fpm/fpmcode.h	2008-03-20 20:34:37 UTC (rev 121)
+@@ -34,70 +34,52 @@
+ 
+ /* int to fixed point */
+ 
+-FPMFUNC  fp8p8_t   itofp8p8   (int x) { return x &lt;&lt; 8;  }
+-FPMFUNC  fp24p8_t  itofp24p8  (int x) { return x &lt;&lt; 8;  }
+-FPMFUNC  fp16p16_t itofp16p16 (int x) { return x &lt;&lt; 16; }
+-FPMFUNC  fp8p24_t  itofp8p24  (int x) { return x &lt;&lt; 24; }
+-FPMFUNC ufp8p8_t   itoufp8p8  (int x) { return x &lt;&lt; 8;  }
+-FPMFUNC ufp24p8_t  itoufp24p8 (int x) { return x &lt;&lt; 8;  }
+-FPMFUNC ufp16p16_t itoufp16p16(int x) { return x &lt;&lt; 16; }
+-FPMFUNC ufp8p24_t  itoufp8p24 (int x) { return x &lt;&lt; 24; }
++#define FPMI2FP(a,c) FPMFUNC a##_t    ito##a (         int x) { return x c; } \
++                     FPMFUNC u##a##_t itou##a(unsigned int x) { return x c; }
+ 
++FPMI2FP(fp8p8  , &lt;&lt;8 )      FPMI2FP(fp24p8 , &lt;&lt;8 )
++FPMI2FP(fp16p16, &lt;&lt;16)      FPMI2FP(fp8p24 , &lt;&lt;24)
++
+ /* float to fixed point */
+ 
+-FPMFUNC  fp8p8_t   ftofp8p8   (float x) { return x * 256;      }
+-FPMFUNC  fp24p8_t  ftofp24p8  (float x) { return x * 256;      }
+-FPMFUNC  fp16p16_t ftofp16p16 (float x) { return x * 65536;    }
+-FPMFUNC  fp8p24_t  ftofp8p24  (float x) { return x * 16777216; }
+-FPMFUNC ufp8p8_t   ftoufp8p8  (float x) { return x * 256;      }
+-FPMFUNC ufp24p8_t  ftoufp24p8 (float x) { return x * 256;      }
+-FPMFUNC ufp16p16_t ftoufp16p16(float x) { return x * 65536;    }
+-FPMFUNC ufp8p24_t  ftoufp8p24 (float x) { return x * 16777216; }
++#define FPMF2FP(a,c) FPMFUNC a##_t    fto##a (float x) { return x * c; } \
++                     FPMFUNC u##a##_t ftou##a(float x) { return x * c; }
+ 
++FPMF2FP(fp8p8  , 256     )  FPMF2FP(fp24p8 , 256     )
++FPMF2FP(fp16p16, 65536   )  FPMF2FP(fp8p24 , 16777216)
++
+ /* double to fixed point */
+ 
+-FPMFUNC  fp8p8_t   dtofp8p8   (double x) { return x * 256;      }
+-FPMFUNC  fp24p8_t  dtofp24p8  (double x) { return x * 256;      }
+-FPMFUNC  fp16p16_t dtofp16p16 (double x) { return x * 65536;    }
+-FPMFUNC  fp8p24_t  dtofp8p24  (double x) { return x * 16777216; }
+-FPMFUNC ufp8p8_t   dtoufp8p8  (double x) { return x * 256;      }
+-FPMFUNC ufp24p8_t  dtoufp24p8 (double x) { return x * 256;      }
+-FPMFUNC ufp16p16_t dtoufp16p16(double x) { return x * 65536;    }
+-FPMFUNC ufp8p24_t  dtoufp8p24 (double x) { return x * 16777216; }
++#define FPMD2FP(a,c) FPMFUNC a##_t    dto##a (double x) { return x * c; } \
++                     FPMFUNC u##a##_t dtou##a(double x) { return x * c; }
+ 
++FPMD2FP(fp8p8  , 256     )  FPMD2FP(fp24p8 , 256     )
++FPMD2FP(fp16p16, 65536   )  FPMD2FP(fp8p24 , 16777216)
++
+ /* fixed point to int (truncated) */
+ 
+-FPMFUNC int  fp8p8toi  ( fp8p8_t   x) { return x &gt;&gt; 8;  }
+-FPMFUNC int  fp24p8toi ( fp24p8_t  x) { return x &gt;&gt; 8;  }
+-FPMFUNC int  fp16p16toi( fp16p16_t x) { return x &gt;&gt; 16; }
+-FPMFUNC int  fp8p24toi ( fp8p24_t  x) { return x &gt;&gt; 24; }
+-FPMFUNC int ufp8p8toi  (ufp8p8_t   x) { return x &gt;&gt; 8;  }
+-FPMFUNC int ufp24p8toi (ufp24p8_t  x) { return x &gt;&gt; 8;  }
+-FPMFUNC int ufp16p16toi(ufp16p16_t x) { return x &gt;&gt; 16; }
+-FPMFUNC int ufp8p24toi (ufp8p24_t  x) { return x &gt;&gt; 24; }
++#define FPMFP2I(a,c) FPMFUNC int a##toi (a##_t x) { return x c; } \
++      FPMFUNC unsigned int u##a##toi (u##a##_t x) { return x c; }
+ 
++FPMFP2I(fp8p8  , &gt;&gt;8 )      FPMFP2I(fp24p8 , &gt;&gt;8 )
++FPMFP2I(fp16p16, &gt;&gt;16)      FPMFP2I(fp8p24 , &gt;&gt;24)
++
+ /* fixed point to float */
+ 
+-FPMFUNC float  fp8p8tof  ( fp8p8_t   x) { return (float) x / 256.0;      }
+-FPMFUNC float  fp24p8tof ( fp24p8_t  x) { return (float) x / 256.0;      }
+-FPMFUNC float  fp16p16tof( fp16p16_t x) { return (float) x / 65536.0;    }
+-FPMFUNC float  fp8p24tof ( fp8p24_t  x) { return (float) x / 16777216.0; }
+-FPMFUNC float ufp8p8tof  (ufp8p8_t   x) { return (float) x / 256.0;      }
+-FPMFUNC float ufp24p8tof (ufp24p8_t  x) { return (float) x / 256.0;      }
+-FPMFUNC float ufp16p16tof(ufp16p16_t x) { return (float) x / 65536.0;    }
+-FPMFUNC float ufp8p24tof (ufp8p24_t  x) { return (float) x / 16777216.0; }
++#define FPMFP2F(a,c) FPMFUNC float a##tof (a##_t x) { return x / c; } \
++               FPMFUNC float u##a##tof (u##a##_t x) { return x / c; }
+ 
++FPMFP2F(fp8p8  , 256.0     )    FPMFP2F(fp24p8 , 256.0     )
++FPMFP2F(fp16p16, 65536.0   )    FPMFP2F(fp8p24 , 16777216.0)
++
+ /* fixed point to double */
+ 
+-FPMFUNC double  fp8p8tod  ( fp8p8_t   x) { return (double) x / 256.0;      }
+-FPMFUNC double  fp24p8tod ( fp24p8_t  x) { return (double) x / 256.0;      }
+-FPMFUNC double  fp16p16tod( fp16p16_t x) { return (double) x / 65536.0;    }
+-FPMFUNC double  fp8p24tod ( fp8p24_t  x) { return (double) x / 16777216.0; }
+-FPMFUNC double ufp8p8tod  (ufp8p8_t   x) { return (double) x / 256.0;      }
+-FPMFUNC double ufp24p8tod (ufp24p8_t  x) { return (double) x / 256.0;      }
+-FPMFUNC double ufp16p16tod(ufp16p16_t x) { return (double) x / 65536.0;    }
+-FPMFUNC double ufp8p24tod (ufp8p24_t  x) { return (double) x / 16777216.0; }
++#define FPMFP2D(a,c) FPMFUNC double a##tod (a##_t x) { return x / c; } \
++               FPMFUNC double u##a##tod (u##a##_t x) { return x / c; }
+ 
++FPMFP2D(fp8p8  , 256.0     )    FPMFP2D(fp24p8 , 256.0     )
++FPMFP2D(fp16p16, 65536.0   )    FPMFP2D(fp8p24 , 16777216.0)
++
+ /* fixed point to fixed point */
+ 
+ #define FPMA2B(a,b,c) FPMFUNC b##_t a##to##b(a##_t x) { return x c; } \
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000140.html">[fpm-cvslog] r120 - trunk/fpm2/include/fpm
+</A></li>
+	<LI>Next message: <A HREF="000144.html">[fpm-cvslog] r122 - trunk/fpm2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#143">[ date ]</a>
+              <a href="thread.html#143">[ thread ]</a>
+              <a href="subject.html#143">[ subject ]</a>
+              <a href="author.html#143">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

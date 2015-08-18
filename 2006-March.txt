@@ -1,0 +1,353 @@
+From nobody at sheep.berlios.de  Wed Mar  1 10:44:22 2006
+From: nobody at sheep.berlios.de (ivop)
+Date: Wed, 1 Mar 2006 10:44:22 +0100
+Subject: [fpm-cvslog] fpm Makefile,1.2,1.3
+Message-ID: <200603010944.k219iME28148@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm
+In directory sheep:/tmp/cvs-serv22218
+
+Modified Files:
+	Makefile 
+Log Message:
+fix dependencies
+
+
+
+Index: Makefile
+===================================================================
+RCS file: /cvsroot/fpm/fpm/Makefile,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- Makefile	6 Jan 2006 18:29:19 -0000	1.2
++++ Makefile	1 Mar 2006 09:44:15 -0000	1.3
+@@ -80,15 +80,25 @@
+ 	@echo
+ 	@exit 1
+ 
+--include deps/$(GENLUTOBJS:.o=.d)
++ifneq ($(GENLUTOBJS),)
++-include $(patsubst %,deps/%,$(GENLUTOBJS:.o=.d))
++endif
+ 
+--include deps/$(BENCHOBJS:.o=.d)
++ifneq ($(BENCHOBJS),)
++-include $(patsubst %,deps/%,$(BENCHOBJS:.o=.d))
++endif
+ 
+--include deps/$(BENCHLUTOBJS):.o=.d)
++ifneq ($(BENCHLUTOBJS),)
++-include $(patsubst %,deps/%,$(BENCHLUTOBJS:.o=.d))
++endif
+ 
+--include deps/$(PRECOBJS:.o=.d)
++ifneq ($(PRECOBJS),)
++-include $(patsubst %,deps/%,$(PRECOBJS:.o=.d))
++endif
+ 
+--include deps/$(PRECLUTOBJS:.o=.d)
++ifneq ($(PRECLUTOBJS),)
++-include $(patsubst %,deps/%,$(PRECLUTOBJS:.o=.d))
++endif
+ 
+ %.o:	%.c
+ 	$(CC) -c $(CFLAGS) $(INCLUDES) $*.c -o $*.o $(DEBUG) $(WARNINGS)
+
+
+
+From nobody at sheep.berlios.de  Wed Mar  1 10:56:00 2006
+From: nobody at sheep.berlios.de (ivop)
+Date: Wed, 1 Mar 2006 10:56:00 +0100
+Subject: [fpm-cvslog] fpm genbarcharts.sh,1.1,1.2 gengraphs.sh,1.1,1.2
+Message-ID: <200603010956.k219u0E28631@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm
+In directory sheep:/tmp/cvs-serv23526
+
+Modified Files:
+	genbarcharts.sh gengraphs.sh 
+Log Message:
+fix for freebsd
+
+
+
+Index: genbarcharts.sh
+===================================================================
+RCS file: /cvsroot/fpm/fpm/genbarcharts.sh,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- genbarcharts.sh	13 Sep 2005 03:31:02 -0000	1.1
++++ genbarcharts.sh	1 Mar 2006 09:55:58 -0000	1.2
+@@ -16,7 +16,7 @@
+ # Test if all tools were available
+ 
+ testavail() {
+-    if [ "$1" == "" ]; then
++    if "$1" = "" ; then
+         echo "Can't create barcharts. $2 is not available on your system."
+         exit 0
+     fi
+@@ -26,14 +26,14 @@
+ testavail "$_awk" "awk"
+ testavail "$_fig2dev" "fig2dev"
+ 
+-if [ "$_fig2dev_png" == "no" ]; then
++if test "$_fig2dev_png" = "no" ; then
+     echo "Can't generate barcharts. Your $_fig2dev doesn't have PNG support."
+     exit 0
+ fi
+ 
+ # check command line
+ 
+-if [ "$#" != "3" ]; then
++if test "$#" != "3" ; then
+     echo "usage: $0 <datafile> <outputdirectory> <prefix-to-filenames>"
+     exit -1
+ fi
+
+Index: gengraphs.sh
+===================================================================
+RCS file: /cvsroot/fpm/fpm/gengraphs.sh,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- gengraphs.sh	13 Sep 2005 03:31:02 -0000	1.1
++++ gengraphs.sh	1 Mar 2006 09:55:58 -0000	1.2
+@@ -35,7 +35,7 @@
+ # Test if all tools were available
+ 
+ testavail() {
+-    if [ "$1" == "" ]; then
++    if test "$1" = "" ; then
+         echo "Can't create graphs. $2 is not available on your system."
+         exit 0
+     fi
+@@ -44,7 +44,7 @@
+ testavail "$_gnuplot" "gnuplot"
+ testavail "$_fig2dev" "fig2dev"
+ 
+-if [ "$_fig2dev_png" == "no" ]; then
++if test "$_fig2dev_png" = "no" ; then
+     echo "Can't generate barcharts. Your $_fig2dev doesn't have PNG support."
+     exit 0
+ fi
+
+
+
+From nobody at sheep.berlios.de  Wed Mar  1 11:00:34 2006
+From: nobody at sheep.berlios.de (ivop)
+Date: Wed, 1 Mar 2006 11:00:34 +0100
+Subject: [fpm-cvslog] fpm configure,1.2,1.3
+Message-ID: <200603011000.k21A0YE29030@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm
+In directory sheep:/tmp/cvs-serv24032
+
+Modified Files:
+	configure 
+Log Message:
+display $_make instead of make, in case --with-make is used (freebsd,...)
+
+
+
+Index: configure
+===================================================================
+RCS file: /cvsroot/fpm/fpm/configure,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- configure	6 Jan 2006 18:35:40 -0000	1.2
++++ configure	1 Mar 2006 10:00:32 -0000	1.3
+@@ -420,7 +420,7 @@
+ 
+ echo "done."
+ echo
+-echo "Now type 'make' to build."
++echo "Now type '$_make' to build."
+ echo
+ 
+ # Clean up
+
+
+
+From nobody at sheep.berlios.de  Wed Mar  1 11:03:18 2006
+From: nobody at sheep.berlios.de (ivop)
+Date: Wed, 1 Mar 2006 11:03:18 +0100
+Subject: [fpm-cvslog] fpm genbarcharts.sh,1.2,1.3
+Message-ID: <200603011003.k21A3IE29308@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm
+In directory sheep:/tmp/cvs-serv24229
+
+Modified Files:
+	genbarcharts.sh 
+Log Message:
+typo
+
+
+
+Index: genbarcharts.sh
+===================================================================
+RCS file: /cvsroot/fpm/fpm/genbarcharts.sh,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- genbarcharts.sh	1 Mar 2006 09:55:58 -0000	1.2
++++ genbarcharts.sh	1 Mar 2006 10:03:17 -0000	1.3
+@@ -16,7 +16,7 @@
+ # Test if all tools were available
+ 
+ testavail() {
+-    if "$1" = "" ; then
++    if test "$1" = "" ; then
+         echo "Can't create barcharts. $2 is not available on your system."
+         exit 0
+     fi
+
+
+
+From nobody at sheep.berlios.de  Wed Mar  1 11:30:45 2006
+From: nobody at sheep.berlios.de (ivop)
+Date: Wed, 1 Mar 2006 11:30:45 +0100
+Subject: [fpm-cvslog] fpm configure,1.3,1.4
+Message-ID: <200603011030.k21AUjE30519@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm
+In directory sheep:/tmp/cvs-serv26332
+
+Modified Files:
+	configure 
+Log Message:
+test for GNU Make (no need for --with-make on FreeBSD anymore)
+
+
+
+Index: configure
+===================================================================
+RCS file: /cvsroot/fpm/fpm/configure,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -u -d -r1.3 -r1.4
+--- configure	1 Mar 2006 10:00:32 -0000	1.3
++++ configure	1 Mar 2006 10:30:43 -0000	1.4
+@@ -28,7 +28,7 @@
+ _ldflags=-lm
+ _inc_extra=
+ _ld_extra=
+-_make=make
++_make=
+ _indent=indent
+ _makedepend=makedepend
+ _gnuplot=gnuplot
+@@ -193,6 +193,29 @@
+     die "can't find compiler"
+ fi
+ echores "$_cc"
++
++
++
++echocheck "GNU Make"
++if test "$_make" = "" ; then
++    for _maket in make gmake nogmakepresent; do
++        _tmp=`$_maket --version 2>>"$TMPLOG" | (read one two; echo $one)`
++        if test "$?" -eq 0 ; then
++            if test "$_tmp" = "GNU" ; then
++                echores "yes, using $_maket"
++                break;
++            fi
++        fi
++    done
++    _make=$_maket
++    if test "$_make" = "nogmakepresent" ; then
++        echores "no"
++        die "You need GNU Make to build. If you are sure your version of make
++is compatible, you may want to specify --with-make= on the command line"
++    fi
++else
++    echores "using $_make (command line override)"
++fi
+ 
+ 
+ 
+
+
+
+From nobody at sheep.berlios.de  Wed Mar  1 11:32:04 2006
+From: nobody at sheep.berlios.de (ivop)
+Date: Wed, 1 Mar 2006 11:32:04 +0100
+Subject: [fpm-cvslog] fpm configure,1.4,1.5
+Message-ID: <200603011032.k21AW4E30598@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm
+In directory sheep:/tmp/cvs-serv26454
+
+Modified Files:
+	configure 
+Log Message:
+cosmetics
+
+
+
+Index: configure
+===================================================================
+RCS file: /cvsroot/fpm/fpm/configure,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -u -d -r1.4 -r1.5
+--- configure	1 Mar 2006 10:30:43 -0000	1.4
++++ configure	1 Mar 2006 10:32:02 -0000	1.5
+@@ -186,11 +186,11 @@
+ 
+ # Do tests...
+ 
+-echocheck "c compiler"
++echocheck "C compiler"
+ cc_run=`( $_cc ) 2>&1`
+ if test "$?" -gt 1; then
+     echores "no"
+-    die "can't find compiler"
++    die "Can't find compiler"
+ fi
+ echores "$_cc"
+ 
+
+
+
+From nobody at sheep.berlios.de  Wed Mar  1 12:25:22 2006
+From: nobody at sheep.berlios.de (ivop)
+Date: Wed, 1 Mar 2006 12:25:22 +0100
+Subject: [fpm-cvslog] fpm configure,1.5,1.6
+Message-ID: <200603011125.k21BPME00707@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm
+In directory sheep:/tmp/cvs-serv31918
+
+Modified Files:
+	configure 
+Log Message:
+use head/cut to cut the first word of the first line of make's output
+
+
+
+Index: configure
+===================================================================
+RCS file: /cvsroot/fpm/fpm/configure,v
+retrieving revision 1.5
+retrieving revision 1.6
+diff -u -d -r1.5 -r1.6
+--- configure	1 Mar 2006 10:32:02 -0000	1.5
++++ configure	1 Mar 2006 11:25:20 -0000	1.6
+@@ -199,7 +199,7 @@
+ echocheck "GNU Make"
+ if test "$_make" = "" ; then
+     for _maket in make gmake nogmakepresent; do
+-        _tmp=`$_maket --version 2>>"$TMPLOG" | (read one two; echo $one)`
++        _tmp=`$_maket --version 2>>"$TMPLOG" | head -n 1 | cut -d ' ' -f 1`
+         if test "$?" -eq 0 ; then
+             if test "$_tmp" = "GNU" ; then
+                 echores "yes, using $_maket"
+
+
+

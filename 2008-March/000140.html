@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] r120 - trunk/fpm2/include/fpm
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r120%20-%20trunk/fpm2/include/fpm&In-Reply-To=%3C200803201643.m2KGhRAI004119%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000141.html">
+   <LINK REL="Next"  HREF="000143.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] r120 - trunk/fpm2/include/fpm</H1>
+    <B>ivop at BerliOS</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r120%20-%20trunk/fpm2/include/fpm&In-Reply-To=%3C200803201643.m2KGhRAI004119%40sheep.berlios.de%3E"
+       TITLE="[fpm-cvslog] r120 - trunk/fpm2/include/fpm">ivop at mail.berlios.de
+       </A><BR>
+    <I>Thu Mar 20 17:43:27 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000141.html">[fpm-cvslog] r119 - trunk/fpm2/include/fpm
+</A></li>
+        <LI>Next message: <A HREF="000143.html">[fpm-cvslog] r121 - trunk/fpm2/include/fpm
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#140">[ date ]</a>
+              <a href="thread.html#140">[ thread ]</a>
+              <a href="subject.html#140">[ subject ]</a>
+              <a href="author.html#140">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: ivop
+Date: 2008-03-20 17:43:25 +0100 (Thu, 20 Mar 2008)
+New Revision: 120
+
+Modified:
+   trunk/fpm2/include/fpm/fpmcode.h
+Log:
+reduce amount of code
+
+
+Modified: trunk/fpm2/include/fpm/fpmcode.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpmcode.h	2008-03-20 16:18:15 UTC (rev 119)
++++ trunk/fpm2/include/fpm/fpmcode.h	2008-03-20 16:43:25 UTC (rev 120)
+@@ -100,42 +100,18 @@
+ 
+ /* fixed point to fixed point */
+ 
+-FPMFUNC fp8p8_t     fp8p8tofp8p8   ( fp8p8_t x) { return x;       }
+-FPMFUNC fp24p8_t    fp8p8tofp24p8  ( fp8p8_t x) { return x;       }
+-FPMFUNC fp16p16_t   fp8p8tofp16p16 ( fp8p8_t x) { return x &lt;&lt; 8;  }
+-FPMFUNC fp8p24_t    fp8p8tofp8p24  ( fp8p8_t x) { return x &lt;&lt; 16; }
+-FPMFUNC ufp8p8_t   ufp8p8toufp8p8  (ufp8p8_t x) { return x;       }
+-FPMFUNC ufp24p8_t  ufp8p8toufp24p8 (ufp8p8_t x) { return x;       }
+-FPMFUNC ufp16p16_t ufp8p8toufp16p16(ufp8p8_t x) { return x &lt;&lt; 8;  }
+-FPMFUNC ufp8p24_t  ufp8p8toufp8p24 (ufp8p8_t x) { return x &lt;&lt; 16; }
++#define FPMA2B(a,b,c) FPMFUNC b##_t a##to##b(a##_t x) { return x c; } \
++          FPMFUNC u##b##_t u##a##to##u##b(u##a##_t x) { return x c; }
+ 
+-FPMFUNC fp8p8_t     fp24p8tofp8p8   ( fp24p8_t x) { return x;       }
+-FPMFUNC fp24p8_t    fp24p8tofp24p8  ( fp24p8_t x) { return x;       }
+-FPMFUNC fp16p16_t   fp24p8tofp16p16 ( fp24p8_t x) { return x &lt;&lt; 8;  }
+-FPMFUNC fp8p24_t    fp24p8tofp8p24  ( fp24p8_t x) { return x &lt;&lt; 16; }
+-FPMFUNC ufp8p8_t   ufp24p8toufp8p8  (ufp24p8_t x) { return x;       }
+-FPMFUNC ufp24p8_t  ufp24p8toufp24p8 (ufp24p8_t x) { return x;       }
+-FPMFUNC ufp16p16_t ufp24p8toufp16p16(ufp24p8_t x) { return x &lt;&lt; 8;  }
+-FPMFUNC ufp8p24_t  ufp24p8toufp8p24 (ufp24p8_t x) { return x &lt;&lt; 16; }
++FPMA2B(fp8p8  , fp8p8  ,     )      FPMA2B(fp8p8  , fp24p8 ,     )
++FPMA2B(fp8p8  , fp16p16, &lt;&lt;8 )      FPMA2B(fp8p8  , fp8p24 , &lt;&lt;16)
++FPMA2B(fp24p8 , fp8p8  ,     )      FPMA2B(fp24p8 , fp24p8 ,     )
++FPMA2B(fp24p8 , fp16p16, &lt;&lt;8 )      FPMA2B(fp24p8 , fp8p24 , &lt;&lt;16)
++FPMA2B(fp16p16, fp8p8  , &gt;&gt;8 )      FPMA2B(fp16p16, fp24p8 , &gt;&gt;8 )
++FPMA2B(fp16p16, fp16p16,     )      FPMA2B(fp16p16, fp8p24 , &lt;&lt;8 )
++FPMA2B(fp8p24 , fp8p8  , &gt;&gt;16)      FPMA2B(fp8p24 , fp24p8 , &gt;&gt;16)
++FPMA2B(fp8p24 , fp16p16, &gt;&gt;8 )      FPMA2B(fp8p24 , fp8p24 ,     )
+ 
+-FPMFUNC fp8p8_t     fp16p16tofp8p8   ( fp16p16_t x) { return x &gt;&gt; 8; }
+-FPMFUNC fp24p8_t    fp16p16tofp24p8  ( fp16p16_t x) { return x &gt;&gt; 8; }
+-FPMFUNC fp16p16_t   fp16p16tofp16p16 ( fp16p16_t x) { return x;      }
+-FPMFUNC fp8p24_t    fp16p16tofp8p24  ( fp16p16_t x) { return x &lt;&lt; 8; }
+-FPMFUNC ufp8p8_t   ufp16p16toufp8p8  (ufp16p16_t x) { return x &gt;&gt; 8; }
+-FPMFUNC ufp24p8_t  ufp16p16toufp24p8 (ufp16p16_t x) { return x &gt;&gt; 8; }
+-FPMFUNC ufp16p16_t ufp16p16toufp16p16(ufp16p16_t x) { return x;      }
+-FPMFUNC ufp8p24_t  ufp16p16toufp8p24 (ufp16p16_t x) { return x &lt;&lt; 8; }
+-
+-FPMFUNC fp8p8_t     fp8p24tofp8p8   ( fp8p24_t x) { return x &gt;&gt; 16; }
+-FPMFUNC fp24p8_t    fp8p24tofp24p8  ( fp8p24_t x) { return x &gt;&gt; 16; }
+-FPMFUNC fp16p16_t   fp8p24tofp16p16 ( fp8p24_t x) { return x &gt;&gt; 8;  }
+-FPMFUNC fp8p24_t    fp8p24tofp8p24  ( fp8p24_t x) { return x;       }
+-FPMFUNC ufp8p8_t   ufp8p24toufp8p8  (ufp8p24_t x) { return x &gt;&gt; 16; }
+-FPMFUNC ufp24p8_t  ufp8p24toufp24p8 (ufp8p24_t x) { return x &gt;&gt; 16; }
+-FPMFUNC ufp16p16_t ufp8p24toufp16p16(ufp8p24_t x) { return x &gt;&gt; 8;  }
+-FPMFUNC ufp8p24_t  ufp8p24toufp8p24 (ufp8p24_t x) { return x;       }
+-
+ /* ------------------------------------------------------------------------- */
+ 
+ /* BASIC MATH */
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000141.html">[fpm-cvslog] r119 - trunk/fpm2/include/fpm
+</A></li>
+	<LI>Next message: <A HREF="000143.html">[fpm-cvslog] r121 - trunk/fpm2/include/fpm
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#140">[ date ]</a>
+              <a href="thread.html#140">[ thread ]</a>
+              <a href="subject.html#140">[ subject ]</a>
+              <a href="author.html#140">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

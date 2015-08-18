@@ -1,0 +1,326 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] fpm/tools checktree.sh,NONE,1.1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2005-September/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20fpm/tools%20checktree.sh%2CNONE%2C1.1&In-Reply-To=%3C200509050040.j850eZ128464%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000067.html">
+   <LINK REL="Next"  HREF="000069.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] fpm/tools checktree.sh,NONE,1.1</H1>
+    <B>ivop</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20fpm/tools%20checktree.sh%2CNONE%2C1.1&In-Reply-To=%3C200509050040.j850eZ128464%40bat.berlios.de%3E"
+       TITLE="[fpm-cvslog] fpm/tools checktree.sh,NONE,1.1">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Mon Sep  5 02:40:35 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000067.html">[fpm-cvslog] fpm/tools - New directory
+</A></li>
+        <LI>Next message: <A HREF="000069.html">[fpm-cvslog] fpm/docs/xml Makefile,1.1,1.2 Makefile.inc,1.1,1.2 README,1.1,1.2 configure,1.1,1.2 default.css,1.5,1.6 html-common.xsl,1.3,1.4 postproc.sh,1.1,1.2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#68">[ date ]</a>
+              <a href="thread.html#68">[ thread ]</a>
+              <a href="subject.html#68">[ subject ]</a>
+              <a href="author.html#68">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/fpm/fpm/tools
+In directory sheep:/tmp/cvs-serv16718/tools
+
+Added Files:
+	checktree.sh 
+Log Message:
+my mplayer checktree script is also handy here
+
+
+
+--- NEW FILE: checktree.sh ---
+#!/bin/sh
+
+# -----------------------------------------------------------------------------
+
+# Check source-tree for anomalies
+#
+# (C)opyright 2005 by Ivo van Poorten
+# Licensed under GNU General Public License version 2
+#
+# Thanks to Melchior Franz of the FlightGear project for the original idea
+# of a source-tree checker and Torinthiel for the feedback along the way.
+
+# $Id: checktree.sh,v 1.1 2005/09/05 00:40:31 ivop Exp $
+
+# -----------------------------------------------------------------------------
+
+# Default settings
+
+_spaces=yes
+_extensions=yes
+_crlf=yes
+_trailws=no
+_rcsid=no
+_oll=no
+
+_color=yes
+_head=yes
+_cvs=yes
+_files=
+
+# -----------------------------------------------------------------------------
+
+# Avoid locale problems
+
+export LC_ALL=C
+
+# -----------------------------------------------------------------------------
+
+# Helper functions
+
+enable_all_tests() {
+    _spaces=yes
+    _extensions=yes
+    _crlf=yes
+    _trailws=yes
+    _rcsid=yes
+    _oll=yes
+}
+
+disable_all_tests() {
+    _spaces=no
+    _extensions=no
+    _crlf=no
+    _trailws=no
+    _rcsid=no
+    _oll=no
+}
+
+printoption() {
+    echo &quot;  -(no)$1  $2 [default: $3]&quot;
+}
+
+printhead() {
+    test &quot;$_head&quot; = &quot;yes&quot; &amp;&amp; echo -e &quot;$COLB$1$COLE&quot;
+}
+
+all_filenames() {
+    test &quot;$_files&quot; != &quot;&quot; &amp;&amp; echo &quot;$_files&quot; &amp;&amp; return
+
+    if [ &quot;$_cvs&quot; == &quot;no&quot; ]; then
+        find . -type f \
+        | grep -v &quot;\.\#\|\~$\|\.depend\|\/CVS\/\|config.mak\|^\./config\.h&quot; \
+        | grep -v &quot;^\./version\.h\|\.o$\|\.a$&quot;
+    else
+        list_cvs .
+    fi
+}
+
+list_cvs() {
+    for i in `grep &quot;^/&quot; $1/CVS/Entries | cut -d '/' -f 2`; do
+        echo $1/$i
+    done
+    for j in `grep &quot;^D/&quot; $1/CVS/Entries | cut -d '/' -f 2`; do
+        list_cvs $1/$j
+    done
+}
+
+# -----------------------------------------------------------------------------
+
+# Parse command line
+
+for i in &quot;$@&quot;; do
+    case &quot;$i&quot; in
+    -help)
+        echo -e &quot;\n$0 [options] [files]\n&quot;
+        echo -e &quot;options:\n&quot;
+        printoption &quot;spaces    &quot; &quot;test for spaces in filenames&quot; &quot;$_spaces&quot;
+        printoption &quot;extensions&quot; &quot;test for uppercase extensions&quot; &quot;$_extensions&quot;
+        printoption &quot;crlf      &quot; &quot;test for MSDOS line endings&quot; &quot;$_crlf&quot;
+        printoption &quot;trailws   &quot; &quot;test for trailing whitespace&quot; &quot;$_trailws&quot;
+        printoption &quot;rcsid     &quot; &quot;test for missing RCS Id's&quot; &quot;$_rcsid&quot;
+        printoption &quot;oll       &quot; &quot;test for overly long lines&quot; &quot;$_oll&quot;
+        echo
+        printoption &quot;all       &quot; &quot;enable all tests&quot; &quot;no&quot;
+        echo
+        printoption &quot;color     &quot; &quot;colored output&quot; &quot;$_color&quot;
+        printoption &quot;head      &quot; &quot;print heading for each test&quot; &quot;$_head&quot;
+        printoption &quot;cvs       &quot; &quot;use CVS/ to determine which files to check&quot; \
+                                                                        &quot;$_cvs&quot;
+        echo -e &quot;\nIf no files are specified, the whole tree is traversed.&quot;
+        echo -e &quot;If there are, -(no)cvs has no effect.\n&quot;
+        exit
+        ;;
+    -oll)
+        _oll=yes
+        ;;
+    -nooll)
+        _oll=no
+        ;;
+    -cvs)
+        _cvs=yes
+        ;;
+    -nocvs)
+        _cvs=no
+        ;;
+    -head)
+        _head=yes
+        ;;
+    -nohead)
+        _head=no
+        ;;
+    -color)
+        _color=yes
+        ;;
+    -nocolor)
+        _color=no
+        ;;
+    -spaces)
+        _spaces=yes
+        ;;
+    -nospaces)
+        _spaces=no
+        ;;
+    -extensions)
+        _extensions=yes
+        ;;
+    -noextensions)
+        _extensions=no
+        ;;
+    -crlf)
+        _crlf=yes
+        ;;
+    -nocrlf)
+        _crlf=no
+        ;;
+    -trailws)
+        _trailws=yes
+        ;;
+    -notrailws)
+        _trailws=no
+        ;;
+    -rcsid)
+        _rcsid=yes
+        ;;
+    -norcsid)
+        _rcsid=no
+        ;;
+    -all)
+        enable_all_tests
+        ;;
+    -noall)
+        disable_all_tests
+        ;;
+    -none)
+        disable_all
+        ;;
+    -*)
+        echo &quot;unknown option: $i&quot; &gt;&amp;2
+        exit 0
+        ;;
+    *)
+        _files=&quot;$_files $i&quot;
+        ;;
+    esac
+done
+
+# -----------------------------------------------------------------------------
+
+# Set heading color
+
+if [ &quot;$_color&quot; == &quot;yes&quot; ]; then
+    COLB=&quot;\e[36m&quot;
+    COLE=&quot;\e[m&quot;
+else
+    COLB=&quot;&quot;
+    COLE=&quot;&quot;
+fi
+
+# Generate filelist once so -cvs isn't _that_ much slower than -nocvs anymore
+
+filelist=`all_filenames`
+
+# -----------------------------------------------------------------------------
+
+# DO CHECKS
+
+# -----------------------------------------------------------------------------
+
+if [ &quot;$_spaces&quot; == &quot;yes&quot; ]; then
+    printhead &quot;checking for spaces in filenames ...&quot;
+    find . | grep &quot; &quot;
+fi
+
+# -----------------------------------------------------------------------------
+
+if [ &quot;$_extensions&quot; == &quot;yes&quot; ]; then
+    printhead &quot;checking for uppercase extensions ...&quot;
+    echo $filelist | grep &quot;\.[[:upper:]]\+$&quot; | grep -v &quot;\.S$&quot;
+fi
+
+# -----------------------------------------------------------------------------
+
+if [ &quot;$_crlf&quot; == &quot;yes&quot; ]; then
+    printhead &quot;checking for MSDOS line endings ...&quot;
+    grep -l -I &quot;
+&quot; $filelist
+fi
+
+# -----------------------------------------------------------------------------
+
+if [ &quot;$_trailws&quot; == &quot;yes&quot; ]; then
+    printhead &quot;checking for trailing whitespace ...&quot;
+    grep -l -I &quot;[[:space:]]\+$&quot; $filelist
+fi
+
+# -----------------------------------------------------------------------------
+
+if [ &quot;$_rcsid&quot; == &quot;yes&quot; ]; then
+    printhead &quot;checking for missing RCS \$Id\$ or \$Revision\$ tags ...&quot;
+    grep -L -I &quot;\$\(Id\|Revision\)[[:print:]]\+\$&quot; $filelist
+fi
+
+# -----------------------------------------------------------------------------
+
+if [ &quot;$_oll&quot; == &quot;yes&quot; ]; then
+    printhead &quot;checking for overly long lines (over 79 characters) ...&quot;
+    grep -l -I &quot;^[[:print:]]\{80,\}$&quot; $filelist
+fi
+
+# -----------------------------------------------------------------------------
+
+# End
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000067.html">[fpm-cvslog] fpm/tools - New directory
+</A></li>
+	<LI>Next message: <A HREF="000069.html">[fpm-cvslog] fpm/docs/xml Makefile,1.1,1.2 Makefile.inc,1.1,1.2 README,1.1,1.2 configure,1.1,1.2 default.css,1.5,1.6 html-common.xsl,1.3,1.4 postproc.sh,1.1,1.2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#68">[ date ]</a>
+              <a href="thread.html#68">[ thread ]</a>
+              <a href="subject.html#68">[ subject ]</a>
+              <a href="author.html#68">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

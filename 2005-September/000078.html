@@ -1,0 +1,1611 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] fpm benchmark.c,NONE,1.1 ChangeLog,NONE,1.1 configure,NONE,1.1 genbarcharts.sh,NONE,1.1 gengraphs.sh,NONE,1.1 genlut.c,NONE,1.1 INSTALL,NONE,1.1 Makefile,NONE,1.1 precision.c,NONE,1.1 README,NONE,1.1 TODO,NONE,1.1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2005-September/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20fpm%20benchmark.c%2CNONE%2C1.1%20ChangeLog%2CNONE%2C1.1%20configure%2CNONE%2C1.1%20genbarcharts.sh%2CNONE%2C1.1%20gengraphs.sh%2CNONE%2C1.1%20genlut.c%2CNONE%2C1.1%20INSTALL%2CNONE%2C1.1%20Makefile%2CNONE%2C1.1%20precision.c%2CNONE%2C1.1%20README%2CNONE%2C1.1%20TODO%2CNONE%2C1.1&In-Reply-To=%3C200509130331.j8D3V5124309%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000077.html">
+   <LINK REL="Next"  HREF="000079.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] fpm benchmark.c,NONE,1.1 ChangeLog,NONE,1.1 configure,NONE,1.1 genbarcharts.sh,NONE,1.1 gengraphs.sh,NONE,1.1 genlut.c,NONE,1.1 INSTALL,NONE,1.1 Makefile,NONE,1.1 precision.c,NONE,1.1 README,NONE,1.1 TODO,NONE,1.1</H1>
+    <B>ivop</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20fpm%20benchmark.c%2CNONE%2C1.1%20ChangeLog%2CNONE%2C1.1%20configure%2CNONE%2C1.1%20genbarcharts.sh%2CNONE%2C1.1%20gengraphs.sh%2CNONE%2C1.1%20genlut.c%2CNONE%2C1.1%20INSTALL%2CNONE%2C1.1%20Makefile%2CNONE%2C1.1%20precision.c%2CNONE%2C1.1%20README%2CNONE%2C1.1%20TODO%2CNONE%2C1.1&In-Reply-To=%3C200509130331.j8D3V5124309%40bat.berlios.de%3E"
+       TITLE="[fpm-cvslog] fpm benchmark.c,NONE,1.1 ChangeLog,NONE,1.1 configure,NONE,1.1 genbarcharts.sh,NONE,1.1 gengraphs.sh,NONE,1.1 genlut.c,NONE,1.1 INSTALL,NONE,1.1 Makefile,NONE,1.1 precision.c,NONE,1.1 README,NONE,1.1 TODO,NONE,1.1">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Tue Sep 13 05:31:05 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000077.html">[fpm-cvslog] website/docs/HTML-single/en default.css,1.6,1.7 index.html,1.7,1.8
+</A></li>
+        <LI>Next message: <A HREF="000079.html">[fpm-cvslog] fpm .cvsignore,1.6,1.7
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#78">[ date ]</a>
+              <a href="thread.html#78">[ thread ]</a>
+              <a href="subject.html#78">[ subject ]</a>
+              <a href="author.html#78">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/fpm/fpm
+In directory sheep:/tmp/cvs-serv25975
+
+Added Files:
+	benchmark.c ChangeLog configure genbarcharts.sh gengraphs.sh 
+	genlut.c INSTALL Makefile precision.c README TODO 
+Log Message:
+initial checkin
+
+
+
+--- NEW FILE: benchmark.c ---
+/* ------------------------------------------------------------------------- */
+
+/*
+ * Fixed Point Math Macro Library - Benchmark
+ *
+ * (C)2005 by Ivo van Poorten
+ * Licensed under version 2 of the GPL
+ *
+ * $Id: benchmark.c,v 1.1 2005/09/13 03:31:02 ivop Exp $
+ *
+ */
+
+/* ------------------------------------------------------------------------- */
+
+#include &lt;stdio.h&gt;
+#include &lt;math.h&gt;
+
+#include &quot;fixedpointmath.h&quot;
+
+/* ------------------------------------------------------------------------- */
+
+/* 10000 and 100000 or something, but lower values while testing scripts,
+ * Makefile, etc... */
+
+#define INNERLOOP   10000
+#define OUTERLOOP   1000
+#define VAL1        2.9
+#define VAL2        213
+#define VAL3        3.1
+
+/* ------------------------------------------------------------------------- */
+
+static inline long long rdtsc()
+{
+    long long timestamp;
+    asm volatile (&quot;rdtsc\n&quot; : &quot;=A&quot;(timestamp));
+    return timestamp;
+}
+
+/* ------------------------------------------------------------------------- */
+
+#define timeloop(AVG, CODE) \
+    do { \
+        sum = (uint64_t) 0; \
+        for (j=0; j&lt;OUTERLOOP; j++) { \
+            start = rdtsc(); \
+            for (i=0; i&lt;INNERLOOP; i++) { \
+                CODE; \
+            } \
+            end = rdtsc(); \
+            sum += (end-start); \
+        } \
+        AVG = sum / OUTERLOOP; \
+    } while(0)
+
+#define NINEi &quot;%i %i %i %i %i %i %i %i %i\n&quot;
+
+#define printreport(HEADER, a) \
+    do { \
+        printf(&quot;#&quot;HEADER&quot;\n&quot;); \
+        num=a*10; \
+        printf(NINEi, num++, 0, 0, 0, 0, 0, 0, 0, 0); \
+        printf(NINEi, num++, 0, prca, 0, 0, 0, 0, 0, 0); \
+        printf(NINEi, num++, 0, 0, prcb, 0, 0, 0, 0, 0); \
+        printf(NINEi, num++, 0, 0, 0, prcc, 0, 0, 0, 0); \
+        printf(NINEi, num++, 0, 0, 0, 0, prcd, 0, 0, 0); \
+        printf(NINEi, num++, 0, 0, 0, 0, 0, prcf, 0, 0); \
+        printf(NINEi, num++, 0, 0, 0, 0, 0, 0, prcg, 0); \
+        printf(NINEi, num++, 0, 0, 0, 0, 0, 0, 0, 0); \
+        printf(&quot;\n&quot;); \
+        fflush(stdout); \
+        fprintf(stderr, &quot;#&quot;HEADER&quot;\n&quot;); \
+        fprintf(stderr, &quot;# %-10s - % 4i%%\n&quot;, &quot;fp8p8_t&quot;, prca); \
+        fprintf(stderr, &quot;# %-10s - % 4i%%\n&quot;, &quot;fp24p8_t&quot;, prcb); \
+        fprintf(stderr, &quot;# %-10s - % 4i%%\n&quot;, &quot;fp16p16_t&quot;, prcc); \
+        fprintf(stderr, &quot;# %-10s - % 4i%%\n&quot;, &quot;fp8p24_t&quot;, prcd); \
+        fprintf(stderr, &quot;# %-10s - % 4i%%\n&quot;, &quot;float&quot;, prcf); \
+        fprintf(stderr, &quot;# %-10s - % 4i%%\n\n&quot;, &quot;double&quot;, prcg); \
+        fflush(stderr); \
+    } while(0)
+
+#define calcperc(PRC, AVG, AVGR) \
+    do { \
+        PRC = (AVG*100)/AVGR; \
+    } while(0)
+
+#define calcallperc \
+    do { \
+        calcperc(prca, avga, avgf); \
+        calcperc(prcb, avgb, avgf); \
+        calcperc(prcc, avgc, avgf); \
+        calcperc(prcd, avgd, avgf); \
+        calcperc(prcf, avgf, avgf); \
+        calcperc(prcg, avgg, avgf); \
+    } while(0)
+
+/* ------------------------------------------------------------------------- */
+
+/* There's a foobar timeloop between the fp8p8 add/sub test and fp24p8 test,
+ * because somehow (can anybody explain?) one needs to &quot;kick&quot; the CPU out of
+ * 16-bit short int mode */
+
+int main()
+{
+    unsigned int i, j, num;
+    ufp8p8_t   a1, a2, a3, a4;
+    ufp24p8_t  b1, b2, b3, b4;
+    ufp16p16_t c1, c2, c3, c4;
+    ufp8p24_t  d1, d2, d3, d4;
+    float      f1, f2, f3, f4;
+    double     g1, g2, g3, g4;
+    uint64_t   start, end, sum;
+    uint64_t   avga, avgb, avgc, avgd, avgf, avgg;
+    int        prca, prcb, prcc, prcd, prcf, prcg;
+    int        foo, bar;
+
+    a2 = dtoufp8p8(VAL1);
+    b2 = dtoufp24p8(VAL1);
+    c2 = dtoufp16p16(VAL1);
+    d2 = dtoufp8p24(VAL1);
+    f2 = VAL1;
+    g2 = VAL1;
+
+    a3 = dtoufp8p8(VAL2);
+    b3 = dtoufp24p8(VAL2);
+    c3 = dtoufp16p16(VAL2);
+    d3 = dtoufp8p24(VAL2);
+    f3 = VAL2;
+    g3 = VAL2;
+
+    a4 = dtoufp8p8(VAL3);
+    b4 = dtoufp24p8(VAL3);
+    c4 = dtoufp16p16(VAL3);
+    d4 = dtoufp8p24(VAL3);
+    f4 = VAL3;
+    g4 = VAL3;
+
+    /* ADD */
+
+    timeloop(avga, a1=a2+a3);
+    timeloop(foo, bar=bar);
+    timeloop(avgb, b1=b2+b3);
+    timeloop(avgc, c1=c2+c3);
+    timeloop(avgd, d1=d2+d3);
+    timeloop(avgf, f1=f2+f3);
+    timeloop(avgg, g1=g2+g3);
+    calcallperc;
+    printreport(&quot;ADD&quot;, 0);
+
+    /* SUB */
+
+    timeloop(avga, a1=a2-a3);
+    timeloop(foo, bar=bar);
+    timeloop(avgb, b1=b2-b3);
+    timeloop(avgc, c1=c2-c3);
+    timeloop(avgd, d1=d2-d3);
+    timeloop(avgf, f1=f2-f3);
+    timeloop(avgg, g1=g2-g3);
+    calcallperc;
+    printreport(&quot;SUB&quot;, 1);
+
+    /* MUL */
+
+    timeloop(avga, a1=mulufp8p8(a2,a3)  );
+    timeloop(avgb, b1=mulufp24p8(b2,b3) );
+    timeloop(avgc, c1=mulufp16p16(c2,c3));
+    timeloop(avgd, d1=mulufp8p24(d2,d3) );
+    timeloop(avgf, f1=f2*f3);
+    timeloop(avgg, g1=g2*g3);
+    calcallperc;
+    printreport(&quot;MUL&quot;, 2);
+
+    /* DIV */
+
+    timeloop(avga, a1=divufp8p8(a2,a3)  );
+    timeloop(avgb, b1=divufp24p8(b2,b3) );
+    timeloop(avgc, c1=divufp16p16(c2,c3));
+    timeloop(avgd, d1=divufp8p24(d2,d3) );
+    timeloop(avgf, f1=f2/f3);
+    timeloop(avgg, g1=g2/g3);
+    calcallperc;
+    printreport(&quot;DIV&quot;, 3);
+
+    /* SQRT */
+
+    timeloop(avga, a1=sqrtufp8p8(a2)  );
+    timeloop(avgb, b1=sqrtufp24p8(b2) );
+    timeloop(avgc, c1=sqrtufp16p16(c2));
+    timeloop(avgd, d1=sqrtufp8p24(d2) );
+    timeloop(avgf, f1=sqrt(f2));
+    timeloop(avgg, g1=sqrt(g2));
+    calcallperc;
+    printreport(&quot;SQRT&quot;, 4);
+
+    /* EXP */
+
+    timeloop(avga, a1=expufp8p8(a2)  );
+    timeloop(avgb, b1=expufp24p8(b2) );
+    timeloop(avgc, c1=expufp16p16(c2));
+    timeloop(avgd, d1=expufp8p24(d2) );
+    timeloop(avgf, f1=exp(f2));
+    timeloop(avgg, g1=exp(g2));
+    calcallperc;
+    printreport(&quot;EXP&quot;, 5);
+
+    /* LN */
+
+    timeloop(avga, a1=lnufp8p8(a3)  );
+    timeloop(avgb, b1=lnufp24p8(b3) );
+    timeloop(avgc, c1=lnufp16p16(c3));
+    timeloop(avgd, d1=lnufp8p24(d3) );
+    timeloop(avgf, f1=log(f3));
+    timeloop(avgg, g1=log(g3));
+    calcallperc;
+    printreport(&quot;LN&quot;, 6);
+
+    /* POW */
+
+    timeloop(avga, a1=powufp8p8(a3,a4)  );
+    timeloop(avgb, b1=powufp24p8(b3,b4) );
+    timeloop(avgc, c1=powufp16p16(c3,c4));
+    timeloop(avgd, d1=powufp8p24(d3,d4) );
+    timeloop(avgf, f1=pow(f3,f4));
+    timeloop(avgg, g1=pow(g3,g4));
+    calcallperc;
+    printreport(&quot;POW&quot;, 7);
+
+    return 0;
+}
+
+/* ------------------------------------------------------------------------- */
+
+
+--- NEW FILE: ChangeLog ---
+ChangeLog
+=========
+
+$Id: ChangeLog,v 1.1 2005/09/13 03:31:02 ivop Exp $
+
+v0.30   [First alpha release]
+
+    - Better Makefile(s)
+    - Fixed exp macro's conditional expressions to always evaluate as true
+    - Added make install/uninstall
+    - Generation of index.html for graphs
+    - Barcharts index.html &quot;tool&quot;
+    - Updated documentation
+
+v0.29   Added lut support for ln, exp and pow (indirectly)
+v0.28   Added precision(lut) and script to generate graphs of the output
+v0.27   First draft of documentation
+v0.26   Setup documentation build system
+v0.25   Moved types to code.h, finished sqrt LUT support (maybe 8fp24 needs
+        one more table, or at least higher resolution for lut256)
+v0.24   All todo's for 0.23 done.
+v0.23   Decent non-autotools configure script added; todo: test for gnuplot,
+        awk and fig2dev and have genbarchart act on that if one of them isn't
+        found. also add --with-indent= etc. options
+v0.22   Benchmark output changed to values and comments only, wrote barchart
+        script to generate PNG files of benchmark output, adjusted makefile
+        to do that
+v0.21   Preliminary sqrt LUT support and split of code and API in two .h
+        files.
+v0.20   Added pow()
+v0.19   After doing some timing tests, the &quot;oh-so-clever&quot; sqrt algorithm
+        turned out to be 10-15 times slower than floating point &lt;g&gt;
+        So, I completely rewrote the sqrt algorithm. It's still 3-11
+        times slower than the FPU, but is it possible to beat hardware
+        fsqrt that has a 14-bit lookup table? (athlon)
+v0.18   Fixed type problem in ftoufpxpx causing false integer overflow
+        compiler warnings.
+v0.17   Added a wrapper around ln() so constants can be passed. If a
+        variable is passed, it's no longer changed itself!
+v0.16   Replaced divs by muls in ln()
+v0.15   Added ln()
+v0.14   Removed silly 16p8 and 8p16 types
+v0.13   Added exp()
+v0.12   Changed sqrt() from nested macros to use a temp var (gcc trouble)
+v0.11   Added sqrt()
+v0.10   Basic types, mul() and div()
+
+
+--- NEW FILE: configure ---
+#! /bin/sh
+
+#
+# Alternate configure
+# Loosely based on MPlayer's configure
+#
+# (C)opyright 2005 by Ivo van Poorten
+# Licensed under version 2 of the GPL
+#
+# $Id: configure,v 1.1 2005/09/13 03:31:02 ivop Exp $
+#
+
+rm -f config.mak
+
+TMPC=&quot;configure-test-file.c&quot;
+TMPO=&quot;configure-test-file.o&quot;
+TMPLOG=&quot;configure.log&quot;
+
+rm -f $TMPLOG
+
+_debug=
+_cc=gcc
+_ccfordeps=&quot;$_cc -MM&quot;
+_ldd=ldd
+_prefix=/usr/local
+_cflags=&quot;-O4&quot;
+_warnings=
+_ldflags=-lm
+_inc_extra=
+_ld_extra=
+_make=make
+_indent=indent
+_makedepend=makedepend
+_gnuplot=gnuplot
+_awk=
+_fig2dev=fig2dev
+_fig2dev_png=
+
+
+# check environment
+
+if test &quot;$CC&quot; != &quot;&quot; ; then
+    _cc=$CC
+    _ccfordeps=&quot;$_cc -MM&quot;
+fi
+if test &quot;$CFLAGS&quot; != &quot;&quot; ; then
+    echo &quot;Warning: Overriding CFLAGS with environment variable ($CFLAGS)&quot;
+    echo &quot;If that's not what you want, run CFLAGS= ./configure&quot;
+    _cflags=$CFLAGS
+    echo
+fi
+
+# Functions
+
+case `echo -n` in
+    -n)     _echo_n=        _echo_c='\c'    ;; # SysV echo
+    *)      _echo_n='-n '   _echo_c=        ;; # BSD echo
+esac
+
+echocheck() {
+    echo &quot;============ Checking for $@ ============&quot; &gt;&gt; &quot;$TMPLOG&quot;
+    echo ${_echo_n} &quot;Checking for $@ ... ${_echo_c}&quot;
+}
+
+echores() {
+    echo &quot;Result is: $@&quot; &gt;&gt; &quot;$TMPLOG&quot;
+    echo &quot;##########################################&quot; &gt;&gt; &quot;$TMPLOG&quot;
+    echo &quot;&quot; &gt;&gt; &quot;$TMPLOG&quot;
+    echo &quot;$@&quot;
+}
+
+cc_check() {
+    echo &quot;&quot; &gt;&gt; &quot;$TMPLOG&quot;
+    cat &quot;$TMPC&quot; &gt;&gt; &quot;$TMPLOG&quot;
+    echo &quot;&quot; &gt;&gt; &quot;$TMPLOG&quot;
+    echo &quot;$_cc $CFLAGS $_inc_extra $_ld_extra $TMPC -o $TMPO $@&quot; &gt;&gt; &quot;$TMPLOG&quot;
+    rm -f &quot;$TMPO&quot;
+    ( $_cc $CFLAGS $_inc_extra $_ld_extra &quot;$TMPC&quot; -o &quot;$TMPO&quot; &quot;$@&quot; ) &gt;&gt; &quot;$TMPLOG&quot; 2&gt;&amp;1
+    TMP=&quot;$?&quot;
+    echo &gt;&gt; &quot;$TMPLOG&quot;
+    echo &quot;ldd $TMPO&quot; &gt;&gt; &quot;$TMPLOG&quot;
+    ( $_ldd &quot;$TMPO&quot; ) &gt;&gt; &quot;$TMPLOG&quot; 2&gt;&amp;1
+    echo &gt;&gt; &quot;$TMPLOG&quot;
+    return &quot;$TMP&quot;
+}
+
+die () {
+    echo
+    echo &quot;Error: $@&quot; &gt;&amp;2
+    echo &gt;&amp;2
+    rm -f &quot;$TMPO&quot; &quot;$TMPC&quot;
+    echo &quot;Check \&quot;$TMPLOG\&quot; if you do not understand why it failed.&quot;
+    echo
+    exit 1
+}
+
+# Parse commandline
+
+for parm in &quot;$@&quot;; do
+    if test &quot;$parm&quot; = &quot;--help&quot; || test &quot;$parm&quot; = &quot;-help&quot; || test &quot;$parm&quot; = &quot;-h&quot; ; then
+        cat &lt;&lt; EOF
+
+Usage $0 [options] ...
+
+Configuration:
+  -h, --help                display this help and exit
+
+Installation directories:
+  --prefix=DIR              use this prefix for installation [/usr/local]
+
+Miscellaneous options:
+  --cc=COMPILER             use this C compiler to build [gcc]
+  --with-extraincdir=DIR    extra headers
+  --with-extralibdir=DIR    extra library files
+
+Advanced options:
+  --enable-debug            enable debug symbols [disabled]
+  --enable-warnings         enable all compiler warnings [disabled]
+
+  --with-make=              use a custom make program
+  --with-indent=            use a custom indent program
+  --with-makedepend=        use a custom makedepend program (if needed)
+  --with-gnuplot=           use a custom gnuplot program (if needed)
+  --with-awk=               use a custom awk program (if needed)
+  --with-fig2dev=           use a custom fig2dev program (if needed)
+
+EOF
+        exit 0
+    fi
+done
+
+for ac_option do
+    case &quot;$ac_option&quot; in
+    --prefix=*)
+        _prefix=`echo $ac_option | cut -d '=' -f 2`
+        ;;
+    --cc=*)
+        _cc=`echo $ac_option | cut -d '=' -f 2`
+        ;;
+    --with-extraincdir=*)
+        _inc_extra=-I`echo $ac_option | cut -d '=' -f 2 | sed 's,:, -I,g'`
+        ;;
+    --with-extralibdir=*)
+        _ld_extra=-L`echo $ac_option | cut -d '=' -f 2 | sed 's,:, -L,g'`
+        ;;
+    --disable-debug)
+        _debug=&quot;&quot;
+        ;;
+    --enable-debug)
+        _debug=&quot;-g&quot;
+        _cflags=&quot;&quot;
+        ;;
+    --disable-warnings)
+        _warnings=&quot;&quot;
+        ;;
+    --enable-warnings)
+        _warnings=&quot;-Wall&quot;
+        ;;
+    --with-make=*)
+        _make=`echo $ac_option | cut -d '=' -f 2`
+        ;;
+    --with-indent=*)
+        _indent=`echo $ac_option | cut -d '=' -f 2`
+        ;;
+    --with-makedepend=*)
+        _makedepend=`echo $ac_option | cut -d '=' -f 2`
+        ;;
+    --with-gnuplot=*)
+        _gnuplot=`echo $ac_option | cut -d '=' -f 2`
+        ;;
+    --with-awk=*)
+        _awk=`echo $ac_option | cut -d '=' -f 2`
+        ;;
+    --with-fig2dev=*)
+        _fig2dev=`echo $ac_option | cut -d '=' -f 2`
+        ;;
+    *)
+        echo &quot;unknown option: $ac_option&quot;
+        exit 1
+        ;;
+    esac
+done
+
+
+# Do tests...
+
+echocheck &quot;c compiler&quot;
+cc_run=`( $_cc ) 2&gt;&amp;1`
+if test &quot;$?&quot; -gt 1; then
+    echores &quot;no&quot;
+    die &quot;can't find compiler&quot;
+fi
+echores &quot;$_cc&quot;
+
+
+
+echocheck &quot;extra headers&quot;
+if test &quot;$_inc_extra&quot; ; then
+    echores &quot;$_inc_extra&quot;
+else
+    echores &quot;no&quot;
+fi
+
+
+
+echocheck &quot;extra libraries&quot;
+if test &quot;$_ld_extra&quot; ; then
+    echores &quot;$_ld_extra&quot;
+else
+    echores &quot;no&quot;
+fi
+
+
+
+echocheck &quot;indent&quot;
+(echo &quot;$_indent&quot; | $_indent) &gt;&gt; &quot;$TMPLOG&quot; 2&gt;&amp;1
+_tmp=`(echo &quot;indent&quot; | $_indent) 2&gt;&amp;1`
+if test &quot;$_tmp&quot; = &quot;indent&quot; ; then
+    echores &quot;yes, $_indent&quot;
+else
+    echores &quot;no, using cat instead&quot;
+    _indent=cat
+fi
+
+
+
+echocheck &quot;$_cc support of -MM option&quot;
+cat &gt; $TMPC &lt;&lt; EOF
+int main(void) { return 0; }
+EOF
+$_cc -MM $TMPC &gt;&gt; $TMPLOG 2&gt;&amp;1
+if test &quot;$?&quot; -gt 0; then
+    echores &quot;no&quot;
+    _ccfordeps=&quot;&quot;
+else
+    echores &quot;yes&quot;
+    _ccfordeps=&quot;$_cc -MM&quot;
+fi
+
+
+
+if test &quot;$_ccfordeps&quot; = &quot;&quot;; then
+    echocheck &quot;makedepend&quot;
+    cat &gt; $TMPC &lt;&lt; EOF
+int main(void) { return 0; }
+EOF
+    $_makedepend -f- $TMPC &gt;&gt; $TMPLOG 2&gt;&amp;1
+    if test &quot;$?&quot; -gt 0; then
+        echores &quot;no&quot;
+        die &quot;If you compiler doensn't understand -MM, makedepend is needed.&quot;
+    else
+        echores &quot;yes, $_makedepend&quot;
+        _ccfordeps=&quot;$_makedepend -f-&quot;
+    fi
+fi
+
+
+
+echocheck &quot;gnuplot&quot;
+(echo &quot;set terminal fig; plot x;&quot; | $_gnuplot) 2&gt;&gt; &quot;$TMPLOG&quot; 1&gt;/dev/null
+if test &quot;$?&quot; -gt 0 ; then
+    echores &quot;no&quot;
+    _gnuplot=&quot;&quot;
+    _nobarcharts=&quot;yes&quot;
+else
+    echores &quot;yes, $_gnuplot&quot;
+fi
+
+
+
+echocheck &quot;awk&quot;
+for _awkt in $_awk mawk gawk nawk awk noawkpresent; do
+    ( $_awkt 'BEGIN{testme();}function testme(){print &quot;&quot;;}' ) &gt;&gt; &quot;$TMPLOG&quot; 2&gt;&amp;1
+    if test &quot;$?&quot; -eq 0 ; then
+        echores &quot;yes, $_awkt&quot;
+        break
+    fi
+done
+_awk=$_awkt
+if test &quot;$_awk&quot; = &quot;noawkpresent&quot;; then
+    echores &quot;no&quot;
+    _awk=&quot;&quot;
+    _nobarcharts=&quot;yes&quot;
+fi
+
+
+
+echocheck &quot;fig2dev&quot;
+($_fig2dev -h) 2&gt;&gt; &quot;$TMPLOG&quot; 1&gt;/dev/null
+if test &quot;$?&quot; -gt 0 ; then
+    echores &quot;no&quot;
+    _fig2dev=&quot;&quot;
+    _nobarcharts=&quot;yes&quot;
+else
+    echores &quot;yes, $_fig2dev&quot;
+fi
+
+
+
+if test &quot;$_fig2dev&quot; != &quot;&quot; ; then
+    echocheck &quot;$_fig2dev support of PNG output&quot;
+    _fig2dev_png=`($_fig2dev -h | grep png) 2&gt;&gt;&quot;$TMPLOG&quot;`
+    if test &quot;$_fig2dev_png&quot; = &quot;&quot; ; then
+        echores &quot;no&quot;
+        _fig2dev_png=no
+    else
+        echores &quot;yes&quot;
+        _fig2dev_png=yes
+    fi
+fi
+
+
+
+# Write report
+
+echo
+if test &quot;$_debug&quot; = &quot;&quot;; then
+    echo &quot;Debug symbols disabled.&quot;
+else
+    echo &quot;Debug symbols enabled.&quot;
+fi
+if test &quot;$_warnings&quot; = &quot;&quot;; then
+    echo &quot;All compiler warnings disabled.&quot;
+else
+    echo &quot;All compiler warnings enabled.&quot;
+fi
+
+if test &quot;$_nobarcharts&quot; = &quot;yes&quot;; then
+    echo ${_echo_n} &quot;No benchmark barcharts support because the ${_echo_c}&quot;
+    echo &quot;following programs were not found:&quot;
+    echo ${_echo_n} &quot;    ${_echo_c}&quot;
+    if test &quot;$_gnuplot&quot; = &quot;&quot;; then
+        echo ${_echo_n} &quot;gnuplot ${_echo_c}&quot;
+    fi
+    if test &quot;$_awk&quot; = &quot;&quot;; then
+        echo ${_echo_n} &quot;awk ${_echo_c}&quot;
+    fi
+    if test &quot;$_fig2dev&quot; = &quot;&quot;; then
+        echo ${_echo_n} &quot;fig2dev ${_echo_c}&quot;
+    fi
+    echo
+fi
+
+
+
+# Cleaning up source tree
+
+echo
+echo ${_echo_n} &quot;Cleaning up source tree ... ${_echo_c}&quot;
+&gt;<i> config.mak
+</I>$_make clean &gt;&gt; $TMPLOG 2&gt;&amp;1
+echores &quot;done&quot;
+
+
+# Assemble _cflags and _ldflags
+
+_cflags=&quot;$_cflags&quot;
+_ldflags=&quot;$_ldflags $_ld_extra&quot;
+
+# Generate config.mak
+
+echo
+echo ${_echo_n} &quot;Generating config.mak ... ${_echo_c}&quot;
+cat &gt; config.mak &lt;&lt; EOF
+CC=$_cc
+CFLAGS=$_cflags
+INCLUDES=-I./include $_inc_extra
+CCFORDEPS=$_ccfordeps
+LD=$_cc
+LDFLAGS=$_ldflags
+INDENT=$_indent
+DEBUG=$_debug
+WARNINGS=$_warnings
+MAKE=$_make
+PREFIX=$_prefix
+EOF
+
+echo &quot;done.&quot;
+
+# Generate config.sh for shellscripts (like genbarcharts.sh)
+
+echo ${_echo_n} &quot;Generating config.sh ... ${_echo_c}&quot;
+cat &gt; config.sh &lt;&lt; EOF
+_gnuplot=$_gnuplot
+_awk=$_awk
+_fig2dev=$_fig2dev
+_fig2dev_png=$_fig2dev_png
+EOF
+
+echo &quot;done.&quot;
+echo
+echo &quot;Now type 'make' to build.&quot;
+echo
+
+# Clean up
+
+rm -f &quot;$TMPC&quot; &quot;$TMPO&quot;
+
+
+--- NEW FILE: genbarcharts.sh ---
+#!/bin/sh
+
+# $Id: genbarcharts.sh,v 1.1 2005/09/13 03:31:02 ivop Exp $
+
+# Script to generate barcharts from benchmark output
+# (C)opyright 2005 by Ivo van Poorten
+# Licensed under version 2 of the GPL
+
+# awk trick inspired by:
+# <A HREF="http://www.togaware.com/datamining/gdatamine/barchart">http://www.togaware.com/datamining/gdatamine/barchart</A>
+
+# Read config
+
+. ./config.sh
+
+# Test if all tools were available
+
+testavail() {
+    if [ &quot;$1&quot; == &quot;&quot; ]; then
+        echo &quot;Can't create barcharts. $2 is not available on your system.&quot;
+        exit 0
+    fi
+}
+
+testavail &quot;$_gnuplot&quot; &quot;gnuplot&quot;
+testavail &quot;$_awk&quot; &quot;awk&quot;
+testavail &quot;$_fig2dev&quot; &quot;fig2dev&quot;
+
+if [ &quot;$_fig2dev_png&quot; == &quot;no&quot; ]; then
+    echo &quot;Can't generate barcharts. Your $_fig2dev doesn't have PNG support.&quot;
+    exit 0
+fi
+
+# check command line
+
+if [ &quot;$#&quot; != &quot;3&quot; ]; then
+    echo &quot;usage: $0 &lt;datafile&gt; &lt;outputdirectory&gt; &lt;prefix-to-filenames&gt;&quot;
+    exit -1
+fi
+
+# generate all barcharts
+
+xleft=0
+xright=7
+
+for i in add sub mul div sqrt exp ln pow
+do
+
+( cat &lt;&lt; __EOF__
+set nokey
+set xrange [$xleft:$xright]
+set yrange [0:150]
+set data style boxes
+set grid
+set noborder
+
+set terminal fig color
+
+plot &quot;$1&quot; using 1:2, &quot;$1&quot; using 1:3, &quot;$1&quot; using 1:4, &quot;$1&quot; using 1:5, &quot;$1&quot; using 1:6, &quot;$1&quot; using 1:7, &quot;$1&quot; using 1:8, &quot;$1&quot; using 1:9
+
+__EOF__
+) | $_gnuplot | $_awk 'BEGIN {} /10 0 -1     0.000 0 0 0 0 0 5/{$9=20} {print}' | $_fig2dev -L png -m 1 &gt; $2/$3\_benchmark_$i.png
+
+xleft=`expr $xleft + 10`
+xright=`expr $xright + 10`
+
+done
+
+
+--- NEW FILE: gengraphs.sh ---
+#!/bin/sh
+
+# $Id: gengraphs.sh,v 1.1 2005/09/13 03:31:02 ivop Exp $
+
+# Script to generate graphs from precision output
+# (C)opyright 2005 by Ivo van Poorten
+# Licensed under version 2 of the GPL
+
+# generic function
+
+# xrange yrange outfile
+
+gengraph() {
+    echo &quot;Generating $3.png&quot;
+( cat &lt;&lt; __EOF__
+set nokey
+set xrange [$1]
+set yrange [$2]
+set data style lines
+set grid
+set border
+
+set terminal fig color
+
+plot &quot;precision.dat&quot; using 1:2, &quot;precision.dat&quot; using 1:3
+
+__EOF__
+) | $_gnuplot | $_fig2dev -L png -m 0.85 &gt; $3.png
+}
+
+# Read config
+
+. ./config.sh
+
+# Test if all tools were available
+
+testavail() {
+    if [ &quot;$1&quot; == &quot;&quot; ]; then
+        echo &quot;Can't create graphs. $2 is not available on your system.&quot;
+        exit 0
+    fi
+}
+
+testavail &quot;$_gnuplot&quot; &quot;gnuplot&quot;
+testavail &quot;$_fig2dev&quot; &quot;fig2dev&quot;
+
+if [ &quot;$_fig2dev_png&quot; == &quot;no&quot; ]; then
+    echo &quot;Can't generate barcharts. Your $_fig2dev doesn't have PNG support.&quot;
+    exit 0
+fi
+
+# check command line
+
+if [ &quot;$#&quot; != &quot;1&quot; ]; then
+    echo &quot;usage: $0 &lt;output-directory&gt;&quot;
+    exit -1
+fi
+
+# generate all graphs + index.html
+
+( cat &lt;&lt; __EOF__
+&lt;HTML&gt;
+&lt;HEAD&gt;&lt;/HEAD&gt;
+&lt;BODY BGCOLOR=&quot;#f0f0f0&quot;&gt;
+__EOF__
+) &gt; $1/index.html
+
+overview(){
+    case $1 in
+    sqrt)
+        echo 0:256 0:16
+        ;;
+    exp)
+        echo 0:5.5 0:256
+        ;;
+    ln)
+        echo 1:256 0:6
+        ;;
+    pow)
+        echo 1:16 0:256
+        ;;
+    esac
+}
+
+zoom1() {
+    case $1 in
+    sqrt)
+        echo 0:4 0:2
+        ;;
+    exp)
+        echo 0:3 0:16
+        ;;
+    ln)
+        echo 1:5 0:2
+        ;;
+    pow)
+        echo 1:2 0:4
+        ;;
+    esac
+}
+
+zoom2() {
+    case $1 in
+    sqrt)
+        echo 112:144 10.25:12.25
+        ;;
+    exp)
+        echo 4:5 50:150
+        ;;
+    ln)
+        echo 3:4 1:1.5
+        ;;
+    pow)
+        echo 8:12 50:150
+        ;;
+    esac
+}
+
+for func in sqrt exp ln pow
+do
+
+    for fptype in ufp8p8 ufp24p8 ufp16p16 ufp8p24
+    do
+        echo &quot;Calculating algorithmic data...&quot;
+        ./precision $fptype $func &gt; precision.dat
+
+        outfile=$1/algo_precision_$fptype\_$func
+        gengraph `overview $func` $outfile\_overview
+        gengraph `zoom1 $func` $outfile\_zoom1
+        gengraph `zoom2 $func` $outfile\_zoom2
+
+        echo &quot;Adding lines to index.html...&quot;
+
+        outfile=`basename $outfile`
+        ( cat &lt;&lt; __EOF__
+&lt;B&gt; $func - $fptype - algorithmic &lt;/B&gt;&lt;BR&gt;
+&lt;IMG SRC=&quot;${outfile}_overview.png&quot;&gt;
+&lt;IMG SRC=&quot;${outfile}_zoom1.png&quot;&gt;
+&lt;IMG SRC=&quot;${outfile}_zoom2.png&quot;&gt;
+&lt;BR&gt;
+__EOF__
+) &gt;&gt; $1/index.html
+
+        echo &quot;Calculating LUT data...&quot;
+        ./precisionlut $fptype $func &gt; precision.dat
+
+        outfile=$1/lut_precision_$fptype\_$func
+        gengraph `overview $func` $outfile\_overview
+        gengraph `zoom1 $func` $outfile\_zoom1
+        gengraph `zoom2 $func` $outfile\_zoom2
+
+        echo &quot;Adding lines to index.html...&quot;
+
+        outfile=`basename $outfile`
+        ( cat &lt;&lt; __EOF__
+&lt;B&gt; $func - $fptype - lut &lt;/B&gt;&lt;BR&gt;
+&lt;IMG SRC=&quot;${outfile}_overview.png&quot;&gt;
+&lt;IMG SRC=&quot;${outfile}_zoom1.png&quot;&gt;
+&lt;IMG SRC=&quot;${outfile}_zoom2.png&quot;&gt;
+&lt;P&gt;&lt;HR&gt;
+__EOF__
+) &gt;&gt; $1/index.html
+
+
+    done
+done
+
+echo &quot;&lt;/BODY&gt;&quot; &gt;&gt; $1/index.html
+
+
+--- NEW FILE: genlut.c ---
+/* ------------------------------------------------------------------------- */
+
+/*
+ * Fixed Point Math Macro Library - Generate Look-Up-Tables
+ *
+ * (C)opyright 2005 by Ivo van Poorten
+ * Licensed under version 2 of the GPL
+ *
+ * $Id: genlut.c,v 1.1 2005/09/13 03:31:02 ivop Exp $
+ *
+ */
+
+/* ------------------------------------------------------------------------- */
+
+#include &lt;math.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;inttypes.h&gt;
+
+/* ------------------------------------------------------------------------- */
+
+#define outputccode(A, B, C, D, e) \
+    printf(&quot;\n/* &quot;A&quot; */\n\n&quot;); \
+    printf(&quot;static &quot;B&quot; &quot;C&quot;[%i] = {\n&quot;, e); \
+    for (i=0; i&lt;e-1; i++) { \
+        printf(&quot;%uU, &quot;, D[i]); \
+    } \
+    printf(&quot;%uU };\n&quot;, D[i]);
+
+/* ------------------------------------------------------------------------- */
+
+int main()
+{
+    double round(double d);
+    uint16_t ufp8p8sqrtlut_16[129],   ufp8p8sqrtlut_256[121];
+    uint32_t ufp24p8sqrtlut_16[129],  ufp24p8sqrtlut_256[121],
+             ufp24p8sqrtlut_64k[129], ufp24p8sqrtlut_16m[129];
+    uint32_t ufp16p16sqrtlut_16[129], ufp16p16sqrtlut_256[121],
+             ufp16p16sqrtlut_64k[129];
+    uint32_t ufp8p24sqrtlut_4[129],   ufp8p24sqrtlut_16[129],
+             ufp8p24sqrtlut_256[121];
+
+    uint16_t ufp8p8explut_16[129],   ufp8p8explut_256[121];
+    uint32_t ufp24p8explut_16[129],  ufp24p8explut_256[121],
+             ufp24p8explut_64k[129], ufp24p8explut_16m[129];
+    uint32_t ufp16p16explut_16[129], ufp16p16explut_256[121],
+             ufp16p16explut_64k[129];
+    uint32_t ufp8p24explut_4[129],   ufp8p24explut_16[129],
+             ufp8p24explut_256[121];
+
+    uint16_t ufp8p8lnlut_16[129],   ufp8p8lnlut_256[121];
+    uint32_t ufp24p8lnlut_16[129],  ufp24p8lnlut_256[121],
+             ufp24p8lnlut_64k[129], ufp24p8lnlut_16m[129];
+    uint32_t ufp16p16lnlut_16[129], ufp16p16lnlut_256[121],
+             ufp16p16lnlut_64k[129];
+    uint32_t ufp8p24lnlut_4[129],   ufp8p24lnlut_16[129],
+             ufp8p24lnlut_256[121];
+    int i;
+    double d, e, f;
+
+    for (i=0; i&lt;=128; i++) {
+        d = sqrt(i/32.0);
+        e = exp(i/32.0);
+        f = log(i/32.0);
+        /* sqrt */
+        ufp8p24sqrtlut_4[i] = round(d*65536.0*256.0);
+        /* exp */
+        ufp8p24explut_4[i]  = round(e*65536.0*256.0);
+        /* ln */
+        if (f&lt;0) f = 0.0;
+        ufp8p24lnlut_4[i]   = round(f*65536.0*256.0);
+    }
+
+    for (i=0; i&lt;=128; i++) {
+        d = sqrt(i/8.0);
+        e = exp(i/8.0);
+        f = log(i/8.0);
+        /* sqrt */
+        ufp8p8sqrtlut_16[i]   = round(d*256.0);
+        ufp24p8sqrtlut_16[i]  = round(d*256.0);
+        ufp16p16sqrtlut_16[i] = round(d*65536.0);
+        ufp8p24sqrtlut_16[i]  = round(d*65536.0*256.0);
+        /* exp */
+        if (e&gt;=16777216.0) e = 0.0;
+        ufp24p8explut_16[i]  = round(e*256.0);
+        if (e&gt;=65536.0) e = 0.0;
+        ufp16p16explut_16[i] = round(e*65536.0);
+        if (e&gt;=256.0) e = 256.0;
+        ufp8p24explut_16[i]  = round(e*65536.0*256.0);
+        ufp8p8explut_16[i]   = round(e*256.0);
+        /* ln */
+        if (f&lt;0) f = 0.0;
+        ufp8p8lnlut_16[i]   = round(f*256.0);
+        ufp24p8lnlut_16[i]  = round(f*256.0);
+        ufp16p16lnlut_16[i] = round(f*65536.0);
+        ufp8p24lnlut_16[i]  = round(f*65536.0*256.0);
+    }
+
+    for (i=0; i&lt;=120; i++) {
+        d = sqrt(16.0 + i*2.0);
+        e = exp(16.0 + i*2.0);
+        f = log(16.0 + i*2.0);
+        /* sqrt */
+        ufp8p8sqrtlut_256[i]   = round(d*256.0);
+        ufp24p8sqrtlut_256[i]  = round(d*256.0);
+        ufp16p16sqrtlut_256[i] = round(d*65536.0);
+        ufp8p24sqrtlut_256[i]  = round(d*65536.0*256.0);
+        /* exp */
+        if (e&gt;=16777216.0) e = 0.0;
+        ufp24p8explut_256[i]  = round(e*256.0);
+        if (e&gt;=65536.0) e = 0.0;
+        ufp16p16explut_256[i] = round(e*65536.0);
+        if (e&gt;=256.0) e = 0.0;
+        ufp8p24explut_256[i]  = round(e*65536.0*256.0);
+        ufp8p8explut_256[i]   = round(e*256.0);
+        /* ln */
+        ufp8p8lnlut_256[i]   = round(f*256.0);
+        ufp24p8lnlut_256[i]  = round(f*256.0);
+        ufp16p16lnlut_256[i] = round(f*65536.0);
+        ufp8p24lnlut_256[i]  = round(f*65536.0*256.0);
+    }
+
+    for (i=0; i&lt;=128; i++) {
+        d = sqrt(256.0 + i*2.0*256.0);
+        e = exp(256.0 + i*2.0*256.0);
+        f = log(256.0 + i*2.0*256.0);
+        /* sqrt */
+        ufp24p8sqrtlut_64k[i]   = round(d*256.0);
+        ufp16p16sqrtlut_64k[i]  = round(d*65536.0);
+        /* exp */
+        e = 0.0;
+        ufp24p8explut_64k[i]   = round(e*256.0);
+        ufp16p16explut_64k[i]  = round(e*65536.0);
+        /* ln */
+        ufp24p8lnlut_64k[i]   = round(f*256.0);
+        ufp16p16lnlut_64k[i]  = round(f*65536.0);
+    }
+
+    for (i=0; i&lt;=128; i++) {
+        d = sqrt(65536.0 + i*2.0*65536.0);
+        e = exp(65536.0 + i*2.0*65536.0);
+        f = log(65536.0 + i*2.0*65536.0);
+        /* sqrt */
+        ufp24p8sqrtlut_16m[i] = round(d*256.0);
+        /* exp */
+        e = 0.0;
+        ufp24p8explut_16m[i] = round(e*256.0);
+        /* ln */
+        ufp24p8lnlut_16m[i] = round(f*256.0);
+    }
+
+    printf(&quot;/* DO NOT INCLUDE THIS FILE DIRECTLY! ALWAYS &quot;);
+    printf(&quot;INCLUDE fixedpointmath.h only!! */\n\n&quot;);
+
+    printf(&quot;/*\n * Fixed Point Math Macro Library - Look Up Tables\n&quot;);
+    printf(&quot; * Licensed under version 2 of the GPL\n */\n\n&quot;);
+
+    printf(&quot;#ifndef __FIXEDPOINTMATHLUT_H__\n&quot;);
+    printf(&quot;#define __FIXEDPOINTMATHLUT_H__\n&quot;);
+
+    /* sqrt */
+    printf(&quot;\n#if defined(__FPM_ENABLE_SQRT_LUT__) || &quot;
+                 &quot;defined(__FPM_ENABLE_ALL_LUT__)\n&quot;);
+
+    outputccode(&quot;ufp8p8 sqrt 16&quot;,  &quot;ufp8p8_t&quot;, &quot;_ufp8p8sqrtlut_16&quot;,
+                ufp8p8sqrtlut_16, 129);
+    outputccode(&quot;ufp8p8 sqrt 256&quot;, &quot;ufp8p8_t&quot;, &quot;_ufp8p8sqrtlut_256&quot;,
+                ufp8p8sqrtlut_256, 121);
+
+    outputccode(&quot;ufp24p8 sqrt 16&quot;,  &quot;ufp24p8_t&quot;, &quot;_ufp24p8sqrtlut_16&quot;,
+                ufp24p8sqrtlut_16, 129);
+    outputccode(&quot;ufp24p8 sqrt 256&quot;, &quot;ufp24p8_t&quot;, &quot;_ufp24p8sqrtlut_256&quot;,
+                ufp24p8sqrtlut_256, 121);
+    outputccode(&quot;ufp24p8 sqrt 64k&quot;, &quot;ufp24p8_t&quot;, &quot;_ufp24p8sqrtlut_64k&quot;,
+                ufp24p8sqrtlut_64k, 129);
+    outputccode(&quot;ufp24p8 sqrt 16m&quot;, &quot;ufp24p8_t&quot;, &quot;_ufp24p8sqrtlut_16m&quot;,
+                ufp24p8sqrtlut_16m, 129);
+
+    outputccode(&quot;ufp16p16 sqrt 16&quot;,  &quot;ufp16p16_t&quot;, &quot;_ufp16p16sqrtlut_16&quot;,
+                ufp16p16sqrtlut_16, 129);
+    outputccode(&quot;ufp16p16 sqrt 256&quot;, &quot;ufp16p16_t&quot;, &quot;_ufp16p16sqrtlut_256&quot;,
+                ufp16p16sqrtlut_256, 121);
+    outputccode(&quot;ufp16p16 sqrt 64k&quot;, &quot;ufp16p16_t&quot;, &quot;_ufp16p16sqrtlut_64k&quot;,
+                ufp16p16sqrtlut_64k, 129);
+
+    outputccode(&quot;ufp8p24 sqrt 4&quot;,  &quot;ufp8p24_t&quot;, &quot;_ufp8p24sqrtlut_4&quot;,
+                ufp8p24sqrtlut_4, 129);
+    outputccode(&quot;ufp8p24 sqrt 16&quot;, &quot;ufp8p24_t&quot;, &quot;_ufp8p24sqrtlut_16&quot;,
+                ufp8p24sqrtlut_16, 129);
+    outputccode(&quot;ufp8p24 sqrt 256&quot;, &quot;ufp8p24_t&quot;, &quot;_ufp8p24sqrtlut_256&quot;,
+                ufp8p24sqrtlut_256, 121);
+
+    printf(&quot;\n#endif /* SQRT LUT */\n&quot;);
+
+    /* exp */
+    printf(&quot;\n#if defined(__FPM_ENABLE_EXP_LUT__) || &quot;
+                 &quot;defined(__FPM_ENABLE_ALL_LUT__)\n&quot;);
+
+    outputccode(&quot;ufp8p8 exp 16&quot;,  &quot;ufp8p8_t&quot;, &quot;_ufp8p8explut_16&quot;,
+                ufp8p8explut_16, 129);
+    outputccode(&quot;ufp8p8 exp 256&quot;, &quot;ufp8p8_t&quot;, &quot;_ufp8p8explut_256&quot;,
+                ufp8p8explut_256, 121);
+
+    outputccode(&quot;ufp24p8 exp 16&quot;,  &quot;ufp24p8_t&quot;, &quot;_ufp24p8explut_16&quot;,
+                ufp24p8explut_16, 129);
+    outputccode(&quot;ufp24p8 exp 256&quot;, &quot;ufp24p8_t&quot;, &quot;_ufp24p8explut_256&quot;,
+                ufp24p8explut_256, 121);
+    outputccode(&quot;ufp24p8 exp 64k&quot;, &quot;ufp24p8_t&quot;, &quot;_ufp24p8explut_64k&quot;,
+                ufp24p8explut_64k, 129);
+    outputccode(&quot;ufp24p8 exp 16m&quot;, &quot;ufp24p8_t&quot;, &quot;_ufp24p8explut_16m&quot;,
+                ufp24p8explut_16m, 129);
+
+    outputccode(&quot;ufp16p16 exp 16&quot;,  &quot;ufp16p16_t&quot;, &quot;_ufp16p16explut_16&quot;,
+                ufp16p16explut_16, 129);
+    outputccode(&quot;ufp16p16 exp 256&quot;, &quot;ufp16p16_t&quot;, &quot;_ufp16p16explut_256&quot;,
+                ufp16p16explut_256, 121);
+    outputccode(&quot;ufp16p16 exp 64k&quot;, &quot;ufp16p16_t&quot;, &quot;_ufp16p16explut_64k&quot;,
+                ufp16p16explut_64k, 129);
+
+    outputccode(&quot;ufp8p24 exp 4&quot;,  &quot;ufp8p24_t&quot;, &quot;_ufp8p24explut_4&quot;,
+                ufp8p24explut_4, 129);
+    outputccode(&quot;ufp8p24 exp 16&quot;, &quot;ufp8p24_t&quot;, &quot;_ufp8p24explut_16&quot;,
+                ufp8p24explut_16, 129);
+    outputccode(&quot;ufp8p24 exp 256&quot;, &quot;ufp8p24_t&quot;, &quot;_ufp8p24explut_256&quot;,
+                ufp8p24explut_256, 121);
+
+    printf(&quot;\n#endif /* EXP LUT */\n&quot;);
+
+    /* ln */
+    printf(&quot;\n#if defined(__FPM_ENABLE_LN_LUT__) || &quot;
+                 &quot;defined(__FPM_ENABLE_ALL_LUT__)\n&quot;);
+
+    outputccode(&quot;ufp8p8 ln 16&quot;,  &quot;ufp8p8_t&quot;, &quot;_ufp8p8lnlut_16&quot;,
+                ufp8p8lnlut_16, 129);
+    outputccode(&quot;ufp8p8 ln 256&quot;, &quot;ufp8p8_t&quot;, &quot;_ufp8p8lnlut_256&quot;,
+                ufp8p8lnlut_256, 121);
+
+    outputccode(&quot;ufp24p8 ln 16&quot;,  &quot;ufp24p8_t&quot;, &quot;_ufp24p8lnlut_16&quot;,
+                ufp24p8lnlut_16, 129);
+    outputccode(&quot;ufp24p8 ln 256&quot;, &quot;ufp24p8_t&quot;, &quot;_ufp24p8lnlut_256&quot;,
+                ufp24p8lnlut_256, 121);
+    outputccode(&quot;ufp24p8 ln 64k&quot;, &quot;ufp24p8_t&quot;, &quot;_ufp24p8lnlut_64k&quot;,
+                ufp24p8lnlut_64k, 129);
+    outputccode(&quot;ufp24p8 ln 16m&quot;, &quot;ufp24p8_t&quot;, &quot;_ufp24p8lnlut_16m&quot;,
+                ufp24p8lnlut_16m, 129);
+
+    outputccode(&quot;ufp16p16 ln 16&quot;,  &quot;ufp16p16_t&quot;, &quot;_ufp16p16lnlut_16&quot;,
+                ufp16p16lnlut_16, 129);
+    outputccode(&quot;ufp16p16 ln 256&quot;, &quot;ufp16p16_t&quot;, &quot;_ufp16p16lnlut_256&quot;,
+                ufp16p16lnlut_256, 121);
+    outputccode(&quot;ufp16p16 ln 64k&quot;, &quot;ufp16p16_t&quot;, &quot;_ufp16p16lnlut_64k&quot;,
+                ufp16p16lnlut_64k, 129);
+
+    outputccode(&quot;ufp8p24 ln 4&quot;,  &quot;ufp8p24_t&quot;, &quot;_ufp8p24lnlut_4&quot;,
+                ufp8p24lnlut_4, 129);
+    outputccode(&quot;ufp8p24 ln 16&quot;, &quot;ufp8p24_t&quot;, &quot;_ufp8p24lnlut_16&quot;,
+                ufp8p24lnlut_16, 129);
+    outputccode(&quot;ufp8p24 ln 256&quot;, &quot;ufp8p24_t&quot;, &quot;_ufp8p24lnlut_256&quot;,
+                ufp8p24lnlut_256, 121);
+
+    printf(&quot;\n#endif /* LN LUT */\n&quot;);
+
+    printf(&quot;\n#endif\n&quot;);
+
+    return 0;
+}
+
+/* ------------------------------------------------------------------------- */
+
+
+--- NEW FILE: INSTALL ---
+$Id: INSTALL,v 1.1 2005/09/13 03:31:02 ivop Exp $
+
+See <A HREF="http://fpm.berlios.de/">http://fpm.berlios.de/</A>
+
+
+--- NEW FILE: Makefile ---
+#
+# Fixed Point Math Macro Library - Makefile
+#
+# (C)opyright 2005 by Ivo van Poorten
+# Licensed under version 2 of the GPL
+#
+# $Id: Makefile,v 1.1 2005/09/13 03:31:02 ivop Exp $
+#
+
+include config.mak
+
+GENLUTOBJS		= genlut.o
+BENCHOBJS		= benchmark.o
+BENCHLUTOBJS	= benchmarklut.o
+PRECOBJS		= precision.o
+PRECLUTOBJS		= precisionlut.o
+
+GENERATEDFILES	= config.mak include/fixedpointmathlut.h
+
+.PHONY:	all
+all:				$(GENERATEDFILES)
+
+#This file is generated
+include/fixedpointmathlut.h:	genlut
+	./genlut 2&gt;/dev/null | $(INDENT) 1&gt;include/fixedpointmathlut.h
+
+genlut:				$(GENLUTOBJS)
+	$(LD) -o $@ $(GENLUTOBJS) $(LDFLAGS)
+
+benchmark:			$(GENERATEDFILES) $(BENCHOBJS)
+	$(LD) -o $@ $(BENCHOBJS) $(LDFLAGS)
+
+benchmarklut:		$(GENERATEDFILES) $(BENCHLUTOBJS)
+	$(LD) -o $@ $(BENCHLUTOBJS) $(LDFLAGS)
+
+precision:			$(GENERATEDFILES) $(PRECOBJS)
+	$(LD) -o $@ $(PRECOBJS) $(LDFLAGS)
+
+precisionlut:		$(GENERATEDFILES) $(PRECLUTOBJS)
+	$(LD) -o $@ $(PRECLUTOBJS) $(LDFLAGS)
+
+.PHONY:	benchmarks
+benchmarks:			benchmark benchmarklut
+
+.PHONY: precisions
+precisions:			precision precisionlut
+
+benchmarklut.c:		benchmark.c
+	echo &quot;#define __FPM_ENABLE_ALL_LUT__&quot; 1&gt; benchmarklut.c
+	cat benchmark.c 1&gt;&gt; benchmarklut.c
+
+precisionlut.c:		precision.c
+	echo &quot;#define __FPM_ENABLE_ALL_LUT__&quot; 1&gt; precisionlut.c
+	cat precision.c 1&gt;&gt; precisionlut.c
+
+.PHONY:	barcharts
+barcharts:			benchmark.dat benchmarklut.dat
+	mkdir -p barcharts
+	sh ./genbarcharts.sh benchmark.dat    barcharts algo
+	sh ./genbarcharts.sh benchmarklut.dat barcharts lut
+
+benchmark.dat:		benchmark
+	./benchmark		1&gt; benchmark.dat 2&gt;/dev/null
+
+benchmarklut.dat:	benchmarklut
+	./benchmarklut	1&gt; benchmarklut.dat 2&gt;/dev/null
+
+graphs:				precision precisionlut
+	mkdir -p graphs
+	sh ./gengraphs.sh graphs
+
+config.mak:			configure
+	@echo
+	@echo &quot;#############################&quot;
+	@echo &quot;Please run ./configure first!&quot;
+	@echo &quot;#############################&quot;
+	@echo
+	@echo &quot;If you have done so before, you have to do it again, because it&quot;
+	@echo &quot;has changed.&quot;
+	@echo
+	@exit 1
+
+-include deps/$(GENLUTOBJS:.o=.d)
+
+-include deps/$(BENCHOBJS:.o=.d)
+
+-include deps/$(BENCHLUTOBJS):.o=.d)
+
+-include deps/$(PRECOBJS:.o=.d)
+
+-include deps/$(PRECLUTOBJS:.0=.d)
+
+%.o:	%.c
+	$(CC) -c $(CFLAGS) $(INCLUDES) $*.c -o $*.o $(DEBUG) $(WARNINGS)
+	mkdir -p deps
+	$(CCFORDEPS) $(CFLAGS) $(INCLUDES) $*.c 1&gt;deps/$*.d
+
+.PHONY:	clean
+clean:
+	$(MAKE) -C docs/xml clean
+	$(MAKE) -C include clean
+	$(MAKE) -C tools clean
+	rm -f *.o benchmark genlut
+	rm -f benchmark.dat benchmarklut benchmarklut.c benchmarklut.dat
+	rm -f precision.dat precision precisionlut precisionlut.c
+	rm -rf deps barcharts graphs
+
+.PHONY:	distclean
+distclean:		clean
+	$(MAKE) -C docs/xml distclean
+	$(MAKE) -C include distclean
+	$(MAKE) -C tools distclean
+	rm -f config.mak config.sh configure.log
+	rm -f *~
+
+.PHONY:	install
+install:		all
+	@echo Installing to $(PREFIX)
+	test -d $(PREFIX)/include || mkdir -p $(PREFIX)/include
+	cp -v include/fixedpointmath*.h $(PREFIX)/include
+	chmod 644 $(PREFIX)/include/fixedpointmath*.h
+
+.PHONY: uninstall
+uninstall:
+	@echo Uninstalling from $(PREFIX)
+	rm -f $(PREFIX)/include/fixedpointmath*.h
+
+.PHONY: docs
+docs:
+	$(MAKE) -C docs/xml
+
+.PHONY: docs2web
+docs2web:	docs
+	@echo
+	cp -af docs/HTML docs/HTML-single ../website/docs
+	@echo
+	@echo &quot;Don't forget to run cvs diff and/or cvs commit in ../website/docs&quot;
+	@echo
+
+
+--- NEW FILE: precision.c ---
+/* ------------------------------------------------------------------------- */
+
+/*
+ * Fixed Point Math Macro Library - Precision
+ *
+ * (C)2005 by Ivo van Poorten
+ * Licensed under version 2 of the GPL
+ *
+ * $Id: precision.c,v 1.1 2005/09/13 03:31:02 ivop Exp $
+ *
+ */
+
+/* ------------------------------------------------------------------------- */
+
+#include &lt;stdio.h&gt;
+#include &lt;math.h&gt;
+#include &lt;string.h&gt;
+
+#include &quot;fixedpointmath.h&quot;
+
+/* ------------------------------------------------------------------------- */
+
+#define TYPEufp8p8   0
+#define TYPEufp24p8  1
+#define TYPEufp16p16 2
+#define TYPEufp8p24  3
+
+#define FUNCsqrt    0
+#define FUNCexp     1
+#define FUNCln      2
+#define FUNCpow     3
+
+#define PVAL      2.0L
+
+/* ------------------------------------------------------------------------- */
+
+double startat[4] = { 0.0L, 0.0L, 1.0L, 1.0L };
+
+/* ------------------------------------------------------------------------- */
+
+int main(int argc, char **argv)
+{
+    double f, g1 = 0.0L, g2 = 0.0L;
+    int fptype = -1, func = -1;
+
+    if (argc != 3) {
+        fprintf(stderr,&quot;usage: %s &lt;fixed-point-type&gt; &lt;function&gt;\n&quot;, argv[0]);
+        return -1;
+    }
+
+    if (!strncmp(argv[1], &quot;ufp8p8&quot;,   5))    fptype = TYPEufp8p8;
+    if (!strncmp(argv[1], &quot;ufp24p8&quot;,  6))    fptype = TYPEufp24p8;
+    if (!strncmp(argv[1], &quot;ufp16p16&quot;, 7))    fptype = TYPEufp16p16;
+    if (!strncmp(argv[1], &quot;ufp8p24&quot;,  6))    fptype = TYPEufp8p24;
+
+    if (!strncmp(argv[2], &quot;sqrt&quot;, 4))       func = FUNCsqrt;
+    if (!strncmp(argv[2], &quot;exp&quot;,  3))       func = FUNCexp;
+    if (!strncmp(argv[2], &quot;ln&quot;,   2))       func = FUNCln;
+    if (!strncmp(argv[2], &quot;pow&quot;,  3))       func = FUNCpow;
+
+    if (fptype == -1) {
+        fprintf(stderr, &quot;unknown type!\n&quot;);
+        return -1;
+    }
+
+    if (func == -1) {
+        fprintf(stderr, &quot;unknown function!\n&quot;);
+        return -1;
+    }
+
+    for (f=startat[func]; f&lt;256.0L; f+=0.01L) {
+
+        switch(func) {
+        case FUNCsqrt:
+            g1 = sqrt(f);
+            break;
+        case FUNCexp:
+            g1 = exp(f);
+            break;
+        case FUNCln:
+            g1 = log(f);
+            break;
+        case FUNCpow:
+            g1 = pow(f, PVAL);
+            break;
+        }
+
+        switch(fptype) {
+
+        case TYPEufp8p8:
+            switch(func) {
+            case FUNCsqrt:
+                g2 = ufp8p8tod ( sqrtufp8p8 (dtoufp8p8(f)) );
+                break;
+            case FUNCexp:
+                g2 = ufp8p8tod ( expufp8p8 (dtoufp8p8(f)) );
+                break;
+            case FUNCln:
+                g2 = ufp8p8tod ( lnufp8p8 (dtoufp8p8(f)) );
+                break;
+            case FUNCpow:
+                g2 = ufp8p8tod ( powufp8p8 (dtoufp8p8(f), dtoufp8p8(PVAL)) );
+                break;
+            }
+            break;
+
+        case TYPEufp24p8:
+            switch(func) {
+            case FUNCsqrt:
+                g2 = ufp24p8tod ( sqrtufp24p8 (dtoufp24p8(f)) );
+                break;
+            case FUNCexp:
+                g2 = ufp24p8tod ( expufp24p8 (dtoufp24p8(f)) );
+                break;
+            case FUNCln:
+                g2 = ufp24p8tod ( lnufp24p8 (dtoufp24p8(f)) );
+                break;
+            case FUNCpow:
+                g2 = ufp24p8tod ( powufp24p8 (dtoufp24p8(f),
+                                                        dtoufp24p8(PVAL)) );
+                break;
+            }
+            break;
+
+        case TYPEufp16p16:
+            switch(func) {
+            case FUNCsqrt:
+                g2 = ufp16p16tod ( sqrtufp16p16 (dtoufp16p16(f)) );
+                break;
+            case FUNCexp:
+                g2 = ufp16p16tod ( expufp16p16 (dtoufp16p16(f)) );
+                break;
+            case FUNCln:
+                g2 = ufp16p16tod ( lnufp16p16 (dtoufp16p16(f)) );
+                break;
+            case FUNCpow:
+                g2 = ufp16p16tod ( powufp16p16 (dtoufp16p16(f),
+                                                        dtoufp16p16(PVAL)) );
+                break;
+            }
+            break;
+
+        case TYPEufp8p24:
+            switch(func) {
+            case FUNCsqrt:
+                g2 = ufp8p24tod ( sqrtufp8p24 (dtoufp8p24(f)) );
+                break;
+            case FUNCexp:
+                g2 = ufp8p24tod ( expufp8p24 (dtoufp8p24(f)) );
+                break;
+            case FUNCln:
+                g2 = ufp8p24tod ( lnufp8p24 (dtoufp8p24(f)) );
+                break;
+            case FUNCpow:
+                g2 = ufp8p24tod ( powufp8p24 (dtoufp8p24(f),
+                                                        dtoufp8p24(PVAL)) );
+                break;
+            }
+            break;
+
+        } /* end of outer-switch */
+
+        printf(&quot;%0.8lf %0.8lf %0.8lf\n&quot;, f, g1, g2);
+
+    }
+
+    return 0;
+}
+
+/* ------------------------------------------------------------------------- */
+
+
+--- NEW FILE: README ---
+$Id: README,v 1.1 2005/09/13 03:31:02 ivop Exp $
+
+See <A HREF="http://fpm.berlios.de/">http://fpm.berlios.de/</A>
+
+
+--- NEW FILE: TODO ---
+TODO
+====
+
+$Id: TODO,v 1.1 2005/09/13 03:31:02 ivop Exp $
+
+- Regression tests.
+- Removal of conditional statement in sqrt macros (in converge); find a way
+  to change them into 0 or 1 and use multiplication. This should be a huge
+  speed up for the algorithmic versions.
+- Add more functions like (arc)sin, (arc)cos, (arc)tan, et cetera.
+- Inivestigate possibilities to increase speed with SIMD instructions. (might
+  be difficult because a lot of algorithms use 64 bits at times. SSE2 maybe? )
+- Write sample code. Preferably something that does something useful :)
+- Document __FPM_VERSION_RELEASE__  valid values are: alpha, beta, stable and
+  cvs.
+- Add selective LUT support, like only include luts for a specific f.p type
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000077.html">[fpm-cvslog] website/docs/HTML-single/en default.css,1.6,1.7 index.html,1.7,1.8
+</A></li>
+	<LI>Next message: <A HREF="000079.html">[fpm-cvslog] fpm .cvsignore,1.6,1.7
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#78">[ date ]</a>
+              <a href="thread.html#78">[ thread ]</a>
+              <a href="subject.html#78">[ subject ]</a>
+              <a href="author.html#78">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

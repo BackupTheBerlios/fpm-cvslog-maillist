@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] fpm benchmark.c,1.1,1.2 configure,1.7,1.8
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20fpm%20benchmark.c%2C1.1%2C1.2%20configure%2C1.7%2C1.8&In-Reply-To=%3C200604031531.k33FVGt24451%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000113.html">
+   <LINK REL="Next"  HREF="000115.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] fpm benchmark.c,1.1,1.2 configure,1.7,1.8</H1>
+    <B>ivop</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20fpm%20benchmark.c%2C1.1%2C1.2%20configure%2C1.7%2C1.8&In-Reply-To=%3C200604031531.k33FVGt24451%40bat.berlios.de%3E"
+       TITLE="[fpm-cvslog] fpm benchmark.c,1.1,1.2 configure,1.7,1.8">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Mon Apr  3 17:31:16 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000113.html">[fpm-cvslog] fpm ChangeLog,1.4,1.5 configure,1.6,1.7 genlut.c,1.3,1.4
+</A></li>
+        <LI>Next message: <A HREF="000115.html">[fpm-cvslog] fpm benchmark.c,1.2,1.3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#114">[ date ]</a>
+              <a href="thread.html#114">[ thread ]</a>
+              <a href="subject.html#114">[ subject ]</a>
+              <a href="author.html#114">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/fpm/fpm
+In directory sheep:/tmp/cvs-serv491
+
+Modified Files:
+	benchmark.c configure 
+Log Message:
+don't compile RDTSC code on i386/i486 cpu's
+check for cpu in configure
+
+
+
+Index: benchmark.c
+===================================================================
+RCS file: /cvsroot/fpm/fpm/benchmark.c,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- benchmark.c	13 Sep 2005 03:31:02 -0000	1.1
++++ benchmark.c	3 Apr 2006 15:31:40 -0000	1.2
+@@ -32,9 +32,13 @@
+ 
+ static inline long long rdtsc()
+ {
++#ifdef HAVE_RDTSC
+     long long timestamp;
+     asm volatile (&quot;rdtsc\n&quot; : &quot;=A&quot;(timestamp));
+     return timestamp;
++#else
++    return 0L;      /* FIXME: some gettimeofday() stuff or something */
++#endif
+ }
+ 
+ /* ------------------------------------------------------------------------- */
+
+Index: configure
+===================================================================
+RCS file: /cvsroot/fpm/fpm/configure,v
+retrieving revision 1.7
+retrieving revision 1.8
+diff -u -d -r1.7 -r1.8
+--- configure	3 Apr 2006 14:28:19 -0000	1.7
++++ configure	3 Apr 2006 15:31:40 -0000	1.8
+@@ -186,12 +186,31 @@
+ 
+ # Do tests...
+ 
++
++
++echocheck &quot;architecture&quot;
++cputype=`uname -p 2&gt;&amp;1`
++if test &quot;$cputype&quot; = &quot;unknown&quot; ; then
++    cputype=`uname -m 2&gt;&amp;1`
++fi
++echores &quot;$cputype&quot;
++
++
++
+ echocheck &quot;C compiler&quot;
+ cc_run=`( $_cc ) 2&gt;&amp;1`
+ if test &quot;$?&quot; -gt 1; then
+     echores &quot;no&quot;
+     die &quot;Can't find compiler&quot;
+ fi
++case &quot;$cputype&quot; in
++    i386|i486)
++        _rdtsc=
++        ;;
++    *)
++        _rdtsc=-DHAVE_RDTSC
++        ;;
++esac
+ echores &quot;$_cc&quot;
+ 
+ 
+@@ -433,7 +452,7 @@
+ echo ${_echo_n} &quot;Generating config.mak ... ${_echo_c}&quot;
+ cat &gt; config.mak &lt;&lt; EOF
+ CC=$_cc
+-CFLAGS=$_cflags $_inttypes $_stdint $_round
++CFLAGS=$_cflags $_inttypes $_stdint $_round $_rdtsc
+ INCLUDES=-I./include $_inc_extra
+ CCFORDEPS=$_ccfordeps
+ LD=$_cc
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000113.html">[fpm-cvslog] fpm ChangeLog,1.4,1.5 configure,1.6,1.7 genlut.c,1.3,1.4
+</A></li>
+	<LI>Next message: <A HREF="000115.html">[fpm-cvslog] fpm benchmark.c,1.2,1.3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#114">[ date ]</a>
+              <a href="thread.html#114">[ thread ]</a>
+              <a href="subject.html#114">[ subject ]</a>
+              <a href="author.html#114">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

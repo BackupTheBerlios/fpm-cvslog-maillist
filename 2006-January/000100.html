@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] fpm/include fixedpointmath.h,1.2,1.3 fixedpointmathcode.h,1.2,1.3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2006-January/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20fpm/include%20fixedpointmath.h%2C1.2%2C1.3%20fixedpointmathcode.h%2C1.2%2C1.3&In-Reply-To=%3C200601061835.k06IZhH10556%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000099.html">
+   <LINK REL="Next"  HREF="000101.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] fpm/include fixedpointmath.h,1.2,1.3 fixedpointmathcode.h,1.2,1.3</H1>
+    <B>ivop</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20fpm/include%20fixedpointmath.h%2C1.2%2C1.3%20fixedpointmathcode.h%2C1.2%2C1.3&In-Reply-To=%3C200601061835.k06IZhH10556%40bat.berlios.de%3E"
+       TITLE="[fpm-cvslog] fpm/include fixedpointmath.h,1.2,1.3 fixedpointmathcode.h,1.2,1.3">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Fri Jan  6 19:35:43 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000099.html">[fpm-cvslog] fpm genlut.c,1.1,1.2
+</A></li>
+        <LI>Next message: <A HREF="000101.html">[fpm-cvslog] fpm configure,1.1,1.2 genlut.c,1.2,1.3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#100">[ date ]</a>
+              <a href="thread.html#100">[ thread ]</a>
+              <a href="subject.html#100">[ subject ]</a>
+              <a href="author.html#100">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/fpm/fpm/include
+In directory sheep:/tmp/cvs-serv18574/include
+
+Modified Files:
+	fixedpointmath.h fixedpointmathcode.h 
+Log Message:
+detect inttypes.h or stdint.h
+if both are unavailable, define (u)int*_t types ourselves
+
+
+
+Index: fixedpointmath.h
+===================================================================
+RCS file: /cvsroot/fpm/fpm/include/fixedpointmath.h,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- fixedpointmath.h	14 Sep 2005 23:19:40 -0000	1.2
++++ fixedpointmath.h	6 Jan 2006 18:35:41 -0000	1.3
+@@ -24,7 +24,23 @@
+ 
+ /* ------------------------------------------------------------------------- */
+ 
++#ifdef HAVE_INTTYPES_H
+ #include &lt;inttypes.h&gt;
++#else
++#ifdef HAVE_STDINT_H
++#include &lt;stdint.h&gt;
++#else
++typedef unsigned long long uint64_t;
++typedef          long long  int64_t;
++typedef unsigned long      uint32_t;
++typedef          long       int32_t;
++typedef unsigned short     uint16_t;
++typedef          short      int16_t;
++typedef unsigned char      uint8_t;
++typedef          char       int8_t;
++#endif
++#endif
++
+ #include &quot;fixedpointmathcode.h&quot;
+ 
+ /* ------------------------------------------------------------------------- */
+
+Index: fixedpointmathcode.h
+===================================================================
+RCS file: /cvsroot/fpm/fpm/include/fixedpointmathcode.h,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- fixedpointmathcode.h	14 Sep 2005 23:20:08 -0000	1.2
++++ fixedpointmathcode.h	6 Jan 2006 18:35:41 -0000	1.3
+@@ -21,10 +21,6 @@
+ 
+ /* ------------------------------------------------------------------------- */
+ 
+-#include &lt;inttypes.h&gt;
+-
+-/* ------------------------------------------------------------------------- */
+-
+ /* signed */
+ 
+ typedef int16_t fp8p8_t;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000099.html">[fpm-cvslog] fpm genlut.c,1.1,1.2
+</A></li>
+	<LI>Next message: <A HREF="000101.html">[fpm-cvslog] fpm configure,1.1,1.2 genlut.c,1.2,1.3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#100">[ date ]</a>
+              <a href="thread.html#100">[ thread ]</a>
+              <a href="subject.html#100">[ subject ]</a>
+              <a href="author.html#100">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

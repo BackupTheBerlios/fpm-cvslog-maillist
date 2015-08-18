@@ -1,0 +1,367 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] r125 - in trunk/fpm2: . include/fpm
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r125%20-%20in%20trunk/fpm2%3A%20.%20include/fpm&In-Reply-To=%3C200803211148.m2LBm0wi021417%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000146.html">
+   <LINK REL="Next"  HREF="000148.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] r125 - in trunk/fpm2: . include/fpm</H1>
+    <B>ivop at BerliOS</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r125%20-%20in%20trunk/fpm2%3A%20.%20include/fpm&In-Reply-To=%3C200803211148.m2LBm0wi021417%40sheep.berlios.de%3E"
+       TITLE="[fpm-cvslog] r125 - in trunk/fpm2: . include/fpm">ivop at mail.berlios.de
+       </A><BR>
+    <I>Fri Mar 21 12:48:00 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000146.html">[fpm-cvslog] r124 - trunk/fpm2/include/fpm
+</A></li>
+        <LI>Next message: <A HREF="000148.html">[fpm-cvslog] r126 - trunk/fpm2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#147">[ date ]</a>
+              <a href="thread.html#147">[ thread ]</a>
+              <a href="subject.html#147">[ subject ]</a>
+              <a href="author.html#147">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: ivop
+Date: 2008-03-21 12:47:59 +0100 (Fri, 21 Mar 2008)
+New Revision: 125
+
+Added:
+   trunk/fpm2/benchmark.c
+Modified:
+   trunk/fpm2/Makefile
+   trunk/fpm2/include/fpm/fpmcode.h
+Log:
+use old benchmark program to benchmark the new implementation
+
+
+Modified: trunk/fpm2/Makefile
+===================================================================
+--- trunk/fpm2/Makefile	2008-03-21 02:46:14 UTC (rev 124)
++++ trunk/fpm2/Makefile	2008-03-21 11:47:59 UTC (rev 125)
+@@ -4,3 +4,6 @@
+ distclean: clean
+ 	rm -f *~ */*~ */*/*~ */*/*/*~
+ 
++benchmark: benchmark.c
++	gcc -I `pwd`/include -o benchmark benchmark.c -W -Wall -O3 -lm -s
++
+
+Copied: trunk/fpm2/benchmark.c (from rev 110, trunk/fpm/benchmark.c)
+===================================================================
+--- trunk/fpm/benchmark.c	2008-03-20 00:14:39 UTC (rev 110)
++++ trunk/fpm2/benchmark.c	2008-03-21 11:47:59 UTC (rev 125)
+@@ -0,0 +1,247 @@
++/* ------------------------------------------------------------------------- */
++
++/*
++ * Fixed Point Math Macro Library - Benchmark
++ *
++ * (C)2005,2006 by Ivo van Poorten
++ * Licensed under version 2 of the GPL
++ *
++ * $Id$
++ *
++ */
++
++/* ------------------------------------------------------------------------- */
++
++#include &lt;stdio.h&gt;
++#include &lt;math.h&gt;
++
++#include &quot;fpm/fpm.h&quot;
++
++#ifndef HAVE_RDTSC
++#include &lt;sys/time.h&gt;
++#include &lt;time.h&gt;
++#endif
++
++/* ------------------------------------------------------------------------- */
++
++/* 10000 and 100000 or something, but lower values while testing scripts,
++ * Makefile, etc... */
++
++#define INNERLOOP   10000
++#define OUTERLOOP   10000
++#define VAL1        2.9
++#define VAL2        213
++#define VAL3        3.1
++
++/* ------------------------------------------------------------------------- */
++
++static inline long long rdtsc()
++{
++#ifdef HAVE_RDTSC
++    long long timestamp;
++    asm volatile (&quot;rdtsc\n&quot; : &quot;=A&quot;(timestamp));
++    return timestamp;
++#else
++    struct timeval tv;
++    struct timezone tz;
++
++    gettimeofday(&amp;tv, &amp;tz);
++    
++    return tv.tv_sec*1000000L + tv.tv_usec;
++#endif
++}
++
++/* ------------------------------------------------------------------------- */
++
++#define timeloop(AVG, CODE) \
++    do { \
++        sum = (uint64_t) 0; \
++        for (j=0; j&lt;OUTERLOOP; j++) { \
++            start = rdtsc(); \
++            for (i=0; i&lt;INNERLOOP; i++) { \
++                CODE; \
++            } \
++            end = rdtsc(); \
++            sum += (end-start); \
++        } \
++        AVG = sum / OUTERLOOP; \
++    } while(0)
++
++#define NINEi &quot;%i %i %i %i %i %i %i %i %i\n&quot;
++
++#define printreport(HEADER, a) \
++    do { \
++        printf(&quot;#&quot;HEADER&quot;\n&quot;); \
++        num=a*10; \
++        printf(NINEi, num++, 0, 0, 0, 0, 0, 0, 0, 0); \
++        printf(NINEi, num++, 0, prca, 0, 0, 0, 0, 0, 0); \
++        printf(NINEi, num++, 0, 0, prcb, 0, 0, 0, 0, 0); \
++        printf(NINEi, num++, 0, 0, 0, prcc, 0, 0, 0, 0); \
++        printf(NINEi, num++, 0, 0, 0, 0, prcd, 0, 0, 0); \
++        printf(NINEi, num++, 0, 0, 0, 0, 0, prcf, 0, 0); \
++        printf(NINEi, num++, 0, 0, 0, 0, 0, 0, prcg, 0); \
++        printf(NINEi, num++, 0, 0, 0, 0, 0, 0, 0, 0); \
++        printf(&quot;\n&quot;); \
++        fflush(stdout); \
++        fprintf(stderr, &quot;#&quot;HEADER&quot;\n&quot;); \
++        fprintf(stderr, &quot;# %-10s - % 4i%%\n&quot;, &quot;fp8p8_t&quot;, prca); \
++        fprintf(stderr, &quot;# %-10s - % 4i%%\n&quot;, &quot;fp24p8_t&quot;, prcb); \
++        fprintf(stderr, &quot;# %-10s - % 4i%%\n&quot;, &quot;fp16p16_t&quot;, prcc); \
++        fprintf(stderr, &quot;# %-10s - % 4i%%\n&quot;, &quot;fp8p24_t&quot;, prcd); \
++        fprintf(stderr, &quot;# %-10s - % 4i%%\n&quot;, &quot;float&quot;, prcf); \
++        fprintf(stderr, &quot;# %-10s - % 4i%%\n\n&quot;, &quot;double&quot;, prcg); \
++        fflush(stderr); \
++    } while(0)
++
++#define calcperc(PRC, AVG, AVGR) \
++    do { \
++        PRC = (AVG*100)/(AVGR?AVGR:1); \
++    } while(0)
++
++#define calcallperc \
++    do { \
++        calcperc(prca, avga, avgf); \
++        calcperc(prcb, avgb, avgf); \
++        calcperc(prcc, avgc, avgf); \
++        calcperc(prcd, avgd, avgf); \
++        calcperc(prcf, avgf, avgf); \
++        calcperc(prcg, avgg, avgf); \
++    } while(0)
++
++/* ------------------------------------------------------------------------- */
++
++/* There's a foobar timeloop between the fp8p8 add/sub test and fp24p8 test,
++ * because somehow (can anybody explain?) one needs to &quot;kick&quot; the CPU out of
++ * 16-bit short int mode */
++
++int main()
++{
++    unsigned int i, j, num;
++    ufp8p8_t   a1, a2, a3, a4;
++    ufp24p8_t  b1, b2, b3, b4;
++    ufp16p16_t c1, c2, c3, c4;
++    ufp8p24_t  d1, d2, d3, d4;
++    float      f1, f2, f3, f4;
++    double     g1, g2, g3, g4;
++    uint64_t   start, end, sum;
++    uint64_t   avga, avgb, avgc, avgd, avgf, avgg;
++    int        prca, prcb, prcc, prcd, prcf, prcg;
++    int        foo, bar;
++
++    a2 = dtoufp8p8(VAL1);
++    b2 = dtoufp24p8(VAL1);
++    c2 = dtoufp16p16(VAL1);
++    d2 = dtoufp8p24(VAL1);
++    f2 = VAL1;
++    g2 = VAL1;
++
++    a3 = dtoufp8p8(VAL2);
++    b3 = dtoufp24p8(VAL2);
++    c3 = dtoufp16p16(VAL2);
++    d3 = dtoufp8p24(VAL2);
++    f3 = VAL2;
++    g3 = VAL2;
++
++    a4 = dtoufp8p8(VAL3);
++    b4 = dtoufp24p8(VAL3);
++    c4 = dtoufp16p16(VAL3);
++    d4 = dtoufp8p24(VAL3);
++    f4 = VAL3;
++    g4 = VAL3;
++
++    /* ADD */
++
++    timeloop(avga, a1=a2+a3);
++    timeloop(foo, bar=bar);
++    timeloop(avgb, b1=b2+b3);
++    timeloop(avgc, c1=c2+c3);
++    timeloop(avgd, d1=d2+d3);
++    timeloop(avgf, f1=f2+f3);
++    timeloop(avgg, g1=g2+g3);
++    calcallperc;
++    printreport(&quot;ADD&quot;, 0);
++
++    /* SUB */
++
++    timeloop(avga, a1=a2-a3);
++    timeloop(foo, bar=bar);
++    timeloop(avgb, b1=b2-b3);
++    timeloop(avgc, c1=c2-c3);
++    timeloop(avgd, d1=d2-d3);
++    timeloop(avgf, f1=f2-f3);
++    timeloop(avgg, g1=g2-g3);
++    calcallperc;
++    printreport(&quot;SUB&quot;, 1);
++
++    /* MUL */
++
++    timeloop(avga, a1=mulufp8p8(a2,a3)  );
++    timeloop(avgb, b1=mulufp24p8(b2,b3) );
++    timeloop(avgc, c1=mulufp16p16(c2,c3));
++    timeloop(avgd, d1=mulufp8p24(d2,d3) );
++    timeloop(avgf, f1=f2*f3);
++    timeloop(avgg, g1=g2*g3);
++    calcallperc;
++    printreport(&quot;MUL&quot;, 2);
++
++    /* DIV */
++
++    timeloop(avga, a1=divufp8p8(a2,a3)  );
++    timeloop(avgb, b1=divufp24p8(b2,b3) );
++    timeloop(avgc, c1=divufp16p16(c2,c3));
++    timeloop(avgd, d1=divufp8p24(d2,d3) );
++    timeloop(avgf, f1=f2/f3);
++    timeloop(avgg, g1=g2/g3);
++    calcallperc;
++    printreport(&quot;DIV&quot;, 3);
++
++    /* SQRT */
++
++    timeloop(avga, a1=sqrtufp8p8(a2)  );
++    timeloop(avgb, b1=sqrtufp24p8(b2) );
++    timeloop(avgc, c1=sqrtufp16p16(c2));
++    timeloop(avgd, d1=sqrtufp8p24(d2) );
++    timeloop(avgf, f1=sqrt(f2));
++    timeloop(avgg, g1=sqrt(g2));
++    calcallperc;
++    printreport(&quot;SQRT&quot;, 4);
++
++#if 0
++    /* EXP */
++
++    timeloop(avga, a1=expufp8p8(a2)  );
++    timeloop(avgb, b1=expufp24p8(b2) );
++    timeloop(avgc, c1=expufp16p16(c2));
++    timeloop(avgd, d1=expufp8p24(d2) );
++    timeloop(avgf, f1=exp(f2));
++    timeloop(avgg, g1=exp(g2));
++    calcallperc;
++    printreport(&quot;EXP&quot;, 5);
++
++    /* LN */
++
++    timeloop(avga, a1=lnufp8p8(a3)  );
++    timeloop(avgb, b1=lnufp24p8(b3) );
++    timeloop(avgc, c1=lnufp16p16(c3));
++    timeloop(avgd, d1=lnufp8p24(d3) );
++    timeloop(avgf, f1=log(f3));
++    timeloop(avgg, g1=log(g3));
++    calcallperc;
++    printreport(&quot;LN&quot;, 6);
++
++    /* POW */
++
++    timeloop(avga, a1=powufp8p8(a3,a4)  );
++    timeloop(avgb, b1=powufp24p8(b3,b4) );
++    timeloop(avgc, c1=powufp16p16(c3,c4));
++    timeloop(avgd, d1=powufp8p24(d3,d4) );
++    timeloop(avgf, f1=pow(f3,f4));
++    timeloop(avgg, g1=pow(g3,g4));
++    calcallperc;
++    printreport(&quot;POW&quot;, 7);
++#endif
++    return 0;
++}
++
++/* ------------------------------------------------------------------------- */
++
+
+Modified: trunk/fpm2/include/fpm/fpmcode.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpmcode.h	2008-03-21 02:46:14 UTC (rev 124)
++++ trunk/fpm2/include/fpm/fpmcode.h	2008-03-21 11:47:59 UTC (rev 125)
+@@ -157,6 +157,11 @@
+ 
+ /* square root */
+ 
++#ifndef FPM_SQUARE_ROOT_METHOD
++#   define FPM_SQUARE_ROOT_METHOD 1
++#endif
++
++#if FPM_SQUARE_ROOT_METHOD == 1
+ /* babylonian method */
+ 
+ #define FPMSQRT8p8(a,b) FPMFUNC a##_t sqrt##a(a##_t x) { \
+@@ -210,6 +215,10 @@
+ FPMSQRT8p24(fp8p24 , !x  )
+ FPMSQRT8p24(ufp8p24, x&lt;=0)
+ 
++#else
++#   error &quot;Invalid FPM_SQUARE_ROOT_METHOD&quot;
++#endif
++
+ /* ------------------------------------------------------------------------- */
+ 
+ #endif
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000146.html">[fpm-cvslog] r124 - trunk/fpm2/include/fpm
+</A></li>
+	<LI>Next message: <A HREF="000148.html">[fpm-cvslog] r126 - trunk/fpm2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#147">[ date ]</a>
+              <a href="thread.html#147">[ thread ]</a>
+              <a href="subject.html#147">[ subject ]</a>
+              <a href="author.html#147">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

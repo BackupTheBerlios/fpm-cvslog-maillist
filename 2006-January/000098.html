@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] fpm Makefile,1.1,1.2
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2006-January/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20fpm%20Makefile%2C1.1%2C1.2&In-Reply-To=%3C200601061829.k06ITMH09155%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000099.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] fpm Makefile,1.1,1.2</H1>
+    <B>ivop</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20fpm%20Makefile%2C1.1%2C1.2&In-Reply-To=%3C200601061829.k06ITMH09155%40bat.berlios.de%3E"
+       TITLE="[fpm-cvslog] fpm Makefile,1.1,1.2">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Fri Jan  6 19:29:22 CET 2006</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000099.html">[fpm-cvslog] fpm genlut.c,1.1,1.2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#98">[ date ]</a>
+              <a href="thread.html#98">[ thread ]</a>
+              <a href="subject.html#98">[ subject ]</a>
+              <a href="author.html#98">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/fpm/fpm
+In directory sheep:/tmp/cvs-serv15352
+
+Modified Files:
+	Makefile 
+Log Message:
+fix deps (typo)
+
+
+
+Index: Makefile
+===================================================================
+RCS file: /cvsroot/fpm/fpm/Makefile,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- Makefile	13 Sep 2005 03:31:02 -0000	1.1
++++ Makefile	6 Jan 2006 18:29:19 -0000	1.2
+@@ -88,7 +88,7 @@
+ 
+ -include deps/$(PRECOBJS:.o=.d)
+ 
+--include deps/$(PRECLUTOBJS:.0=.d)
++-include deps/$(PRECLUTOBJS:.o=.d)
+ 
+ %.o:	%.c
+ 	$(CC) -c $(CFLAGS) $(INCLUDES) $*.c -o $*.o $(DEBUG) $(WARNINGS)
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000099.html">[fpm-cvslog] fpm genlut.c,1.1,1.2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#98">[ date ]</a>
+              <a href="thread.html#98">[ thread ]</a>
+              <a href="subject.html#98">[ subject ]</a>
+              <a href="author.html#98">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

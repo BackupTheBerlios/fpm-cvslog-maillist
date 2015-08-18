@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] r141 - trunk/fpm2/include/fpm
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r141%20-%20trunk/fpm2/include/fpm&In-Reply-To=%3C200803252359.m2PNxKLE014184%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000162.html">
+   <LINK REL="Next"  HREF="000164.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] r141 - trunk/fpm2/include/fpm</H1>
+    <B>ivop at BerliOS</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r141%20-%20trunk/fpm2/include/fpm&In-Reply-To=%3C200803252359.m2PNxKLE014184%40sheep.berlios.de%3E"
+       TITLE="[fpm-cvslog] r141 - trunk/fpm2/include/fpm">ivop at mail.berlios.de
+       </A><BR>
+    <I>Wed Mar 26 00:59:20 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000162.html">[fpm-cvslog] r140 - trunk/fpm2/include/fpm
+</A></li>
+        <LI>Next message: <A HREF="000164.html">[fpm-cvslog] r142 - trunk/fpm2/include/fpm
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#163">[ date ]</a>
+              <a href="thread.html#163">[ thread ]</a>
+              <a href="subject.html#163">[ subject ]</a>
+              <a href="author.html#163">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: ivop
+Date: 2008-03-26 00:59:18 +0100 (Wed, 26 Mar 2008)
+New Revision: 141
+
+Modified:
+   trunk/fpm2/include/fpm/fpmcode.h
+Log:
+add missing funion_t type
+
+
+Modified: trunk/fpm2/include/fpm/fpmcode.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpmcode.h	2008-03-25 23:56:27 UTC (rev 140)
++++ trunk/fpm2/include/fpm/fpmcode.h	2008-03-25 23:59:18 UTC (rev 141)
+@@ -30,6 +30,17 @@
+ 
+ /* ------------------------------------------------------------------------- */
+ 
++/* Internal types */
++
++typedef union {
++    float    f;
++    uint32_t u32;
++    uint16_t u16[2];
++    uint8_t  u8[4];
++} funion_t;
++
++/* ------------------------------------------------------------------------- */
++
+ /* CONVERSION */
+ 
+ /* int to fixed point */
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000162.html">[fpm-cvslog] r140 - trunk/fpm2/include/fpm
+</A></li>
+	<LI>Next message: <A HREF="000164.html">[fpm-cvslog] r142 - trunk/fpm2/include/fpm
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#163">[ date ]</a>
+              <a href="thread.html#163">[ thread ]</a>
+              <a href="subject.html#163">[ subject ]</a>
+              <a href="author.html#163">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] r164 - trunk/fpm2/include/fpm
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r164%20-%20trunk/fpm2/include/fpm&In-Reply-To=%3C200804031602.m33G2NT9010889%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000185.html">
+   <LINK REL="Next"  HREF="000187.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] r164 - trunk/fpm2/include/fpm</H1>
+    <B>ivop at BerliOS</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r164%20-%20trunk/fpm2/include/fpm&In-Reply-To=%3C200804031602.m33G2NT9010889%40sheep.berlios.de%3E"
+       TITLE="[fpm-cvslog] r164 - trunk/fpm2/include/fpm">ivop at mail.berlios.de
+       </A><BR>
+    <I>Thu Apr  3 18:02:23 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000185.html">[fpm-cvslog] r163 - trunk/fpm2/include/fpm
+</A></li>
+        <LI>Next message: <A HREF="000187.html">[fpm-cvslog] r165 - trunk/fpm2/include/fpm
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#186">[ date ]</a>
+              <a href="thread.html#186">[ thread ]</a>
+              <a href="subject.html#186">[ subject ]</a>
+              <a href="author.html#186">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: ivop
+Date: 2008-04-03 18:02:23 +0200 (Thu, 03 Apr 2008)
+New Revision: 164
+
+Modified:
+   trunk/fpm2/include/fpm/fpm.h
+   trunk/fpm2/include/fpm/fpmsqrt.h
+Log:
+intrinsics versions of sqrt method 6-8 for benchmarking
+
+
+Modified: trunk/fpm2/include/fpm/fpm.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpm.h	2008-04-03 15:31:11 UTC (rev 163)
++++ trunk/fpm2/include/fpm/fpm.h	2008-04-03 16:02:23 UTC (rev 164)
+@@ -78,6 +78,9 @@
+  *                          6   SSE sqrtss + conversions
+  *                          7   SSE rsqrtss + rcpss + conversions
+  *                          8   SSE rsqrtss + minss + mulss + conversions
++ *                          9   Same as 6, but w/ intrinsics instead of asm
++ *                          10  Same as 7, but w/ intrinsics instead of asm
++ *                          11  Same as 8, but w/ intrinsics instead of asm
+  *
+  * FPM_NO_FPU_MUL_CONVERSIONS
+  *      Convert from float/double to fpXpY without using a multiply.
+
+Modified: trunk/fpm2/include/fpm/fpmsqrt.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpmsqrt.h	2008-04-03 15:31:11 UTC (rev 163)
++++ trunk/fpm2/include/fpm/fpmsqrt.h	2008-04-03 16:02:23 UTC (rev 164)
+@@ -220,6 +220,70 @@
+ FPMSQRT( fp8p8  )   FPMSQRT(ufp8p8  )   FPMSQRT( fp24p8 )   FPMSQRT(ufp24p8 )
+ FPMSQRT( fp16p16)   FPMSQRT(ufp16p16)   FPMSQRT( fp8p24 )   FPMSQRT(ufp8p24 )
+ 
++#elif FPM_SQUARE_ROOT_METHOD == 9
++
++/* SSE sqrtss w/ intrinsics */
++
++#include &lt;xmmintrin.h&gt;
++
++FPMFUNC float fpm_ssesqrt(float f) {
++    __m128 mm;
++    mm = _mm_set_ss(f);
++    mm = _mm_sqrt_ss(mm);
++    _mm_store_ss(&amp;f, mm);
++    return f;
++}
++
++#define FPMSQRT(a) FPMFUNC a##_t sqrt##a(a##_t x) { \
++                                    return fto##a(fpm_ssesqrt(a##tof(x))); }
++
++FPMSQRT( fp8p8  )   FPMSQRT(ufp8p8  )   FPMSQRT( fp24p8 )   FPMSQRT(ufp24p8 )
++FPMSQRT( fp16p16)   FPMSQRT(ufp16p16)   FPMSQRT( fp8p24 )   FPMSQRT(ufp8p24 )
++
++#elif FPM_SQUARE_ROOT_METHOD == 10
++
++/* SSE rsqrtss w/ intrinsics */
++
++#include &lt;xmmintrin.h&gt;
++
++FPMFUNC float fpm_ssesqrt(float f) {
++    __m128 mm;
++    mm = _mm_set_ss(f);
++    mm = _mm_rsqrt_ss(mm);
++    mm = _mm_rcp_ss(mm);
++    _mm_store_ss(&amp;f, mm);
++    return f;
++}
++
++#define FPMSQRT(a) FPMFUNC a##_t sqrt##a(a##_t x) { \
++                                    return fto##a(fpm_ssesqrt(a##tof(x))); }
++
++FPMSQRT( fp8p8  )   FPMSQRT(ufp8p8  )   FPMSQRT( fp24p8 )   FPMSQRT(ufp24p8 )
++FPMSQRT( fp16p16)   FPMSQRT(ufp16p16)   FPMSQRT( fp8p24 )   FPMSQRT(ufp8p24 )
++
++#elif FPM_SQUARE_ROOT_METHOD == 11
++
++/* SSE rsqrtss (alternate version) w/ intrinsics */
++
++#include &lt;xmmintrin.h&gt;
++
++FPMFUNC float fpm_ssesqrt(float f) {
++    __m128 mm0, mm1;
++    mm0 = _mm_set_ss(f);
++    mm1 = _mm_set_ss(3.40282347e+38F);
++    mm0 = _mm_rsqrt_ss(mm0);
++    mm1 = _mm_min_ss(mm0, mm1);
++    mm0 = _mm_mul_ss(mm0, mm1);
++    _mm_store_ss(&amp;f, mm0);
++    return f;
++}
++
++#define FPMSQRT(a) FPMFUNC a##_t sqrt##a(a##_t x) { \
++                                    return fto##a(fpm_ssesqrt(a##tof(x))); }
++
++FPMSQRT( fp8p8  )   FPMSQRT(ufp8p8  )   FPMSQRT( fp24p8 )   FPMSQRT(ufp24p8 )
++FPMSQRT( fp16p16)   FPMSQRT(ufp16p16)   FPMSQRT( fp8p24 )   FPMSQRT(ufp8p24 )
++
+ #else
+ #   error &quot;Invalid FPM_SQUARE_ROOT_METHOD&quot;
+ #endif
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000185.html">[fpm-cvslog] r163 - trunk/fpm2/include/fpm
+</A></li>
+	<LI>Next message: <A HREF="000187.html">[fpm-cvslog] r165 - trunk/fpm2/include/fpm
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#186">[ date ]</a>
+              <a href="thread.html#186">[ thread ]</a>
+              <a href="subject.html#186">[ subject ]</a>
+              <a href="author.html#186">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,744 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] fpm/docs/xml configure,NONE,1.1 default.css,NONE,1.1 html-common.xsl,NONE,1.1 Makefile,NONE,1.1 Makefile.inc,NONE,1.1 README,NONE,1.1 postproc.sh,NONE,1.1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2005-August/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20fpm/docs/xml%20configure%2CNONE%2C1.1%20default.css%2CNONE%2C1.1%20html-common.xsl%2CNONE%2C1.1%20Makefile%2CNONE%2C1.1%20Makefile.inc%2CNONE%2C1.1%20README%2CNONE%2C1.1%20postproc.sh%2CNONE%2C1.1&In-Reply-To=%3C200508300000.j7U006627799%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000018.html">
+   <LINK REL="Next"  HREF="000020.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] fpm/docs/xml configure,NONE,1.1 default.css,NONE,1.1 html-common.xsl,NONE,1.1 Makefile,NONE,1.1 Makefile.inc,NONE,1.1 README,NONE,1.1 postproc.sh,NONE,1.1</H1>
+    <B>ivop</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20fpm/docs/xml%20configure%2CNONE%2C1.1%20default.css%2CNONE%2C1.1%20html-common.xsl%2CNONE%2C1.1%20Makefile%2CNONE%2C1.1%20Makefile.inc%2CNONE%2C1.1%20README%2CNONE%2C1.1%20postproc.sh%2CNONE%2C1.1&In-Reply-To=%3C200508300000.j7U006627799%40bat.berlios.de%3E"
+       TITLE="[fpm-cvslog] fpm/docs/xml configure,NONE,1.1 default.css,NONE,1.1 html-common.xsl,NONE,1.1 Makefile,NONE,1.1 Makefile.inc,NONE,1.1 README,NONE,1.1 postproc.sh,NONE,1.1">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Tue Aug 30 02:00:06 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000018.html">[fpm-cvslog] fpm/docs/xml/en - New directory
+</A></li>
+        <LI>Next message: <A HREF="000020.html">[fpm-cvslog] fpm/docs/xml/en Makefile,NONE,1.1 documentation.xml,NONE,1.1 gettingstarted.xml,NONE,1.1 introduction.xml,NONE,1.1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#19">[ date ]</a>
+              <a href="thread.html#19">[ thread ]</a>
+              <a href="subject.html#19">[ subject ]</a>
+              <a href="author.html#19">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/fpm/fpm/docs/xml
+In directory sheep:/tmp/cvs-serv18942
+
+Added Files:
+	configure default.css html-common.xsl Makefile Makefile.inc 
+	README postproc.sh 
+Log Message:
+initial checkin of documentation build system. the contents of the docs
+are placeholders atm.
+
+
+
+--- NEW FILE: configure ---
+#!/bin/sh
+
+# Script to check for catalogs, stylesheets, XSL processors and all
+# the other stuff necessary to convert the XML documentation.
+
+_xsltwrapper=&quot;xsltproc.sh&quot;
+_xmllintwrapper=&quot;xmllint.sh&quot;
+
+echo &quot;Searching for XML catalogs...&quot;
+for _try_catalog in \
+  /etc/sgml/catalog \
+  /usr/share/sgml/docbook/xml-dtd-4.1.2/xmlcatalog \
+  /usr/share/apps/ksgmltools2/customization/en/catalog \
+  /usr/share/sgml/catalog \
+  /usr/local/share/sgml/catalog \
+  /usr/lib/sgml/catalog \
+  /usr/local/lib/sgml/catalog \
+  /usr/share/docbook-xml42/catalog.xml \
+  /usr/share/sgml/docbook/xmlcatalog
+do
+  if test -f &quot;$_try_catalog&quot;
+  then
+    _catalog=$_try_catalog
+    break
+  fi
+done
+
+if test -n &quot;$_catalog&quot;
+then
+  echo &quot;Found SGML catalog at $_catalog&quot;
+  _sgmlcatalog=&quot;export SGML_CATALOG_FILES=$_catalog&quot;
+else
+  echo &quot;No SGML catalog found.&quot;
+fi
+
+
+
+echo &quot;Searching for stylesheets...&quot;
+echo &quot;Searching for html/chunk.xsl...&quot;
+for _try_chunk_xsl in \
+  /usr/share/sgml/docbook/stylesheet/xsl/nwalsh/html/chunk.xsl \
+  /usr/share/sgml/docbook/yelp/docbook/html/chunk.xsl \
+  /usr/local/share/sgml/docbook/stylesheet/xsl/nwalsh/html/chunk.xsl \
+  /usr/local/share/sgml/docbook/yelp/docbook/html/chunk.xsl \
+  /usr/share/docbook-xsl/html/chunk.xsl \
+  /usr/share/sgml/docbook/xsl-stylesheets*/html/chunk.xsl 
+do
+  if test -f &quot;$_try_chunk_xsl&quot;
+  then
+    _chunk_xsl=$_try_chunk_xsl
+    break
+  fi
+done
+
+if test -z &quot;$_chunk_xsl&quot;
+then
+  _chunk_xsl=/usr/share/sgml/docbook/stylesheet/xsl/nwalsh/html/chunk.xsl
+  echo &quot;Not found. Using default ($_chunk_xsl)&quot;
+  _fake_chunk_xsl=yes
+else
+  echo &quot;Found chunk.xsl at $_chunk_xsl&quot;
+fi
+
+echo &quot;Searching for html/docbook.xsl...&quot;
+for _try_docbook_xsl in \
+  /usr/share/sgml/docbook/stylesheet/xsl/nwalsh/html/docbook.xsl \
+  /usr/share/sgml/docbook/yelp/docbook/html/docbook.xsl \
+  /usr/local/share/sgml/docbook/stylesheet/xsl/nwalsh/html/docbook.xsl \
+  /usr/local/share/sgml/docbook/yelp/docbook/html/docbook.xsl \
+  /usr/share/docbook-xsl/html/docbook.xsl \
+  /usr/share/sgml/docbook/xsl-stylesheets*/html/docbook.xsl 
+do
+  if test -f &quot;$_try_docbook_xsl&quot;
+  then
+    _docbook_xsl=$_try_docbook_xsl
+    break
+  fi
+done
+
+if test -z &quot;$_docbook_xsl&quot;
+then
+  _docbook_xsl=/usr/share/sgml/docbook/stylesheet/xsl/nwalsh/html/docbook.xsl
+  echo &quot;Not found. Using default ($_docbook_xsl)&quot;
+  _fake_docbook_xsl=yes
+else
+  echo &quot;Found docbook.xsl at $_docbook_xsl&quot;
+fi
+
+cat &gt; html-chunk.xsl &lt;&lt; EOF
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
+&lt;!-- **************************************************
+     This file is generated automatically. DO NOT EDIT.
+     ************************************************** --&gt;
+&lt;xsl:stylesheet xmlns:xsl=&quot;<A HREF="http://www.w3.org/1999/XSL/Transform">http://www.w3.org/1999/XSL/Transform</A>&quot;
+                version=&quot;1.0&quot;&gt;
+
+  &lt;xsl:import href=&quot;$_chunk_xsl&quot;/&gt;
+  &lt;xsl:include href=&quot;html-common.xsl&quot;/&gt;
+
+&lt;/xsl:stylesheet&gt;
+EOF
+
+
+cat &gt; html-single.xsl &lt;&lt; EOF
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
+&lt;!-- **************************************************
+     This file is generated automatically. DO NOT EDIT.
+     ************************************************** --&gt;
+&lt;xsl:stylesheet xmlns:xsl=&quot;<A HREF="http://www.w3.org/1999/XSL/Transform">http://www.w3.org/1999/XSL/Transform</A>&quot;
+                version=&quot;1.0&quot;&gt;
+
+  &lt;xsl:import href=&quot;$_docbook_xsl&quot;/&gt;
+  &lt;xsl:include href=&quot;html-common.xsl&quot;/&gt;
+
+&lt;/xsl:stylesheet&gt;
+EOF
+
+echo &quot;Searching for DTD...&quot;
+for _try_dtd in \
+  /usr/share/sgml/docbook/dtd/xml/4.1.2/docbookx.dtd \
+  /usr/share/docbook-xml42/docbookx.dtd \
+  /usr/share/sgml/docbook/xml-dtd-4.1.2*/docbookx.dtd \
+  /usr/share/sgml/docbook/xml-dtd-4.2/docbookx.dtd \
+  /usr/share/xml/docbook/schema/dtd/4.2/docbookx.dtd \
+  /usr/share/sgml/docbook/dtd/4.2/docbookx.dtd
+do
+  if test -f &quot;$_try_dtd&quot;
+  then
+    _dtd=$_try_dtd
+    break
+  fi
+done
+
+if test -z &quot;$_dtd&quot;
+then
+  _dtd=/usr/share/sgml/docbook/dtd/xml/4.1.2/docbookx.dtd
+  echo &quot;Not found. Using default ($_dtd).&quot;
+else
+  echo &quot;Found docbookx.dtd at $_dtd&quot;
+fi
+
+for lang in `grep 'SUBDIRS =' Makefile|cut -d= -f2`; do
+  cat &gt; $lang/main.xml &lt;&lt; EOF
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot; standalone=&quot;no&quot;?&gt;
+&lt;!DOCTYPE book PUBLIC &quot;-//OASIS//DTD DocBook XML V4.1.2//EN&quot;
+    &quot;$_dtd&quot;
+[ 
+EOF
+
+  for file in `find $lang en -name \*.xml -exec basename \{\} \; | sort -u`; do
+    echo '&lt;!ENTITY '$file'	SYSTEM &quot;'$file'&quot;&gt;' &gt;&gt; $lang/main.xml
+  done
+
+  cat &gt;&gt; $lang/main.xml &lt;&lt; EOF
+]&gt;
+&lt;book id=&quot;index&quot; lang=&quot;$lang&quot;&gt;
+&amp;documentation.xml;
+&lt;/book&gt;
+EOF
+
+done
+
+echo &quot;Looking for a valid XSLT processor...&quot;
+# Checks for xsltproc, then checks for the Saxon processor (it needs Java).
+# Also checks for Jade/OpenJade.
+#FIXME: Add support for the xalan/xalan2 XSLT processors.
+
+if xsltproc --version &amp;&gt; /dev/null
+then
+  if test -z &quot;$_fake_chunk_xsl&quot;
+  then
+    echo &quot;Found xsltproc. If it works, it's probably the best choice.&quot;
+    if test -n &quot;$_catalog&quot;
+    then
+      _xsltcommand=&quot;xsltproc --catalogs -o \$1 \$2 \$3&quot;
+    else
+      _xsltcommand=&quot;xsltproc -o \$1 \$2 \$3&quot;
+    fi
+  else
+    echo &quot;Found xsltproc but no stylesheets on your system.&quot;
+    echo &quot;xsltproc is unusable without stylesheets.&quot;
+  fi
+fi
+
+# xsltproc not found.
+# Now try to find a good Java virtual machine.
+# FIXME: We need more checks for Java virtual machines.
+if test -z &quot;$_xsltcommand&quot;
+then
+  #FIXME: Add more suitable machines!!!
+  for _try_java in java gij-3.3 gij-3.2 gij-3.1 gij-3.0 gij
+  do
+    if $_try_java --version &gt; /dev/null 2&gt;&amp;1 || $_try_java -version &gt; /dev/null 2&gt;&amp;1
+    then
+      _java=$_try_java
+      break
+    fi
+  done
+  if test -z &quot;$_java&quot;
+  then
+    echo &quot;Java VM not found.&quot;
+  else
+    # Try to find the right jar files for classpath.
+    # This must not trigger on something like saxon-fop-6.4.4.jar.
+    for _try_saxon_jar in \
+      /usr/share/java/saxon-[0-9]*.jar \
+      /usr/local/share/java/saxon-[0-9]*.jar \
+      /usr/share/java/saxon.jar \
+      /usr/local/share/java/saxon.jar
+    do
+      if test -f &quot;$_try_saxon_jar&quot;
+      then
+        _saxon_jar=$_try_saxon_jar
+        #Don't break to find the _latest_ saxon.jar.
+      fi
+    done
+    if test -n &quot;$_saxon_jar&quot;
+    then
+      if test -z &quot;$_fake_chunk_xsl&quot;
+      then
+#        _xsltcommand=&quot;cd \$1 &amp;&amp; if test \&quot;\`dirname \$2 | head -c 1\`\&quot; = \&quot;.\&quot; ; then $_java  -classpath $_saxon_jar com.icl.saxon.StyleSheet \$_IN_DIR/\$3 \$_IN_DIR/\$2 ; else $_java  -classpath $_saxon_jar com.icl.saxon.StyleSheet \$_IN_DIR/\$3 \$2 ;fi&quot;
+	_xsltcommand=&quot;
+if test \&quot;\`dirname \$2 | head -c 1\`\&quot; = \&quot;.\&quot;
+then
+  _STYLESHEET=\$_IN_DIR/\$2
+else
+  _STYLESHEET=\$2
+fi
+
+if test -d \$1
+then
+  _DIRNAME=\&quot;\$1\&quot;
+  _OUTPUT=\&quot;\&quot;
+else
+  _DIRNAME=\&quot;\`dirname \$1\`\&quot;
+  _OUTPUT=\&quot;-o \`basename \$1\`\&quot;
+fi
+
+cd \$_DIRNAME &amp;&amp;
+  java  -classpath /usr/share/java/saxon.jar com.icl.saxon.StyleSheet \$_OUTPUT \$_IN_DIR/\$3 \$_STYLESHEET
+  &quot;
+
+        echo &quot;Found the Saxon XSLT Processor ($_saxon_jar), using Java VM '$_java'.&quot;
+      else
+        echo &quot;Found the Saxon XSLT processor but no stylesheets on your system.&quot;
+        echo &quot;Saxon is unusable without stylesheets.&quot;
+      fi
+    fi
+  fi
+fi
+
+if test -z &quot;$_xsltcommand&quot;
+then
+  # Java not found.
+  # now try openjade/jade.
+  for _try_jade in jade openjade
+  do
+    if command -v $_try_jade &gt; /dev/null
+    then
+      _jade=$_try_jade
+      break
+    fi
+  done
+  if test -n &quot;$_jade&quot;
+  then
+    echo &quot;xsltproc and Saxon XSLT processors not found.&quot;
+    echo &quot;I will try to use OpenJade or Jade (using '$_jade').&quot;
+    echo &quot;They aren't (currently) fully supported, however.&quot;
+    for _try_docbook_dsl in \
+      /usr/share/sgml/docbook/stylesheet/dsssl/modular/html/docbook.dsl \
+      /usr/local/share/sgml/docbook/stylesheet/dsssl/modular/html/docbook.dsl
+    do
+      if test -f &quot;$_try_docbook_dsl&quot;
+      then
+        _docbook_dsl=$_try_docbook_dsl
+        break
+      fi
+    done
+    for _try_xml_dcl in \
+      /usr/share/sgml/declaration/xml.dcl \
+      /usr/local/share/sgml/declaration/xml.dcl
+    do
+      if test -f &quot;$_try_xml_dcl&quot;
+      then
+        _xml_dcl=$_try_xml_dcl
+        break
+      fi
+    done
+      if test &quot;x$_docbook_dsl&quot; = &quot;x&quot; -o &quot;x$_xml_dcl&quot; = &quot;x&quot;
+      then
+  	echo &quot;One of the files docbook.dsl and xml.dcl or both of them weren't found.&quot;
+  	echo &quot;Bailing out.&quot;
+  	exit 1
+      fi
+    _xsltcommand=&quot;cd \$1 &amp;&amp; $_jade -t xml -d $_docbook_dsl $_xml_dcl \$_IN_DIR/\$3&quot;
+  else
+    echo &quot;No valid XSLT processor found.&quot;
+    echo &quot;Bailing out.&quot;
+    exit 1
+  fi
+fi
+
+
+
+cat &gt; $_xsltwrapper &lt;&lt; EOF
+#!/bin/sh
+# **************************************************
+# This file is generated automatically. DO NOT EDIT.
+# **************************************************
+# This is a small wrapper script around many ways to call the XSLT processor.
+# It accepts 3 arguments: &lt;output_dir&gt; &lt;stylesheet_name&gt; &lt;main XML file name&gt;
+_IN_DIR=\`pwd\`
+
+$_sgmlcatalog
+$_xsltcommand
+EOF
+
+chmod +x $_xsltwrapper
+
+
+echo &quot;Searching for XML checker...&quot;
+for _try_xmllint in xmllint
+do
+  if command -v $_try_xmllint &gt; /dev/null 2&gt;&amp;1
+  then
+    echo &quot;Found $_try_xmllint&quot;
+    if test -n &quot;$_catalog&quot;
+    then
+      _xmllint_command=&quot;$_try_xmllint --noout --noent --postvalid --catalogs \$*&quot;
+    else
+      _xmllint_command=&quot;$_try_xmllint --noout --noent --postvalid \$*&quot;
+    fi
+    break
+  fi
+done
+
+if test -z &quot;$_xmllint_command&quot;
+then
+  echo &quot;Not found&quot;
+  _xmllint_command=true
+fi
+
+cat &gt; $_xmllintwrapper &lt;&lt; EOF
+#!/bin/sh
+# **************************************************
+# This file is generated automatically. DO NOT EDIT.
+# **************************************************
+# This is a small wrapper for XML lintian programs.
+$_sgmlcatalog
+$_xmllint_command
+EOF
+
+chmod +x $_xmllintwrapper
+
+--- NEW FILE: default.css ---
+body {
+	color: #000000;
+	background: #ffffff;
+	font-size: 12pt;
+    margin-left: 64px;
+    width: 700px;
+}
+
+a {
+    color: #000080;
+}
+
+div.table table, div.informaltable table {
+	background: #333366;
+	border-collapse: separate;
+	border: solid 1px #333366;
+	border-spacing: 1px;
+}
+
+div.table th, div.informaltable th {
+	color: white;
+	background: #4488cc;
+	border: 0px;
+	padding: 2px;
+}
+
+div.table td, div.informaltable td {
+	background: #fffff8;
+	border: 0px;
+	padding: 2px;
+}
+
+
+pre.screen {
+	padding: 4px;
+	background: #e0e0e0;
+}
+
+pre.programlisting {
+	padding: 4px;
+	background: #e0e0e0;
+}
+
+
+--- NEW FILE: html-common.xsl ---
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
+&lt;xsl:stylesheet xmlns:xsl=&quot;<A HREF="http://www.w3.org/1999/XSL/Transform">http://www.w3.org/1999/XSL/Transform</A>&quot;
+                version=&quot;1.0&quot;&gt;
+
+  &lt;xsl:output method=&quot;html&quot; indent=&quot;no&quot;/&gt;
+ 
+  &lt;xsl:param name=&quot;toc.section.depth&quot; select=&quot;'4'&quot;/&gt;
+
+  &lt;xsl:param name=&quot;html.stylesheet&quot; select=&quot;'default.css'&quot;/&gt;
+  &lt;xsl:param name=&quot;html.stylesheet.type&quot; select=&quot;'text/css'&quot;/&gt;
+
+  &lt;xsl:param name=&quot;html.cleanup&quot; select=&quot;'0'&quot;/&gt;
+  &lt;xsl:param name=&quot;make.valid.html&quot; select=&quot;'1'&quot;/&gt;
+  &lt;xsl:param name=&quot;make.single.year.ranges&quot; select=&quot;'1'&quot;/&gt;
+  &lt;xsl:param name=&quot;make.year.ranges&quot; select=&quot;'1'&quot;/&gt;
+
+  &lt;!-- Use ID value for generated filenames --&gt;
+  &lt;xsl:param name=&quot;use.id.as.filename&quot; select=&quot;'1'&quot;/&gt;
+
+  &lt;xsl:param name=&quot;admon.graphics&quot; select=&quot;'0'&quot;/&gt;
+  &lt;xsl:param name=&quot;navig.graphics&quot; select=&quot;'0'&quot;/&gt;
+  &lt;xsl:param name=&quot;navig.showtitles&quot; select=&quot;'0'&quot;/&gt;
+
+  &lt;!-- Label sections too (eg. 2.1, 2.1.1) --&gt;
+  &lt;xsl:param name=&quot;section.autolabel&quot; select=&quot;'1'&quot;/&gt;
+  &lt;xsl:param name=&quot;section.label.includes.component.label&quot; select=&quot;'1'&quot;/&gt;
+
+  &lt;!-- Use informal procedures; no need to number them --&gt;
+  &lt;xsl:param name=&quot;formal.procedures&quot; select=&quot;'0'&quot;/&gt;
+
+  &lt;xsl:template name=&quot;user.header.navigation&quot;&gt;
+      &lt;xsl:text disable-output-escaping=&quot;no&quot;&gt;
+          &lt;![CDATA[BEGINOFTABLEHERECHUNK]]&gt;
+      &lt;/xsl:text&gt;
+  &lt;/xsl:template&gt;
+
+  &lt;xsl:template name=&quot;user.header.content&quot;&gt;
+      &lt;xsl:text disable-output-escaping=&quot;no&quot;&gt;
+          &lt;![CDATA[BEGINOFTABLEHERESINGLE]]&gt;
+      &lt;/xsl:text&gt;
+  &lt;/xsl:template&gt;
+
+  &lt;xsl:template name=&quot;user.footer.navigation&quot;&gt;
+      &lt;xsl:text disable-output-escaping=&quot;no&quot;&gt;
+          &lt;![CDATA[ENDOFTABLEHERECHUNK]]&gt;
+      &lt;/xsl:text&gt;
+  &lt;/xsl:template&gt;
+
+  &lt;xsl:template name=&quot;user.footer.content&quot;&gt;
+      &lt;xsl:text disable-output-escaping=&quot;no&quot;&gt;
+          &lt;![CDATA[ENDOFTABLEHERESINGLE]]&gt;
+      &lt;/xsl:text&gt;
+  &lt;/xsl:template&gt;
+
+&lt;/xsl:stylesheet&gt;
+
+--- NEW FILE: Makefile ---
+# Makefile for generating the HTML documentation
+
+# List of subdirectories to be processed.
+SUBDIRS = en
+
+# Generated chunked HTML files go here.
+HTML_CHUNKED = ../HTML
+
+# Generated single HTML files go here.
+HTML_SINGLE = ../HTML-single
+
+.PHONY: all
+all: html-chunked html-single postproc
+
+.PHONY: help
+help:
+	@echo &quot;Targets:&quot;
+	@echo &quot;********&quot;
+	@echo &quot;all               : Build everything (default).&quot;
+	@echo &quot;html-single       : Build HTML documentation (single file).&quot;
+	@echo &quot;html-single-LANG  : As above, but only one language.&quot;
+	@echo &quot;html-chunked      : Build HTML documentation (multiple files).&quot;
+	@echo &quot;html-chunked-LANG : As above, but only one language.&quot;
+	@echo &quot;xmllint           : Check syntax of all xml files.&quot;
+	@echo &quot;xmllint-LANG      : Check syntax of LANG xml files.&quot;
+	@echo &quot;clean-html-single : Purge the 'HTML-single' directory.&quot;
+	@echo &quot;clean-html-chunked: Purge the 'HTML' directory.&quot;
+	@echo &quot;clean             : Purge the 'HTML' and 'HTML-single' directories.&quot;
+	@echo &quot;releaseclean      : Remove generated files but keep the HTML.&quot;
+	@echo &quot;distclean         : Remove ALL generated files.&quot;
+	@echo &quot;clean-LANG        : Remove HTML files for one language.&quot;
+	@echo &quot;releaseclean-LANG : Remove generated files for one language.&quot;
+	@echo &quot;distclean-LANG    : Remove ALL generated files for one language.&quot;
+	@echo &quot;Substitute LANG for one of $(SUBDIRS)&quot;
+
+.PHONY: html-chunked chunked-dir
+html-chunked: xsltproc.sh xmllint.sh chunked-dir $(addprefix html-chunked-,$(SUBDIRS))
+chunked-dir:
+	test -d $(HTML_CHUNKED) || mkdir $(HTML_CHUNKED)
+
+.PHONY: html-single single-dir
+html-single: xsltproc.sh xmllint.sh single-dir $(addprefix html-single-,$(SUBDIRS))
+single-dir:
+	test -d $(HTML_SINGLE) || mkdir $(HTML_SINGLE)
+
+.PHONY: xmllint
+xmllint: xmllint.sh $(addprefix xmllint-,$(SUBDIRS))
+
+.PHONY: clean-html-chunked
+clean-html-chunked:
+	-rm -rf $(HTML_CHUNKED) *~
+
+.PHONY: clean-html-single
+clean-html-single:
+	-rm -rf $(HTML_SINGLE) *~
+
+.PHONY: releaseclean distclean clean
+releaseclean: $(addprefix releaseclean-,$(SUBDIRS))
+	-rm -f html-chunk.xsl html-single.xsl xsltproc.sh xmllint.sh
+
+distclean: clean releaseclean
+
+xsltproc.sh xmllint.sh:
+	sh configure
+
+clean: clean-html-chunked clean-html-single
+
+postproc:
+	./postproc.sh
+
+define lang-def
+.PHONY: html-chunked-$(1) html-single-$(1) xmllint-$(1) \
+  distclean-$(1) releaseclean-$(1) clean-$(1)
+html-chunked-$(1): xsltproc.sh xmllint.sh chunked-dir
+	(test -d $(HTML_CHUNKED)/$(1) || mkdir $(HTML_CHUNKED)/$(1))
+	$(MAKE) HTMLDIR=../$(HTML_CHUNKED)/$(1) -C $(1) html-chunked
+
+html-single-$(1): xsltproc.sh xmllint.sh single-dir
+	(test -d $(HTML_SINGLE)/$(1) || mkdir $(HTML_SINGLE)/$(1))
+	$(MAKE) HTMLFILE=../$(HTML_SINGLE)/$(1)/index.html -C $(1) html-single
+
+xmllint-$(1): xmllint.sh
+	$(MAKE) HTMLFILE=../$(HTML_SINGLE)/$(1)/index.html -C $(1) xmllint
+
+distclean-$(1): clean-$(1) releaseclean-$(1)
+
+clean-$(1):
+	-rm -rf $(HTML_SINGLE)/$(1) $(HTML_CHUNKED)/$(1)
+
+releaseclean-$(1):
+	$(MAKE) HTMLDIR=../$(HTML_CHUNKED)/$(1) -C $(1) distclean
+endef
+
+$(foreach lang, $(SUBDIRS),$(eval $(call lang-def,$(lang))))
+
+--- NEW FILE: Makefile.inc ---
+#
+# Makefile.inc for Makefiles in subdirectories.
+#
+
+# Use customized html-chunk.xsl and/or html-single.xsl file if they exist...
+# Also add html-common.xsl to depends if it exists.
+ifeq (html-common.xsl,$(wildcard html-common.xsl))
+COMMON_XSL_DEPS := html-common.xsl ../html-common.xsl
+else
+COMMON_XSL_DEPS := ../html-common.xsl
+endif
+
+ifeq (html-chunk.xsl,$(wildcard html-chunk.xsl))
+HTML_CHUNK_XSL := html-chunk.xsl
+CHUNK_XSL_DEPS := $(HTML_CHUNK_XSL) ../html-chunk.xsl $(COMMON_XSL_DEPS)
+else
+HTML_CHUNK_XSL := ../html-chunk.xsl
+CHUNK_XSL_DEPS := $(HTML_CHUNK_XSL) ../html-common.xsl
+endif
+
+ifeq (html-single.xsl,$(wildcard html-single.xsl))
+HTML_SINGLE_XSL := html-single.xsl
+XSL_DEPS := $(HTML_SINGLE_XSL) ../html-single.xsl $(COMMON_XSL_DEPS)
+else
+HTML_SINGLE_XSL := ../html-single.xsl
+XSL_DEPS := $(HTML_SINGLE_XSL) ../html-common.xsl
+endif
+
+# Fall back to the default HTML stylesheet if none is specified.
+HTML_STYLESHEET ?= ../default.css
+
+# This is the main target...
+.PHONY: all html-chunked html-single xmllint
+all: html-chunked html-single
+html-chunked: $(HTMLDIR)/index.html
+html-single: $(HTMLFILE)
+
+SYMLINKS_DEPS:=$(if $(findstring yes,$(USE_SYMLINKS)), $(patsubst ../en/%,%,$(wildcard ../en/*.xml)))
+
+xmllint: main.xml $(SYMLINKS_DEPS)
+	../xmllint.sh $&lt;
+
+$(HTMLDIR)/index.html: main.xml $(CHUNK_XSL_DEPS) $(SYMLINKS_DEPS)
+ifndef HTMLDIR
+	$(warning $(HTMLDIR))
+	$(warning Error: HTMLDIR not set!!!)
+	$(warning Typically this means, that you've run make from a subdir of DOCS/xml.)
+	$(error Don't do this!)
+endif
+	-rm -f $(HTMLDIR)/*
+	../xmllint.sh $&lt;
+	cp -f $(HTML_STYLESHEET) $(HTMLDIR)/
+	../xsltproc.sh $(HTMLDIR)/ $(HTML_CHUNK_XSL) $&lt;
+
+
+
+$(HTMLFILE): main.xml $(XSL_DEPS) $(SYMLINKS_DEPS)
+ifndef HTMLFILE
+	$(warning Error: HTMLFILE not set!!!)
+	$(warning Typically this means, that you've run make from a subdir of DOCS/xml.)
+	$(error Don't do this!)
+endif
+	-rm -f $(HTMLFILE)
+	../xmllint.sh $&lt;
+	cp -f $(HTML_STYLESHEET) `dirname $(HTMLFILE)`
+	../xsltproc.sh $(HTMLFILE) $(HTML_SINGLE_XSL) $&lt;
+
+../html-chunk.xsl ../html-single.xsl main.xml:
+	cd .. &amp;&amp; sh configure
+
+$(filter-out main.xml, $(patsubst ../en/%,%, $(wildcard ../en/*.xml))):
+	$(if $(findstring yes,$(USE_SYMLINKS)), ,exit 0;)\
+	for file in ../en/*.xml ; do \
+	if ! test -r `basename $$file` ; then \
+		ln -s $$file `basename $$file` ; \
+	fi; \
+	done
+
+distclean:
+	rm -f main.xml *~
+	if test &quot;$(USE_SYMLINKS)&quot; = &quot;yes&quot; ; then \
+		rm -f `find *.xml -type l`; \
+	fi
+
+--- NEW FILE: README ---
+The documentation build-system is mostly borrowed from the MPlayer project
+(see: <A HREF="http://www.mplayerhq.hu/">http://www.mplayerhq.hu/</A>) and is all licensed under version 2 of the GPL.
+
+--- NEW FILE: postproc.sh ---
+#!/bin/sh
+
+# Simple script to replace keywords by begining and ending of table instead of
+# overriding &quot;chunk-element-content&quot; in the stylesheet, which results in an
+# endless loop (&lt;xsl:apply-imports/&gt;).  If somebody knows how to fix that,
+# please let me know.
+
+# chunks:
+
+_files=`find ../HTML -type f -name *.html`
+
+for i in $_files
+do
+    sed -e 's/BEGINOFTABLEHERECHUNK/\&lt;table bgcolor=\&quot;#f0f0f0\&quot; width=\&quot;700\&quot; border=\&quot;0\&quot; cellspacing=\&quot;0\&quot; cellpadding=\&quot;16\&quot; height=\&quot;1000\&quot; \&gt; \&lt;tr\&gt; \&lt;td valign=\&quot;top\&quot; align=\&quot;left\&quot;\&gt;/' $i | sed -e 's/ENDOFTABLEHERECHUNK/\&lt;\/td\&gt; \&lt;\/tr\&gt; \&lt;\/table\&gt;/' | sed -e 's/BEGINOFTABLEHERESINGLE//' | sed -e 's/ENDOFTABLEHERESINGLE//' &gt; $i.tmp
+    mv -f $i.tmp $i
+done
+
+# singles:
+
+_files=`find ../HTML-single -type f -name *.html`
+
+for i in $_files
+do
+    sed -e 's/BEGINOFTABLEHERESINGLE/\&lt;table bgcolor=\&quot;#f0f0f0\&quot; width=\&quot;700\&quot; border=\&quot;0\&quot; cellspacing=\&quot;0\&quot; cellpadding=\&quot;16\&quot; height=\&quot;1000\&quot; \&gt; \&lt;tr\&gt; \&lt;td valign=\&quot;top\&quot;\&gt;/' $i | sed -e 's/ENDOFTABLEHERESINGLE/\&lt;\/td\&gt; \&lt;\/tr\&gt; \&lt;\/table\&gt;/' | sed -e 's/BEGINOFTABLEHERECHUNK//' | sed -e 's/ENDOFTABLEHERECHUNK//' &gt; $i.tmp
+    mv -f $i.tmp $i
+done
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000018.html">[fpm-cvslog] fpm/docs/xml/en - New directory
+</A></li>
+	<LI>Next message: <A HREF="000020.html">[fpm-cvslog] fpm/docs/xml/en Makefile,NONE,1.1 documentation.xml,NONE,1.1 gettingstarted.xml,NONE,1.1 introduction.xml,NONE,1.1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#19">[ date ]</a>
+              <a href="thread.html#19">[ thread ]</a>
+              <a href="subject.html#19">[ subject ]</a>
+              <a href="author.html#19">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

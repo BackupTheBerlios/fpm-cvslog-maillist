@@ -1,0 +1,336 @@
+From nobody at sheep.berlios.de  Fri Jan  6 19:29:22 2006
+From: nobody at sheep.berlios.de (ivop)
+Date: Fri, 6 Jan 2006 19:29:22 +0100
+Subject: [fpm-cvslog] fpm Makefile,1.1,1.2
+Message-ID: <200601061829.k06ITMH09155@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm
+In directory sheep:/tmp/cvs-serv15352
+
+Modified Files:
+	Makefile 
+Log Message:
+fix deps (typo)
+
+
+
+Index: Makefile
+===================================================================
+RCS file: /cvsroot/fpm/fpm/Makefile,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- Makefile	13 Sep 2005 03:31:02 -0000	1.1
++++ Makefile	6 Jan 2006 18:29:19 -0000	1.2
+@@ -88,7 +88,7 @@
+ 
+ -include deps/$(PRECOBJS:.o=.d)
+ 
+--include deps/$(PRECLUTOBJS:.0=.d)
++-include deps/$(PRECLUTOBJS:.o=.d)
+ 
+ %.o:	%.c
+ 	$(CC) -c $(CFLAGS) $(INCLUDES) $*.c -o $*.o $(DEBUG) $(WARNINGS)
+
+
+
+From nobody at sheep.berlios.de  Fri Jan  6 19:32:28 2006
+From: nobody at sheep.berlios.de (ivop)
+Date: Fri, 6 Jan 2006 19:32:28 +0100
+Subject: [fpm-cvslog] fpm genlut.c,1.1,1.2
+Message-ID: <200601061832.k06IWSH09806@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm
+In directory sheep:/tmp/cvs-serv17682
+
+Modified Files:
+	genlut.c 
+Log Message:
+make luts const
+
+
+
+Index: genlut.c
+===================================================================
+RCS file: /cvsroot/fpm/fpm/genlut.c,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- genlut.c	13 Sep 2005 03:31:02 -0000	1.1
++++ genlut.c	6 Jan 2006 18:32:25 -0000	1.2
+@@ -20,7 +20,7 @@
+ 
+ #define outputccode(A, B, C, D, e) \
+     printf("\n/* "A" */\n\n"); \
+-    printf("static "B" "C"[%i] = {\n", e); \
++    printf("static const "B" "C"[%i] = {\n", e); \
+     for (i=0; i<e-1; i++) { \
+         printf("%uU, ", D[i]); \
+     } \
+
+
+
+From nobody at sheep.berlios.de  Fri Jan  6 19:35:43 2006
+From: nobody at sheep.berlios.de (ivop)
+Date: Fri, 6 Jan 2006 19:35:43 +0100
+Subject: [fpm-cvslog] fpm/include fixedpointmath.h,1.2,1.3 fixedpointmathcode.h,1.2,1.3
+Message-ID: <200601061835.k06IZhH10556@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm/include
+In directory sheep:/tmp/cvs-serv18574/include
+
+Modified Files:
+	fixedpointmath.h fixedpointmathcode.h 
+Log Message:
+detect inttypes.h or stdint.h
+if both are unavailable, define (u)int*_t types ourselves
+
+
+
+Index: fixedpointmath.h
+===================================================================
+RCS file: /cvsroot/fpm/fpm/include/fixedpointmath.h,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- fixedpointmath.h	14 Sep 2005 23:19:40 -0000	1.2
++++ fixedpointmath.h	6 Jan 2006 18:35:41 -0000	1.3
+@@ -24,7 +24,23 @@
+ 
+ /* ------------------------------------------------------------------------- */
+ 
++#ifdef HAVE_INTTYPES_H
+ #include <inttypes.h>
++#else
++#ifdef HAVE_STDINT_H
++#include <stdint.h>
++#else
++typedef unsigned long long uint64_t;
++typedef          long long  int64_t;
++typedef unsigned long      uint32_t;
++typedef          long       int32_t;
++typedef unsigned short     uint16_t;
++typedef          short      int16_t;
++typedef unsigned char      uint8_t;
++typedef          char       int8_t;
++#endif
++#endif
++
+ #include "fixedpointmathcode.h"
+ 
+ /* ------------------------------------------------------------------------- */
+
+Index: fixedpointmathcode.h
+===================================================================
+RCS file: /cvsroot/fpm/fpm/include/fixedpointmathcode.h,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- fixedpointmathcode.h	14 Sep 2005 23:20:08 -0000	1.2
++++ fixedpointmathcode.h	6 Jan 2006 18:35:41 -0000	1.3
+@@ -21,10 +21,6 @@
+ 
+ /* ------------------------------------------------------------------------- */
+ 
+-#include <inttypes.h>
+-
+-/* ------------------------------------------------------------------------- */
+-
+ /* signed */
+ 
+ typedef int16_t fp8p8_t;
+
+
+
+From nobody at sheep.berlios.de  Fri Jan  6 19:35:43 2006
+From: nobody at sheep.berlios.de (ivop)
+Date: Fri, 6 Jan 2006 19:35:43 +0100
+Subject: [fpm-cvslog] fpm configure,1.1,1.2 genlut.c,1.2,1.3
+Message-ID: <200601061835.k06IZhH10553@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm
+In directory sheep:/tmp/cvs-serv18574
+
+Modified Files:
+	configure genlut.c 
+Log Message:
+detect inttypes.h or stdint.h
+if both are unavailable, define (u)int*_t types ourselves
+
+
+
+Index: configure
+===================================================================
+RCS file: /cvsroot/fpm/fpm/configure,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- configure	13 Sep 2005 03:31:02 -0000	1.1
++++ configure	6 Jan 2006 18:35:40 -0000	1.2
+@@ -35,6 +35,8 @@
+ _awk=
+ _fig2dev=fig2dev
+ _fig2dev_png=
++_inttypes=
++_stdint=
+ 
+ 
+ # check environment
+@@ -212,6 +214,35 @@
+ 
+ 
+ 
++echocheck "inttypes.h"
++cat > $TMPC << EOF
++#include <inttypes.h>
++int main(void) { return 0; }
++EOF
++cc_check && _inttypes=yes
++if test "$_inttypes" = yes ; then
++    echores "yes"
++    _inttypes="-DHAVE_INTTYPES_H"
++else
++    echores "no"
++    _inttypes=""
++    echocheck "stdint.h"
++    cat > $TMPC << EOF
++#include <stdint.h>
++int main(void) { return 0; }
++EOF
++    cc_check && _stdint=yes
++    if test "$_stdint" = yes ; then
++        echores "yes"
++        _stdint="-DHAVE_STDINT_H"
++    else
++        echores "no"
++        _stdint=""
++    fi
++fi
++
++
++
+ echocheck "indent"
+ (echo "$_indent" | $_indent) >> "$TMPLOG" 2>&1
+ _tmp=`(echo "indent" | $_indent) 2>&1`
+@@ -363,7 +394,7 @@
+ echo ${_echo_n} "Generating config.mak ... ${_echo_c}"
+ cat > config.mak << EOF
+ CC=$_cc
+-CFLAGS=$_cflags
++CFLAGS=$_cflags $_inttypes $_stdint
+ INCLUDES=-I./include $_inc_extra
+ CCFORDEPS=$_ccfordeps
+ LD=$_cc
+
+Index: genlut.c
+===================================================================
+RCS file: /cvsroot/fpm/fpm/genlut.c,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- genlut.c	6 Jan 2006 18:32:25 -0000	1.2
++++ genlut.c	6 Jan 2006 18:35:40 -0000	1.3
+@@ -14,7 +14,22 @@
+ 
+ #include <math.h>
+ #include <stdio.h>
++#ifdef HAVE_INTTYPES_H
+ #include <inttypes.h>
++#else
++#ifdef HAVE_STDINT_H
++#include <stdint.h>
++#else
++typedef unsigned long long uint64_t;
++typedef          long long  int64_t;
++typedef unsigned long      uint32_t;
++typedef          long       int32_t;
++typedef unsigned short     uint16_t;
++typedef          short      int16_t;
++typedef unsigned char      uint8_t;
++typedef          char       int8_t;
++#endif
++#endif
+ 
+ /* ------------------------------------------------------------------------- */
+ 
+
+
+
+From nobody at sheep.berlios.de  Fri Jan  6 19:42:41 2006
+From: nobody at sheep.berlios.de (ivop)
+Date: Fri, 6 Jan 2006 19:42:41 +0100
+Subject: [fpm-cvslog] fpm ChangeLog,1.1,1.2
+Message-ID: <200601061842.k06IgfH11545@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm
+In directory sheep:/tmp/cvs-serv20399
+
+Modified Files:
+	ChangeLog 
+Log Message:
+updated
+
+
+
+Index: ChangeLog
+===================================================================
+RCS file: /cvsroot/fpm/fpm/ChangeLog,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- ChangeLog	13 Sep 2005 03:31:02 -0000	1.1
++++ ChangeLog	6 Jan 2006 18:42:38 -0000	1.2
+@@ -3,6 +3,10 @@
+ 
+ $Id$
+ 
++	- added detection of inttypes.h and stdint.h (define ourselves if missing)
++	- made luts const
++	- fixed pow macros for x==1
++
+ v0.30   [First alpha release]
+ 
+     - Better Makefile(s)
+
+
+
+From nobody at sheep.berlios.de  Sat Jan  7 00:35:31 2006
+From: nobody at sheep.berlios.de (ivop)
+Date: Sat, 7 Jan 2006 00:35:31 +0100
+Subject: [fpm-cvslog] fpm ChangeLog,1.2,1.3
+Message-ID: <200601062335.k06NZVH21645@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm
+In directory sheep:/tmp/cvs-serv21380
+
+Modified Files:
+	ChangeLog 
+Log Message:
+tabs->spaces
+
+
+
+Index: ChangeLog
+===================================================================
+RCS file: /cvsroot/fpm/fpm/ChangeLog,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- ChangeLog	6 Jan 2006 18:42:38 -0000	1.2
++++ ChangeLog	6 Jan 2006 23:35:28 -0000	1.3
+@@ -3,9 +3,9 @@
+ 
+ $Id$
+ 
+-	- added detection of inttypes.h and stdint.h (define ourselves if missing)
+-	- made luts const
+-	- fixed pow macros for x==1
++    - added detection of inttypes.h and stdint.h (define ourselves if missing)
++    - made luts const
++    - fixed pow macros for x==1
+ 
+ v0.30   [First alpha release]
+ 
+
+
+

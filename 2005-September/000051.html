@@ -1,0 +1,567 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] fpm/docs/xml/en advanced.xml,NONE,1.1 usage.xml,NONE,1.1 documentation.xml,1.3,1.4 gettingstarted.xml,1.3,1.4 introduction.xml,1.3,1.4
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2005-September/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20fpm/docs/xml/en%20advanced.xml%2CNONE%2C1.1%20usage.xml%2CNONE%2C1.1%20documentation.xml%2C1.3%2C1.4%20gettingstarted.xml%2C1.3%2C1.4%20introduction.xml%2C1.3%2C1.4&In-Reply-To=%3C200509010015.j810F6612817%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000050.html">
+   <LINK REL="Next"  HREF="000052.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] fpm/docs/xml/en advanced.xml,NONE,1.1 usage.xml,NONE,1.1 documentation.xml,1.3,1.4 gettingstarted.xml,1.3,1.4 introduction.xml,1.3,1.4</H1>
+    <B>ivop</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20fpm/docs/xml/en%20advanced.xml%2CNONE%2C1.1%20usage.xml%2CNONE%2C1.1%20documentation.xml%2C1.3%2C1.4%20gettingstarted.xml%2C1.3%2C1.4%20introduction.xml%2C1.3%2C1.4&In-Reply-To=%3C200509010015.j810F6612817%40bat.berlios.de%3E"
+       TITLE="[fpm-cvslog] fpm/docs/xml/en advanced.xml,NONE,1.1 usage.xml,NONE,1.1 documentation.xml,1.3,1.4 gettingstarted.xml,1.3,1.4 introduction.xml,1.3,1.4">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Thu Sep  1 02:15:16 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000050.html">[fpm-cvslog] fpm/docs/xml default.css,1.3,1.4
+</A></li>
+        <LI>Next message: <A HREF="000052.html">[fpm-cvslog] website/docs/HTML-single/en default.css,1.3,1.4 index.html,1.2,1.3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#51">[ date ]</a>
+              <a href="thread.html#51">[ thread ]</a>
+              <a href="subject.html#51">[ subject ]</a>
+              <a href="author.html#51">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/fpm/fpm/docs/xml/en
+In directory sheep:/tmp/cvs-serv16045/en
+
+Modified Files:
+	documentation.xml gettingstarted.xml introduction.xml 
+Added Files:
+	advanced.xml usage.xml 
+Log Message:
+Next chapter and skeleton of chapter four plus misc. spelling and lay-out fixes
+
+
+
+--- NEW FILE: advanced.xml ---
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot;?&gt;
+
+&lt;!-- $Revision: 1.1 $ --&gt;
+
+&lt;chapter id=&quot;advanced&quot;&gt;
+    &lt;title&gt; Advanced &lt;/title&gt;
+
+    &lt;sect1 id=&quot;look-up-tables&quot;&gt;
+        &lt;title&gt; Look Up Tables &lt;/title&gt;
+
+        &lt;para&gt;
+        &lt;/para&gt;
+    &lt;/sect1&gt;
+
+    &lt;sect1 id=&quot;precision&quot;&gt;
+        &lt;title&gt; Precision &lt;/title&gt;
+
+        &lt;para&gt;
+        &lt;/para&gt;
+    &lt;/sect1&gt;
+
+    &lt;sect1 id=&quot;benchmarks&quot;&gt;
+        &lt;title&gt; Benchmarks &lt;/title&gt;
+
+        &lt;para&gt;
+        &lt;/para&gt;
+    &lt;/sect1&gt;
+
+
+&lt;/chapter&gt;
+
+
+--- NEW FILE: usage.xml ---
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot;?&gt;
+
+&lt;!-- $Revision: 1.1 $ --&gt;
+
+&lt;chapter id=&quot;usage&quot;&gt;
+    &lt;title&gt; Usage &lt;/title&gt;
+
+    &lt;para&gt;
+        First, your application needs to include the Fixed Point Math Macro
+        Library header file:
+
+        &lt;programlisting&gt;
+        #include &lt;fixedpointmath.h&gt;&lt;/programlisting&gt;
+
+        After that, you will be able to use its types and functions. There's
+        no need to link to any special libraries.
+    &lt;/para&gt;
+
+    &lt;sect1 id=&quot;basic-types&quot;&gt;
+        &lt;title&gt; Basic types &lt;/title&gt;
+        &lt;para&gt;
+            There are four basic fixed point types. They differ in the amount
+            of memory they occupy and the amount of precision they offer.
+            All four come in both signed and unsigned variants, which sums
+            up to a total of eight types.
+
+            &lt;table&gt; &lt;title&gt; Basic types &lt;/title&gt;
+                &lt;tgroup cols=&quot;6&quot;&gt;
+                    &lt;thead&gt;
+                        &lt;row&gt; 
+                            &lt;entry&gt; type &lt;/entry&gt;
+                            &lt;entry&gt; total &lt;/entry&gt;
+                            &lt;entry&gt; fraction &lt;/entry&gt;
+                            &lt;entry&gt; min &lt;/entry&gt;
+                            &lt;entry&gt; max &lt;/entry&gt;
+                            &lt;entry&gt; precision &lt;/entry&gt;
+                        &lt;/row&gt;
+                    &lt;/thead&gt;
+                    &lt;tbody&gt;
+                        &lt;row&gt;
+                            &lt;entry&gt; fp8p8_t &lt;/entry&gt;
+                            &lt;entry&gt; 16 &lt;/entry&gt;
+                            &lt;entry&gt; 8 &lt;/entry&gt;
+                            &lt;entry&gt; -128.999... &lt;/entry&gt;
+                            &lt;entry&gt; 127.999... &lt;/entry&gt;
+                            &lt;entry&gt; 0.00390625 &lt;/entry&gt;
+                        &lt;/row&gt;
+                        &lt;row&gt;
+                            &lt;entry&gt; fp24p8_t &lt;/entry&gt;
+                            &lt;entry&gt; 32 &lt;/entry&gt;
+                            &lt;entry&gt; 8 &lt;/entry&gt;
+                            &lt;entry&gt; -8388608.999... &lt;/entry&gt;
+                            &lt;entry&gt; 8388607.999... &lt;/entry&gt;
+                            &lt;entry&gt; 0.00390625 &lt;/entry&gt;
+                        &lt;/row&gt;
+                        &lt;row&gt;
+                            &lt;entry&gt; fp16p16_t &lt;/entry&gt;
+                            &lt;entry&gt; 32 &lt;/entry&gt;
+                            &lt;entry&gt; 16 &lt;/entry&gt;
+                            &lt;entry&gt; -32768.999... &lt;/entry&gt;
+                            &lt;entry&gt; 32767.999... &lt;/entry&gt;
+                            &lt;entry&gt; 0.00001526 &lt;/entry&gt;
+                        &lt;/row&gt;
+                        &lt;row&gt;
+                            &lt;entry&gt; fp8p24_t &lt;/entry&gt;
+                            &lt;entry&gt; 32 &lt;/entry&gt;
+                            &lt;entry&gt; 24 &lt;/entry&gt;
+                            &lt;entry&gt; -128.999... &lt;/entry&gt;
+                            &lt;entry&gt; 127.999... &lt;/entry&gt;
+                            &lt;entry&gt; 0.00000006 &lt;/entry&gt;
+                        &lt;/row&gt;
+                        &lt;row&gt;
+                            &lt;entry&gt; ufp8p8_t &lt;/entry&gt;
+                            &lt;entry&gt; 16 &lt;/entry&gt;
+                            &lt;entry&gt; 8 &lt;/entry&gt;
+                            &lt;entry&gt; 0.0 &lt;/entry&gt;
+                            &lt;entry&gt; 255.999... &lt;/entry&gt;
+                            &lt;entry&gt; 0.00390625 &lt;/entry&gt;
+                        &lt;/row&gt;
+                        &lt;row&gt;
+                            &lt;entry&gt; ufp24p8_t &lt;/entry&gt;
+                            &lt;entry&gt; 32 &lt;/entry&gt;
+                            &lt;entry&gt; 8 &lt;/entry&gt;
+                            &lt;entry&gt; 0.0 &lt;/entry&gt;
+                            &lt;entry&gt; 16777215.999... &lt;/entry&gt;
+                            &lt;entry&gt; 0.00390625 &lt;/entry&gt;
+                        &lt;/row&gt;
+                        &lt;row&gt;
+                            &lt;entry&gt; ufp16p16_t &lt;/entry&gt;
+                            &lt;entry&gt; 32 &lt;/entry&gt;
+                            &lt;entry&gt; 16 &lt;/entry&gt;
+                            &lt;entry&gt; 0.0 &lt;/entry&gt;
+                            &lt;entry&gt; 65535.999... &lt;/entry&gt;
+                            &lt;entry&gt; 0.00001526 &lt;/entry&gt;
+                        &lt;/row&gt;
+                        &lt;row&gt;
+                            &lt;entry&gt; ufp8p24_t &lt;/entry&gt;
+                            &lt;entry&gt; 32 &lt;/entry&gt;
+                            &lt;entry&gt; 24 &lt;/entry&gt;
+                            &lt;entry&gt; 0.0 &lt;/entry&gt;
+                            &lt;entry&gt; 255.999... &lt;/entry&gt;
+                            &lt;entry&gt; 0.00000006 &lt;/entry&gt;
+                        &lt;/row&gt;
+                    &lt;/tbody&gt;
+                &lt;/tgroup&gt;
+            &lt;/table&gt;
+        &lt;/para&gt;
+
+        &lt;para&gt;
+            Declaring variables of certain types is as simple as with any
+            type.
+
+            &lt;programlisting&gt;
+                ufp16p16_t x, y;
+                fp16p16_t matrix[16][16]; &lt;/programlisting&gt;
+        &lt;/para&gt;
+    &lt;/sect1&gt;
+
+    &lt;sect1 id=&quot;type-conversion&quot;&gt;
+        &lt;title&gt; Initialization and type conversion &lt;/title&gt;
+
+        &lt;para&gt;
+            To initialize your variables, you need to convert a value from
+            another type and assign it to your fixed point variable. For
+            each fixed point type, there are several macro's that convert
+            to and from other types.
+
+            &lt;table&gt; &lt;title&gt; Type conversion to fp8p8_t &lt;/title&gt;
+                &lt;tgroup cols=&quot;2&quot;&gt;
+                    &lt;thead&gt;
+                        &lt;row&gt; 
+                            &lt;entry&gt; from &lt;/entry&gt;
+                            &lt;entry&gt; fp8p8_t &lt;/entry&gt;
+                        &lt;/row&gt;
+                    &lt;/thead&gt;
+                    &lt;tbody&gt;
+                        &lt;row&gt;
+                            &lt;entry&gt; int &lt;/entry&gt;
+                            &lt;entry&gt; itofp8p8(x) &lt;/entry&gt;
+                        &lt;/row&gt;
+                        &lt;row&gt;
+                            &lt;entry&gt; float &lt;/entry&gt;
+                            &lt;entry&gt; ftofp8p8(x) &lt;/entry&gt;
+                        &lt;/row&gt;
+                        &lt;row&gt;
+                            &lt;entry&gt; double &lt;/entry&gt;
+                            &lt;entry&gt; dtofp8p8(x) &lt;/entry&gt;
+                        &lt;/row&gt;
+                    &lt;/tbody&gt;
+                &lt;/tgroup&gt;
+            &lt;/table&gt;
+        &lt;/para&gt;
+
+        &lt;para&gt;
+            Similar macro's exist for all other fixed point types.
+
+            &lt;programlisting&gt;
+        int        a;
+        ufp16p16_t b;
+
+        a = 97;
+        b = itoufp16p16(a);
+
+        [...]
+
+        b = itoufp16p16(123); &lt;/programlisting&gt;
+        &lt;/para&gt;
+
+        &lt;para&gt;
+            There are also macro's that convert your fixed point
+            variables back to standard types.
+
+            &lt;table&gt; &lt;title&gt; Type conversion from fp8p8_t &lt;/title&gt;
+                &lt;tgroup cols=&quot;4&quot;&gt;
+                    &lt;thead&gt;
+                        &lt;row&gt; 
+                            &lt;entry&gt; from &lt;/entry&gt;
+                            &lt;entry&gt; int &lt;/entry&gt;
+                            &lt;entry&gt; float &lt;/entry&gt;
+                            &lt;entry&gt; double &lt;/entry&gt;
+                        &lt;/row&gt;
+                    &lt;/thead&gt;
+                    &lt;tbody&gt;
+                        &lt;row&gt;
+                            &lt;entry&gt; fp8p8_t &lt;/entry&gt;
+                            &lt;entry&gt; fp8p8toi(x) &lt;/entry&gt;
+                            &lt;entry&gt; fp8p8tof(x) &lt;/entry&gt;
+                            &lt;entry&gt; fp8p8tod(x) &lt;/entry&gt;
+                        &lt;/row&gt;
+                    &lt;/tbody&gt;
+                &lt;/tgroup&gt;
+            &lt;/table&gt;
+        &lt;/para&gt;
+        &lt;para&gt;
+            Again, similar macro's exist for all other fixed point types.
+
+            &lt;programlisting&gt;
+        fp16p16_t a;
+        float     f;
+
+        [...]
+
+        f = fp16p16tof(a); &lt;/programlisting&gt;
+        &lt;/para&gt;
+        &lt;para&gt;
+            Finally, there are macro's to convert between fixed point types.
+            Their names are structured analog to the above macro's. Note that
+            there are no explicit macro's to convert between signed and
+            unsigned types. If you want to do that, you have to know exactly
+            what you are doing will work correctly.
+
+            &lt;programlisting&gt;
+        fp24p8_t   a;
+        fp8p8_t    b;
+        ufp16p16_t c
+
+        [...]
+
+        a = fp8p8tofp24p8(b);
+
+        c = ufp8p8toufp16p16(b);    /* incorrect if b is negative */ &lt;/programlisting&gt;
+        &lt;/para&gt;
+    &lt;/sect1&gt;
+
+    &lt;sect1 id=&quot;doing-calculations&quot;&gt;
+        &lt;title&gt; Doing calculations &lt;/title&gt;
+
+        &lt;para&gt;
+            For addition and substraction, all fixed point variables can be
+            treated as if they were normal variables.
+
+            &lt;programlisting&gt;
+        fp16p16_t x, y, z;
+
+        [...]
+
+        z = x + y;
+        z = x - y;&lt;/programlisting&gt;
+        &lt;/para&gt;
+
+        &lt;para&gt;
+            Multiplication and division are a bit more complicated. Using
+            the basic '*' and '/' operators will not work with fixed point
+            variables. Since C doesn't support overloading of operators, there
+            are multiple macro's that do the job. One for each type.
+            Macro's for multiplication start with 'mul' and those for
+            division start with div. All macro's take two arguments.
+        &lt;/para&gt;
+        &lt;para&gt;
+            mul...(x, y) = x * y
+        &lt;/para&gt;
+        &lt;para&gt;
+            div...(x, y) = x / y
+        &lt;/para&gt;
+        &lt;para&gt;
+            Both arguments have to be of the same type and can be other
+            variables, constants or the same variable.
+
+            &lt;programlisting&gt;
+        fp8p8_t   x, y, z;
+        ufp8p24_t a;
+
+        [...]
+
+        z = mulfp8p8(x, y);
+        x = mulfp8p8(x, itofp8p8(15));
+        y = divfp8p8(x, z);
+    
+        a = mulufp8p24(a, a);&lt;/programlisting&gt;
+        &lt;/para&gt;
+    &lt;/sect1&gt;
+
+    &lt;sect1 id=&quot;sqrt-ln-exp-and-pow&quot;&gt;
+        &lt;title&gt; sqrt, ln, exp and pow &lt;/title&gt;
+
+        &lt;para&gt;
+            For all fixed point types, the macro library implements
+            sqrt, ln, exp and pow.
+
+            &lt;table&gt; &lt;title&gt; Math macro's for ufp16p16_t &lt;/title&gt;
+                &lt;tgroup cols=&quot;2&quot;&gt;
+                    &lt;thead&gt;
+                        &lt;row&gt; 
+                            &lt;entry&gt; &lt;/entry&gt;
+                            &lt;entry&gt; description &lt;/entry&gt;
+                        &lt;/row&gt;
+                    &lt;/thead&gt;
+                    &lt;tbody&gt;
+                        &lt;row&gt;
+                            &lt;entry&gt; sqrtufp16p16(x) &lt;/entry&gt;
+                            &lt;entry&gt; calculates the square root of x
+                                    for x &gt;= 0 &lt;/entry&gt;
+                        &lt;/row&gt;
+                        &lt;row&gt;
+                            &lt;entry&gt; lnufp16p16(x) &lt;/entry&gt;
+                            &lt;entry&gt; calculates the natural logarithm of x
+                                    for x &gt;= 0 &lt;/entry&gt;
+                        &lt;/row&gt;
+                        &lt;row&gt;
+                            &lt;entry&gt; expufp16p16(x) &lt;/entry&gt;
+                            &lt;entry&gt; calculates e to the power of x
+                                    for x &gt;= 1 &lt;/entry&gt;
+                        &lt;/row&gt;
+                        &lt;row&gt;
+                            &lt;entry&gt; powufp16p16(x, y) &lt;/entry&gt;
+                            &lt;entry&gt; calculates x to the power of y
+                                    for y &gt;= 1 &lt;/entry&gt;
+                        &lt;/row&gt;
+                    &lt;/tbody&gt;
+                &lt;/tgroup&gt;
+            &lt;/table&gt;
+        &lt;/para&gt;
+        &lt;para&gt;
+            For all seven other types, similar macro's exist.
+            Also, be aware that the exp and pow macro's easily overflow your
+            variables!
+
+            &lt;programlisting&gt;
+        fp24p8_t a;
+
+        a = ftofp24p8(2.37);
+
+        a = sqrtfp24p8(a); &lt;/programlisting&gt;
+        &lt;/para&gt;
+    &lt;/sect1&gt;
+&lt;/chapter&gt;
+
+
+Index: documentation.xml
+===================================================================
+RCS file: /cvsroot/fpm/fpm/docs/xml/en/documentation.xml,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -u -d -r1.3 -r1.4
+--- documentation.xml	31 Aug 2005 02:01:33 -0000	1.3
++++ documentation.xml	1 Sep 2005 00:14:48 -0000	1.4
+@@ -39,6 +39,8 @@
+ 
+ &amp;introduction.xml;
+ &amp;gettingstarted.xml;
++&amp;usage.xml;
++&amp;advanced.xml;
+ 
+ &amp;license.xml;
+ 
+
+Index: gettingstarted.xml
+===================================================================
+RCS file: /cvsroot/fpm/fpm/docs/xml/en/gettingstarted.xml,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -u -d -r1.3 -r1.4
+--- gettingstarted.xml	31 Aug 2005 02:02:58 -0000	1.3
++++ gettingstarted.xml	1 Sep 2005 00:14:48 -0000	1.4
+@@ -47,10 +47,9 @@
+             Most of the time, the following will work fine:
+ 
+             &lt;screen&gt;
+-                ./configure
+-                make
+-                make install
+-            &lt;/screen&gt;
++        ./configure
++        make
++        make install &lt;/screen&gt;
+ 
+             Configure will figure out what tools are available on your system
+             and how to use them.
+@@ -64,8 +63,7 @@
+             the build and installation process, you should run:
+ 
+             &lt;screen&gt;
+-                ./configure --help
+-            &lt;/screen&gt;
++        ./configure --help &lt;/screen&gt;
+ 
+             The next section will describe the
+             &lt;application&gt;configure&lt;/application&gt;
+@@ -85,19 +83,16 @@
+             &lt;application&gt;configure&lt;/application&gt;.
+ 
+             &lt;screen&gt;
+-                CC=/usr/local/intel/bin/icc ./configure
+-            &lt;/screen&gt;
++        CC=/usr/local/intel/bin/icc ./configure &lt;/screen&gt;
+             &lt;screen&gt;
+-                ./configure --cc=tcc
+-            &lt;/screen&gt;
++        ./configure --cc=tcc &lt;/screen&gt;
+         &lt;/para&gt;
+         &lt;para&gt;
+             You can override the default CFLAGS by setting the environment
+             variable of the same name.
+ 
+             &lt;screen&gt;
+-                CFLAGS=-time ./configure
+-            &lt;/screen&gt;
++        CFLAGS=-time ./configure &lt;/screen&gt;
+ 
+             If CFLAGS is set by default in your environment and you don't want
+             that, you can specify an empty CFLAGS= on your command line.
+@@ -108,11 +103,9 @@
+             fails to link against libm, you can use:
+ 
+             &lt;screen&gt;
+-                ./configure --with-extraincdir=/opt/some/dir/include
+-            &lt;/screen&gt;
++        ./configure --with-extraincdir=/opt/some/dir/include &lt;/screen&gt;
+             &lt;screen&gt;
+-                ./configure --with-extralibdir=/opt/some/dir/lib
+-            &lt;/screen&gt;
++        ./configure --with-extralibdir=/opt/some/dir/lib &lt;/screen&gt;
+         &lt;/para&gt;
+         &lt;para&gt;
+             If certain applications needed for the build process can't be
+@@ -121,8 +114,7 @@
+             &lt;application&gt;configure&lt;/application&gt;:
+ 
+             &lt;screen&gt;
+-                ./configure --with-makedepend=/not/in/my/path/bin/makedepend
+-            &lt;/screen&gt;
++        ./configure --with-makedepend=/not/in/my/path/bin/makedepend &lt;/screen&gt;
+ 
+             Similar options are available for all applications that might
+             be needed for the basic build process or for running benchmarks
+@@ -135,11 +127,9 @@
+             you can enable debug symbols and/or all compiler warnings:
+ 
+             &lt;screen&gt;
+-                ./configure --enable-debug
+-            &lt;/screen&gt;
++        ./configure --enable-debug &lt;/screen&gt;
+             &lt;screen&gt;
+-                ./configure --enable-warnings
+-            &lt;/screen&gt;
++        ./configure --enable-warnings &lt;/screen&gt;
+         &lt;/para&gt;
+     &lt;/sect1&gt;
+ 
+
+Index: introduction.xml
+===================================================================
+RCS file: /cvsroot/fpm/fpm/docs/xml/en/introduction.xml,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -u -d -r1.3 -r1.4
+--- introduction.xml	31 Aug 2005 02:02:58 -0000	1.3
++++ introduction.xml	1 Sep 2005 00:14:48 -0000	1.4
+@@ -13,8 +13,8 @@
+             state-of-the-art FPU's are getting faster and faster, it might
+             still be beneficial to implement your algorithms with fixed point
+             arithmetic to gain even higher speeds, although at the cost of
+-            precission. Fixed point arithmetic is less precise than floating
+-            point arithmetic, but lots of times, the extra precission is
++            precision. Fixed point arithmetic is less precise than floating
++            point arithmetic, but lots of times, the extra precision is
+             not needed.
+         &lt;/para&gt;
+         &lt;para&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000050.html">[fpm-cvslog] fpm/docs/xml default.css,1.3,1.4
+</A></li>
+	<LI>Next message: <A HREF="000052.html">[fpm-cvslog] website/docs/HTML-single/en default.css,1.3,1.4 index.html,1.2,1.3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#51">[ date ]</a>
+              <a href="thread.html#51">[ thread ]</a>
+              <a href="subject.html#51">[ subject ]</a>
+              <a href="author.html#51">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,229 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] r117 - trunk/fpm2/include/fpm
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r117%20-%20trunk/fpm2/include/fpm&In-Reply-To=%3C200803201613.m2KGDlIb000684%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000138.html">
+   <LINK REL="Next"  HREF="000139.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] r117 - trunk/fpm2/include/fpm</H1>
+    <B>ivop at BerliOS</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r117%20-%20trunk/fpm2/include/fpm&In-Reply-To=%3C200803201613.m2KGDlIb000684%40sheep.berlios.de%3E"
+       TITLE="[fpm-cvslog] r117 - trunk/fpm2/include/fpm">ivop at mail.berlios.de
+       </A><BR>
+    <I>Thu Mar 20 17:13:47 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000138.html">[fpm-cvslog] r116 - trunk/fpm2/include/fpm
+</A></li>
+        <LI>Next message: <A HREF="000139.html">[fpm-cvslog] r118 - trunk/fpm2/include/fpm
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#142">[ date ]</a>
+              <a href="thread.html#142">[ thread ]</a>
+              <a href="subject.html#142">[ subject ]</a>
+              <a href="author.html#142">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: ivop
+Date: 2008-03-20 17:13:46 +0100 (Thu, 20 Mar 2008)
+New Revision: 117
+
+Modified:
+   trunk/fpm2/include/fpm/fpm.h
+   trunk/fpm2/include/fpm/fpmcode.h
+Log:
+cosmetics, fix for fastmulu*, fastdiv* implementation
+
+
+Modified: trunk/fpm2/include/fpm/fpm.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpm.h	2008-03-20 12:38:24 UTC (rev 116)
++++ trunk/fpm2/include/fpm/fpm.h	2008-03-20 16:13:46 UTC (rev 117)
+@@ -214,10 +214,10 @@
+ FPMFUNC fp24p8_t   fastmulfp24p8  ( fp24p8_t  x,  fp24p8_t  y);
+ FPMFUNC fp16p16_t  fastmulfp16p16 ( fp16p16_t x,  fp16p16_t y);
+ FPMFUNC fp8p24_t   fastmulfp8p24  ( fp8p24_t  x,  fp8p24_t  y);
+-FPMFUNC fp8p8_t    fastmulufp8p8  (ufp8p8_t   x, ufp8p8_t   y);
+-FPMFUNC fp24p8_t   fastmulufp24p8 (ufp24p8_t  x, ufp24p8_t  y);
+-FPMFUNC fp16p16_t  fastmulufp16p16(ufp16p16_t x, ufp16p16_t y);
+-FPMFUNC fp8p24_t   fastmulufp8p24 (ufp8p24_t  x, ufp8p24_t  y);
++FPMFUNC ufp8p8_t   fastmulufp8p8  (ufp8p8_t   x, ufp8p8_t   y);
++FPMFUNC ufp24p8_t  fastmulufp24p8 (ufp24p8_t  x, ufp24p8_t  y);
++FPMFUNC ufp16p16_t fastmulufp16p16(ufp16p16_t x, ufp16p16_t y);
++FPMFUNC ufp8p24_t  fastmulufp8p24 (ufp8p24_t  x, ufp8p24_t  y);
+ 
+ /* division (x/y) */
+ 
+
+Modified: trunk/fpm2/include/fpm/fpmcode.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpmcode.h	2008-03-20 12:38:24 UTC (rev 116)
++++ trunk/fpm2/include/fpm/fpmcode.h	2008-03-20 16:13:46 UTC (rev 117)
+@@ -140,87 +140,59 @@
+ 
+ /* BASIC MATH */
+ 
++#define FPMXY8p8    fp8p8_t    x, fp8p8_t    y
++#define FPMXY24p8   fp24p8_t   x, fp24p8_t   y
++#define FPMXY16p16  fp16p16_t  x, fp16p16_t  y
++#define FPMXY8p24   fp8p24_t   x, fp8p24_t   y
++#define FPMXYu8p8   ufp8p8_t   x, ufp8p8_t   y
++#define FPMXYu24p8  ufp24p8_t  x, ufp24p8_t  y
++#define FPMXYu16p16 ufp16p16_t x, ufp16p16_t y
++#define FPMXYu8p24  ufp8p24_t  x, ufp8p24_t  y
++
+ /* multiplication (x*y) */
+ 
+-FPMFUNC fp8p8_t    mulfp8p8   ( fp8p8_t   x,  fp8p8_t   y) {
+-    return ( int32_t) x * y &gt;&gt; 8;
+-}
+-FPMFUNC fp24p8_t   mulfp24p8  ( fp24p8_t  x,  fp24p8_t  y) {
+-    return ( int64_t) x * y &gt;&gt; 8;
+-}
+-FPMFUNC fp16p16_t  mulfp16p16 ( fp16p16_t x,  fp16p16_t y) {
+-    return ( int64_t) x * y &gt;&gt; 16;
+-}
+-FPMFUNC fp8p24_t   mulfp8p24  ( fp8p24_t  x,  fp8p24_t  y) {
+-    return ( int64_t) x * y &gt;&gt; 24;
+-}
+-FPMFUNC ufp8p8_t   mulufp8p8  (ufp8p8_t   x, ufp8p8_t   y) {
+-    return (uint32_t) x * y &gt;&gt; 8;
+-}
+-FPMFUNC ufp24p8_t  mulufp24p8 (ufp24p8_t  x, ufp24p8_t  y) {
+-    return (uint64_t) x * y &gt;&gt; 8;
+-}
+-FPMFUNC ufp16p16_t mulufp16p16(ufp16p16_t x, ufp16p16_t y) {
+-    return (uint64_t) x * y &gt;&gt; 16;
+-}
+-FPMFUNC ufp8p24_t  mulufp8p24 (ufp8p24_t  x, ufp8p24_t  y) {
+-    return (uint64_t) x * y &gt;&gt; 24;
+-}
++FPMFUNC fp8p8_t    mulfp8p8   (FPMXY8p8   ) { return ( int32_t) x * y &gt;&gt; 8;  }
++FPMFUNC fp24p8_t   mulfp24p8  (FPMXY24p8  ) { return ( int64_t) x * y &gt;&gt; 8;  }
++FPMFUNC fp16p16_t  mulfp16p16 (FPMXY16p16 ) { return ( int64_t) x * y &gt;&gt; 16; }
++FPMFUNC fp8p24_t   mulfp8p24  (FPMXY8p24  ) { return ( int64_t) x * y &gt;&gt; 24; }
++FPMFUNC ufp8p8_t   mulufp8p8  (FPMXYu8p8  ) { return (uint32_t) x * y &gt;&gt; 8;  }
++FPMFUNC ufp24p8_t  mulufp24p8 (FPMXYu24p8 ) { return (uint64_t) x * y &gt;&gt; 8;  }
++FPMFUNC ufp16p16_t mulufp16p16(FPMXYu16p16) { return (uint64_t) x * y &gt;&gt; 16; }
++FPMFUNC ufp8p24_t  mulufp8p24 (FPMXYu8p24 ) { return (uint64_t) x * y &gt;&gt; 24; }
+ 
+ /* fast multiplication, less precision */
+ 
+-FPMFUNC fp8p8_t    fastmulfp8p8   ( fp8p8_t   x,  fp8p8_t   y) {
+-    return (x &gt;&gt; 4 ) * (y &gt;&gt; 4 );
+-}
+-FPMFUNC fp24p8_t   fastmulfp24p8  ( fp24p8_t  x,  fp24p8_t  y) {
+-    return (x &gt;&gt; 4 ) * (y &gt;&gt; 4 );
+-}
+-FPMFUNC fp16p16_t  fastmulfp16p16 ( fp16p16_t x,  fp16p16_t y) {
+-    return (x &gt;&gt; 8 ) * (y &gt;&gt; 8 );
+-}
+-FPMFUNC fp8p24_t   fastmulfp8p24  ( fp8p24_t  x,  fp8p24_t  y) {
+-    return (x &gt;&gt; 12) * (y &gt;&gt; 12);
+-}
+-FPMFUNC fp8p8_t    fastmulufp8p8  (ufp8p8_t   x, ufp8p8_t   y) {
+-    return (x &gt;&gt; 4 ) * (y &gt;&gt; 4 );
+-}
+-FPMFUNC fp24p8_t   fastmulufp24p8 (ufp24p8_t  x, ufp24p8_t  y) {
+-    return (x &gt;&gt; 4 ) * (y &gt;&gt; 4 );
+-}
+-FPMFUNC fp16p16_t  fastmulufp16p16(ufp16p16_t x, ufp16p16_t y) {
+-    return (x &gt;&gt; 8 ) * (y &gt;&gt; 8 );
+-}
+-FPMFUNC fp8p24_t   fastmulufp8p24 (ufp8p24_t  x, ufp8p24_t  y) {
+-    return (x &gt;&gt; 12) * (y &gt;&gt; 12);
+-}
++FPMFUNC fp8p8_t    fastmulfp8p8   (FPMXY8p8   ) { return (x&gt;&gt;4 ) * (y&gt;&gt;4 ); }
++FPMFUNC fp24p8_t   fastmulfp24p8  (FPMXY24p8  ) { return (x&gt;&gt;4 ) * (y&gt;&gt;4 ); }
++FPMFUNC fp16p16_t  fastmulfp16p16 (FPMXY16p16 ) { return (x&gt;&gt;8 ) * (y&gt;&gt;8 ); }
++FPMFUNC fp8p24_t   fastmulfp8p24  (FPMXY8p24  ) { return (x&gt;&gt;12) * (y&gt;&gt;12); }
++FPMFUNC ufp8p8_t   fastmulufp8p8  (FPMXYu8p8  ) { return (x&gt;&gt;4 ) * (y&gt;&gt;4 ); }
++FPMFUNC ufp24p8_t  fastmulufp24p8 (FPMXYu24p8 ) { return (x&gt;&gt;4 ) * (y&gt;&gt;4 ); }
++FPMFUNC ufp16p16_t fastmulufp16p16(FPMXYu16p16) { return (x&gt;&gt;8 ) * (y&gt;&gt;8 ); }
++FPMFUNC ufp8p24_t  fastmulufp8p24 (FPMXYu8p24 ) { return (x&gt;&gt;12) * (y&gt;&gt;12); }
+ 
+ /* division (x/y) */
+ 
+-FPMFUNC fp8p8_t    divfp8p8   ( fp8p8_t   x,  fp8p8_t   y) {
+-    return (( int32_t) x &lt;&lt; 8 ) / y;
+-}
+-FPMFUNC fp24p8_t   divfp24p8  ( fp24p8_t  x,  fp24p8_t  y) {
+-    return (( int64_t) x &lt;&lt; 8 ) / y;
+-}
+-FPMFUNC fp16p16_t  divfp16p16 ( fp16p16_t x,  fp16p16_t y) {
+-    return (( int64_t) x &lt;&lt; 16) / y;
+-}
+-FPMFUNC fp8p24_t   divfp8p24  ( fp8p24_t  x,  fp8p24_t  y) {
+-    return (( int64_t) x &lt;&lt; 24) / y;
+-}
+-FPMFUNC ufp8p8_t   divufp8p8  (ufp8p8_t   x, ufp8p8_t   y) {
+-    return ((uint32_t) x &lt;&lt; 8 ) / y;
+-}
+-FPMFUNC ufp24p8_t  divufp24p8 (ufp24p8_t  x, ufp24p8_t  y) {
+-    return ((uint64_t) x &lt;&lt; 8 ) / y;
+-}
+-FPMFUNC ufp16p16_t divufp16p16(ufp16p16_t x, ufp16p16_t y) {
+-    return ((uint64_t) x &lt;&lt; 16) / y;
+-}
+-FPMFUNC ufp8p24_t  divufp8p24 (ufp8p24_t  x, ufp8p24_t  y) {
+-    return ((uint64_t) x &lt;&lt; 24) / y;
+-}
++FPMFUNC fp8p8_t    divfp8p8   (FPMXY8p8   ) { return (( int32_t) x&lt;&lt;8 ) / y; }
++FPMFUNC fp24p8_t   divfp24p8  (FPMXY24p8  ) { return (( int64_t) x&lt;&lt;8 ) / y; }
++FPMFUNC fp16p16_t  divfp16p16 (FPMXY16p16 ) { return (( int64_t) x&lt;&lt;16) / y; }
++FPMFUNC fp8p24_t   divfp8p24  (FPMXY8p24  ) { return (( int64_t) x&lt;&lt;24) / y; }
++FPMFUNC ufp8p8_t   divufp8p8  (FPMXYu8p8  ) { return ((uint32_t) x&lt;&lt;8 ) / y; }
++FPMFUNC ufp24p8_t  divufp24p8 (FPMXYu24p8 ) { return ((uint64_t) x&lt;&lt;8 ) / y; }
++FPMFUNC ufp16p16_t divufp16p16(FPMXYu16p16) { return ((uint64_t) x&lt;&lt;16) / y; }
++FPMFUNC ufp8p24_t  divufp8p24 (FPMXYu8p24 ) { return ((uint64_t) x&lt;&lt;24) / y; }
+ 
++/* fast division, less precision, lower max x, perhaps not that useful */
++
++FPMFUNC fp8p8_t    fastdivfp8p8   (FPMXY8p8   ) { return ((x&lt;&lt;4) / y) &lt;&lt; 4;  }
++FPMFUNC fp24p8_t   fastdivfp24p8  (FPMXY24p8  ) { return ((x&lt;&lt;8) / y);       }
++FPMFUNC fp16p16_t  fastdivfp16p16 (FPMXY16p16 ) { return ((x&lt;&lt;8) / y) &lt;&lt; 8;  }
++FPMFUNC fp8p24_t   fastdivfp8p24  (FPMXY8p24  ) { return ((x&lt;&lt;4) / y) &lt;&lt; 20; }
++FPMFUNC ufp8p8_t   fastdivufp8p8  (FPMXYu8p8  ) { return ((x&lt;&lt;4) / y) &lt;&lt; 4;  }
++FPMFUNC ufp24p8_t  fastdivufp24p8 (FPMXYu24p8 ) { return ((x&lt;&lt;8) / y);       }
++FPMFUNC ufp16p16_t fastdivufp16p16(FPMXYu16p16) { return ((x&lt;&lt;8) / y) &lt;&lt; 8;  }
++FPMFUNC ufp8p24_t  fastdivufp8p24 (FPMXYu8p24 ) { return ((x&lt;&lt;4) / y) &lt;&lt; 20; }
++
+ /* ------------------------------------------------------------------------- */
+ 
+ /* ADVANCED MATH */
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000138.html">[fpm-cvslog] r116 - trunk/fpm2/include/fpm
+</A></li>
+	<LI>Next message: <A HREF="000139.html">[fpm-cvslog] r118 - trunk/fpm2/include/fpm
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#142">[ date ]</a>
+              <a href="thread.html#142">[ thread ]</a>
+              <a href="subject.html#142">[ subject ]</a>
+              <a href="author.html#142">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

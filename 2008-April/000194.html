@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] r172 - trunk/fpm2/bench
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r172%20-%20trunk/fpm2/bench&In-Reply-To=%3C200804230011.m3N0BBn9004429%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000193.html">
+   <LINK REL="Next"  HREF="000195.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] r172 - trunk/fpm2/bench</H1>
+    <B>ivop at BerliOS</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r172%20-%20trunk/fpm2/bench&In-Reply-To=%3C200804230011.m3N0BBn9004429%40sheep.berlios.de%3E"
+       TITLE="[fpm-cvslog] r172 - trunk/fpm2/bench">ivop at mail.berlios.de
+       </A><BR>
+    <I>Wed Apr 23 02:11:11 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000193.html">[fpm-cvslog] r171 - trunk/fpm2/bench
+</A></li>
+        <LI>Next message: <A HREF="000195.html">[fpm-cvslog] r173 - trunk/fpm2/bench
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#194">[ date ]</a>
+              <a href="thread.html#194">[ thread ]</a>
+              <a href="subject.html#194">[ subject ]</a>
+              <a href="author.html#194">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: ivop
+Date: 2008-04-23 02:11:10 +0200 (Wed, 23 Apr 2008)
+New Revision: 172
+
+Modified:
+   trunk/fpm2/bench/Makefile
+Log:
+use $@
+
+
+Modified: trunk/fpm2/bench/Makefile
+===================================================================
+--- trunk/fpm2/bench/Makefile	2008-04-23 00:03:30 UTC (rev 171)
++++ trunk/fpm2/bench/Makefile	2008-04-23 00:11:10 UTC (rev 172)
+@@ -4,6 +4,8 @@
+ #  								 -DFPM_HAVE_INTRINSICS)
+ #
+ 
++-include &quot;config.mak&quot;
++
+ all:	bench-float 	\
+ 		bench-double 	\
+ 		all-fixed
+@@ -18,34 +20,34 @@
+ 			bench-ufp8p24
+ 
+ bench-float:	bench.c
+-	$(CC) -o bench-float bench.c -I`pwd`/../include -lm -DDOFLOAT
++	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOFLOAT
+ 
+ bench-double: 	bench.c
+-	$(CC) -o bench-double bench.c -I`pwd`/../include -lm -DDODOUBLE
++	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDODOUBLE
+ 
+ bench-fp8p8: 	bench.c
+-	$(CC) -o bench-fp8p8 bench.c -I`pwd`/../include -lm -DDOFP8P8
++	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOFP8P8
+ 
+ bench-fp24p8: 	bench.c
+-	$(CC) -o bench-fp24p8 bench.c -I`pwd`/../include -lm -DDOFP24P8
++	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOFP24P8
+ 
+ bench-fp16p16: 	bench.c
+-	$(CC) -o bench-fp16p16 bench.c -I`pwd`/../include -lm -DDOFP16P16
++	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOFP16P16
+ 
+ bench-fp8p24: 	bench.c
+-	$(CC) -o bench-fp8p24 bench.c -I`pwd`/../include -lm -DDOFP8P24
++	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOFP8P24
+ 
+ bench-ufp8p8: 	bench.c
+-	$(CC) -o bench-ufp8p8 bench.c -I`pwd`/../include -lm -DDOUFP8P8
++	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOUFP8P8
+ 
+ bench-ufp24p8: 	bench.c
+-	$(CC) -o bench-ufp24p8 bench.c -I`pwd`/../include -lm -DDOUFP24P8
++	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOUFP24P8
+ 
+ bench-ufp16p16: 	bench.c
+-	$(CC) -o bench-ufp16p16 bench.c -I`pwd`/../include -lm -DDOUFP16P16
++	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOUFP16P16
+ 
+ bench-ufp8p24: 	bench.c
+-	$(CC) -o bench-ufp8p24 bench.c -I`pwd`/../include -lm -DDOUFP8P24
++	$(CC) -o $@ bench.c -I`pwd`/../include -lm -DDOUFP8P24
+ 
+ clean:
+ 	rm -f bench-*
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000193.html">[fpm-cvslog] r171 - trunk/fpm2/bench
+</A></li>
+	<LI>Next message: <A HREF="000195.html">[fpm-cvslog] r173 - trunk/fpm2/bench
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#194">[ date ]</a>
+              <a href="thread.html#194">[ thread ]</a>
+              <a href="subject.html#194">[ subject ]</a>
+              <a href="author.html#194">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

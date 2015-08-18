@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] r144 - trunk/fpm2/include/fpm
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r144%20-%20trunk/fpm2/include/fpm&In-Reply-To=%3C200803260016.m2Q0GXWm026518%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000165.html">
+   <LINK REL="Next"  HREF="000167.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] r144 - trunk/fpm2/include/fpm</H1>
+    <B>ivop at BerliOS</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r144%20-%20trunk/fpm2/include/fpm&In-Reply-To=%3C200803260016.m2Q0GXWm026518%40sheep.berlios.de%3E"
+       TITLE="[fpm-cvslog] r144 - trunk/fpm2/include/fpm">ivop at mail.berlios.de
+       </A><BR>
+    <I>Wed Mar 26 01:16:33 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000165.html">[fpm-cvslog] r143 - trunk/fpm2/include/fpm
+</A></li>
+        <LI>Next message: <A HREF="000167.html">[fpm-cvslog] r145 - trunk/fpm2/include/fpm
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#166">[ date ]</a>
+              <a href="thread.html#166">[ thread ]</a>
+              <a href="subject.html#166">[ subject ]</a>
+              <a href="author.html#166">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: ivop
+Date: 2008-03-26 01:16:32 +0100 (Wed, 26 Mar 2008)
+New Revision: 144
+
+Modified:
+   trunk/fpm2/include/fpm/fpmcode.h
+Log:
+make float constants really float (i.e. 0.1f et cetera)
+
+
+Modified: trunk/fpm2/include/fpm/fpmcode.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpmcode.h	2008-03-26 00:04:40 UTC (rev 143)
++++ trunk/fpm2/include/fpm/fpmcode.h	2008-03-26 00:16:32 UTC (rev 144)
+@@ -58,8 +58,8 @@
+ #define FPMF2FP(a,c) FPMFUNC a##_t    fto##a (float x) { return x * c; } \
+                      FPMFUNC u##a##_t ftou##a(float x) { return x * c; }
+ 
+-FPMF2FP(fp8p8  , 256     )  FPMF2FP(fp24p8 , 256     )
+-FPMF2FP(fp16p16, 65536   )  FPMF2FP(fp8p24 , 16777216)
++FPMF2FP(fp8p8  ,   256.0f)      FPMF2FP(fp24p8 ,      256.0f)
++FPMF2FP(fp16p16, 65536.0f)      FPMF2FP(fp8p24 , 16777216.0f)
+ 
+ #else
+ 
+@@ -73,8 +73,8 @@
+     return fp + s;                      /* two's complement */  \
+ }
+ 
+-FPMF2FP(fp8p8  ,   128.0, &gt;&gt;8)  FPMF2FP(fp24p8 , 8388608.0, &lt;&lt;8)
+-FPMF2FP(fp16p16, 32768.0, &lt;&lt;8)  FPMF2FP(fp8p24 ,     128.0, &lt;&lt;8)
++FPMF2FP(fp8p8  ,   128.0f, &gt;&gt;8)     FPMF2FP(fp24p8 , 8388608.0f, &lt;&lt;8)
++FPMF2FP(fp16p16, 32768.0f, &lt;&lt;8)     FPMF2FP(fp8p24 ,     128.0f, &lt;&lt;8)
+ 
+ #define FPMF2UFP(a,b,c) a##_t fto##a(float f) { \
+     fpm_funion_t x = { .f = f }; \
+@@ -82,8 +82,8 @@
+     return (x.u32 &amp; 0x7fffff) c; \
+ }
+ 
+-FPMF2UFP(ufp8p8  ,   256.0, &gt;&gt;7)    FPMF2UFP(ufp24p8 , 16777216.0, &lt;&lt;9)
+-FPMF2UFP(ufp16p16, 65536.0, &lt;&lt;9)    FPMF2UFP(ufp8p24 ,      256.0, &lt;&lt;9)
++FPMF2UFP(ufp8p8  ,   256.0f, &gt;&gt;7)   FPMF2UFP(ufp24p8 , 16777216.0f, &lt;&lt;9)
++FPMF2UFP(ufp16p16, 65536.0f, &lt;&lt;9)   FPMF2UFP(ufp8p24 ,      256.0f, &lt;&lt;9)
+ 
+ #endif
+ 
+@@ -92,8 +92,8 @@
+ #define FPMD2FP(a,c) FPMFUNC a##_t    dto##a (double x) { return x * c; } \
+                      FPMFUNC u##a##_t dtou##a(double x) { return x * c; }
+ 
+-FPMD2FP(fp8p8  , 256     )  FPMD2FP(fp24p8 , 256     )
+-FPMD2FP(fp16p16, 65536   )  FPMD2FP(fp8p24 , 16777216)
++FPMD2FP(fp8p8  ,   256.0f)      FPMD2FP(fp24p8 ,      256.0f)
++FPMD2FP(fp16p16, 65536.0f)      FPMD2FP(fp8p24 , 16777216.0f)
+ 
+ /* fixed point to int (truncated) */
+ 
+@@ -108,16 +108,16 @@
+ #define FPMFP2F(a,c) FPMFUNC float a##tof (a##_t x) { return x / c; } \
+                FPMFUNC float u##a##tof (u##a##_t x) { return x / c; }
+ 
+-FPMFP2F(fp8p8  , 256.0     )    FPMFP2F(fp24p8 , 256.0     )
+-FPMFP2F(fp16p16, 65536.0   )    FPMFP2F(fp8p24 , 16777216.0)
++FPMFP2F(fp8p8  ,   256.0f)      FPMFP2F(fp24p8 ,      256.0f)
++FPMFP2F(fp16p16, 65536.0f)      FPMFP2F(fp8p24 , 16777216.0f)
+ 
+ /* fixed point to double */
+ 
+ #define FPMFP2D(a,c) FPMFUNC double a##tod (a##_t x) { return x / c; } \
+                FPMFUNC double u##a##tod (u##a##_t x) { return x / c; }
+ 
+-FPMFP2D(fp8p8  , 256.0     )    FPMFP2D(fp24p8 , 256.0     )
+-FPMFP2D(fp16p16, 65536.0   )    FPMFP2D(fp8p24 , 16777216.0)
++FPMFP2D(fp8p8  ,   256.0)       FPMFP2D(fp24p8 ,      256.0)
++FPMFP2D(fp16p16, 65536.0)       FPMFP2D(fp8p24 , 16777216.0)
+ 
+ /* fixed point to fixed point */
+ 
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000165.html">[fpm-cvslog] r143 - trunk/fpm2/include/fpm
+</A></li>
+	<LI>Next message: <A HREF="000167.html">[fpm-cvslog] r145 - trunk/fpm2/include/fpm
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#166">[ date ]</a>
+              <a href="thread.html#166">[ thread ]</a>
+              <a href="subject.html#166">[ subject ]</a>
+              <a href="author.html#166">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

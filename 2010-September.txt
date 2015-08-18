@@ -1,0 +1,11 @@
+From envoi at email-packs.com  Fri Sep 10 09:17:12 2010
+From: envoi at email-packs.com (Ebusiness Solution)
+Date: Fri, 10 Sep 2010 10:17:12 +0300
+Subject: [fpm-cvslog] =?utf-8?q?1_eine_gekaufte_Email_Packs_Datenbank_=3D_?=
+	=?utf-8?q?1_ein_zus=C3=A4tzliches_kostenfreies_Routing_Service___?=
+	=?utf-8?q?=28100_000_Emails=29_=28g=C3=BCltig_bis_30/09/2010=29?=
+Message-ID: <bb69e988527b585003fb8fbbaf2b2623@localhost.localdomain>
+
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/fpm-cvslog/attachments/20100910/01db2110/attachment.html>
+

@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] r106 - in trunk/fpm: . include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r106%20-%20in%20trunk/fpm%3A%20.%20include&In-Reply-To=%3C200803191513.m2JFDiH9016721%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000127.html">
+   <LINK REL="Next"  HREF="000129.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] r106 - in trunk/fpm: . include</H1>
+    <B>ivop at BerliOS</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r106%20-%20in%20trunk/fpm%3A%20.%20include&In-Reply-To=%3C200803191513.m2JFDiH9016721%40sheep.berlios.de%3E"
+       TITLE="[fpm-cvslog] r106 - in trunk/fpm: . include">ivop at mail.berlios.de
+       </A><BR>
+    <I>Wed Mar 19 16:13:44 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000127.html">[fpm-cvslog] r105 - in trunk/fpm: . docs docs/xml docs/xml/en	include
+</A></li>
+        <LI>Next message: <A HREF="000129.html">[fpm-cvslog] r107 - trunk/fpm
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#128">[ date ]</a>
+              <a href="thread.html#128">[ thread ]</a>
+              <a href="subject.html#128">[ subject ]</a>
+              <a href="author.html#128">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: ivop
+Date: 2008-03-19 16:13:43 +0100 (Wed, 19 Mar 2008)
+New Revision: 106
+
+Modified:
+   trunk/fpm/Makefile
+   trunk/fpm/benchmark.c
+   trunk/fpm/configure
+   trunk/fpm/genbarcharts.sh
+   trunk/fpm/gengraphs.sh
+   trunk/fpm/genlut.c
+   trunk/fpm/include/fixedpointmath.h
+   trunk/fpm/include/fixedpointmathcode.h
+Log:
+prepare for last macro release before major rewrite
+
+
+Modified: trunk/fpm/Makefile
+===================================================================
+--- trunk/fpm/Makefile	2008-03-19 15:05:42 UTC (rev 105)
++++ trunk/fpm/Makefile	2008-03-19 15:13:43 UTC (rev 106)
+@@ -1,7 +1,7 @@
+ #
+ # Fixed Point Math Macro Library - Makefile
+ #
+-# (C)opyright 2005 by Ivo van Poorten
++# (C)opyright 2005,2006 by Ivo van Poorten
+ # Licensed under version 2 of the GPL
+ #
+ # $Id$
+
+Modified: trunk/fpm/benchmark.c
+===================================================================
+--- trunk/fpm/benchmark.c	2008-03-19 15:05:42 UTC (rev 105)
++++ trunk/fpm/benchmark.c	2008-03-19 15:13:43 UTC (rev 106)
+@@ -3,7 +3,7 @@
+ /*
+  * Fixed Point Math Macro Library - Benchmark
+  *
+- * (C)2005 by Ivo van Poorten
++ * (C)2005,2006 by Ivo van Poorten
+  * Licensed under version 2 of the GPL
+  *
+  * $Id$
+
+Modified: trunk/fpm/configure
+===================================================================
+--- trunk/fpm/configure	2008-03-19 15:05:42 UTC (rev 105)
++++ trunk/fpm/configure	2008-03-19 15:13:43 UTC (rev 106)
+@@ -4,7 +4,7 @@
+ # Alternate configure
+ # Loosely based on MPlayer's configure
+ #
+-# (C)opyright 2005 by Ivo van Poorten
++# (C)opyright 2005,2006 by Ivo van Poorten
+ # Licensed under version 2 of the GPL
+ #
+ # $Id$
+
+Modified: trunk/fpm/genbarcharts.sh
+===================================================================
+--- trunk/fpm/genbarcharts.sh	2008-03-19 15:05:42 UTC (rev 105)
++++ trunk/fpm/genbarcharts.sh	2008-03-19 15:13:43 UTC (rev 106)
+@@ -3,7 +3,7 @@
+ # $Id$
+ 
+ # Script to generate barcharts from benchmark output
+-# (C)opyright 2005 by Ivo van Poorten
++# (C)opyright 2005,2006 by Ivo van Poorten
+ # Licensed under version 2 of the GPL
+ 
+ # awk trick inspired by:
+
+Modified: trunk/fpm/gengraphs.sh
+===================================================================
+--- trunk/fpm/gengraphs.sh	2008-03-19 15:05:42 UTC (rev 105)
++++ trunk/fpm/gengraphs.sh	2008-03-19 15:13:43 UTC (rev 106)
+@@ -3,7 +3,7 @@
+ # $Id$
+ 
+ # Script to generate graphs from precision output
+-# (C)opyright 2005 by Ivo van Poorten
++# (C)opyright 2005,2006 by Ivo van Poorten
+ # Licensed under version 2 of the GPL
+ 
+ # generic function
+
+Modified: trunk/fpm/genlut.c
+===================================================================
+--- trunk/fpm/genlut.c	2008-03-19 15:05:42 UTC (rev 105)
++++ trunk/fpm/genlut.c	2008-03-19 15:13:43 UTC (rev 106)
+@@ -3,7 +3,7 @@
+ /*
+  * Fixed Point Math Macro Library - Generate Look-Up-Tables
+  *
+- * (C)opyright 2005 by Ivo van Poorten
++ * (C)opyright 2005,2006 by Ivo van Poorten
+  * Licensed under version 2 of the GPL
+  *
+  * $Id$
+
+Modified: trunk/fpm/include/fixedpointmath.h
+===================================================================
+--- trunk/fpm/include/fixedpointmath.h	2008-03-19 15:05:42 UTC (rev 105)
++++ trunk/fpm/include/fixedpointmath.h	2008-03-19 15:13:43 UTC (rev 106)
+@@ -3,7 +3,7 @@
+ /*
+  * Fixed Point Math Macro Library
+  *
+- * (C)opyright 2005 by Ivo van Poorten
++ * (C)opyright 2005,2006 by Ivo van Poorten
+  * Licensed under version 2 of the GPL
+  *
+  * $Id$
+@@ -20,7 +20,7 @@
+ #define __FPM_VERSION__         0.31
+ #define __FPM_VERSION_MAJOR__   0
+ #define __FPM_VERSION_MINOR__   31
+-#define __FPM_VERSION_RELEASE__ cvs
++#define __FPM_VERSION_RELEASE__ beta
+ 
+ /* ------------------------------------------------------------------------- */
+ 
+
+Modified: trunk/fpm/include/fixedpointmathcode.h
+===================================================================
+--- trunk/fpm/include/fixedpointmathcode.h	2008-03-19 15:05:42 UTC (rev 105)
++++ trunk/fpm/include/fixedpointmathcode.h	2008-03-19 15:13:43 UTC (rev 106)
+@@ -7,7 +7,7 @@
+  *
+  * This file contains the actual implementations of the functions.
+  *
+- * (C)opyright 2005 by Ivo van Poorten
++ * (C)opyright 2005,2006 by Ivo van Poorten
+  * Licensed under version 2 of the GPL
+  *
+  * $Id$
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000127.html">[fpm-cvslog] r105 - in trunk/fpm: . docs docs/xml docs/xml/en	include
+</A></li>
+	<LI>Next message: <A HREF="000129.html">[fpm-cvslog] r107 - trunk/fpm
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#128">[ date ]</a>
+              <a href="thread.html#128">[ thread ]</a>
+              <a href="subject.html#128">[ subject ]</a>
+              <a href="author.html#128">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

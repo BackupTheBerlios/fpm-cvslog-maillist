@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] r133 - trunk/fpm2/include/fpm
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r133%20-%20trunk/fpm2/include/fpm&In-Reply-To=%3C200803251633.m2PGXrue027863%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000154.html">
+   <LINK REL="Next"  HREF="000156.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] r133 - trunk/fpm2/include/fpm</H1>
+    <B>ivop at BerliOS</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r133%20-%20trunk/fpm2/include/fpm&In-Reply-To=%3C200803251633.m2PGXrue027863%40sheep.berlios.de%3E"
+       TITLE="[fpm-cvslog] r133 - trunk/fpm2/include/fpm">ivop at mail.berlios.de
+       </A><BR>
+    <I>Tue Mar 25 17:33:53 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000154.html">[fpm-cvslog] r132 - trunk/fpm2/include/fpm
+</A></li>
+        <LI>Next message: <A HREF="000156.html">[fpm-cvslog] r134 - trunk/fpm2/include/fpm
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#155">[ date ]</a>
+              <a href="thread.html#155">[ thread ]</a>
+              <a href="subject.html#155">[ subject ]</a>
+              <a href="author.html#155">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: ivop
+Date: 2008-03-25 17:33:53 +0100 (Tue, 25 Mar 2008)
+New Revision: 133
+
+Modified:
+   trunk/fpm2/include/fpm/fpmcode.h
+Log:
+revert unrelated part of previous commit
+
+
+Modified: trunk/fpm2/include/fpm/fpmcode.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpmcode.h	2008-03-25 16:17:55 UTC (rev 132)
++++ trunk/fpm2/include/fpm/fpmcode.h	2008-03-25 16:33:53 UTC (rev 133)
+@@ -246,7 +246,7 @@
+  */
+ 
+ #define FPMSQRT(a) FPMFUNC a##_t sqrt##a(a##_t x) { \
+-    register union { float f; uint32_t i; } u = { .f = a##tof(x) }; \
++    register union { float f; int_t i; } u = { .f = a##tof(x) }; \
+     float xhalf = 0.5f * x;      \
+     u.i = 0x5f375a86 - (u.i&gt;&gt;1); \
+     return fto##a(u.f * (1.5f - xhalf * u.f * u.f)); \
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000154.html">[fpm-cvslog] r132 - trunk/fpm2/include/fpm
+</A></li>
+	<LI>Next message: <A HREF="000156.html">[fpm-cvslog] r134 - trunk/fpm2/include/fpm
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#155">[ date ]</a>
+              <a href="thread.html#155">[ thread ]</a>
+              <a href="subject.html#155">[ subject ]</a>
+              <a href="author.html#155">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

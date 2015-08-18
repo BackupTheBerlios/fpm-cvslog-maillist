@@ -1,0 +1,299 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] fpm/include fixedpointmathcode.h,1.3,1.4
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20fpm/include%20fixedpointmathcode.h%2C1.3%2C1.4&In-Reply-To=%3C200604021644.k32Gitt29414%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000111.html">
+   <LINK REL="Next"  HREF="000113.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] fpm/include fixedpointmathcode.h,1.3,1.4</H1>
+    <B>ivop</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20fpm/include%20fixedpointmathcode.h%2C1.3%2C1.4&In-Reply-To=%3C200604021644.k32Gitt29414%40bat.berlios.de%3E"
+       TITLE="[fpm-cvslog] fpm/include fixedpointmathcode.h,1.3,1.4">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Sun Apr  2 18:44:55 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000111.html">[fpm-cvslog] fpm ChangeLog,1.3,1.4
+</A></li>
+        <LI>Next message: <A HREF="000113.html">[fpm-cvslog] fpm ChangeLog,1.4,1.5 configure,1.6,1.7 genlut.c,1.3,1.4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#112">[ date ]</a>
+              <a href="thread.html#112">[ thread ]</a>
+              <a href="subject.html#112">[ subject ]</a>
+              <a href="author.html#112">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/fpm/fpm/include
+In directory sheep:/tmp/cvs-serv11844/include
+
+Modified Files:
+	fixedpointmathcode.h 
+Log Message:
+huge speed improvement of algorithmic sqrt() calculation, by removing
+conditional statements
+
+
+
+Index: fixedpointmathcode.h
+===================================================================
+RCS file: /cvsroot/fpm/fpm/include/fixedpointmathcode.h,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -u -d -r1.3 -r1.4
+--- fixedpointmathcode.h	6 Jan 2006 18:35:41 -0000	1.3
++++ fixedpointmathcode.h	2 Apr 2006 16:45:19 -0000	1.4
+@@ -187,111 +187,127 @@
+ 
+ /* ------------------------------------------------------------------------- */
+ 
+-/* &gt;&gt;&gt; Square root &lt;&lt;&lt; */
+-
+-/* I've tried numerous algorithms here (Newton, Knuth, Halleck, etc...) but
+- * for any type larger than 8p8 they became way too slow (factor 15++ slower
+- * than the FPU), so I have to resort to a simple binary search
+- * convergence algorithm for now. At least it's only 3-11 times slower,
+- * depending on the type chosen :/  It does tend to be less precise though
+- * as x increases. Have to check how these algorithms perform on older
+- * CPU's without a modern FPU.
++/* unsigned a less|greater than b for 16-bit and 32-bit types
++ * result: 0 or 1
+  */
+ 
++#define _ualtb16(a,b)  ((((uint32_t)a-(uint32_t)b)&gt;&gt;31)&amp;1)
++#define _ualtb32(a,b)  ((((uint64_t)a-(uint64_t)b)&gt;&gt;63)&amp;1)
++#define _uagtb16(a,b)  _ualtb16(b,a)
++#define _uagtb32(a,b)  _ualtb32(b,a)
++
++/* &gt;&gt;&gt; Square root &lt;&lt;&lt; */
++
+ /* temporary variables */
+ 
+-static ufp8p8_t   _ufp8p8tmp,   _ufp8p8tmp2;
+-static ufp24p8_t  _ufp24p8tmp,  _ufp24p8tmp2;
+-static ufp16p16_t _ufp16p16tmp, _ufp16p16tmp2;
+-static ufp8p24_t  _ufp8p24tmp,  _ufp8p24tmp2;
++static ufp8p8_t   _ufp8p8tmp,   _ufp8p8tmp2,    _ufp8p8tmp3;
++static ufp24p8_t  _ufp24p8tmp,  _ufp24p8tmp2,   _ufp24p8tmp3;
++static ufp16p16_t _ufp16p16tmp, _ufp16p16tmp2,  _ufp16p16tmp3;
++static ufp8p24_t  _ufp8p24tmp,  _ufp8p24tmp2,   _ufp8p24tmp3;
+ 
+ #define _mid(a,b)           (a+((b-a)&gt;&gt;1))
+ 
+-#define _convergeufp8p8(a,b,x)    ( (_mulufp8p8(_mid(a,b),_mid(a,b))&lt;x)   ? \
+-                                       (a=_mid(a,b)):(b=_mid(a,b)) )
+-#define _convergeufp24p8(a,b,x)   ( (_mulufp24p8(_mid(a,b),_mid(a,b))&lt;x)  ? \
+-                                       (a=_mid(a,b)):(b=_mid(a,b)) )
+-#define _convergeufp16p16(a,b,x)  ( (_mulufp16p16(_mid(a,b),_mid(a,b))&lt;x) ? \
+-                                       (a=_mid(a,b)):(b=_mid(a,b)) )
+-#define _convergeufp8p24(a,b,x)   ( (_mulufp8p24(_mid(a,b),_mid(a,b))&lt;x)  ? \
+-                                       (a=_mid(a,b)):(b=_mid(a,b)) )
++#define _convergeufp8p8(a,b,m,x)    ( \
++            ( (m=(_ualtb16(_mulufp8p8(_mid(a,b),_mid(a,b)),x)))||1) &amp;&amp;    \
++            ( (a=m*_mid(a,b)+(1-m)*a)||1 ) &amp;&amp; ( (b=(1-m)*_mid(a,b)+m*b)||1 ) \
++                                    )
++#define _convergeufp24p8(a,b,m,x)   ( \
++            ( (m=(_ualtb32(_mulufp24p8(_mid(a,b),_mid(a,b)),x)))||1) &amp;&amp;   \
++            ( (a=m*_mid(a,b)+(1-m)*a)||1 ) &amp;&amp; ( (b=(1-m)*_mid(a,b)+m*b)||1 ) \
++                                    )
++#define _convergeufp16p16(a,b,m,x)   ( \
++            ( (m=(_ualtb32(_mulufp16p16(_mid(a,b),_mid(a,b)),x)))||1) &amp;&amp;   \
++            ( (a=m*_mid(a,b)+(1-m)*a)||1 ) &amp;&amp; ( (b=(1-m)*_mid(a,b)+m*b)||1 ) \
++                                    )
++#define _convergeufp8p24(a,b,m,x)   ( \
++            ( (m=(_ualtb32(_mulufp8p24(_mid(a,b),_mid(a,b)),x)))||1) &amp;&amp;   \
++            ( (a=m*_mid(a,b)+(1-m)*a)||1 ) &amp;&amp; ( (b=(1-m)*_mid(a,b)+m*b)||1 ) \
++                                    )
+ 
+-#define __sqrtufp8p8(a,b,x)   ( (x&gt;(4&lt;&lt;8)) ? (a=1&lt;&lt;8) &amp;&amp; (b=(x&gt;&gt;1)) \
+-                                           : ((a=0)||1) &amp;&amp; (b=x&lt;&lt;1) \
+-                              ) \
+-                              &amp;&amp; _convergeufp8p8(a,b,x) \
+-                              &amp;&amp; _convergeufp8p8(a,b,x) \
+-                              &amp;&amp; _convergeufp8p8(a,b,x) \
+-                              &amp;&amp; _convergeufp8p8(a,b,x) \
+-                              &amp;&amp; _convergeufp8p8(a,b,x) \
+-                              &amp;&amp; _convergeufp8p8(a,b,x) \
+-                              &amp;&amp; _convergeufp8p8(a,b,x) \
+-                              &amp;&amp; _convergeufp8p8(a,b,x) \
++#define __sqrtufp8p8(a,b,m,x)   ( ((m=_uagtb16(x,(4&lt;&lt;8)))||1) &amp;&amp; \
++                                  ((a=m*(1&lt;&lt;8))||1) &amp;&amp;               \
++                                  ((b=m*(x&gt;&gt;1)+(1-m)*(x&lt;&lt;1))||1)     ) \
++                              &amp;&amp; _convergeufp8p8(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p8(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p8(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p8(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p8(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p8(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p8(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p8(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p8(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p8(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p8(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p8(a,b,m,x) \
+                               ? _mid(a,b) : 0
+ 
+-#define __sqrtufp24p8(a,b,x)  ( (x&gt;(4&lt;&lt;8)) ? (a=1&lt;&lt;8) &amp;&amp; (b=(x&gt;&gt;1)) \
+-                                           : ((a=0)||1) &amp;&amp; (b=x&lt;&lt;1) \
+-                              ) \
+-                              &amp;&amp; _convergeufp24p8(a,b,x) \
+-                              &amp;&amp; _convergeufp24p8(a,b,x) \
+-                              &amp;&amp; _convergeufp24p8(a,b,x) \
+-                              &amp;&amp; _convergeufp24p8(a,b,x) \
+-                              &amp;&amp; _convergeufp24p8(a,b,x) \
+-                              &amp;&amp; _convergeufp24p8(a,b,x) \
+-                              &amp;&amp; _convergeufp24p8(a,b,x) \
+-                              &amp;&amp; _convergeufp24p8(a,b,x) \
+-                              &amp;&amp; _convergeufp24p8(a,b,x) \
+-                              &amp;&amp; _convergeufp24p8(a,b,x) \
+-                              &amp;&amp; _convergeufp24p8(a,b,x) \
+-                              &amp;&amp; _convergeufp24p8(a,b,x) \
+-                              &amp;&amp; _convergeufp24p8(a,b,x) \
+-                              &amp;&amp; _convergeufp24p8(a,b,x) \
+-                              &amp;&amp; _convergeufp24p8(a,b,x) \
+-                              &amp;&amp; _convergeufp24p8(a,b,x) \
+-                              ? _mid(a,b) : 0
++#define __sqrtufp24p8(a,b,m,x)  ( ((m=_uagtb32(x,(4&lt;&lt;8)))||1) &amp;&amp; \
++                                  ((a=m*(1&lt;&lt;8))||1) &amp;&amp;               \
++                                  ((b=m*(x&gt;&gt;1)+(1-m)*(x&lt;&lt;1))||1)     ) \
++                                &amp;&amp; _convergeufp24p8(a,b,m,x) \
++                                &amp;&amp; _convergeufp24p8(a,b,m,x) \
++                                &amp;&amp; _convergeufp24p8(a,b,m,x) \
++                                &amp;&amp; _convergeufp24p8(a,b,m,x) \
++                                &amp;&amp; _convergeufp24p8(a,b,m,x) \
++                                &amp;&amp; _convergeufp24p8(a,b,m,x) \
++                                &amp;&amp; _convergeufp24p8(a,b,m,x) \
++                                &amp;&amp; _convergeufp24p8(a,b,m,x) \
++                                &amp;&amp; _convergeufp24p8(a,b,m,x) \
++                                &amp;&amp; _convergeufp24p8(a,b,m,x) \
++                                &amp;&amp; _convergeufp24p8(a,b,m,x) \
++                                &amp;&amp; _convergeufp24p8(a,b,m,x) \
++                                &amp;&amp; _convergeufp24p8(a,b,m,x) \
++                                &amp;&amp; _convergeufp24p8(a,b,m,x) \
++                                &amp;&amp; _convergeufp24p8(a,b,m,x) \
++                                &amp;&amp; _convergeufp24p8(a,b,m,x) \
++                                ? _mid(a,b) : 0
+ 
+-#define __sqrtufp16p16(a,b,x) ( (x&gt;(4&lt;&lt;16)) ? (a=1&lt;&lt;16) &amp;&amp; (b=(x&gt;&gt;1)) \
+-                                           : ((a=0)||1) &amp;&amp; (b=x&lt;&lt;1) \
+-                              ) \
+-                              &amp;&amp; _convergeufp16p16(a,b,x) \
+-                              &amp;&amp; _convergeufp16p16(a,b,x) \
+-                              &amp;&amp; _convergeufp16p16(a,b,x) \
+-                              &amp;&amp; _convergeufp16p16(a,b,x) \
+-                              &amp;&amp; _convergeufp16p16(a,b,x) \
+-                              &amp;&amp; _convergeufp16p16(a,b,x) \
+-                              &amp;&amp; _convergeufp16p16(a,b,x) \
+-                              &amp;&amp; _convergeufp16p16(a,b,x) \
+-                              &amp;&amp; _convergeufp16p16(a,b,x) \
+-                              &amp;&amp; _convergeufp16p16(a,b,x) \
+-                              &amp;&amp; _convergeufp16p16(a,b,x) \
+-                              &amp;&amp; _convergeufp16p16(a,b,x) \
++#define __sqrtufp16p16(a,b,m,x)  ( ((m=_uagtb32(x,(4&lt;&lt;16)))||1) &amp;&amp; \
++                                   ((a=m*(1&lt;&lt;16))||1) &amp;&amp;               \
++                                   ((b=m*(x&gt;&gt;1)+(1-m)*(x&lt;&lt;1))||1)     ) \
++                              &amp;&amp; _convergeufp16p16(a,b,m,x) \
++                              &amp;&amp; _convergeufp16p16(a,b,m,x) \
++                              &amp;&amp; _convergeufp16p16(a,b,m,x) \
++                              &amp;&amp; _convergeufp16p16(a,b,m,x) \
++                              &amp;&amp; _convergeufp16p16(a,b,m,x) \
++                              &amp;&amp; _convergeufp16p16(a,b,m,x) \
++                              &amp;&amp; _convergeufp16p16(a,b,m,x) \
++                              &amp;&amp; _convergeufp16p16(a,b,m,x) \
++                              &amp;&amp; _convergeufp16p16(a,b,m,x) \
++                              &amp;&amp; _convergeufp16p16(a,b,m,x) \
++                              &amp;&amp; _convergeufp16p16(a,b,m,x) \
++                              &amp;&amp; _convergeufp16p16(a,b,m,x) \
+                               ? _mid(a,b) : 0
+ 
+-#define __sqrtufp8p24(a,b,x) ( (x&gt;(4&lt;&lt;24)) ? (a=1&lt;&lt;24) &amp;&amp; (b=(x&gt;&gt;1)) \
+-                                           : ((a=0)||1) &amp;&amp; (b=x&lt;&lt;1) \
+-                              ) \
+-                              &amp;&amp; _convergeufp8p24(a,b,x) \
+-                              &amp;&amp; _convergeufp8p24(a,b,x) \
+-                              &amp;&amp; _convergeufp8p24(a,b,x) \
+-                              &amp;&amp; _convergeufp8p24(a,b,x) \
+-                              &amp;&amp; _convergeufp8p24(a,b,x) \
+-                              &amp;&amp; _convergeufp8p24(a,b,x) \
+-                              &amp;&amp; _convergeufp8p24(a,b,x) \
+-                              &amp;&amp; _convergeufp8p24(a,b,x) \
+-                              &amp;&amp; _convergeufp8p24(a,b,x) \
+-                              &amp;&amp; _convergeufp8p24(a,b,x) \
+-                              &amp;&amp; _convergeufp8p24(a,b,x) \
+-                              &amp;&amp; _convergeufp8p24(a,b,x) \
+-                              &amp;&amp; _convergeufp8p24(a,b,x) \
+-                              &amp;&amp; _convergeufp8p24(a,b,x) \
+-                              &amp;&amp; _convergeufp8p24(a,b,x) \
+-                              &amp;&amp; _convergeufp8p24(a,b,x) \
++#define __sqrtufp8p24(a,b,m,x)  ( ((m=_uagtb32(x,(4&lt;&lt;24)))||1) &amp;&amp; \
++                                   ((a=m*(1&lt;&lt;24))||1) &amp;&amp;               \
++                                   ((b=m*(x&gt;&gt;1)+(1-m)*(x&lt;&lt;1))||1)     ) \
++                              &amp;&amp; _convergeufp8p24(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p24(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p24(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p24(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p24(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p24(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p24(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p24(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p24(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p24(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p24(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p24(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p24(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p24(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p24(a,b,m,x) \
++                              &amp;&amp; _convergeufp8p24(a,b,m,x) \
+                               ? _mid(a,b) : 0
+ 
+-#define _sqrtufp8p8(x)      __sqrtufp8p8  (_ufp8p8tmp,   _ufp8p8tmp2,   x)
+-#define _sqrtufp24p8(x)     __sqrtufp24p8 (_ufp24p8tmp,  _ufp24p8tmp2,  x)
+-#define _sqrtufp16p16(x)    __sqrtufp16p16(_ufp16p16tmp, _ufp16p16tmp2, x)
+-#define _sqrtufp8p24(x)     __sqrtufp8p24 (_ufp8p24tmp,  _ufp8p24tmp2,  x)
++#define _sqrtufp8p8(x)      __sqrtufp8p8  (_ufp8p8tmp,   _ufp8p8tmp2,   \
++                                           _ufp8p8tmp3,   x)
++#define _sqrtufp24p8(x)     __sqrtufp24p8 (_ufp24p8tmp,  _ufp24p8tmp2,  \
++                                           _ufp24p8tmp3,  x)
++#define _sqrtufp16p16(x)    __sqrtufp16p16(_ufp16p16tmp, _ufp16p16tmp2, \
++                                           _ufp16p16tmp3, x)
++#define _sqrtufp8p24(x)     __sqrtufp8p24 (_ufp8p24tmp,  _ufp8p24tmp2,  \
++                                           _ufp8p24tmp3,  x)
+ 
+ #define _sqrtfp8p8(x)       (x&gt;0 ? _sqrtufp8p8(x)   : 0)
+ #define _sqrtfp24p8(x)      (x&gt;0 ? _sqrtufp24p8(x)  : 0)
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000111.html">[fpm-cvslog] fpm ChangeLog,1.3,1.4
+</A></li>
+	<LI>Next message: <A HREF="000113.html">[fpm-cvslog] fpm ChangeLog,1.4,1.5 configure,1.6,1.7 genlut.c,1.3,1.4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#112">[ date ]</a>
+              <a href="thread.html#112">[ thread ]</a>
+              <a href="subject.html#112">[ subject ]</a>
+              <a href="author.html#112">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,522 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] r155 - in trunk: . blog
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r155%20-%20in%20trunk%3A%20.%20blog&In-Reply-To=%3C200803302246.m2UMk2gi013928%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000176.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] r155 - in trunk: . blog</H1>
+    <B>ivop at BerliOS</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r155%20-%20in%20trunk%3A%20.%20blog&In-Reply-To=%3C200803302246.m2UMk2gi013928%40sheep.berlios.de%3E"
+       TITLE="[fpm-cvslog] r155 - in trunk: . blog">ivop at mail.berlios.de
+       </A><BR>
+    <I>Mon Mar 31 00:46:02 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000176.html">[fpm-cvslog] r154 - trunk/fpm2/include/fpm
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#177">[ date ]</a>
+              <a href="thread.html#177">[ thread ]</a>
+              <a href="subject.html#177">[ subject ]</a>
+              <a href="author.html#177">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: ivop
+Date: 2008-03-31 00:46:02 +0200 (Mon, 31 Mar 2008)
+New Revision: 155
+
+Added:
+   trunk/blog/
+   trunk/blog/01101011.png
+   trunk/blog/01101011s.png
+   trunk/blog/default.css
+   trunk/blog/feed.png
+   trunk/blog/fpm.xml
+   trunk/blog/fpm.xsl
+   trunk/blog/xsl_mop-up.js
+Log:
+first draft of new webpage for fpm's rewrite.
+it's a combined webpage and rss feed.
+
+
+Added: trunk/blog/01101011.png
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/blog/01101011.png
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/blog/01101011s.png
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/blog/01101011s.png
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/blog/default.css
+===================================================================
+--- trunk/blog/default.css	2008-03-26 17:52:47 UTC (rev 154)
++++ trunk/blog/default.css	2008-03-30 22:46:02 UTC (rev 155)
+@@ -0,0 +1,146 @@
++
++body {
++    font-family:        sans-serif;
++}
++
++img {
++    border:             none;
++}
++
++a {
++    color: #003399;
++    text-decoration:    none;
++}
++
++a:visited {
++    color: #003399;
++    text-decoration:    none;
++}
++
++a:hover {
++    color: #333333;
++    text-decoration:    none;
++}
++
++.heading a {
++    color:              #1d2222;
++    text-decoration:    none;
++}
++
++.heading a:visited {
++    color:              #1d2222;
++    text-decoration:    none;
++}
++
++.heading a:hover {
++    color:              #1d2222;
++    text-decoration:    none;
++}
++
++.heading {
++    background-color:   #ffffff;
++    margin:             0px;
++    padding:            8px;
++}
++
++.headingtitle {
++    background-color:   #dde2e2;
++    color:              #000000;
++    font-size:          24pt;
++    margin:             0px;
++    padding:            8px;
++    border-top:         thin solid #000000;
++}
++
++.headingdescription {
++    color:              #6d7272;
++    font-size:          12pt;
++    margin:             0px;
++    padding:            8px;
++}
++
++.item {
++    background-color:   #ffffff;
++    margin:             0px 15em 0px 0px;
++    margin-top:         8px;
++    padding:            8px;
++}
++
++.itemtitle {
++    color:              #000000;
++    font-size:          12pt;
++    margin:             0px;
++    padding-left:       8px;
++    padding-right:      8px;
++    border-bottom:      thin solid;
++    text-align:         left;
++}
++
++.itemauthordate {
++    width:              100%;
++    margin:             0px;
++    padding-left:       6px;
++    padding-right:      6px;
++    font-size:          6pt;
++}
++
++.itemauthor {
++    margin:             0px;
++    padding:            0px;
++}
++
++.itemdate {
++    margin:             0px;
++    padding:            0px;
++    text-align:         right;
++}
++
++.itemdescription {
++    background-color:   #edf2f2;
++    font-size:          8pt;
++    margin:             0px;
++    padding:            8px;
++    text-align:         justify;
++}
++
++.itemdescription a:hover {
++    text-decoration:    underline;
++}
++
++.linkbar {
++    font-size:          6pt;
++    margin:             0px;
++    padding:            8px;
++}
++
++.toc {
++    background-color:   #edf2f2;
++    color:              #1d2222;
++    margin:             0px;
++    padding:            8px;
++    font-size:          10pt;
++    position:           absolute;
++    right:              32px;
++    top:                11em;
++    width:              15em;
++}
++
++.toc a:hover {
++    margin-left:        0.2em;
++}
++
++.toc ul li {
++    list-style:         none;
++    margin:             0px;
++    margin-left:        -3em;
++    padding:            0px;
++}
++
++.logo {
++    margin:             0px;
++    padding:            0px;
++    position:           absolute;
++    right:              1em;
++    top:                0.5em;
++}
++
+
+Added: trunk/blog/feed.png
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/blog/feed.png
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/blog/fpm.xml
+===================================================================
+--- trunk/blog/fpm.xml	2008-03-26 17:52:47 UTC (rev 154)
++++ trunk/blog/fpm.xml	2008-03-30 22:46:02 UTC (rev 155)
+@@ -0,0 +1,69 @@
++&lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot;?&gt;
++&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;fpm.xsl&quot;?&gt;
++&lt;rss version=&quot;2.0&quot;&gt;
++
++&lt;channel&gt;
++    &lt;title&gt;Fixed Point Math Library&lt;/title&gt;
++    &lt;link&gt;<A HREF="http://fpm.berlios.de/blog/fpm.xml&lt;/link">http://fpm.berlios.de/blog/fpm.xml&lt;/link</A>&gt;
++    &lt;description&gt;&#160;&lt;/description&gt;
++    &lt;generator&gt;Manual&lt;/generator&gt;
++    &lt;language&gt;en&lt;/language&gt;
++    &lt;image&gt;
++        &lt;title&gt;Fixed Point Math Library&lt;/title&gt;
++        &lt;link&gt;<A HREF="http://fpm.berlios.de/blog/fpm.xml&lt;/link">http://fpm.berlios.de/blog/fpm.xml&lt;/link</A>&gt;
++        &lt;url&gt;<A HREF="http://fpm.berlios.de/blog/01101011s.png&lt;/url">http://fpm.berlios.de/blog/01101011s.png&lt;/url</A>&gt;
++    &lt;/image&gt;
++
++&lt;!-- Template for a new entry; 10 lines
++    &lt;item&gt;
++        &lt;title&gt;title here&lt;/title&gt;
++        &lt;link&gt;#title_here&lt;/link&gt;
++        &lt;author&gt;Ivo&lt;/author&gt;
++        &lt;pubDate&gt;output of date '+%a, %d %b %Y %H:%M:%S %z' here&lt;/pubDate&gt;
++        &lt;description&gt;&lt;![CDATA[
++            &lt;p&gt;The quick brown &lt;b&gt;fox&lt;/b&gt; jumps over the lazy dog.&lt;/p&gt;
++            ]]&gt;
++        &lt;/description&gt;
++    &lt;/item&gt;
++--&gt;
++
++    &lt;item&gt;
++        &lt;title&gt;New blog-like webpage&lt;/title&gt;
++        &lt;link&gt;#new_blog_like_webpage&lt;/link&gt;
++        &lt;author&gt;Ivo&lt;/author&gt;
++        &lt;pubDate&gt;Sun, 30 Mar 2008 22:53:11 +0200&lt;/pubDate&gt;
++        &lt;description&gt;&lt;![CDATA[
++            &lt;p&gt;
++            After some messing around with
++            &lt;a href=&quot;<A HREF="http://www.python.org/">http://www.python.org/</A>&quot;&gt;Python&lt;/a&gt; and
++            &lt;a href=&quot;<A HREF="http://feedparser.org/">http://feedparser.org/</A>&quot;&gt;Universal Feed Parser&lt;/a&gt;
++            to convert an RSS feed to an HTML page,
++            I decided I did not want an offline convertor but have the
++            client convert the RSS feed on-the-fly. So I read up
++            on XSLT and implemented the basics of this page.
++            &lt;/p&gt;
++            &lt;p&gt;
++            Soon thereafter, I stumbled upon this Mozilla
++            &lt;a href&quot;<A HREF="https://bugzilla.mozilla.org/show_bug.cgi?id=98168#c11">https://bugzilla.mozilla.org/show_bug.cgi?id=98168#c11</A>&quot;&gt;
++                'Feature'&lt;/a&gt;, which I had to work around with the infamous
++            &lt;a href=&quot;<A HREF="http://fadshop.net/xsl_mop-up.js">http://fadshop.net/xsl_mop-up.js</A>&quot;&gt;
++                xsl_mop-up.js
++            &lt;/a&gt;
++            script by
++            &lt;a href=&quot;<A HREF="http://interglacial.com/~sburke/">http://interglacial.com/~sburke/</A>&quot;&gt;
++                Sean M. Burke&lt;/a&gt;.
++            After that, everything seems to work
++            very well. All not-too-old browsers render this page correctly
++            and both Akregator and Opera accept it as an RSS feed too.
++            &lt;/p&gt;
++            &lt;p&gt;
++             Now I have to maintain only one document and automagically
++             have both a webpage and an RSS feed :)
++             &lt;/p&gt;
++            ]]&gt;
++        &lt;/description&gt;
++    &lt;/item&gt;
++
++&lt;/channel&gt;
++&lt;/rss&gt;
++
+
+Added: trunk/blog/fpm.xsl
+===================================================================
+--- trunk/blog/fpm.xsl	2008-03-26 17:52:47 UTC (rev 154)
++++ trunk/blog/fpm.xsl	2008-03-30 22:46:02 UTC (rev 155)
+@@ -0,0 +1,98 @@
++&lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot;?&gt;
++&lt;xsl:stylesheet version=&quot;1.0&quot;
++    xmlns:xsl=&quot;<A HREF="http://www.w3.org/1999/XSL/Transform">http://www.w3.org/1999/XSL/Transform</A>&quot;
++    xmlns:dc=&quot;<A HREF="http://purl.org/dc/elements/1.1/">http://purl.org/dc/elements/1.1/</A>&quot;
++    xmlns:wfw=&quot;<A HREF="http://wellformedweb.org/CommentAPI/">http://wellformedweb.org/CommentAPI/</A>&quot;&gt;
++
++    &lt;xsl:output method=&quot;html&quot;/&gt;
++
++    &lt;xsl:template match=&quot;/&quot;&gt;
++        &lt;html&gt;
++            &lt;head&gt;
++                &lt;title&gt;&lt;xsl:value-of select=&quot;rss/channel/title&quot;/&gt;&lt;/title&gt;
++                &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;default.css&quot;/&gt;
++                &lt;script language=&quot;javascript&quot; src=&quot;xsl_mop-up.js&quot;/&gt;
++            &lt;/head&gt;
++            &lt;body onload=&quot;go_decoding();&quot;&gt;
++                &lt;div id=&quot;cometestme&quot; style=&quot;display:none;&quot;&gt;
++                    &lt;xsl:text disable-output-escaping=&quot;yes&quot; &gt;&amp;amp;&lt;/xsl:text&gt;
++                &lt;/div&gt;
++                &lt;a name=&quot;0&quot;/&gt;
++                &lt;div class=&quot;heading&quot;&gt;
++                    &lt;div class=&quot;headingdescription&quot;&gt;
++                        &lt;xsl:value-of select=&quot;rss/channel/description&quot;/&gt;
++                    &lt;/div&gt;
++                    &lt;div class=&quot;headingtitle&quot;&gt;
++                        &lt;b&gt;
++                            &lt;a href=&quot;{rss/channel/link}&quot;&gt;
++                                &lt;xsl:value-of select=&quot;rss/channel/title&quot;/&gt;
++                        &lt;/a&gt;
++                    &lt;/b&gt;
++                    &lt;/div&gt;
++                &lt;/div&gt;
++                &lt;xsl:for-each select=&quot;rss/channel/item&quot;&gt;
++                    &lt;div class=&quot;item&quot;&gt;
++                        &lt;a name=&quot;{position()}&quot;/&gt;
++                        &lt;xsl:variable name=&quot;storylink&quot; select=&quot;link&quot;/&gt;
++                        &lt;a name=&quot;{substring($storylink,2)}&quot;/&gt;
++                        &lt;div class=&quot;itemtitle&quot;&gt;
++                            &lt;a href=&quot;{link}&quot;&gt;
++                                &lt;b&gt;&lt;xsl:value-of select=&quot;title&quot;/&gt;&lt;/b&gt;
++                            &lt;/a&gt;
++                        &lt;/div&gt;
++                        &lt;table class=&quot;itemauthordate&quot;&gt;
++                            &lt;tr&gt;
++                                &lt;td&gt;
++                        &lt;div class=&quot;itemauthor&quot;&gt;
++                            by
++                            &lt;xsl:value-of select=&quot;author&quot;/&gt;
++                            &lt;xsl:value-of select=&quot;dc:creator&quot;/&gt;
++                        &lt;/div&gt;
++                                &lt;/td&gt;
++                                &lt;td&gt;
++                        &lt;div class=&quot;itemdate&quot;&gt;
++                            &lt;xsl:value-of select=&quot;pubDate&quot;/&gt;
++                        &lt;/div&gt;
++                                &lt;/td&gt;
++                            &lt;/tr&gt;
++                        &lt;/table&gt;
++                        &lt;div class=&quot;itemdescription&quot; name=&quot;decodeable&quot;&gt;
++                            &lt;xsl:value-of select=&quot;description&quot; disable-output-escaping=&quot;yes&quot;/&gt;
++                        &lt;/div&gt;
++                        &lt;div class=&quot;linkbar&quot;&gt;
++                            &lt;a href=&quot;#0&quot;&gt;top&lt;/a&gt;
++                            &lt;a href=&quot;{link}&quot;&gt;
++                                | full story
++                            &lt;/a&gt;
++                            &lt;a href=&quot;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">ivop at free.fr</A>&quot;&gt;
++                                | e-mail
++                            &lt;/a&gt;
++                        &lt;/div&gt;
++                    &lt;/div&gt;
++                &lt;/xsl:for-each&gt;
++                &lt;div class=&quot;toc&quot;&gt;
++                    &lt;p&gt;
++                        &lt;a href=&quot;test.xml&quot;&gt;
++                            &lt;img src=&quot;feed.png&quot; alt=&quot;[feed]&quot;/&gt;
++                            RSS Feed
++                        &lt;/a&gt;
++                    &lt;/p&gt;
++                    &lt;b&gt; contents &lt;/b&gt;
++                    &lt;p/&gt;
++                    &lt;ul&gt;
++                        &lt;xsl:for-each select=&quot;rss/channel/item&quot;&gt;
++                            &lt;li&gt;
++                                &lt;a href=&quot;{link}&quot;&gt;
++                                    &lt;b&gt;&lt;xsl:value-of select=&quot;title&quot;/&gt;&lt;/b&gt;
++                                &lt;/a&gt;
++                            &lt;/li&gt;
++                        &lt;/xsl:for-each&gt;
++                    &lt;/ul&gt;
++                &lt;/div&gt;
++                &lt;div class=&quot;logo&quot;&gt;
++                    &lt;img src=&quot;01101011.png&quot;/&gt;
++                &lt;/div&gt;
++            &lt;/body&gt;
++        &lt;/html&gt;
++    &lt;/xsl:template&gt;
++&lt;/xsl:stylesheet&gt;
+
+Added: trunk/blog/xsl_mop-up.js
+===================================================================
+--- trunk/blog/xsl_mop-up.js	2008-03-26 17:52:47 UTC (rev 154)
++++ trunk/blog/xsl_mop-up.js	2008-03-30 22:46:02 UTC (rev 155)
+@@ -0,0 +1,78 @@
++
++// A workaround for XSL-to-XHTML systems that don't
++//  implement XSL 'disable-output-escaping=&quot;yes&quot;'.
++//
++// <A HREF="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">sburke at cpan.org</A>, Sean M. Burke.
++//  - I hereby release this JavaScript code to the public domain.
++
++var is_decoding;
++var DEBUG = 0;
++
++function complaining (s) { alert(s);  return s; }
++
++if(!(   document.getElementById &amp;&amp; document.getElementsByName))
++ throw complaining(&quot;Your browser is too old to render this page properly.&quot;
++  + &quot;  Consider going to getfirefox.com to upgrade.&quot;);
++
++function check_decoding () {
++  var d = document.getElementById('cometestme');
++  if(!d) {
++    throw complaining(&quot;Can't find an id='cometestme' element?&quot;);
++  } else if(!('textContent' in d)) {
++    // It's a browser with a halfassed DOM implementation (like IE6)
++    // that doesn't implement textContent!  Assume that if it's that
++    // dumb, it probably doesn't implement disable-content-encoding.
++
++  } else {
++    ampy = d.textContent;
++    if(DEBUG &gt; 1) { alert(&quot;Got &quot; + ampy); }
++
++    if(ampy == undefined) throw complaining(&quot;'cometestme' element has undefined text content?!&quot;);
++    if(ampy == ''       ) throw complaining(&quot;'cometestme' element has empty text content?!&quot;    );
++
++    if      (ampy == &quot;\x26&quot;	) { is_decoding =  true; }
++    else if (ampy == &quot;\x26amp;&quot; ) { is_decoding = false; }
++    else		     { throw complaining('Insane value: &quot;' + ampy + '&quot;!'); }
++  }
++
++  var msg =
++   (is_decoding == undefined) ? &quot;I can't tell whether the XSL processor supports disable-content-encoding!D&quot;
++   : is_decoding ? &quot;The XSL processor DOES support disable-content-encoding&quot;
++   : &quot;The XSL processor does NOT support disable-content-encoding&quot;
++  ;
++  if(DEBUG) alert(msg);
++  return msg;
++}
++
++
++function go_decoding () {
++  check_decoding();
++
++  if(is_decoding) {
++    DEBUG &amp;&amp; alert(&quot;No work needs doing -- already decoded!&quot;);
++    return;
++  }
++
++  var to_decode = document.getElementsByName('decodeable');
++  if(!( to_decode &amp;&amp; to_decode.length )) {
++    DEBUG &amp;&amp; alert(&quot;No work needs doing -- no elements to decode!&quot;);
++    return;
++  }
++
++
++  var s;
++  for(var i = to_decode.length - 1; i &gt;= 0; i--) { 
++    s = to_decode[i].textContent;
++
++    if(
++      s == undefined ||
++      (s.indexOf('&amp;') == -1 &amp;&amp; s.indexOf('&lt;') == -1)
++    ) {
++      // the null or markupless element needs no reworking
++    } else {
++      to_decode[i].innerHTML = s;  // that's the magic
++    }
++  }
++
++  return;
++}
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000176.html">[fpm-cvslog] r154 - trunk/fpm2/include/fpm
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#177">[ date ]</a>
+              <a href="thread.html#177">[ thread ]</a>
+              <a href="subject.html#177">[ subject ]</a>
+              <a href="author.html#177">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

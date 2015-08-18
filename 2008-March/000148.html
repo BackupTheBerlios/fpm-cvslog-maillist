@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] r126 - trunk/fpm2
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r126%20-%20trunk/fpm2&In-Reply-To=%3C200803220207.m2M27NAt018229%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000147.html">
+   <LINK REL="Next"  HREF="000149.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] r126 - trunk/fpm2</H1>
+    <B>ivop at BerliOS</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r126%20-%20trunk/fpm2&In-Reply-To=%3C200803220207.m2M27NAt018229%40sheep.berlios.de%3E"
+       TITLE="[fpm-cvslog] r126 - trunk/fpm2">ivop at mail.berlios.de
+       </A><BR>
+    <I>Sat Mar 22 03:07:23 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000147.html">[fpm-cvslog] r125 - in trunk/fpm2: . include/fpm
+</A></li>
+        <LI>Next message: <A HREF="000149.html">[fpm-cvslog] r127 - trunk/fpm2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#148">[ date ]</a>
+              <a href="thread.html#148">[ thread ]</a>
+              <a href="subject.html#148">[ subject ]</a>
+              <a href="author.html#148">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: ivop
+Date: 2008-03-22 03:07:23 +0100 (Sat, 22 Mar 2008)
+New Revision: 126
+
+Modified:
+   trunk/fpm2/benchmark.c
+Log:
+ehm, really test the speed of the code by marking all variables volatile
+(before most of the code was optimized into oblivion)
+
+
+Modified: trunk/fpm2/benchmark.c
+===================================================================
+--- trunk/fpm2/benchmark.c	2008-03-21 11:47:59 UTC (rev 125)
++++ trunk/fpm2/benchmark.c	2008-03-22 02:07:23 UTC (rev 126)
+@@ -28,7 +28,7 @@
+  * Makefile, etc... */
+ 
+ #define INNERLOOP   10000
+-#define OUTERLOOP   10000
++#define OUTERLOOP   1000
+ #define VAL1        2.9
+ #define VAL2        213
+ #define VAL3        3.1
+@@ -117,13 +117,13 @@
+ int main()
+ {
+     unsigned int i, j, num;
+-    ufp8p8_t   a1, a2, a3, a4;
+-    ufp24p8_t  b1, b2, b3, b4;
+-    ufp16p16_t c1, c2, c3, c4;
+-    ufp8p24_t  d1, d2, d3, d4;
+-    float      f1, f2, f3, f4;
+-    double     g1, g2, g3, g4;
+-    uint64_t   start, end, sum;
++    volatile ufp8p8_t   a1, a2, a3, a4;
++    volatile ufp24p8_t  b1, b2, b3, b4;
++    volatile ufp16p16_t c1, c2, c3, c4;
++    volatile ufp8p24_t  d1, d2, d3, d4;
++    volatile float      f1, f2, f3, f4;
++    volatile double     g1, g2, g3, g4;
++    volatile uint64_t   start, end, sum;
+     uint64_t   avga, avgb, avgc, avgd, avgf, avgg;
+     int        prca, prcb, prcc, prcd, prcf, prcg;
+     int        foo, bar;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000147.html">[fpm-cvslog] r125 - in trunk/fpm2: . include/fpm
+</A></li>
+	<LI>Next message: <A HREF="000149.html">[fpm-cvslog] r127 - trunk/fpm2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#148">[ date ]</a>
+              <a href="thread.html#148">[ thread ]</a>
+              <a href="subject.html#148">[ subject ]</a>
+              <a href="author.html#148">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

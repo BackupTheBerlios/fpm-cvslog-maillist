@@ -1,0 +1,284 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] r177 - trunk/fpm2/bench
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r177%20-%20trunk/fpm2/bench&In-Reply-To=%3C200804232340.m3NNe38D008290%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000198.html">
+   <LINK REL="Next"  HREF="000200.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] r177 - trunk/fpm2/bench</H1>
+    <B>ivop at BerliOS</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r177%20-%20trunk/fpm2/bench&In-Reply-To=%3C200804232340.m3NNe38D008290%40sheep.berlios.de%3E"
+       TITLE="[fpm-cvslog] r177 - trunk/fpm2/bench">ivop at mail.berlios.de
+       </A><BR>
+    <I>Thu Apr 24 01:40:03 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000198.html">[fpm-cvslog] r176 - trunk/fpm2/bench
+</A></li>
+        <LI>Next message: <A HREF="000200.html">[fpm-cvslog] r178 - trunk/fpm2/bench
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#199">[ date ]</a>
+              <a href="thread.html#199">[ thread ]</a>
+              <a href="subject.html#199">[ subject ]</a>
+              <a href="author.html#199">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: ivop
+Date: 2008-04-24 01:40:02 +0200 (Thu, 24 Apr 2008)
+New Revision: 177
+
+Added:
+   trunk/fpm2/bench/tests.c
+Modified:
+   trunk/fpm2/bench/build.sh
+Log:
+a little bit of 'configure' before building the benchmarks
+CC, arch and CFLAGS can be overridden from the command line, e.g.
+
+CC=/opt/gcc-2.95.3/bin/gcc ./build.sh
+
+
+
+Modified: trunk/fpm2/bench/build.sh
+===================================================================
+--- trunk/fpm2/bench/build.sh	2008-04-23 09:18:10 UTC (rev 176)
++++ trunk/fpm2/bench/build.sh	2008-04-23 23:40:02 UTC (rev 177)
+@@ -1,29 +1,154 @@
+ #! /bin/sh
+ 
+ LC_ALL=C
+-CC=cc
+ 
++# these can be overridden from the command line (and CFLAGS is effective too)
++CC=${CC:-cc}
++arch=${arch:-`uname -m`}
++
++ARCH=
++OPTIMIZE=
++FPM_HAVE_X87=
++FPM_HAVE_SSE=
++FPM_HAVE_INTRINSICS=
++
++cc_vendor=unknown
++if test &quot;`$CC --help | grep -qi gcc &gt;/dev/null 2&gt;&amp;1 &amp;&amp; echo yes`&quot; == &quot;yes&quot; ; then
++    cc_vendor=gnu
++elif test &quot;`$CC -flags | grep -qi sun &gt;/dev/null 2&gt;&amp;1 &amp;&amp; echo yes`&quot; == &quot;yes&quot; ; then
++    cc_vendor=sun
++fi
++
++case &quot;$cc_vendor&quot; in
++    gnu|unknown)
++        OPTIMIZE=-O3
++        ;;
++    sun)
++        OPTIMIZE=-xO5
++        ;;
++esac
++
++echo &quot;cc vendor: $cc_vendor&quot;
++echo &quot;optimize: $OPTIMIZE&quot;
++
++cctest() {
++    $CC $OPTIMIZE $ARCH $CFLAGS -o /dev/null tests.c $@ 1&gt;/dev/null 2&gt;&amp;1
++}
++
++addcflags() {
++    CFLAGS=&quot;$CFLAGS $@&quot;
++}
++
++archflags() {
++    if test &quot;$cc_vendor&quot; == &quot;gnu&quot; ; then
++        cctest -march=$arch &amp;&amp; ARCH=&quot;$ARCH -march=$arch&quot;
++        cctest -mtune=$arch &amp;&amp; ARCH=&quot;$ARCH -mtune=$arch&quot;
++        cctest -mcpu=$arch &amp;&amp; ARCH=&quot;$ARCH -mcpu=$arch&quot;
++    fi
++    echo &quot;arch flags: $ARCH&quot;
++}
++
++archflags
++
++cctest -DTEST_ALWAYS_INLINE &amp;&amp; addcflags -DHAVE_ALWAYS_INLINE &amp;&amp; echo have_always_inline
++cctest -DTEST_X87 &amp;&amp; FPM_HAVE_X87=1 &amp;&amp; echo have_x87
++cctest -DTEST_SSE &amp;&amp; FPM_HAVE_SSE=1 &amp;&amp; echo have_sse &amp;&amp; case &quot;$arch&quot; in i?86) arch=pentium3; ARCH= ; archflags ;; esac
++cctest -DTEST_INTRINSICS &amp;&amp; FPM_HAVE_INTRINSICS=1 &amp;&amp; echo have_intrinsics
++
+ toupper() {
+     echo &quot;$@&quot; | tr '[abcdefghijklmnopqrstuvwxyz]' \
+                    '[ABCDEFGHIJKLMNOPQRSTUVWXYZ]'
+ }
+ 
+ build() {
+-    echo &quot;$@&quot;
+-    $CC $@
++    echo $CC $OPTIMIZE $ARCH $CFLAGS $@
++    $CC $OPTIMIZE $ARCH $CFLAGS $@
+ }
+ 
+ build_all() {
+     pf=$1
+     shift 1
+-    for i in float double \
++    for _i in float double \
+              fp8p8 fp24p8 fp16p16 fp8p24 \
+              ufp8p8 ufp24p8 ufp16p16 ufp8p24
+     do
+-        j=`toupper $i`
+-        build bench.c -o bench-$i$pf -I`pwd`/../include -lm -DDO$j $@
++        _j=`toupper $_i`
++        build bench.c -o bench-$_i$pf -I`pwd`/../include -lm -DDO$_j $@
+     done
+ }
+ 
++check_config() {
++    eval f=\$$1
++    test &quot;$f&quot; == &quot;1&quot;
++}
++
++make_false() {
++    for _i in float double \
++             fp8p8 fp24p8 fp16p16 fp8p24 \
++             ufp8p8 ufp24p8 ufp16p16 ufp8p24
++    do
++        echo skip: bench-$_i$1
++        cat &gt; bench-$_i$1 &lt;&lt;__EOF__
++#! /bin/sh
++exit 1
++__EOF__
++        chmod 755 bench-$_i$1
++    done
++}
++
+ build_all
+-build_all -no-fpu-mul -DFPM_NO_FPU_MUL_CONVERSIONS
++build_all -nfmc -DFPM_NO_FPU_MUL_CONVERSIONS
++
++for i in 1 2 ; do
++    build_all -srm$i -DFPM_SQUARE_ROOT_METHOD=$i
++done
++
++for i in 3 4 ; do
++    for j in &quot;&quot; &quot;-nfmc -DFPM_NO_FPU_MUL_CONVERSIONS&quot; ; do
++        m=`echo $j | cut -d ' ' -f 1`
++        n=`echo $j | cut -d ' ' -f 2`
++        build_all $m-srm$i -DFPM_SQUARE_ROOT_METHOD=$i $n
++    done
++done
++
++if check_config FPM_HAVE_X87 ; then
++    for j in &quot;&quot; &quot;-nfmc -DFPM_NO_FPU_MUL_CONVERSIONS&quot; ; do
++        m=`echo $j | cut -d ' ' -f 1`
++        n=`echo $j | cut -d ' ' -f 2`
++        build_all $m-srm5 -DFPM_SQUARE_ROOT_METHOD=5 -DFPM_HAVE_X87 $n
++    done
++else
++    make_false -srm5
++    make_false -nfmc-srm5
++fi
++
++if check_config FPM_HAVE_SSE ; then
++    for i in 6 7 8 ; do
++        for j in &quot;&quot; &quot;-nfmc -DFPM_NO_FPU_MUL_CONVERSIONS&quot; ; do
++            m=`echo $j | cut -d ' ' -f 1`
++            n=`echo $j | cut -d ' ' -f 2`
++            build_all $m-srm$i -DFPM_SQUARE_ROOT_METHOD=$i -DFPM_HAVE_SSE $n
++        done
++    done
++else
++    for i in 6 7 8 ; do
++        make_false -srm$i
++        make_false -nfmc-srm$i
++    done
++fi
++
++if check_config FPM_HAVE_SSE &amp;&amp; check_config FPM_HAVE_INTRINSICS ; then
++    for i in 9 10 11 ; do
++        for j in &quot;&quot; &quot;-nfmc -DFPM_NO_FPU_MUL_CONVERSIONS&quot; ; do
++            m=`echo $j | cut -d ' ' -f 1`
++            n=`echo $j | cut -d ' ' -f 2`
++            build_all $m-srm$i -DFPM_SQUARE_ROOT_METHOD=$i -DFPM_HAVE_SSE -DFPM_HAVE_INTRINSICS $n
++        done
++    done
++else
++    for i in 9 10 11 ; do
++        make_false -srm$i
++        make_false -nfmc-srm$i
++    done
++fi
++
+
+Added: trunk/fpm2/bench/tests.c
+===================================================================
+--- trunk/fpm2/bench/tests.c	2008-04-23 09:18:10 UTC (rev 176)
++++ trunk/fpm2/bench/tests.c	2008-04-23 23:40:02 UTC (rev 177)
+@@ -0,0 +1,34 @@
++#ifdef TEST_INTRINSICS
++#include &lt;xmmintrin.h&gt;
++#endif
++
++#ifdef TEST_ALWAYS_INLINE
++static __attribute__((always_inline)) inline foo(int a) {
++    return a+a;
++}
++#endif
++
++int main(int argc, char **argv) {
++    volatile float f = 9.0f;
++
++#ifdef TEST_X87
++    asm(&quot;fld %1\n\tfsqrt\n\tfstp %0\n\t&quot; : &quot;=m&quot; (f) : &quot;m&quot; (f) );
++#endif
++
++#ifdef TEST_SSE
++    asm(&quot;sqrtss %1, %%xmm0\n\tmovss %%xmm0, %0\n\t&quot; : &quot;=m&quot; (f) : &quot;m&quot; (f) );
++#endif
++
++#ifdef TEST_INTRINSICS
++    __m128 mm;
++    mm = _mm_set_ss(f);
++    mm = _mm_sqrt_ss(mm);
++    _mm_store_ss(&amp;f, mm);
++#endif
++
++#ifdef TEST_ALWAYS_INLINE
++    return foo(f);
++#else
++    return f;
++#endif
++}
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000198.html">[fpm-cvslog] r176 - trunk/fpm2/bench
+</A></li>
+	<LI>Next message: <A HREF="000200.html">[fpm-cvslog] r178 - trunk/fpm2/bench
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#199">[ date ]</a>
+              <a href="thread.html#199">[ thread ]</a>
+              <a href="subject.html#199">[ subject ]</a>
+              <a href="author.html#199">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

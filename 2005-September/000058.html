@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] website/docs/HTML/en advanced.html,1.1,1.2 benchmarks.html,1.1,1.2 default.css,1.4,1.5 precision.html,1.1,1.2 usage.html,1.1,1.2
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2005-September/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20website/docs/HTML/en%20advanced.html%2C1.1%2C1.2%20benchmarks.html%2C1.1%2C1.2%20default.css%2C1.4%2C1.5%20precision.html%2C1.1%2C1.2%20usage.html%2C1.1%2C1.2&In-Reply-To=%3C200509020325.j823PH618396%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000056.html">
+   <LINK REL="Next"  HREF="000059.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] website/docs/HTML/en advanced.html,1.1,1.2 benchmarks.html,1.1,1.2 default.css,1.4,1.5 precision.html,1.1,1.2 usage.html,1.1,1.2</H1>
+    <B>ivop</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20website/docs/HTML/en%20advanced.html%2C1.1%2C1.2%20benchmarks.html%2C1.1%2C1.2%20default.css%2C1.4%2C1.5%20precision.html%2C1.1%2C1.2%20usage.html%2C1.1%2C1.2&In-Reply-To=%3C200509020325.j823PH618396%40bat.berlios.de%3E"
+       TITLE="[fpm-cvslog] website/docs/HTML/en advanced.html,1.1,1.2 benchmarks.html,1.1,1.2 default.css,1.4,1.5 precision.html,1.1,1.2 usage.html,1.1,1.2">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Fri Sep  2 05:25:27 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000056.html">[fpm-cvslog] fpm/docs/xml/en advanced.xml,1.1,1.2 usage.xml,1.1,1.2
+</A></li>
+        <LI>Next message: <A HREF="000059.html">[fpm-cvslog] website/docs/HTML/en advanced.html,1.1,1.2 benchmarks.html,1.1,1.2 default.css,1.4,1.5 precision.html,1.1,1.2 usage.html,1.1,1.2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#58">[ date ]</a>
+              <a href="thread.html#58">[ thread ]</a>
+              <a href="subject.html#58">[ subject ]</a>
+              <a href="author.html#58">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/fpm/website/docs/HTML/en
+In directory sheep:/tmp/cvs-serv542/HTML/en
+
+Modified Files:
+	advanced.html benchmarks.html default.css precision.html 
+	usage.html 
+Log Message:
+updated docs.
+
+I wonder why cvs diff -u correctly diffs those files that are changed,
+but cvs commit thinks all other files are changed too!!
+
+Let's see what happens when I commit this....
+
+
+
+Index: advanced.html
+===================================================================
+RCS file: /cvsroot/fpm/website/docs/HTML/en/advanced.html,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- advanced.html	1 Sep 2005 01:02:19 -0000	1.1
++++ advanced.html	2 Sep 2005 03:24:59 -0000	1.2
+@@ -3,6 +3,60 @@
+       &lt;div class=&quot;navheader&quot;&gt;&lt;table width=&quot;100%&quot; summary=&quot;Navigation header&quot;&gt;&lt;tr&gt;&lt;td width=&quot;20%&quot; align=&quot;left&quot;&gt;&lt;a accesskey=&quot;p&quot; href=&quot;sqrt-ln-exp-and-pow.html&quot;&gt;Prev&lt;/a&gt;&#160;&lt;/td&gt;&lt;th width=&quot;60%&quot; align=&quot;center&quot;&gt;&#160;&lt;/th&gt;&lt;td width=&quot;20%&quot; align=&quot;right&quot;&gt;&#160;&lt;a accesskey=&quot;n&quot; href=&quot;precision.html&quot;&gt;Next&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;hr&gt;&lt;/div&gt;
+           
+       &lt;div class=&quot;chapter&quot;&gt;&lt;div class=&quot;titlepage&quot;&gt;&lt;div&gt;&lt;h2 class=&quot;title&quot;&gt;&lt;a name=&quot;advanced&quot;&gt;&lt;/a&gt;Chapter 4.  Advanced &lt;/h2&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;toc&quot;&gt;&lt;p&gt;&lt;b&gt;Table of Contents&lt;/b&gt;&lt;/p&gt;&lt;dl&gt;&lt;dt&gt;4.1. &lt;a href=&quot;advanced.html#look-up-tables&quot;&gt; Look Up Tables &lt;/a&gt;&lt;/dt&gt;&lt;dt&gt;4.2. &lt;a href=&quot;precision.html&quot;&gt; Precision &lt;/a&gt;&lt;/dt&gt;&lt;dt&gt;4.3. &lt;a href=&quot;benchmarks.html&quot;&gt; Benchmarks &lt;/a&gt;&lt;/dt&gt;&lt;/dl&gt;&lt;/div&gt;&lt;div class=&quot;sect1&quot;&gt;&lt;div class=&quot;titlepage&quot;&gt;&lt;div&gt;&lt;h2 class=&quot;title&quot; style=&quot;clear: both&quot;&gt;&lt;a name=&quot;look-up-tables&quot;&gt;&lt;/a&gt;4.1.  Look Up Tables &lt;/h2&gt;&lt;/div&gt;&lt;/div&gt;&lt;p&gt;
++            By default, all mathematical functions are calculated and/or
++            approximated algorithmicly. In some cases the algorithms use
++            a few (static) temporary variables, but generally speaking,
++            they don't use large amounts of memory and in most cases they
++            are faster than their floating point equivalents.
++        &lt;/p&gt;&lt;p&gt;
++            In some cases though, they are not. For example, Athlon CPU's
++            &quot;cheat&quot; a little by using a 14-bit look-up table for square
++            root calculation and are therefore actually faster! This is
++            clearly not what we want.
++        &lt;/p&gt;&lt;p&gt;
++            This Fixed Point Math Macro Library also supports look-up table
++            variants of all mathematical functions. But considering its
++            fields of use, it has to be cache friendly. Large tables would
++            ruin the L1 cache. So instead of one large table, I chose to use
++            several small tables and linear interpolation for the values
++            that don't directly map to the look-up table.
++            Depending on the mathematical function that's
++            approximated and the precision that's needed, different tables
++            are used to accomplish that.
++            For example, the square root function needs more
++            precision for small values of x, but once the &quot;curve&quot; is mostly
++            done, it's almost a straight line and lesser samples are needed
++            to quite accurately approximate the function.
++            Depending on the fixed point type chosen and the function at hand,
++            two to four tables are needed, each consisting of somewhere around
++            128 values. This assures only a few kilobytes of memory and
++            hence won't trash the cache in most cases.
++        &lt;/p&gt;&lt;p&gt;
++            Look-up tables can be activated by using #define before including
++            fixedpointmath.h or by using the -D command line option of your
++            compiler. Currently (as of the alpha release) the following
++            defines are supported:
++
++            &lt;div class=&quot;informaltable&quot;&gt;&lt;table border=&quot;1&quot;&gt;&lt;colgroup&gt;&lt;col&gt;&lt;col&gt;&lt;/colgroup&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt; __FPM_ENABLE_ALL_LUT__ &lt;/td&gt;&lt;td&gt; Enable look-up tables for all calculations &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt; __FPM_ENABLE_SQRT_LUT__ &lt;/td&gt;&lt;td&gt; Enable look-up tables for all square root calculations &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;
++        &lt;/p&gt;&lt;p&gt;
++            Eventually, all mathematical functions will have their
++            look-up table equivalent. I even consider splitting it up for
++            every basic fixed point type, which could save memory.
++            Embedded systems with only limitted amount of RAM or ROM, could
++            benefit from that.
++        &lt;/p&gt;&lt;p&gt;
++            Example:
++
++            &lt;pre class=&quot;programlisting&quot;&gt;
++        #define __FPM_ENABLE_SQRT_LUT__
++        #include &lt;fixedpointmath.h&gt;
++
++        fp16p16_t a, b;
++
++        [...]
++
++        a = scrtfp16p16(b);     /* will be &quot;looked up&quot; and possibly
++                                 * interpolated */ &lt;/pre&gt;
+         &lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+           
+       &lt;div class=&quot;navfooter&quot;&gt;&lt;hr&gt;&lt;table width=&quot;100%&quot; summary=&quot;Navigation footer&quot;&gt;&lt;tr&gt;&lt;td width=&quot;40%&quot; align=&quot;left&quot;&gt;&lt;a accesskey=&quot;p&quot; href=&quot;sqrt-ln-exp-and-pow.html&quot;&gt;Prev&lt;/a&gt;&#160;&lt;/td&gt;&lt;td width=&quot;20%&quot; align=&quot;center&quot;&gt;&lt;a accesskey=&quot;u&quot; href=&quot;index.html&quot;&gt;Up&lt;/a&gt;&lt;/td&gt;&lt;td width=&quot;40%&quot; align=&quot;right&quot;&gt;&#160;&lt;a accesskey=&quot;n&quot; href=&quot;precision.html&quot;&gt;Next&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td width=&quot;40%&quot; align=&quot;left&quot; valign=&quot;top&quot;&gt;&#160;&lt;/td&gt;&lt;td width=&quot;20%&quot; align=&quot;center&quot;&gt;&lt;a accesskey=&quot;h&quot; href=&quot;index.html&quot;&gt;Home&lt;/a&gt;&lt;/td&gt;&lt;td width=&quot;40%&quot; align=&quot;right&quot; valign=&quot;top&quot;&gt;&#160;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;
+
+Index: benchmarks.html
+===================================================================
+RCS file: /cvsroot/fpm/website/docs/HTML/en/benchmarks.html,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- benchmarks.html	1 Sep 2005 01:02:19 -0000	1.1
++++ benchmarks.html	2 Sep 2005 03:24:59 -0000	1.2
+@@ -3,6 +3,17 @@
+       &lt;div class=&quot;navheader&quot;&gt;&lt;table width=&quot;100%&quot; summary=&quot;Navigation header&quot;&gt;&lt;tr&gt;&lt;td width=&quot;20%&quot; align=&quot;left&quot;&gt;&lt;a accesskey=&quot;p&quot; href=&quot;precision.html&quot;&gt;Prev&lt;/a&gt;&#160;&lt;/td&gt;&lt;th width=&quot;60%&quot; align=&quot;center&quot;&gt;&#160;&lt;/th&gt;&lt;td width=&quot;20%&quot; align=&quot;right&quot;&gt;&#160;&lt;a accesskey=&quot;n&quot; href=&quot;license.html&quot;&gt;Next&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;hr&gt;&lt;/div&gt;
+           
+       &lt;div class=&quot;sect1&quot;&gt;&lt;div class=&quot;titlepage&quot;&gt;&lt;div&gt;&lt;h2 class=&quot;title&quot; style=&quot;clear: both&quot;&gt;&lt;a name=&quot;benchmarks&quot;&gt;&lt;/a&gt;4.3.  Benchmarks &lt;/h2&gt;&lt;/div&gt;&lt;/div&gt;&lt;p&gt;
++            This section (and possibly sub-sections) will have barcharts
++            of how the fixed point math routines compare to floating point
++            variants on different CPU/FPU's and with different compilers
++            and optimization settings.
++        &lt;/p&gt;&lt;p&gt;
++            Note: I already noticed that Intel's ICC, in all its wisdom,
++            completely optimizes the benchmark program to oblivion, leaving
++            only 11 clockcycles (on a Sempron 2400 CPU) for almost all
++            timing loops. Something has to be done about that :)
++        &lt;/p&gt;&lt;p&gt;
++            This section will also describe how to run benchmarks yourself.
+         &lt;/p&gt;&lt;/div&gt;
+           
+       &lt;div class=&quot;navfooter&quot;&gt;&lt;hr&gt;&lt;table width=&quot;100%&quot; summary=&quot;Navigation footer&quot;&gt;&lt;tr&gt;&lt;td width=&quot;40%&quot; align=&quot;left&quot;&gt;&lt;a accesskey=&quot;p&quot; href=&quot;precision.html&quot;&gt;Prev&lt;/a&gt;&#160;&lt;/td&gt;&lt;td width=&quot;20%&quot; align=&quot;center&quot;&gt;&lt;a accesskey=&quot;u&quot; href=&quot;advanced.html&quot;&gt;Up&lt;/a&gt;&lt;/td&gt;&lt;td width=&quot;40%&quot; align=&quot;right&quot;&gt;&#160;&lt;a accesskey=&quot;n&quot; href=&quot;license.html&quot;&gt;Next&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td width=&quot;40%&quot; align=&quot;left&quot; valign=&quot;top&quot;&gt;&#160;&lt;/td&gt;&lt;td width=&quot;20%&quot; align=&quot;center&quot;&gt;&lt;a accesskey=&quot;h&quot; href=&quot;index.html&quot;&gt;Home&lt;/a&gt;&lt;/td&gt;&lt;td width=&quot;40%&quot; align=&quot;right&quot; valign=&quot;top&quot;&gt;&#160;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;
+
+Index: default.css
+===================================================================
+RCS file: /cvsroot/fpm/website/docs/HTML/en/default.css,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -u -d -r1.4 -r1.5
+--- default.css	1 Sep 2005 01:02:20 -0000	1.4
++++ default.css	2 Sep 2005 03:24:59 -0000	1.5
+@@ -24,11 +24,18 @@
+ 	padding: 2px;
+ }
+ 
+-div.table td, div.informaltable td {
++div.table td {
+ 	background: #ffffff;
+ 	border: 0px;
+ 	padding: 8px;
+     text-align: right;
++}
++
++div.informaltable td {
++	background: #ffffff;
++	border: 0px;
++	padding: 8px;
++    text-align: left;
+ }
+ 
+ 
+
+Index: precision.html
+===================================================================
+RCS file: /cvsroot/fpm/website/docs/HTML/en/precision.html,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- precision.html	1 Sep 2005 01:02:20 -0000	1.1
++++ precision.html	2 Sep 2005 03:24:59 -0000	1.2
+@@ -3,6 +3,9 @@
+       &lt;div class=&quot;navheader&quot;&gt;&lt;table width=&quot;100%&quot; summary=&quot;Navigation header&quot;&gt;&lt;tr&gt;&lt;td width=&quot;20%&quot; align=&quot;left&quot;&gt;&lt;a accesskey=&quot;p&quot; href=&quot;advanced.html&quot;&gt;Prev&lt;/a&gt;&#160;&lt;/td&gt;&lt;th width=&quot;60%&quot; align=&quot;center&quot;&gt;&#160;&lt;/th&gt;&lt;td width=&quot;20%&quot; align=&quot;right&quot;&gt;&#160;&lt;a accesskey=&quot;n&quot; href=&quot;benchmarks.html&quot;&gt;Next&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;hr&gt;&lt;/div&gt;
+           
+       &lt;div class=&quot;sect1&quot;&gt;&lt;div class=&quot;titlepage&quot;&gt;&lt;div&gt;&lt;h2 class=&quot;title&quot; style=&quot;clear: both&quot;&gt;&lt;a name=&quot;precision&quot;&gt;&lt;/a&gt;4.2.  Precision &lt;/h2&gt;&lt;/div&gt;&lt;/div&gt;&lt;p&gt;
++            This section will eventually have a whole bunch of graphs that
++            show the precision and/or lack thereof of all fixed point
++            math macro's compared to 32/64-bit floating point.
+         &lt;/p&gt;&lt;/div&gt;
+           
+       &lt;div class=&quot;navfooter&quot;&gt;&lt;hr&gt;&lt;table width=&quot;100%&quot; summary=&quot;Navigation footer&quot;&gt;&lt;tr&gt;&lt;td width=&quot;40%&quot; align=&quot;left&quot;&gt;&lt;a accesskey=&quot;p&quot; href=&quot;advanced.html&quot;&gt;Prev&lt;/a&gt;&#160;&lt;/td&gt;&lt;td width=&quot;20%&quot; align=&quot;center&quot;&gt;&lt;a accesskey=&quot;u&quot; href=&quot;advanced.html&quot;&gt;Up&lt;/a&gt;&lt;/td&gt;&lt;td width=&quot;40%&quot; align=&quot;right&quot;&gt;&#160;&lt;a accesskey=&quot;n&quot; href=&quot;benchmarks.html&quot;&gt;Next&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td width=&quot;40%&quot; align=&quot;left&quot; valign=&quot;top&quot;&gt;&#160;&lt;/td&gt;&lt;td width=&quot;20%&quot; align=&quot;center&quot;&gt;&lt;a accesskey=&quot;h&quot; href=&quot;index.html&quot;&gt;Home&lt;/a&gt;&lt;/td&gt;&lt;td width=&quot;40%&quot; align=&quot;right&quot; valign=&quot;top&quot;&gt;&#160;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;
+
+Index: usage.html
+===================================================================
+RCS file: /cvsroot/fpm/website/docs/HTML/en/usage.html,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- usage.html	1 Sep 2005 01:02:20 -0000	1.1
++++ usage.html	2 Sep 2005 03:24:59 -0000	1.2
+@@ -23,8 +23,8 @@
+             type.
+ 
+             &lt;pre class=&quot;programlisting&quot;&gt;
+-                ufp16p16_t x, y;
+-                fp16p16_t matrix[16][16]; &lt;/pre&gt;
++        ufp16p16_t x, y;
++        fp16p16_t matrix[16][16]; &lt;/pre&gt;
+         &lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+           
+       &lt;div class=&quot;navfooter&quot;&gt;&lt;hr&gt;&lt;table width=&quot;100%&quot; summary=&quot;Navigation footer&quot;&gt;&lt;tr&gt;&lt;td width=&quot;40%&quot; align=&quot;left&quot;&gt;&lt;a accesskey=&quot;p&quot; href=&quot;tweaking-the-build-process.html&quot;&gt;Prev&lt;/a&gt;&#160;&lt;/td&gt;&lt;td width=&quot;20%&quot; align=&quot;center&quot;&gt;&lt;a accesskey=&quot;u&quot; href=&quot;index.html&quot;&gt;Up&lt;/a&gt;&lt;/td&gt;&lt;td width=&quot;40%&quot; align=&quot;right&quot;&gt;&#160;&lt;a accesskey=&quot;n&quot; href=&quot;type-conversion.html&quot;&gt;Next&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td width=&quot;40%&quot; align=&quot;left&quot; valign=&quot;top&quot;&gt;&#160;&lt;/td&gt;&lt;td width=&quot;20%&quot; align=&quot;center&quot;&gt;&lt;a accesskey=&quot;h&quot; href=&quot;index.html&quot;&gt;Home&lt;/a&gt;&lt;/td&gt;&lt;td width=&quot;40%&quot; align=&quot;right&quot; valign=&quot;top&quot;&gt;&#160;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000056.html">[fpm-cvslog] fpm/docs/xml/en advanced.xml,1.1,1.2 usage.xml,1.1,1.2
+</A></li>
+	<LI>Next message: <A HREF="000059.html">[fpm-cvslog] website/docs/HTML/en advanced.html,1.1,1.2 benchmarks.html,1.1,1.2 default.css,1.4,1.5 precision.html,1.1,1.2 usage.html,1.1,1.2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#58">[ date ]</a>
+              <a href="thread.html#58">[ thread ]</a>
+              <a href="subject.html#58">[ subject ]</a>
+              <a href="author.html#58">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

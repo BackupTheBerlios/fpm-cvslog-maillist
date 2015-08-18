@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] fpm/docs/xml/en gettingstarted.xml,1.4,1.5 usage.xml,1.2,1.3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2005-September/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20fpm/docs/xml/en%20gettingstarted.xml%2C1.4%2C1.5%20usage.xml%2C1.2%2C1.3&In-Reply-To=%3C200509021351.j82Dos603712%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000062.html">
+   <LINK REL="Next"  HREF="000064.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] fpm/docs/xml/en gettingstarted.xml,1.4,1.5 usage.xml,1.2,1.3</H1>
+    <B>ivop</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20fpm/docs/xml/en%20gettingstarted.xml%2C1.4%2C1.5%20usage.xml%2C1.2%2C1.3&In-Reply-To=%3C200509021351.j82Dos603712%40bat.berlios.de%3E"
+       TITLE="[fpm-cvslog] fpm/docs/xml/en gettingstarted.xml,1.4,1.5 usage.xml,1.2,1.3">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Fri Sep  2 15:51:04 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000062.html">[fpm-cvslog] fpm/docs/xml/en advanced.xml,1.2,1.3
+</A></li>
+        <LI>Next message: <A HREF="000064.html">[fpm-cvslog] website/docs/HTML/en doing-calculations.html,1.1,1.2 getting-started.html,1.2,1.3 sqrt-ln-exp-and-pow.html,1.1,1.2 type-conversion.html,1.1,1.2 usage.html,1.2,1.3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#63">[ date ]</a>
+              <a href="thread.html#63">[ thread ]</a>
+              <a href="subject.html#63">[ subject ]</a>
+              <a href="author.html#63">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/fpm/fpm/docs/xml/en
+In directory sheep:/tmp/cvs-serv16814
+
+Modified Files:
+	gettingstarted.xml usage.xml 
+Log Message:
+minor fixes.
+
+
+
+Index: gettingstarted.xml
+===================================================================
+RCS file: /cvsroot/fpm/fpm/docs/xml/en/gettingstarted.xml,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -u -d -r1.4 -r1.5
+--- gettingstarted.xml	1 Sep 2005 00:14:48 -0000	1.4
++++ gettingstarted.xml	2 Sep 2005 13:50:37 -0000	1.5
+@@ -9,7 +9,7 @@
+         &lt;title&gt; System requirements &lt;/title&gt;
+         &lt;para&gt;
+             Basically, all you need is a decent C-compiler. If your compiler
+-            doesn't accept the -MM command line option for generation of
++            doesn't accept the -MM command line option for generating
+             &lt;application&gt;make&lt;/application&gt;
+             dependencies, you need to have
+             &lt;application&gt;makedepend&lt;/application&gt; installed.
+
+Index: usage.xml
+===================================================================
+RCS file: /cvsroot/fpm/fpm/docs/xml/en/usage.xml,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- usage.xml	2 Sep 2005 03:12:44 -0000	1.2
++++ usage.xml	2 Sep 2005 13:50:37 -0000	1.3
+@@ -108,7 +108,7 @@
+ 
+         &lt;para&gt;
+             Declaring variables of certain types is as simple as with any
+-            type.
++            type:
+ 
+             &lt;programlisting&gt;
+         ufp16p16_t x, y;
+@@ -153,6 +153,9 @@
+ 
+         &lt;para&gt;
+             Similar macro's exist for all other fixed point types.
++        &lt;/para&gt;
++        &lt;para&gt;
++            Example:
+ 
+             &lt;programlisting&gt;
+         int        a;
+@@ -193,6 +196,9 @@
+         &lt;/para&gt;
+         &lt;para&gt;
+             Again, similar macro's exist for all other fixed point types.
++        &lt;/para&gt;
++        &lt;para&gt;
++            Example:
+ 
+             &lt;programlisting&gt;
+         fp16p16_t a;
+@@ -207,7 +213,10 @@
+             Their names are structured analog to the above macro's. Note that
+             there are no explicit macro's to convert between signed and
+             unsigned types. If you want to do that, you have to know exactly
+-            what you are doing will work correctly.
++            that what you are doing will work correctly.
++        &lt;/para&gt;
++        &lt;para&gt;
++            Example:
+ 
+             &lt;programlisting&gt;
+         fp24p8_t   a;
+@@ -228,6 +237,9 @@
+         &lt;para&gt;
+             For addition and substraction, all fixed point variables can be
+             treated as if they were normal variables.
++        &lt;/para&gt;
++        &lt;para&gt;
++            Example:
+ 
+             &lt;programlisting&gt;
+         fp16p16_t x, y, z;
+@@ -255,6 +267,9 @@
+         &lt;para&gt;
+             Both arguments have to be of the same type and can be other
+             variables, constants or the same variable.
++        &lt;/para&gt;
++        &lt;para&gt;
++            Example:
+ 
+             &lt;programlisting&gt;
+         fp8p8_t   x, y, z;
+@@ -314,6 +329,9 @@
+             For all seven other types, similar macro's exist.
+             Also, be aware that the exp and pow macro's easily overflow your
+             variables!
++        &lt;/para&gt;
++        &lt;para&gt;
++            Example:
+ 
+             &lt;programlisting&gt;
+         fp24p8_t a;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000062.html">[fpm-cvslog] fpm/docs/xml/en advanced.xml,1.2,1.3
+</A></li>
+	<LI>Next message: <A HREF="000064.html">[fpm-cvslog] website/docs/HTML/en doing-calculations.html,1.1,1.2 getting-started.html,1.2,1.3 sqrt-ln-exp-and-pow.html,1.1,1.2 type-conversion.html,1.1,1.2 usage.html,1.2,1.3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#63">[ date ]</a>
+              <a href="thread.html#63">[ thread ]</a>
+              <a href="subject.html#63">[ subject ]</a>
+              <a href="author.html#63">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] website/docs/HTML/en advanced.html,1.5,1.6 benchmarks.html,1.2,1.3 default.css,1.7,1.8 precision.html,1.2,1.3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2005-September/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20website/docs/HTML/en%20advanced.html%2C1.5%2C1.6%20benchmarks.html%2C1.2%2C1.3%20default.css%2C1.7%2C1.8%20precision.html%2C1.2%2C1.3&In-Reply-To=%3C200509142346.j8ENka126750%40bat.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000093.html">
+   <LINK REL="Next"  HREF="000095.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] website/docs/HTML/en advanced.html,1.5,1.6 benchmarks.html,1.2,1.3 default.css,1.7,1.8 precision.html,1.2,1.3</H1>
+    <B>ivop</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20website/docs/HTML/en%20advanced.html%2C1.5%2C1.6%20benchmarks.html%2C1.2%2C1.3%20default.css%2C1.7%2C1.8%20precision.html%2C1.2%2C1.3&In-Reply-To=%3C200509142346.j8ENka126750%40bat.berlios.de%3E"
+       TITLE="[fpm-cvslog] website/docs/HTML/en advanced.html,1.5,1.6 benchmarks.html,1.2,1.3 default.css,1.7,1.8 precision.html,1.2,1.3">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Thu Sep 15 01:46:36 CEST 2005</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000093.html">[fpm-cvslog] website/docs/HTML-single/en default.css,1.7,1.8 index.html,1.8,1.9
+</A></li>
+        <LI>Next message: <A HREF="000095.html">[fpm-cvslog] fpm/docs/xml html-common.xsl,1.4,1.5
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#94">[ date ]</a>
+              <a href="thread.html#94">[ thread ]</a>
+              <a href="subject.html#94">[ subject ]</a>
+              <a href="author.html#94">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/fpm/website/docs/HTML/en
+In directory sheep:/tmp/cvs-serv15537/HTML/en
+
+Modified Files:
+	advanced.html benchmarks.html default.css precision.html 
+Log Message:
+precision section + minor fixes
+
+
+
+Index: advanced.html
+===================================================================
+RCS file: /cvsroot/fpm/website/docs/HTML/en/advanced.html,v
+retrieving revision 1.5
+retrieving revision 1.6
+diff -u -d -r1.5 -r1.6
+--- advanced.html	12 Sep 2005 02:40:09 -0000	1.5
++++ advanced.html	14 Sep 2005 23:46:27 -0000	1.6
+@@ -43,11 +43,14 @@
+                                     calculations &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt; __FPM_ENABLE_LN_LUT__ &lt;/td&gt;&lt;td&gt; Enable look-up tables for all natural
+                                     logarithm calculations &lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;
+         &lt;/p&gt;&lt;p&gt;
+-            Eventually, all mathematical functions will have their
++            All mathematical functions should have their
+             look-up table equivalent. I even consider splitting it up for
+             every basic fixed point type, which could save memory.
+             Embedded systems with only limitted amount of RAM or ROM, could
+-            benefit from that.
++            benefit from that. Note that pow is a special case as it takes
++            two arguments. Currently, it is implemented algorithmicly
++            by using ln and exp. If one of those (or both) are LUT enabled,
++            pow will be (partly) LUT enabled.
+         &lt;/p&gt;&lt;p&gt;
+             Example:
+ 
+
+Index: benchmarks.html
+===================================================================
+RCS file: /cvsroot/fpm/website/docs/HTML/en/benchmarks.html,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- benchmarks.html	2 Sep 2005 03:24:59 -0000	1.2
++++ benchmarks.html	14 Sep 2005 23:46:27 -0000	1.3
+@@ -10,7 +10,7 @@
+         &lt;/p&gt;&lt;p&gt;
+             Note: I already noticed that Intel's ICC, in all its wisdom,
+             completely optimizes the benchmark program to oblivion, leaving
+-            only 11 clockcycles (on a Sempron 2400 CPU) for almost all
++            only 11 clockcycles (on a Sempron 2400+ CPU) for almost all
+             timing loops. Something has to be done about that :)
+         &lt;/p&gt;&lt;p&gt;
+             This section will also describe how to run benchmarks yourself.
+
+Index: default.css
+===================================================================
+RCS file: /cvsroot/fpm/website/docs/HTML/en/default.css,v
+retrieving revision 1.7
+retrieving revision 1.8
+diff -u -d -r1.7 -r1.8
+
+Index: precision.html
+===================================================================
+RCS file: /cvsroot/fpm/website/docs/HTML/en/precision.html,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- precision.html	2 Sep 2005 03:24:59 -0000	1.2
++++ precision.html	14 Sep 2005 23:46:27 -0000	1.3
+@@ -3,9 +3,31 @@
+       &lt;div class=&quot;navheader&quot;&gt;&lt;table width=&quot;100%&quot; summary=&quot;Navigation header&quot;&gt;&lt;tr&gt;&lt;td width=&quot;20%&quot; align=&quot;left&quot;&gt;&lt;a accesskey=&quot;p&quot; href=&quot;advanced.html&quot;&gt;Prev&lt;/a&gt;&#160;&lt;/td&gt;&lt;th width=&quot;60%&quot; align=&quot;center&quot;&gt;&#160;&lt;/th&gt;&lt;td width=&quot;20%&quot; align=&quot;right&quot;&gt;&#160;&lt;a accesskey=&quot;n&quot; href=&quot;benchmarks.html&quot;&gt;Next&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;hr&gt;&lt;/div&gt;
+           
+       &lt;div class=&quot;sect1&quot;&gt;&lt;div class=&quot;titlepage&quot;&gt;&lt;div&gt;&lt;h2 class=&quot;title&quot; style=&quot;clear: both&quot;&gt;&lt;a name=&quot;precision&quot;&gt;&lt;/a&gt;4.2.  Precision &lt;/h2&gt;&lt;/div&gt;&lt;/div&gt;&lt;p&gt;
+-            This section will eventually have a whole bunch of graphs that
+-            show the precision and/or lack thereof of all fixed point
+-            math macro's compared to 32/64-bit floating point.
++            This section describes how you can visualize the precision
++            of all fixed point macro's. The result will look like this:
++        &lt;/p&gt;&lt;p&gt;
++            &lt;a href=&quot;<A HREF="http://fpm.berlios.de/website/graphs/">http://fpm.berlios.de/website/graphs/</A>&quot; target=&quot;_top&quot;&gt;
++                Graphs (version 0.31-cvs)&lt;/a&gt;
++        &lt;/p&gt;&lt;p&gt;
++            The easiest way is to unpack the tarball, run configure with your
++            desired command line options and run:
++
++            &lt;pre class=&quot;screen&quot;&gt;
++        make graphs &lt;/pre&gt;
++        &lt;/p&gt;&lt;p&gt;
++            This will compile 'precision' and 'precisionlut' and run
++            gengraphs.sh to generate the graphs. You need to have gnuplot
++            and fig2dev installed.
++        &lt;/p&gt;&lt;p&gt;
++            It's also possible to run 'precision' and 'precisionlut' by hand.
++            They take an unsigned fixed point type and a function name as
++            arguments. A huge table will be printed to stdout. Each line
++            consists of the value of x, the value of function(x) calculated
++            by libm and the value of function(x) calculated by a fixed point
++            macro.
++
++            &lt;pre class=&quot;screen&quot;&gt;
++        ./precision ufp16p16 sqrt &lt;/pre&gt;
+         &lt;/p&gt;&lt;/div&gt;
+           
+       &lt;div class=&quot;navfooter&quot;&gt;&lt;hr&gt;&lt;table width=&quot;100%&quot; summary=&quot;Navigation footer&quot;&gt;&lt;tr&gt;&lt;td width=&quot;40%&quot; align=&quot;left&quot;&gt;&lt;a accesskey=&quot;p&quot; href=&quot;advanced.html&quot;&gt;Prev&lt;/a&gt;&#160;&lt;/td&gt;&lt;td width=&quot;20%&quot; align=&quot;center&quot;&gt;&lt;a accesskey=&quot;u&quot; href=&quot;advanced.html&quot;&gt;Up&lt;/a&gt;&lt;/td&gt;&lt;td width=&quot;40%&quot; align=&quot;right&quot;&gt;&#160;&lt;a accesskey=&quot;n&quot; href=&quot;benchmarks.html&quot;&gt;Next&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td width=&quot;40%&quot; align=&quot;left&quot; valign=&quot;top&quot;&gt;&#160;&lt;/td&gt;&lt;td width=&quot;20%&quot; align=&quot;center&quot;&gt;&lt;a accesskey=&quot;h&quot; href=&quot;index.html&quot;&gt;Home&lt;/a&gt;&lt;/td&gt;&lt;td width=&quot;40%&quot; align=&quot;right&quot; valign=&quot;top&quot;&gt;&#160;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000093.html">[fpm-cvslog] website/docs/HTML-single/en default.css,1.7,1.8 index.html,1.8,1.9
+</A></li>
+	<LI>Next message: <A HREF="000095.html">[fpm-cvslog] fpm/docs/xml html-common.xsl,1.4,1.5
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#94">[ date ]</a>
+              <a href="thread.html#94">[ thread ]</a>
+              <a href="subject.html#94">[ subject ]</a>
+              <a href="author.html#94">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

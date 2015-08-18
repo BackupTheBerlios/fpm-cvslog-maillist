@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [fpm-cvslog] r150 - trunk/fpm2/include/fpm
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/fpm-cvslog/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r150%20-%20trunk/fpm2/include/fpm&In-Reply-To=%3C200803261141.m2QBfA2c030610%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000171.html">
+   <LINK REL="Next"  HREF="000173.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[fpm-cvslog] r150 - trunk/fpm2/include/fpm</H1>
+    <B>ivop at BerliOS</B> 
+    <A HREF="mailto:fpm-cvslog%40lists.berlios.de?Subject=Re%3A%20%5Bfpm-cvslog%5D%20r150%20-%20trunk/fpm2/include/fpm&In-Reply-To=%3C200803261141.m2QBfA2c030610%40sheep.berlios.de%3E"
+       TITLE="[fpm-cvslog] r150 - trunk/fpm2/include/fpm">ivop at mail.berlios.de
+       </A><BR>
+    <I>Wed Mar 26 12:41:10 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000171.html">[fpm-cvslog] r149 - trunk/fpm2/include/fpm
+</A></li>
+        <LI>Next message: <A HREF="000173.html">[fpm-cvslog] r151 - trunk/fpm2/include/fpm
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#172">[ date ]</a>
+              <a href="thread.html#172">[ thread ]</a>
+              <a href="subject.html#172">[ subject ]</a>
+              <a href="author.html#172">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: ivop
+Date: 2008-03-26 12:41:09 +0100 (Wed, 26 Mar 2008)
+New Revision: 150
+
+Modified:
+   trunk/fpm2/include/fpm/fpm.h
+   trunk/fpm2/include/fpm/fpmcode.h
+Log:
+floor (round down to nearest integer) of fixed point types
+
+
+Modified: trunk/fpm2/include/fpm/fpm.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpm.h	2008-03-26 02:12:59 UTC (rev 149)
++++ trunk/fpm2/include/fpm/fpm.h	2008-03-26 11:41:09 UTC (rev 150)
+@@ -253,6 +253,17 @@
+ FPMFUNC ufp16p16_t fastdivufp16p16(ufp16p16_t x, ufp16p16_t y);
+ FPMFUNC ufp8p24_t  fastdivufp8p24 (ufp8p24_t  x, ufp8p24_t  y);
+ 
++/* floor (round down to nearest integer) */
++
++FPMFUNC fp8p8_t    floorfp8p8   ( fp8p8_t   x);
++FPMFUNC fp24p8_t   floorfp24p8  ( fp24p8_t  x);
++FPMFUNC fp16p16_t  floorfp16p16 ( fp16p16_t x);
++FPMFUNC fp8p24_t   floorfp8p24  ( fp8p24_t  x);
++FPMFUNC ufp8p8_t   floorufp8p8  (ufp8p8_t   x);
++FPMFUNC ufp24p8_t  floorufp24p8 (ufp24p8_t  x);
++FPMFUNC ufp16p16_t floorufp16p16(ufp16p16_t x);
++FPMFUNC ufp8p24_t  floorufp8p24 (ufp8p24_t  x);
++
+ /* ------------------------------------------------------------------------- */
+ 
+ /* ADVANCED MATH */
+
+Modified: trunk/fpm2/include/fpm/fpmcode.h
+===================================================================
+--- trunk/fpm2/include/fpm/fpmcode.h	2008-03-26 02:12:59 UTC (rev 149)
++++ trunk/fpm2/include/fpm/fpmcode.h	2008-03-26 11:41:09 UTC (rev 150)
+@@ -211,6 +211,15 @@
+ FPMFDIV(ufp8p8  , 4, 4 )    FPMFDIV(ufp24p8 , 8, 0 )
+ FPMFDIV(ufp16p16, 8, 8 )    FPMFDIV(ufp8p24 , 4, 20)
+ 
++/* floor (round down to nearest integer) */
++
++#define FPMFLOOR(a,b) FPMFUNC floor##a(a##_t x) { return x &amp; b; };
++
++FPMFLOOR( fp8p8  , 0xff00    )  FPMFLOOR( fp24p8 , 0xffffff00)
++FPMFLOOR( fp16p16, 0xffff0000)  FPMFLOOR( fp8p24 , 0xff000000)
++FPMFLOOR(ufp8p8  , 0xff00    )  FPMFLOOR(ufp24p8 , 0xffffff00)
++FPMFLOOR(ufp16p16, 0xffff0000)  FPMFLOOR(ufp8p24 , 0xff000000)
++
+ /* ------------------------------------------------------------------------- */
+ 
+ /* ADVANCED MATH */
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000171.html">[fpm-cvslog] r149 - trunk/fpm2/include/fpm
+</A></li>
+	<LI>Next message: <A HREF="000173.html">[fpm-cvslog] r151 - trunk/fpm2/include/fpm
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#172">[ date ]</a>
+              <a href="thread.html#172">[ thread ]</a>
+              <a href="subject.html#172">[ subject ]</a>
+              <a href="author.html#172">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/fpm-cvslog">More information about the fpm-cvslog
+mailing list</a><br>
+</body></html>

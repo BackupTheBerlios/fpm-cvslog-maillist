@@ -1,0 +1,4283 @@
+From nobody at sheep.berlios.de  Mon Aug 22 02:45:27 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Mon, 22 Aug 2005 02:45:27 +0200
+Subject: [fpm-cvslog] website home.html,1.1.1.1,1.2
+Message-ID: <200508220045.j7M0jR621553@bat.berlios.de>
+
+Update of /cvsroot/fpm/website
+In directory sheep:/tmp/cvs-serv6297
+
+Modified Files:
+	home.html 
+Log Message:
+Some more text
+
+
+
+Index: home.html
+===================================================================
+RCS file: /cvsroot/fpm/website/home.html,v
+retrieving revision 1.1.1.1
+retrieving revision 1.2
+diff -C2 -d -r1.1.1.1 -r1.2
+*** home.html	22 Aug 2005 00:24:05 -0000	1.1.1.1
+--- home.html	22 Aug 2005 00:45:23 -0000	1.2
+***************
+*** 23,27 ****
+  framework is done, I only have to fill in the pages :) This coming week I will
+  try to finish my code and put it up on CVS. Next, I'll start working on the
+! documentation.
+  <BR>
+  <I STYLE="font-size: 8pt;"> --Ivo </I>
+--- 23,27 ----
+  framework is done, I only have to fill in the pages :) This coming week I will
+  try to finish my code and put it up on CVS. Next, I'll start working on the
+! documentation. First, let's get this website into CVS in a decent way.
+  <BR>
+  <I STYLE="font-size: 8pt;"> --Ivo </I>
+
+
+
+From nobody at sheep.berlios.de  Mon Aug 22 02:48:17 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Mon, 22 Aug 2005 02:48:17 +0200
+Subject: [fpm-cvslog] website home.html,1.2,1.3
+Message-ID: <200508220048.j7M0mH621578@bat.berlios.de>
+
+Update of /cvsroot/fpm/website
+In directory sheep:/tmp/cvs-serv8003
+
+Modified Files:
+	home.html 
+Log Message:
+Added Id tag
+
+
+
+Index: home.html
+===================================================================
+RCS file: /cvsroot/fpm/website/home.html,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C2 -d -r1.2 -r1.3
+*** home.html	22 Aug 2005 00:45:23 -0000	1.2
+--- home.html	22 Aug 2005 00:48:10 -0000	1.3
+***************
+*** 1,4 ****
+--- 1,6 ----
+  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+  
++ <! $Id$ >
++ 
+  <HTML>
+  <HEAD>
+
+
+
+From nobody at sheep.berlios.de  Mon Aug 22 02:52:34 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Mon, 22 Aug 2005 02:52:34 +0200
+Subject: [fpm-cvslog] website contact.html,1.1.1.1,1.2 cvs.html,1.1.1.1,1.2 documentation.html,1.1.1.1,1.2 download.html,1.1.1.1,1.2 head.html,1.1.1.1,1.2 index.html,1.1.1.1,1.2 index2.html,1.1.1.1,1.2 links.html,1.1.1.1,1.2
+Message-ID: <200508220052.j7M0qY621657@bat.berlios.de>
+
+Update of /cvsroot/fpm/website
+In directory sheep:/tmp/cvs-serv11357
+
+Modified Files:
+	contact.html cvs.html documentation.html download.html 
+	head.html index.html index2.html links.html 
+Log Message:
+Added Id tag
+
+
+
+Index: contact.html
+===================================================================
+RCS file: /cvsroot/fpm/website/contact.html,v
+retrieving revision 1.1.1.1
+retrieving revision 1.2
+diff -C2 -d -r1.1.1.1 -r1.2
+*** contact.html	22 Aug 2005 00:24:05 -0000	1.1.1.1
+--- contact.html	22 Aug 2005 00:52:32 -0000	1.2
+***************
+*** 1,4 ****
+--- 1,6 ----
+  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+  
++ <! $Id$ >
++ 
+  <HTML>
+  <HEAD>
+
+Index: cvs.html
+===================================================================
+RCS file: /cvsroot/fpm/website/cvs.html,v
+retrieving revision 1.1.1.1
+retrieving revision 1.2
+diff -C2 -d -r1.1.1.1 -r1.2
+*** cvs.html	22 Aug 2005 00:24:05 -0000	1.1.1.1
+--- cvs.html	22 Aug 2005 00:52:32 -0000	1.2
+***************
+*** 1,4 ****
+--- 1,6 ----
+  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+  
++ <! $Id$ >
++ 
+  <HTML>
+  <HEAD>
+
+Index: documentation.html
+===================================================================
+RCS file: /cvsroot/fpm/website/documentation.html,v
+retrieving revision 1.1.1.1
+retrieving revision 1.2
+diff -C2 -d -r1.1.1.1 -r1.2
+*** documentation.html	22 Aug 2005 00:24:05 -0000	1.1.1.1
+--- documentation.html	22 Aug 2005 00:52:32 -0000	1.2
+***************
+*** 1,4 ****
+--- 1,6 ----
+  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+  
++ <! $Id$ >
++ 
+  <HTML>
+  <HEAD>
+
+Index: download.html
+===================================================================
+RCS file: /cvsroot/fpm/website/download.html,v
+retrieving revision 1.1.1.1
+retrieving revision 1.2
+diff -C2 -d -r1.1.1.1 -r1.2
+*** download.html	22 Aug 2005 00:24:05 -0000	1.1.1.1
+--- download.html	22 Aug 2005 00:52:32 -0000	1.2
+***************
+*** 1,4 ****
+--- 1,6 ----
+  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+  
++ <! $Id$ >
++ 
+  <HTML>
+  <HEAD>
+
+Index: head.html
+===================================================================
+RCS file: /cvsroot/fpm/website/head.html,v
+retrieving revision 1.1.1.1
+retrieving revision 1.2
+diff -C2 -d -r1.1.1.1 -r1.2
+*** head.html	22 Aug 2005 00:24:05 -0000	1.1.1.1
+--- head.html	22 Aug 2005 00:52:32 -0000	1.2
+***************
+*** 1,4 ****
+--- 1,6 ----
+  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+  
++ <! $Id$ >
++ 
+  <HTML>
+  <HEAD>
+
+Index: index.html
+===================================================================
+RCS file: /cvsroot/fpm/website/index.html,v
+retrieving revision 1.1.1.1
+retrieving revision 1.2
+diff -C2 -d -r1.1.1.1 -r1.2
+*** index.html	22 Aug 2005 00:24:05 -0000	1.1.1.1
+--- index.html	22 Aug 2005 00:52:32 -0000	1.2
+***************
+*** 1,4 ****
+--- 1,6 ----
+  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+  
++ <! $Id$ >
++ 
+  <HTML>
+      <HEAD>
+
+Index: index2.html
+===================================================================
+RCS file: /cvsroot/fpm/website/index2.html,v
+retrieving revision 1.1.1.1
+retrieving revision 1.2
+diff -C2 -d -r1.1.1.1 -r1.2
+*** index2.html	22 Aug 2005 00:24:05 -0000	1.1.1.1
+--- index2.html	22 Aug 2005 00:52:32 -0000	1.2
+***************
+*** 1,4 ****
+--- 1,6 ----
+  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+  
++ <! $Id$ >
++ 
+  <HTML>
+  <HEAD>
+
+Index: links.html
+===================================================================
+RCS file: /cvsroot/fpm/website/links.html,v
+retrieving revision 1.1.1.1
+retrieving revision 1.2
+diff -C2 -d -r1.1.1.1 -r1.2
+*** links.html	22 Aug 2005 00:24:05 -0000	1.1.1.1
+--- links.html	22 Aug 2005 00:52:32 -0000	1.2
+***************
+*** 1,4 ****
+--- 1,6 ----
+  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+  
++ <! $Id$ >
++ 
+  <HTML>
+  <HEAD>
+
+
+
+From nobody at sheep.berlios.de  Mon Aug 22 03:07:04 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Mon, 22 Aug 2005 03:07:04 +0200
+Subject: [fpm-cvslog] website index.html,1.2,1.3
+Message-ID: <200508220107.j7M174621945@bat.berlios.de>
+
+Update of /cvsroot/fpm/website
+In directory sheep:/tmp/cvs-serv26170
+
+Modified Files:
+	index.html 
+Log Message:
+Fix leftover from previous website this index.html belonged too
+
+
+
+Index: index.html
+===================================================================
+RCS file: /cvsroot/fpm/website/index.html,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C2 -d -r1.2 -r1.3
+*** index.html	22 Aug 2005 00:52:32 -0000	1.2
+--- index.html	22 Aug 2005 01:06:59 -0000	1.3
+***************
+*** 12,16 ****
+  
+      If you don't get redirected,
+!     <A HREF="news.html">click here</A>.
+  
+  </BODY>
+--- 12,16 ----
+  
+      If you don't get redirected,
+!     <A HREF="index2.html">click here</A>.
+  
+  </BODY>
+
+
+
+From nobody at sheep.berlios.de  Mon Aug 22 03:10:46 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Mon, 22 Aug 2005 03:10:46 +0200
+Subject: [fpm-cvslog] website index.html,1.3,1.4
+Message-ID: <200508220110.j7M1Ak622026@bat.berlios.de>
+
+Update of /cvsroot/fpm/website
+In directory sheep:/tmp/cvs-serv26574
+
+Modified Files:
+	index.html 
+Log Message:
+Redirect to website subdirectory
+
+
+
+Index: index.html
+===================================================================
+RCS file: /cvsroot/fpm/website/index.html,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -C2 -d -r1.3 -r1.4
+*** index.html	22 Aug 2005 01:06:59 -0000	1.3
+--- index.html	22 Aug 2005 01:10:41 -0000	1.4
+***************
+*** 6,10 ****
+      <HEAD>
+  	    <TITLE>Redirect</TITLE>
+!         <META HTTP-EQUIV="refresh" CONTENT="0; url=index2.html">
+          <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+      </HEAD>
+--- 6,10 ----
+      <HEAD>
+  	    <TITLE>Redirect</TITLE>
+!         <META HTTP-EQUIV="refresh" CONTENT="0; url=website/index2.html">
+          <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+      </HEAD>
+***************
+*** 12,16 ****
+  
+      If you don't get redirected,
+!     <A HREF="index2.html">click here</A>.
+  
+  </BODY>
+--- 12,16 ----
+  
+      If you don't get redirected,
+!     <A HREF="website/index2.html">click here</A>.
+  
+  </BODY>
+
+
+
+From nobody at sheep.berlios.de  Mon Aug 22 03:33:48 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Mon, 22 Aug 2005 03:33:48 +0200
+Subject: [fpm-cvslog] website links.html,1.2,1.3
+Message-ID: <200508220133.j7M1Xm622414@bat.berlios.de>
+
+Update of /cvsroot/fpm/website
+In directory sheep:/tmp/cvs-serv31157
+
+Modified Files:
+	links.html 
+Log Message:
+Use proper src for berliOS image
+
+
+
+Index: links.html
+===================================================================
+RCS file: /cvsroot/fpm/website/links.html,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C2 -d -r1.2 -r1.3
+*** links.html	22 Aug 2005 00:52:32 -0000	1.2
+--- links.html	22 Aug 2005 01:33:43 -0000	1.3
+***************
+*** 20,28 ****
+  <A TARGET="_new" HREF="http://developer.berlios.de/projects/fpm/">Project Page at BerliOS</A>
+  <BR>
+! <A TARGET="_new"HREF="http://www.berlios.de">BerliOS Main Page</A>
+! 
+! <P>
+! 
+! <IMG SRC="images/bslogo.png">
+  
+  </TD></TR></TABLE>
+--- 20,24 ----
+  <A TARGET="_new" HREF="http://developer.berlios.de/projects/fpm/">Project Page at BerliOS</A>
+  <BR>
+! <A TARGET="_new"HREF="http://www.berlios.de"><IMG SRC="http://developer.berlios.de/bslogo.php?group_id=4532" WIDTH="124" HEIGHT="32" BORDER="0" ALT="BerliOS Logo"></A>
+  
+  </TD></TR></TABLE>
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 23 01:42:44 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 23 Aug 2005 01:42:44 +0200
+Subject: [fpm-cvslog] website index.html,1.4,1.5
+Message-ID: <200508222342.j7MNgi628992@bat.berlios.de>
+
+Update of /cvsroot/fpm/website
+In directory sheep:/tmp/cvs-serv25525
+
+Modified Files:
+	index.html 
+Log Message:
+Absolute redirect
+
+
+
+Index: index.html
+===================================================================
+RCS file: /cvsroot/fpm/website/index.html,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -C2 -d -r1.4 -r1.5
+*** index.html	22 Aug 2005 01:10:41 -0000	1.4
+--- index.html	22 Aug 2005 23:42:38 -0000	1.5
+***************
+*** 12,16 ****
+  
+      If you don't get redirected,
+!     <A HREF="website/index2.html">click here</A>.
+  
+  </BODY>
+--- 12,16 ----
+  
+      If you don't get redirected,
+!     <A HREF="http://fpm.berlios.de/website/index2.html">click here</A>.
+  
+  </BODY>
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 23 01:46:41 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 23 Aug 2005 01:46:41 +0200
+Subject: [fpm-cvslog] website index.html,1.5,1.6
+Message-ID: <200508222346.j7MNkf629126@bat.berlios.de>
+
+Update of /cvsroot/fpm/website
+In directory sheep:/tmp/cvs-serv26988
+
+Modified Files:
+	index.html 
+Log Message:
+10l There were two relative references.
+
+
+
+Index: index.html
+===================================================================
+RCS file: /cvsroot/fpm/website/index.html,v
+retrieving revision 1.5
+retrieving revision 1.6
+diff -C2 -d -r1.5 -r1.6
+*** index.html	22 Aug 2005 23:42:38 -0000	1.5
+--- index.html	22 Aug 2005 23:46:37 -0000	1.6
+***************
+*** 6,10 ****
+      <HEAD>
+  	    <TITLE>Redirect</TITLE>
+!         <META HTTP-EQUIV="refresh" CONTENT="0; url=website/index2.html">
+          <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+      </HEAD>
+--- 6,10 ----
+      <HEAD>
+  	    <TITLE>Redirect</TITLE>
+!         <META HTTP-EQUIV="refresh" CONTENT="0; url=http://fpm.berlios.de/website/index2.html">
+          <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+      </HEAD>
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 23 21:41:33 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 23 Aug 2005 21:41:33 +0200
+Subject: [fpm-cvslog] website head.html,1.2,1.3
+Message-ID: <200508231941.j7NJfX632662@bat.berlios.de>
+
+Update of /cvsroot/fpm/website
+In directory sheep:/tmp/cvs-serv31503
+
+Modified Files:
+	head.html 
+Log Message:
+Enable forum to link to the forum
+
+
+
+Index: head.html
+===================================================================
+RCS file: /cvsroot/fpm/website/head.html,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C2 -d -r1.2 -r1.3
+*** head.html	22 Aug 2005 00:52:32 -0000	1.2
+--- head.html	23 Aug 2005 19:41:30 -0000	1.3
+***************
+*** 48,52 ****
+              <A HREF="cvs.html" TARGET="MAIN">CVS</A>
+              &nbsp;&nbsp;&nbsp;
+!             FORUM
+              &nbsp;&nbsp;&nbsp;
+              <A HREF="contact.html" TARGET="MAIN">CONTACT</A>
+--- 48,53 ----
+              <A HREF="cvs.html" TARGET="MAIN">CVS</A>
+              &nbsp;&nbsp;&nbsp;
+!             <A HREF="https://developer.berlios.de/forum/?group_id=4532"
+!                TARGET="_new">FORUM</A>
+              &nbsp;&nbsp;&nbsp;
+              <A HREF="contact.html" TARGET="MAIN">CONTACT</A>
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 23 21:42:05 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 23 Aug 2005 21:42:05 +0200
+Subject: [fpm-cvslog] website cvs.html,1.2,1.3
+Message-ID: <200508231942.j7NJg5632669@bat.berlios.de>
+
+Update of /cvsroot/fpm/website
+In directory sheep:/tmp/cvs-serv31552
+
+Modified Files:
+	cvs.html 
+Log Message:
+Mention cvslog mailing list
+
+
+
+Index: cvs.html
+===================================================================
+RCS file: /cvsroot/fpm/website/cvs.html,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C2 -d -r1.2 -r1.3
+*** cvs.html	22 Aug 2005 00:52:32 -0000	1.2
+--- cvs.html	23 Aug 2005 19:42:02 -0000	1.3
+***************
+*** 35,38 ****
+--- 35,44 ----
+  </PRE>
+  
++ If you want to receive an e-mail every time something has changed in CVS,
++ you can subscribe yourself to the
++ <A HREF="https://lists.berlios.de/mailman/listinfo/fpm-cvslog"
++    TARGET="_new">CVS log mailinglist</A>
++ <P>
++ 
+  </TD></TR></TABLE>
+  </BODY>
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 23 21:50:02 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 23 Aug 2005 21:50:02 +0200
+Subject: [fpm-cvslog] website head.html,1.3,1.4
+Message-ID: <200508231950.j7NJo2600119@bat.berlios.de>
+
+Update of /cvsroot/fpm/website
+In directory sheep:/tmp/cvs-serv32528
+
+Modified Files:
+	head.html 
+Log Message:
+change look of menubar. no more nbsp's, separate by pipes and remove undelining.
+
+
+
+Index: head.html
+===================================================================
+RCS file: /cvsroot/fpm/website/head.html,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -C2 -d -r1.3 -r1.4
+*** head.html	23 Aug 2005 19:41:30 -0000	1.3
+--- head.html	23 Aug 2005 19:50:00 -0000	1.4
+***************
+*** 8,11 ****
+--- 8,15 ----
+      <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  
++     <STYLE>
++     A { text-decoration: none; }
++     </STYLE>
++ 
+  </HEAD>
+  
+***************
+*** 41,56 ****
+          <TD HEIGHT="32" BGCOLOR="#e0e0e0" STYLE="font-size: 10pt; text-indent: 16px;">
+              <A HREF="home.html" TARGET="MAIN">HOME</A>
+!             &nbsp;&nbsp;&nbsp;
+              <A HREF="documentation.html" TARGET="MAIN">DOCUMENTATION</A>
+!             &nbsp;&nbsp;&nbsp;
+              <A HREF="download.html" TARGET="MAIN">DOWNLOAD</A>
+!             &nbsp;&nbsp;&nbsp;
+              <A HREF="cvs.html" TARGET="MAIN">CVS</A>
+!             &nbsp;&nbsp;&nbsp;
+              <A HREF="https://developer.berlios.de/forum/?group_id=4532"
+                 TARGET="_new">FORUM</A>
+!             &nbsp;&nbsp;&nbsp;
+              <A HREF="contact.html" TARGET="MAIN">CONTACT</A>
+!             &nbsp;&nbsp;&nbsp;
+              <A HREF="links.html" TARGET="MAIN">LINKS</A>
+          </TD>
+--- 45,60 ----
+          <TD HEIGHT="32" BGCOLOR="#e0e0e0" STYLE="font-size: 10pt; text-indent: 16px;">
+              <A HREF="home.html" TARGET="MAIN">HOME</A>
+!             |
+              <A HREF="documentation.html" TARGET="MAIN">DOCUMENTATION</A>
+!             |
+              <A HREF="download.html" TARGET="MAIN">DOWNLOAD</A>
+!             |
+              <A HREF="cvs.html" TARGET="MAIN">CVS</A>
+!             |
+              <A HREF="https://developer.berlios.de/forum/?group_id=4532"
+                 TARGET="_new">FORUM</A>
+!             |
+              <A HREF="contact.html" TARGET="MAIN">CONTACT</A>
+!             |
+              <A HREF="links.html" TARGET="MAIN">LINKS</A>
+          </TD>
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 23 22:07:58 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 23 Aug 2005 22:07:58 +0200
+Subject: [fpm-cvslog] website head.html,1.4,1.5
+Message-ID: <200508232007.j7NK7w600583@bat.berlios.de>
+
+Update of /cvsroot/fpm/website
+In directory sheep:/tmp/cvs-serv2542
+
+Modified Files:
+	head.html 
+Log Message:
+Add link to bugtracker (and test new unified diffs to cvslog :) )
+
+
+
+Index: head.html
+===================================================================
+RCS file: /cvsroot/fpm/website/head.html,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -u -d -r1.4 -r1.5
+--- head.html	23 Aug 2005 19:50:00 -0000	1.4
++++ head.html	23 Aug 2005 20:07:56 -0000	1.5
+@@ -54,6 +54,9 @@
+             <A HREF="https://developer.berlios.de/forum/?group_id=4532"
+                TARGET="_new">FORUM</A>
+             |
++            <A HREF="https://developer.berlios.de/bugs/?group_id=4532"
++               TARGET="_new">BUGS</A>
++            |
+             <A HREF="contact.html" TARGET="MAIN">CONTACT</A>
+             |
+             <A HREF="links.html" TARGET="MAIN">LINKS</A>
+
+
+
+From nobody at sheep.berlios.de  Fri Aug 26 00:37:54 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Fri, 26 Aug 2005 00:37:54 +0200
+Subject: [fpm-cvslog] fpm .cvsignore,1.3,1.4
+Message-ID: <200508252237.j7PMZV628939@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm
+In directory sheep:/tmp/cvs-serv24499
+
+Modified Files:
+	.cvsignore 
+Log Message:
+remove /
+
+
+
+Index: .cvsignore
+===================================================================
+RCS file: /cvsroot/fpm/fpm/.cvsignore,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -u -d -r1.3 -r1.4
+--- .cvsignore	25 Aug 2005 22:34:00 -0000	1.3
++++ .cvsignore	25 Aug 2005 22:35:19 -0000	1.4
+@@ -1,6 +1,6 @@
+-deps/
+-barcharts/
+-test/
++deps
++barcharts
++test
+ genlut
+ benchmark
+ benchmarklut
+
+
+
+From nobody at sheep.berlios.de  Fri Aug 26 00:37:55 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Fri, 26 Aug 2005 00:37:55 +0200
+Subject: [fpm-cvslog] fpm .cvsignore,1.4,1.5
+Message-ID: <200508252237.j7PMbW629387@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm
+In directory sheep:/tmp/cvs-serv26093
+
+Modified Files:
+	.cvsignore 
+Log Message:
+two more files
+
+
+
+Index: .cvsignore
+===================================================================
+RCS file: /cvsroot/fpm/fpm/.cvsignore,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -u -d -r1.4 -r1.5
+--- .cvsignore	25 Aug 2005 22:35:19 -0000	1.4
++++ .cvsignore	25 Aug 2005 22:37:29 -0000	1.5
+@@ -7,3 +7,5 @@
+ configure.log
+ config.mak
+ config.sh
++benchmark.dat
++benchmarklut.dat
+
+
+
+From nobody at sheep.berlios.de  Fri Aug 26 00:37:54 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Fri, 26 Aug 2005 00:37:54 +0200
+Subject: [fpm-cvslog] fpm .cvsignore,1.1,1.2
+Message-ID: <200508252237.j7PMUa627819@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm
+In directory sheep:/tmp/cvs-serv12047
+
+Modified Files:
+	.cvsignore 
+Log Message:
+without wildcards
+
+
+
+Index: .cvsignore
+===================================================================
+RCS file: /cvsroot/fpm/fpm/.cvsignore,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- .cvsignore	25 Aug 2005 22:27:16 -0000	1.1
++++ .cvsignore	25 Aug 2005 22:30:34 -0000	1.2
+@@ -1,2 +1,2 @@
+-deps/*
+-barcharts/*
++deps
++barcharts
+
+
+
+From nobody at sheep.berlios.de  Fri Aug 26 00:37:54 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Fri, 26 Aug 2005 00:37:54 +0200
+Subject: [fpm-cvslog] fpm .cvsignore,1.2,1.3
+Message-ID: <200508252237.j7PMY3628605@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm
+In directory sheep:/tmp/cvs-serv20997
+
+Modified Files:
+	.cvsignore 
+Log Message:
+more files + hopefully a (working) distinction between directories and files
+
+
+Index: .cvsignore
+===================================================================
+RCS file: /cvsroot/fpm/fpm/.cvsignore,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- .cvsignore	25 Aug 2005 22:30:34 -0000	1.2
++++ .cvsignore	25 Aug 2005 22:34:00 -0000	1.3
+@@ -1,2 +1,9 @@
+-deps
+-barcharts
++deps/
++barcharts/
++test/
++genlut
++benchmark
++benchmarklut
++configure.log
++config.mak
++config.sh
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 01:57:05 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 01:57:05 +0200
+Subject: [fpm-cvslog] fpm/docs - New directory
+Message-ID: <200508292357.j7TNv5627660@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm/docs
+In directory sheep:/tmp/cvs-serv17027/docs
+
+Log Message:
+Directory /cvsroot/fpm/fpm/docs added to the repository
+
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 01:57:31 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 01:57:31 +0200
+Subject: [fpm-cvslog] fpm/docs/xml - New directory
+Message-ID: <200508292357.j7TNvV627670@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm/docs/xml
+In directory sheep:/tmp/cvs-serv17311/docs/xml
+
+Log Message:
+Directory /cvsroot/fpm/fpm/docs/xml added to the repository
+
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 01:59:19 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 01:59:19 +0200
+Subject: [fpm-cvslog] fpm/docs/xml/en - New directory
+Message-ID: <200508292359.j7TNxJ627742@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm/docs/xml/en
+In directory sheep:/tmp/cvs-serv18749/en
+
+Log Message:
+Directory /cvsroot/fpm/fpm/docs/xml/en added to the repository
+
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 02:00:06 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 02:00:06 +0200
+Subject: [fpm-cvslog] fpm/docs/xml configure,NONE,1.1 default.css,NONE,1.1 html-common.xsl,NONE,1.1 Makefile,NONE,1.1 Makefile.inc,NONE,1.1 README,NONE,1.1 postproc.sh,NONE,1.1
+Message-ID: <200508300000.j7U006627799@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm/docs/xml
+In directory sheep:/tmp/cvs-serv18942
+
+Added Files:
+	configure default.css html-common.xsl Makefile Makefile.inc 
+	README postproc.sh 
+Log Message:
+initial checkin of documentation build system. the contents of the docs
+are placeholders atm.
+
+
+
+--- NEW FILE: configure ---
+#!/bin/sh
+
+# Script to check for catalogs, stylesheets, XSL processors and all
+# the other stuff necessary to convert the XML documentation.
+
+_xsltwrapper="xsltproc.sh"
+_xmllintwrapper="xmllint.sh"
+
+echo "Searching for XML catalogs..."
+for _try_catalog in \
+  /etc/sgml/catalog \
+  /usr/share/sgml/docbook/xml-dtd-4.1.2/xmlcatalog \
+  /usr/share/apps/ksgmltools2/customization/en/catalog \
+  /usr/share/sgml/catalog \
+  /usr/local/share/sgml/catalog \
+  /usr/lib/sgml/catalog \
+  /usr/local/lib/sgml/catalog \
+  /usr/share/docbook-xml42/catalog.xml \
+  /usr/share/sgml/docbook/xmlcatalog
+do
+  if test -f "$_try_catalog"
+  then
+    _catalog=$_try_catalog
+    break
+  fi
+done
+
+if test -n "$_catalog"
+then
+  echo "Found SGML catalog at $_catalog"
+  _sgmlcatalog="export SGML_CATALOG_FILES=$_catalog"
+else
+  echo "No SGML catalog found."
+fi
+
+
+
+echo "Searching for stylesheets..."
+echo "Searching for html/chunk.xsl..."
+for _try_chunk_xsl in \
+  /usr/share/sgml/docbook/stylesheet/xsl/nwalsh/html/chunk.xsl \
+  /usr/share/sgml/docbook/yelp/docbook/html/chunk.xsl \
+  /usr/local/share/sgml/docbook/stylesheet/xsl/nwalsh/html/chunk.xsl \
+  /usr/local/share/sgml/docbook/yelp/docbook/html/chunk.xsl \
+  /usr/share/docbook-xsl/html/chunk.xsl \
+  /usr/share/sgml/docbook/xsl-stylesheets*/html/chunk.xsl 
+do
+  if test -f "$_try_chunk_xsl"
+  then
+    _chunk_xsl=$_try_chunk_xsl
+    break
+  fi
+done
+
+if test -z "$_chunk_xsl"
+then
+  _chunk_xsl=/usr/share/sgml/docbook/stylesheet/xsl/nwalsh/html/chunk.xsl
+  echo "Not found. Using default ($_chunk_xsl)"
+  _fake_chunk_xsl=yes
+else
+  echo "Found chunk.xsl at $_chunk_xsl"
+fi
+
+echo "Searching for html/docbook.xsl..."
+for _try_docbook_xsl in \
+  /usr/share/sgml/docbook/stylesheet/xsl/nwalsh/html/docbook.xsl \
+  /usr/share/sgml/docbook/yelp/docbook/html/docbook.xsl \
+  /usr/local/share/sgml/docbook/stylesheet/xsl/nwalsh/html/docbook.xsl \
+  /usr/local/share/sgml/docbook/yelp/docbook/html/docbook.xsl \
+  /usr/share/docbook-xsl/html/docbook.xsl \
+  /usr/share/sgml/docbook/xsl-stylesheets*/html/docbook.xsl 
+do
+  if test -f "$_try_docbook_xsl"
+  then
+    _docbook_xsl=$_try_docbook_xsl
+    break
+  fi
+done
+
+if test -z "$_docbook_xsl"
+then
+  _docbook_xsl=/usr/share/sgml/docbook/stylesheet/xsl/nwalsh/html/docbook.xsl
+  echo "Not found. Using default ($_docbook_xsl)"
+  _fake_docbook_xsl=yes
+else
+  echo "Found docbook.xsl at $_docbook_xsl"
+fi
+
+cat > html-chunk.xsl << EOF
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- **************************************************
+     This file is generated automatically. DO NOT EDIT.
+     ************************************************** -->
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                version="1.0">
+
+  <xsl:import href="$_chunk_xsl"/>
+  <xsl:include href="html-common.xsl"/>
+
+</xsl:stylesheet>
+EOF
+
+
+cat > html-single.xsl << EOF
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- **************************************************
+     This file is generated automatically. DO NOT EDIT.
+     ************************************************** -->
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                version="1.0">
+
+  <xsl:import href="$_docbook_xsl"/>
+  <xsl:include href="html-common.xsl"/>
+
+</xsl:stylesheet>
+EOF
+
+echo "Searching for DTD..."
+for _try_dtd in \
+  /usr/share/sgml/docbook/dtd/xml/4.1.2/docbookx.dtd \
+  /usr/share/docbook-xml42/docbookx.dtd \
+  /usr/share/sgml/docbook/xml-dtd-4.1.2*/docbookx.dtd \
+  /usr/share/sgml/docbook/xml-dtd-4.2/docbookx.dtd \
+  /usr/share/xml/docbook/schema/dtd/4.2/docbookx.dtd \
+  /usr/share/sgml/docbook/dtd/4.2/docbookx.dtd
+do
+  if test -f "$_try_dtd"
+  then
+    _dtd=$_try_dtd
+    break
+  fi
+done
+
+if test -z "$_dtd"
+then
+  _dtd=/usr/share/sgml/docbook/dtd/xml/4.1.2/docbookx.dtd
+  echo "Not found. Using default ($_dtd)."
+else
+  echo "Found docbookx.dtd at $_dtd"
+fi
+
+for lang in `grep 'SUBDIRS =' Makefile|cut -d= -f2`; do
+  cat > $lang/main.xml << EOF
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+    "$_dtd"
+[ 
+EOF
+
+  for file in `find $lang en -name \*.xml -exec basename \{\} \; | sort -u`; do
+    echo '<!ENTITY '$file'	SYSTEM "'$file'">' >> $lang/main.xml
+  done
+
+  cat >> $lang/main.xml << EOF
+]>
+<book id="index" lang="$lang">
+&documentation.xml;
+</book>
+EOF
+
+done
+
+echo "Looking for a valid XSLT processor..."
+# Checks for xsltproc, then checks for the Saxon processor (it needs Java).
+# Also checks for Jade/OpenJade.
+#FIXME: Add support for the xalan/xalan2 XSLT processors.
+
+if xsltproc --version &> /dev/null
+then
+  if test -z "$_fake_chunk_xsl"
+  then
+    echo "Found xsltproc. If it works, it's probably the best choice."
+    if test -n "$_catalog"
+    then
+      _xsltcommand="xsltproc --catalogs -o \$1 \$2 \$3"
+    else
+      _xsltcommand="xsltproc -o \$1 \$2 \$3"
+    fi
+  else
+    echo "Found xsltproc but no stylesheets on your system."
+    echo "xsltproc is unusable without stylesheets."
+  fi
+fi
+
+# xsltproc not found.
+# Now try to find a good Java virtual machine.
+# FIXME: We need more checks for Java virtual machines.
+if test -z "$_xsltcommand"
+then
+  #FIXME: Add more suitable machines!!!
+  for _try_java in java gij-3.3 gij-3.2 gij-3.1 gij-3.0 gij
+  do
+    if $_try_java --version > /dev/null 2>&1 || $_try_java -version > /dev/null 2>&1
+    then
+      _java=$_try_java
+      break
+    fi
+  done
+  if test -z "$_java"
+  then
+    echo "Java VM not found."
+  else
+    # Try to find the right jar files for classpath.
+    # This must not trigger on something like saxon-fop-6.4.4.jar.
+    for _try_saxon_jar in \
+      /usr/share/java/saxon-[0-9]*.jar \
+      /usr/local/share/java/saxon-[0-9]*.jar \
+      /usr/share/java/saxon.jar \
+      /usr/local/share/java/saxon.jar
+    do
+      if test -f "$_try_saxon_jar"
+      then
+        _saxon_jar=$_try_saxon_jar
+        #Don't break to find the _latest_ saxon.jar.
+      fi
+    done
+    if test -n "$_saxon_jar"
+    then
+      if test -z "$_fake_chunk_xsl"
+      then
+#        _xsltcommand="cd \$1 && if test \"\`dirname \$2 | head -c 1\`\" = \".\" ; then $_java  -classpath $_saxon_jar com.icl.saxon.StyleSheet \$_IN_DIR/\$3 \$_IN_DIR/\$2 ; else $_java  -classpath $_saxon_jar com.icl.saxon.StyleSheet \$_IN_DIR/\$3 \$2 ;fi"
+	_xsltcommand="
+if test \"\`dirname \$2 | head -c 1\`\" = \".\"
+then
+  _STYLESHEET=\$_IN_DIR/\$2
+else
+  _STYLESHEET=\$2
+fi
+
+if test -d \$1
+then
+  _DIRNAME=\"\$1\"
+  _OUTPUT=\"\"
+else
+  _DIRNAME=\"\`dirname \$1\`\"
+  _OUTPUT=\"-o \`basename \$1\`\"
+fi
+
+cd \$_DIRNAME &&
+  java  -classpath /usr/share/java/saxon.jar com.icl.saxon.StyleSheet \$_OUTPUT \$_IN_DIR/\$3 \$_STYLESHEET
+  "
+
+        echo "Found the Saxon XSLT Processor ($_saxon_jar), using Java VM '$_java'."
+      else
+        echo "Found the Saxon XSLT processor but no stylesheets on your system."
+        echo "Saxon is unusable without stylesheets."
+      fi
+    fi
+  fi
+fi
+
+if test -z "$_xsltcommand"
+then
+  # Java not found.
+  # now try openjade/jade.
+  for _try_jade in jade openjade
+  do
+    if command -v $_try_jade > /dev/null
+    then
+      _jade=$_try_jade
+      break
+    fi
+  done
+  if test -n "$_jade"
+  then
+    echo "xsltproc and Saxon XSLT processors not found."
+    echo "I will try to use OpenJade or Jade (using '$_jade')."
+    echo "They aren't (currently) fully supported, however."
+    for _try_docbook_dsl in \
+      /usr/share/sgml/docbook/stylesheet/dsssl/modular/html/docbook.dsl \
+      /usr/local/share/sgml/docbook/stylesheet/dsssl/modular/html/docbook.dsl
+    do
+      if test -f "$_try_docbook_dsl"
+      then
+        _docbook_dsl=$_try_docbook_dsl
+        break
+      fi
+    done
+    for _try_xml_dcl in \
+      /usr/share/sgml/declaration/xml.dcl \
+      /usr/local/share/sgml/declaration/xml.dcl
+    do
+      if test -f "$_try_xml_dcl"
+      then
+        _xml_dcl=$_try_xml_dcl
+        break
+      fi
+    done
+      if test "x$_docbook_dsl" = "x" -o "x$_xml_dcl" = "x"
+      then
+  	echo "One of the files docbook.dsl and xml.dcl or both of them weren't found."
+  	echo "Bailing out."
+  	exit 1
+      fi
+    _xsltcommand="cd \$1 && $_jade -t xml -d $_docbook_dsl $_xml_dcl \$_IN_DIR/\$3"
+  else
+    echo "No valid XSLT processor found."
+    echo "Bailing out."
+    exit 1
+  fi
+fi
+
+
+
+cat > $_xsltwrapper << EOF
+#!/bin/sh
+# **************************************************
+# This file is generated automatically. DO NOT EDIT.
+# **************************************************
+# This is a small wrapper script around many ways to call the XSLT processor.
+# It accepts 3 arguments: <output_dir> <stylesheet_name> <main XML file name>
+_IN_DIR=\`pwd\`
+
+$_sgmlcatalog
+$_xsltcommand
+EOF
+
+chmod +x $_xsltwrapper
+
+
+echo "Searching for XML checker..."
+for _try_xmllint in xmllint
+do
+  if command -v $_try_xmllint > /dev/null 2>&1
+  then
+    echo "Found $_try_xmllint"
+    if test -n "$_catalog"
+    then
+      _xmllint_command="$_try_xmllint --noout --noent --postvalid --catalogs \$*"
+    else
+      _xmllint_command="$_try_xmllint --noout --noent --postvalid \$*"
+    fi
+    break
+  fi
+done
+
+if test -z "$_xmllint_command"
+then
+  echo "Not found"
+  _xmllint_command=true
+fi
+
+cat > $_xmllintwrapper << EOF
+#!/bin/sh
+# **************************************************
+# This file is generated automatically. DO NOT EDIT.
+# **************************************************
+# This is a small wrapper for XML lintian programs.
+$_sgmlcatalog
+$_xmllint_command
+EOF
+
+chmod +x $_xmllintwrapper
+
+--- NEW FILE: default.css ---
+body {
+	color: #000000;
+	background: #ffffff;
+	font-size: 12pt;
+    margin-left: 64px;
+    width: 700px;
+}
+
+a {
+    color: #000080;
+}
+
+div.table table, div.informaltable table {
+	background: #333366;
+	border-collapse: separate;
+	border: solid 1px #333366;
+	border-spacing: 1px;
+}
+
+div.table th, div.informaltable th {
+	color: white;
+	background: #4488cc;
+	border: 0px;
+	padding: 2px;
+}
+
+div.table td, div.informaltable td {
+	background: #fffff8;
+	border: 0px;
+	padding: 2px;
+}
+
+
+pre.screen {
+	padding: 4px;
+	background: #e0e0e0;
+}
+
+pre.programlisting {
+	padding: 4px;
+	background: #e0e0e0;
+}
+
+
+--- NEW FILE: html-common.xsl ---
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                version="1.0">
+
+  <xsl:output method="html" indent="no"/>
+ 
+  <xsl:param name="toc.section.depth" select="'4'"/>
+
+  <xsl:param name="html.stylesheet" select="'default.css'"/>
+  <xsl:param name="html.stylesheet.type" select="'text/css'"/>
+
+  <xsl:param name="html.cleanup" select="'0'"/>
+  <xsl:param name="make.valid.html" select="'1'"/>
+  <xsl:param name="make.single.year.ranges" select="'1'"/>
+  <xsl:param name="make.year.ranges" select="'1'"/>
+
+  <!-- Use ID value for generated filenames -->
+  <xsl:param name="use.id.as.filename" select="'1'"/>
+
+  <xsl:param name="admon.graphics" select="'0'"/>
+  <xsl:param name="navig.graphics" select="'0'"/>
+  <xsl:param name="navig.showtitles" select="'0'"/>
+
+  <!-- Label sections too (eg. 2.1, 2.1.1) -->
+  <xsl:param name="section.autolabel" select="'1'"/>
+  <xsl:param name="section.label.includes.component.label" select="'1'"/>
+
+  <!-- Use informal procedures; no need to number them -->
+  <xsl:param name="formal.procedures" select="'0'"/>
+
+  <xsl:template name="user.header.navigation">
+      <xsl:text disable-output-escaping="no">
+          <![CDATA[BEGINOFTABLEHERECHUNK]]>
+      </xsl:text>
+  </xsl:template>
+
+  <xsl:template name="user.header.content">
+      <xsl:text disable-output-escaping="no">
+          <![CDATA[BEGINOFTABLEHERESINGLE]]>
+      </xsl:text>
+  </xsl:template>
+
+  <xsl:template name="user.footer.navigation">
+      <xsl:text disable-output-escaping="no">
+          <![CDATA[ENDOFTABLEHERECHUNK]]>
+      </xsl:text>
+  </xsl:template>
+
+  <xsl:template name="user.footer.content">
+      <xsl:text disable-output-escaping="no">
+          <![CDATA[ENDOFTABLEHERESINGLE]]>
+      </xsl:text>
+  </xsl:template>
+
+</xsl:stylesheet>
+
+--- NEW FILE: Makefile ---
+# Makefile for generating the HTML documentation
+
+# List of subdirectories to be processed.
+SUBDIRS = en
+
+# Generated chunked HTML files go here.
+HTML_CHUNKED = ../HTML
+
+# Generated single HTML files go here.
+HTML_SINGLE = ../HTML-single
+
+.PHONY: all
+all: html-chunked html-single postproc
+
+.PHONY: help
+help:
+	@echo "Targets:"
+	@echo "********"
+	@echo "all               : Build everything (default)."
+	@echo "html-single       : Build HTML documentation (single file)."
+	@echo "html-single-LANG  : As above, but only one language."
+	@echo "html-chunked      : Build HTML documentation (multiple files)."
+	@echo "html-chunked-LANG : As above, but only one language."
+	@echo "xmllint           : Check syntax of all xml files."
+	@echo "xmllint-LANG      : Check syntax of LANG xml files."
+	@echo "clean-html-single : Purge the 'HTML-single' directory."
+	@echo "clean-html-chunked: Purge the 'HTML' directory."
+	@echo "clean             : Purge the 'HTML' and 'HTML-single' directories."
+	@echo "releaseclean      : Remove generated files but keep the HTML."
+	@echo "distclean         : Remove ALL generated files."
+	@echo "clean-LANG        : Remove HTML files for one language."
+	@echo "releaseclean-LANG : Remove generated files for one language."
+	@echo "distclean-LANG    : Remove ALL generated files for one language."
+	@echo "Substitute LANG for one of $(SUBDIRS)"
+
+.PHONY: html-chunked chunked-dir
+html-chunked: xsltproc.sh xmllint.sh chunked-dir $(addprefix html-chunked-,$(SUBDIRS))
+chunked-dir:
+	test -d $(HTML_CHUNKED) || mkdir $(HTML_CHUNKED)
+
+.PHONY: html-single single-dir
+html-single: xsltproc.sh xmllint.sh single-dir $(addprefix html-single-,$(SUBDIRS))
+single-dir:
+	test -d $(HTML_SINGLE) || mkdir $(HTML_SINGLE)
+
+.PHONY: xmllint
+xmllint: xmllint.sh $(addprefix xmllint-,$(SUBDIRS))
+
+.PHONY: clean-html-chunked
+clean-html-chunked:
+	-rm -rf $(HTML_CHUNKED) *~
+
+.PHONY: clean-html-single
+clean-html-single:
+	-rm -rf $(HTML_SINGLE) *~
+
+.PHONY: releaseclean distclean clean
+releaseclean: $(addprefix releaseclean-,$(SUBDIRS))
+	-rm -f html-chunk.xsl html-single.xsl xsltproc.sh xmllint.sh
+
+distclean: clean releaseclean
+
+xsltproc.sh xmllint.sh:
+	sh configure
+
+clean: clean-html-chunked clean-html-single
+
+postproc:
+	./postproc.sh
+
+define lang-def
+.PHONY: html-chunked-$(1) html-single-$(1) xmllint-$(1) \
+  distclean-$(1) releaseclean-$(1) clean-$(1)
+html-chunked-$(1): xsltproc.sh xmllint.sh chunked-dir
+	(test -d $(HTML_CHUNKED)/$(1) || mkdir $(HTML_CHUNKED)/$(1))
+	$(MAKE) HTMLDIR=../$(HTML_CHUNKED)/$(1) -C $(1) html-chunked
+
+html-single-$(1): xsltproc.sh xmllint.sh single-dir
+	(test -d $(HTML_SINGLE)/$(1) || mkdir $(HTML_SINGLE)/$(1))
+	$(MAKE) HTMLFILE=../$(HTML_SINGLE)/$(1)/index.html -C $(1) html-single
+
+xmllint-$(1): xmllint.sh
+	$(MAKE) HTMLFILE=../$(HTML_SINGLE)/$(1)/index.html -C $(1) xmllint
+
+distclean-$(1): clean-$(1) releaseclean-$(1)
+
+clean-$(1):
+	-rm -rf $(HTML_SINGLE)/$(1) $(HTML_CHUNKED)/$(1)
+
+releaseclean-$(1):
+	$(MAKE) HTMLDIR=../$(HTML_CHUNKED)/$(1) -C $(1) distclean
+endef
+
+$(foreach lang, $(SUBDIRS),$(eval $(call lang-def,$(lang))))
+
+--- NEW FILE: Makefile.inc ---
+#
+# Makefile.inc for Makefiles in subdirectories.
+#
+
+# Use customized html-chunk.xsl and/or html-single.xsl file if they exist...
+# Also add html-common.xsl to depends if it exists.
+ifeq (html-common.xsl,$(wildcard html-common.xsl))
+COMMON_XSL_DEPS := html-common.xsl ../html-common.xsl
+else
+COMMON_XSL_DEPS := ../html-common.xsl
+endif
+
+ifeq (html-chunk.xsl,$(wildcard html-chunk.xsl))
+HTML_CHUNK_XSL := html-chunk.xsl
+CHUNK_XSL_DEPS := $(HTML_CHUNK_XSL) ../html-chunk.xsl $(COMMON_XSL_DEPS)
+else
+HTML_CHUNK_XSL := ../html-chunk.xsl
+CHUNK_XSL_DEPS := $(HTML_CHUNK_XSL) ../html-common.xsl
+endif
+
+ifeq (html-single.xsl,$(wildcard html-single.xsl))
+HTML_SINGLE_XSL := html-single.xsl
+XSL_DEPS := $(HTML_SINGLE_XSL) ../html-single.xsl $(COMMON_XSL_DEPS)
+else
+HTML_SINGLE_XSL := ../html-single.xsl
+XSL_DEPS := $(HTML_SINGLE_XSL) ../html-common.xsl
+endif
+
+# Fall back to the default HTML stylesheet if none is specified.
+HTML_STYLESHEET ?= ../default.css
+
+# This is the main target...
+.PHONY: all html-chunked html-single xmllint
+all: html-chunked html-single
+html-chunked: $(HTMLDIR)/index.html
+html-single: $(HTMLFILE)
+
+SYMLINKS_DEPS:=$(if $(findstring yes,$(USE_SYMLINKS)), $(patsubst ../en/%,%,$(wildcard ../en/*.xml)))
+
+xmllint: main.xml $(SYMLINKS_DEPS)
+	../xmllint.sh $<
+
+$(HTMLDIR)/index.html: main.xml $(CHUNK_XSL_DEPS) $(SYMLINKS_DEPS)
+ifndef HTMLDIR
+	$(warning $(HTMLDIR))
+	$(warning Error: HTMLDIR not set!!!)
+	$(warning Typically this means, that you've run make from a subdir of DOCS/xml.)
+	$(error Don't do this!)
+endif
+	-rm -f $(HTMLDIR)/*
+	../xmllint.sh $<
+	cp -f $(HTML_STYLESHEET) $(HTMLDIR)/
+	../xsltproc.sh $(HTMLDIR)/ $(HTML_CHUNK_XSL) $<
+
+
+
+$(HTMLFILE): main.xml $(XSL_DEPS) $(SYMLINKS_DEPS)
+ifndef HTMLFILE
+	$(warning Error: HTMLFILE not set!!!)
+	$(warning Typically this means, that you've run make from a subdir of DOCS/xml.)
+	$(error Don't do this!)
+endif
+	-rm -f $(HTMLFILE)
+	../xmllint.sh $<
+	cp -f $(HTML_STYLESHEET) `dirname $(HTMLFILE)`
+	../xsltproc.sh $(HTMLFILE) $(HTML_SINGLE_XSL) $<
+
+../html-chunk.xsl ../html-single.xsl main.xml:
+	cd .. && sh configure
+
+$(filter-out main.xml, $(patsubst ../en/%,%, $(wildcard ../en/*.xml))):
+	$(if $(findstring yes,$(USE_SYMLINKS)), ,exit 0;)\
+	for file in ../en/*.xml ; do \
+	if ! test -r `basename $$file` ; then \
+		ln -s $$file `basename $$file` ; \
+	fi; \
+	done
+
+distclean:
+	rm -f main.xml *~
+	if test "$(USE_SYMLINKS)" = "yes" ; then \
+		rm -f `find *.xml -type l`; \
+	fi
+
+--- NEW FILE: README ---
+The documentation build-system is mostly borrowed from the MPlayer project
+(see: http://www.mplayerhq.hu/) and is all licensed under version 2 of the GPL.
+
+--- NEW FILE: postproc.sh ---
+#!/bin/sh
+
+# Simple script to replace keywords by begining and ending of table instead of
+# overriding "chunk-element-content" in the stylesheet, which results in an
+# endless loop (<xsl:apply-imports/>).  If somebody knows how to fix that,
+# please let me know.
+
+# chunks:
+
+_files=`find ../HTML -type f -name *.html`
+
+for i in $_files
+do
+    sed -e 's/BEGINOFTABLEHERECHUNK/\<table bgcolor=\"#f0f0f0\" width=\"700\" border=\"0\" cellspacing=\"0\" cellpadding=\"16\" height=\"1000\" \> \<tr\> \<td valign=\"top\" align=\"left\"\>/' $i | sed -e 's/ENDOFTABLEHERECHUNK/\<\/td\> \<\/tr\> \<\/table\>/' | sed -e 's/BEGINOFTABLEHERESINGLE//' | sed -e 's/ENDOFTABLEHERESINGLE//' > $i.tmp
+    mv -f $i.tmp $i
+done
+
+# singles:
+
+_files=`find ../HTML-single -type f -name *.html`
+
+for i in $_files
+do
+    sed -e 's/BEGINOFTABLEHERESINGLE/\<table bgcolor=\"#f0f0f0\" width=\"700\" border=\"0\" cellspacing=\"0\" cellpadding=\"16\" height=\"1000\" \> \<tr\> \<td valign=\"top\"\>/' $i | sed -e 's/ENDOFTABLEHERESINGLE/\<\/td\> \<\/tr\> \<\/table\>/' | sed -e 's/BEGINOFTABLEHERECHUNK//' | sed -e 's/ENDOFTABLEHERECHUNK//' > $i.tmp
+    mv -f $i.tmp $i
+done
+
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 02:02:00 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 02:02:00 +0200
+Subject: [fpm-cvslog] fpm/docs/xml/en Makefile,NONE,1.1 documentation.xml,NONE,1.1 gettingstarted.xml,NONE,1.1 introduction.xml,NONE,1.1
+Message-ID: <200508300002.j7U020627846@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm/docs/xml/en
+In directory sheep:/tmp/cvs-serv19547
+
+Added Files:
+	Makefile documentation.xml gettingstarted.xml introduction.xml 
+Log Message:
+initial checkin of documentation build system. these xml docs are placeholders
+atm
+
+
+
+--- NEW FILE: Makefile ---
+# Set if you are using your own HTML stylesheet...
+#HTML_STYLESHEET = mystyle.css
+
+# Change to yes to enable symlinking missing files to English master versions
+USE_SYMLINKS = no
+
+# Dependency information.
+$(HTMLDIR)/index.html: $(wildcard *.xml)
+$(HTMLFILE): $(wildcard *.xml)
+
+include ../Makefile.inc
+
+--- NEW FILE: documentation.xml ---
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<bookinfo>
+    <title> Fixed Point Math Macro Library </title>
+    <authorgroup>
+        <author>
+            <firstname> Ivo </firstname>
+            <surname> van Poorten </surname>
+            <affiliation>
+                <address>
+                    <email> ivop at mail.berlios.de </email>
+                </address>
+            </affiliation>
+        </author>
+    </authorgroup>
+
+    <date> August 26, 2005 </date>
+
+    <abstract>
+        <para>
+            This is the abstract.
+        </para>
+    </abstract>
+
+    <legalnotice>
+        <title> License </title>
+        <para>
+        Permission is granted to copy, distribute and/or modify this document
+        under the terms of the GNU Free Documentation License, Version 1.1
+        published by the Free Software Foundation; with no
+        Invariant Sections, with no Front-Cover texts, and with no Back-Cover
+        Texts. A copy of the license can be found at
+        http://www.fsf.org/copyleft/fdl.html.
+        </para>
+    </legalnotice>
+
+    <copyright>
+        <year> 2005 </year>
+        <holder> Ivo van Poorten </holder>
+    </copyright>
+
+</bookinfo>
+
+&introduction.xml;
+&gettingstarted.xml;
+
+
+--- NEW FILE: gettingstarted.xml ---
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<chapter id="getting-started">
+    <title> Getting started </title>
+
+    <para>
+        This is getting started.
+    </para>
+
+    <sect1 id="system-requirements">
+        <title> System requirements </title>
+        <para>
+            About system requirements
+        </para>
+    </sect1>
+
+    <sect1 id="compilation-and-installation">
+        <title> Compilation and installation </title>
+        <para>
+            About compilation and installation
+
+            <example>
+                <title> This is an example </title>
+                <programlisting>
+                    a = fp16p16sqrt(b);
+                    prinf("0.8f\n", fp16p16tof(a));
+                </programlisting>
+            </example>
+
+        </para>
+    </sect1>
+</chapter>
+
+
+--- NEW FILE: introduction.xml ---
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<chapter id="introduction">
+    <title> Introduction </title>
+
+    <para>
+        This is the introduction
+    </para>
+
+    <sect1 id="about-this-library">
+        <title> About this library </title>
+        <para>
+            This library is about...
+        </para>
+    </sect1>
+
+</chapter>
+
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 02:04:07 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 02:04:07 +0200
+Subject: [fpm-cvslog] fpm/docs/xml/en .cvsignore,NONE,1.1
+Message-ID: <200508300004.j7U047627864@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm/docs/xml/en
+In directory sheep:/tmp/cvs-serv19904
+
+Added Files:
+	.cvsignore 
+Log Message:
+ignore main.xml because it's generated
+
+
+
+--- NEW FILE: .cvsignore ---
+main.xml
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 02:04:40 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 02:04:40 +0200
+Subject: [fpm-cvslog] fpm/docs/xml .cvsignore,NONE,1.1
+Message-ID: <200508300004.j7U04e627884@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm/docs/xml
+In directory sheep:/tmp/cvs-serv19987
+
+Added Files:
+	.cvsignore 
+Log Message:
+ignore generated files
+
+
+
+--- NEW FILE: .cvsignore ---
+html-chunk.xsl
+html-single.xsl
+xsltproc.sh
+xmllint.sh
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 02:07:22 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 02:07:22 +0200
+Subject: [fpm-cvslog] fpm/docs .cvsignore,NONE,1.1
+Message-ID: <200508300007.j7U07M627930@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm/docs
+In directory sheep:/tmp/cvs-serv20436
+
+Added Files:
+	.cvsignore 
+Log Message:
+ignore html directories because they and their contents are generated from
+the xml docs
+
+
+
+--- NEW FILE: .cvsignore ---
+HTML
+HTML-single
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 02:12:40 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 02:12:40 +0200
+Subject: [fpm-cvslog] website Makefile,NONE,1.1
+Message-ID: <200508300012.j7U0Ce628016@bat.berlios.de>
+
+Update of /cvsroot/fpm/website
+In directory sheep:/tmp/cvs-serv22952
+
+Added Files:
+	Makefile 
+Log Message:
+short makefile to clean up ~-files
+
+
+
+--- NEW FILE: Makefile ---
+.PHONY:	clean
+clean:
+	rm -f *~
+
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 02:14:19 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 02:14:19 +0200
+Subject: [fpm-cvslog] website documentation.html,1.2,1.3
+Message-ID: <200508300014.j7U0EJ628035@bat.berlios.de>
+
+Update of /cvsroot/fpm/website
+In directory sheep:/tmp/cvs-serv24291
+
+Modified Files:
+	documentation.html 
+Log Message:
+link to generated html docs. for now, there's only english documentation, but
+with the "new" build system, it's easy to add other languages and link to
+them from here. it's also possible to add different formats, like postscript
+and pdf.
+
+
+
+Index: documentation.html
+===================================================================
+RCS file: /cvsroot/fpm/website/documentation.html,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- documentation.html	22 Aug 2005 00:52:32 -0000	1.2
++++ documentation.html	30 Aug 2005 00:14:16 -0000	1.3
+@@ -8,7 +8,7 @@
+     <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+ </HEAD>
+ 
+-<BODY BGCOLOR="#ffffff" TEXT="#000000" LINK="#000080" VLINK="#000040" STYLE="font-size: 12pt; margin-left: 64px;">
++<BODY BGCOLOR="#ffffff" TEXT="#000000" LINK="#000080" VLINK="#000080" STYLE="font-size: 12pt; margin-left: 64px;">
+ 
+ <TABLE BGCOLOR="#f0f0f0" BORDER="0" CELLSPACING="0" CELLPADDING="16" WIDTH="700" HEIGHT="1000">
+ <TR> <TD VALIGN="TOP">
+@@ -16,30 +16,9 @@
+ <B> DOCUMENTATION </B>
+ <P>
+ 
+-Overview
+-<UL>
+-    <LI> What is this? </LI>
+-</UL>
+-
+-Installation
+-<UL>
+-    <LI> Requirements </LI>
+-    <LI> Compilation and installation <LI>
+-</UL>
+-
+-Usage
+-<UL>
+-    <LI> Basic types </LI>
+-    <LI> Multiplication and division </LI>
+-    <LI> Sqrt, exp, pow and log </LI>
+-    <LI> Trigonometry </LI>
+-</UL>
+-
+-Advanced
+-<UL>
+-    <LI> Configuration precision/speed trade-off's </LI>
+-    <LI> Benchmarking </LI>
+-</UL>
++English:
++<A HREF="docs/HTML/en/index.html">HTML</A> or
++<A HREF="docs/HTML-single/en/index.html">HTML (single file)</A>
+ 
+ </TD></TR></TABLE>
+ 
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 02:22:37 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 02:22:37 +0200
+Subject: [fpm-cvslog] website/docs - New directory
+Message-ID: <200508300022.j7U0Mb628186@bat.berlios.de>
+
+Update of /cvsroot/fpm/website/docs
+In directory sheep:/tmp/cvs-serv11248/docs
+
+Log Message:
+Directory /cvsroot/fpm/website/docs added to the repository
+
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 02:30:32 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 02:30:32 +0200
+Subject: [fpm-cvslog] fpm/docs/xml html-common.xsl,1.1,1.2
+Message-ID: <200508300030.j7U0UW628354@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm/docs/xml
+In directory sheep:/tmp/cvs-serv13040/docs/xml
+
+Modified Files:
+	html-common.xsl 
+Log Message:
+enable html cleanup
+
+
+
+Index: html-common.xsl
+===================================================================
+RCS file: /cvsroot/fpm/fpm/docs/xml/html-common.xsl,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- html-common.xsl	30 Aug 2005 00:00:04 -0000	1.1
++++ html-common.xsl	30 Aug 2005 00:30:29 -0000	1.2
+@@ -9,7 +9,7 @@
+   <xsl:param name="html.stylesheet" select="'default.css'"/>
+   <xsl:param name="html.stylesheet.type" select="'text/css'"/>
+ 
+-  <xsl:param name="html.cleanup" select="'0'"/>
++  <xsl:param name="html.cleanup" select="'1'"/>
+   <xsl:param name="make.valid.html" select="'1'"/>
+   <xsl:param name="make.single.year.ranges" select="'1'"/>
+   <xsl:param name="make.year.ranges" select="'1'"/>
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 02:31:39 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 02:31:39 +0200
+Subject: [fpm-cvslog] website/docs/HTML - New directory
+Message-ID: <200508300031.j7U0Vd628396@bat.berlios.de>
+
+Update of /cvsroot/fpm/website/docs/HTML
+In directory sheep:/tmp/cvs-serv13638/HTML
+
+Log Message:
+Directory /cvsroot/fpm/website/docs/HTML added to the repository
+
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 02:31:39 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 02:31:39 +0200
+Subject: [fpm-cvslog] website/docs/HTML-single - New directory
+Message-ID: <200508300031.j7U0Vd628400@bat.berlios.de>
+
+Update of /cvsroot/fpm/website/docs/HTML-single
+In directory sheep:/tmp/cvs-serv13638/HTML-single
+
+Log Message:
+Directory /cvsroot/fpm/website/docs/HTML-single added to the repository
+
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 02:31:53 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 02:31:53 +0200
+Subject: [fpm-cvslog] website/docs/HTML/en - New directory
+Message-ID: <200508300031.j7U0Vr628405@bat.berlios.de>
+
+Update of /cvsroot/fpm/website/docs/HTML/en
+In directory sheep:/tmp/cvs-serv13692/HTML/en
+
+Log Message:
+Directory /cvsroot/fpm/website/docs/HTML/en added to the repository
+
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 02:31:53 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 02:31:53 +0200
+Subject: [fpm-cvslog] website/docs/HTML-single/en - New directory
+Message-ID: <200508300031.j7U0Vr628409@bat.berlios.de>
+
+Update of /cvsroot/fpm/website/docs/HTML-single/en
+In directory sheep:/tmp/cvs-serv13692/HTML-single/en
+
+Log Message:
+Directory /cvsroot/fpm/website/docs/HTML-single/en added to the repository
+
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 02:32:49 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 02:32:49 +0200
+Subject: [fpm-cvslog] website/docs/HTML/en compilation-and-installation.html,NONE,1.1 default.css,NONE,1.1 getting-started.html,NONE,1.1 index.html,NONE,1.1 introduction.html,NONE,1.1
+Message-ID: <200508300032.j7U0Wn628439@bat.berlios.de>
+
+Update of /cvsroot/fpm/website/docs/HTML/en
+In directory sheep:/tmp/cvs-serv13820
+
+Added Files:
+	compilation-and-installation.html default.css 
+	getting-started.html index.html introduction.html 
+Log Message:
+initial checkin. only placeholders for testing atm
+
+
+
+--- NEW FILE: compilation-and-installation.html ---
+(This appears to be a binary file; contents omitted.)
+
+--- NEW FILE: default.css ---
+body {
+	color: #000000;
+	background: #ffffff;
+	font-size: 12pt;
+    margin-left: 64px;
+    width: 700px;
+}
+
+a {
+    color: #000080;
+}
+
+div.table table, div.informaltable table {
+	background: #333366;
+	border-collapse: separate;
+	border: solid 1px #333366;
+	border-spacing: 1px;
+}
+
+div.table th, div.informaltable th {
+	color: white;
+	background: #4488cc;
+	border: 0px;
+	padding: 2px;
+}
+
+div.table td, div.informaltable td {
+	background: #fffff8;
+	border: 0px;
+	padding: 2px;
+}
+
+
+pre.screen {
+	padding: 4px;
+	background: #e0e0e0;
+}
+
+pre.programlisting {
+	padding: 4px;
+	background: #e0e0e0;
+}
+
+
+--- NEW FILE: getting-started.html ---
+(This appears to be a binary file; contents omitted.)
+
+--- NEW FILE: index.html ---
+(This appears to be a binary file; contents omitted.)
+
+--- NEW FILE: introduction.html ---
+(This appears to be a binary file; contents omitted.)
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 02:33:38 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 02:33:38 +0200
+Subject: [fpm-cvslog] website/docs/HTML-single/en default.css,NONE,1.1 index.html,NONE,1.1
+Message-ID: <200508300033.j7U0Xc628458@bat.berlios.de>
+
+Update of /cvsroot/fpm/website/docs/HTML-single/en
+In directory sheep:/tmp/cvs-serv14264
+
+Added Files:
+	default.css index.html 
+Log Message:
+initial checkin. only placeholders atm for testing
+
+
+
+--- NEW FILE: default.css ---
+body {
+	color: #000000;
+	background: #ffffff;
+	font-size: 12pt;
+    margin-left: 64px;
+    width: 700px;
+}
+
+a {
+    color: #000080;
+}
+
+div.table table, div.informaltable table {
+	background: #333366;
+	border-collapse: separate;
+	border: solid 1px #333366;
+	border-spacing: 1px;
+}
+
+div.table th, div.informaltable th {
+	color: white;
+	background: #4488cc;
+	border: 0px;
+	padding: 2px;
+}
+
+div.table td, div.informaltable td {
+	background: #fffff8;
+	border: 0px;
+	padding: 2px;
+}
+
+
+pre.screen {
+	padding: 4px;
+	background: #e0e0e0;
+}
+
+pre.programlisting {
+	padding: 4px;
+	background: #e0e0e0;
+}
+
+
+--- NEW FILE: index.html ---
+(This appears to be a binary file; contents omitted.)
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 02:45:36 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 02:45:36 +0200
+Subject: [fpm-cvslog] fpm/docs/xml default.css,1.1,1.2
+Message-ID: <200508300045.j7U0ja628802@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm/docs/xml
+In directory sheep:/tmp/cvs-serv18207
+
+Modified Files:
+	default.css 
+Log Message:
+don't mix tabs and spaces
+
+
+
+Index: default.css
+===================================================================
+RCS file: /cvsroot/fpm/fpm/docs/xml/default.css,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- default.css	30 Aug 2005 00:00:03 -0000	1.1
++++ default.css	30 Aug 2005 00:45:33 -0000	1.2
+@@ -2,8 +2,8 @@
+ 	color: #000000;
+ 	background: #ffffff;
+ 	font-size: 12pt;
+-    margin-left: 64px;
+-    width: 700px;
++	margin-left: 64px;
++	width: 700px;
+ }
+ 
+ a {
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 02:48:49 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 02:48:49 +0200
+Subject: [fpm-cvslog] website/docs/HTML-single/en default.css,1.1,1.2
+Message-ID: <200508300048.j7U0mn628861@bat.berlios.de>
+
+Update of /cvsroot/fpm/website/docs/HTML-single/en
+In directory sheep:/tmp/cvs-serv18788/docs/HTML-single/en
+
+Modified Files:
+	default.css 
+Log Message:
+don't mix tabs and spaces
+
+
+
+Index: default.css
+===================================================================
+RCS file: /cvsroot/fpm/website/docs/HTML-single/en/default.css,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- default.css	30 Aug 2005 00:33:36 -0000	1.1
++++ default.css	30 Aug 2005 00:48:42 -0000	1.2
+@@ -2,8 +2,8 @@
+ 	color: #000000;
+ 	background: #ffffff;
+ 	font-size: 12pt;
+-    margin-left: 64px;
+-    width: 700px;
++	margin-left: 64px;
++	width: 700px;
+ }
+ 
+ a {
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 02:48:49 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 02:48:49 +0200
+Subject: [fpm-cvslog] website/docs/HTML/en default.css,1.1,1.2
+Message-ID: <200508300048.j7U0mn628862@bat.berlios.de>
+
+Update of /cvsroot/fpm/website/docs/HTML/en
+In directory sheep:/tmp/cvs-serv18788/docs/HTML/en
+
+Modified Files:
+	default.css 
+Log Message:
+don't mix tabs and spaces
+
+
+
+Index: default.css
+===================================================================
+RCS file: /cvsroot/fpm/website/docs/HTML/en/default.css,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- default.css	30 Aug 2005 00:32:47 -0000	1.1
++++ default.css	30 Aug 2005 00:48:41 -0000	1.2
+@@ -2,8 +2,8 @@
+ 	color: #000000;
+ 	background: #ffffff;
+ 	font-size: 12pt;
+-    margin-left: 64px;
+-    width: 700px;
++	margin-left: 64px;
++	width: 700px;
+ }
+ 
+ a {
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 03:31:12 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 03:31:12 +0200
+Subject: [fpm-cvslog] website index2.html,1.2,1.3
+Message-ID: <200508300131.j7U1VC629794@bat.berlios.de>
+
+Update of /cvsroot/fpm/website
+In directory sheep:/tmp/cvs-serv22205
+
+Modified Files:
+	index2.html 
+Log Message:
+added noframes for browsers that don't support frames
+
+
+
+Index: index2.html
+===================================================================
+RCS file: /cvsroot/fpm/website/index2.html,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- index2.html	22 Aug 2005 00:52:32 -0000	1.2
++++ index2.html	30 Aug 2005 01:31:06 -0000	1.3
+@@ -16,6 +16,16 @@
+         <FRAME SRC="head.html" NORESIZE SCROLLING="no" FRAMEBORDER="0">
+         <FRAME SRC="home.html" NORESIZE FRAMEBORDER="0" NAME="MAIN">
+     </FRAMESET>
++    
++<NOFRAMES>
++    <BODY>
++        <P>
++        You seem to use a browser that doesn't support
++        <A HREF="http://www.w3.org/TR/REC-html40/present/frames.html">frames</A>.
++        Continue to the site's <A HREF="head.html">navigation bar</A>.
++    </BODY>
++</NOFRAMES>
+ 
+-</HTML>
++</FRAMESET>
+ 
++</HTML>
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 03:33:41 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 03:33:41 +0200
+Subject: [fpm-cvslog] website contact.html,1.2,1.3 cvs.html,1.3,1.4 documentation.html,1.3,1.4 download.html,1.2,1.3 head.html,1.5,1.6 home.html,1.3,1.4 index2.html,1.3,1.4 index.html,1.6,1.7 links.html,1.3,1.4
+Message-ID: <200508300133.j7U1Xf629860@bat.berlios.de>
+
+Update of /cvsroot/fpm/website
+In directory sheep:/tmp/cvs-serv22523
+
+Modified Files:
+	contact.html cvs.html documentation.html download.html 
+	head.html home.html index2.html index.html links.html 
+Log Message:
+fix comments that contain RCS Id tags
+
+
+
+Index: contact.html
+===================================================================
+RCS file: /cvsroot/fpm/website/contact.html,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- contact.html	22 Aug 2005 00:52:32 -0000	1.2
++++ contact.html	30 Aug 2005 01:33:38 -0000	1.3
+@@ -1,6 +1,6 @@
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ 
+-<! $Id$ >
++<!-- $Id$ -->
+ 
+ <HTML>
+ <HEAD>
+
+Index: cvs.html
+===================================================================
+RCS file: /cvsroot/fpm/website/cvs.html,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -u -d -r1.3 -r1.4
+--- cvs.html	23 Aug 2005 19:42:02 -0000	1.3
++++ cvs.html	30 Aug 2005 01:33:38 -0000	1.4
+@@ -1,6 +1,6 @@
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ 
+-<! $Id$ >
++<!-- $Id$ -->
+ 
+ <HTML>
+ <HEAD>
+
+Index: documentation.html
+===================================================================
+RCS file: /cvsroot/fpm/website/documentation.html,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -u -d -r1.3 -r1.4
+--- documentation.html	30 Aug 2005 00:14:16 -0000	1.3
++++ documentation.html	30 Aug 2005 01:33:38 -0000	1.4
+@@ -1,6 +1,6 @@
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ 
+-<! $Id$ >
++<!-- $Id$ -->
+ 
+ <HTML>
+ <HEAD>
+
+Index: download.html
+===================================================================
+RCS file: /cvsroot/fpm/website/download.html,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- download.html	22 Aug 2005 00:52:32 -0000	1.2
++++ download.html	30 Aug 2005 01:33:38 -0000	1.3
+@@ -1,6 +1,6 @@
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ 
+-<! $Id$ >
++<!-- $Id$ -->
+ 
+ <HTML>
+ <HEAD>
+
+Index: head.html
+===================================================================
+RCS file: /cvsroot/fpm/website/head.html,v
+retrieving revision 1.5
+retrieving revision 1.6
+diff -u -d -r1.5 -r1.6
+--- head.html	23 Aug 2005 20:07:56 -0000	1.5
++++ head.html	30 Aug 2005 01:33:38 -0000	1.6
+@@ -1,6 +1,6 @@
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ 
+-<! $Id$ >
++<!-- $Id$ -->
+ 
+ <HTML>
+ <HEAD>
+
+Index: home.html
+===================================================================
+RCS file: /cvsroot/fpm/website/home.html,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -u -d -r1.3 -r1.4
+--- home.html	22 Aug 2005 00:48:10 -0000	1.3
++++ home.html	30 Aug 2005 01:33:38 -0000	1.4
+@@ -1,6 +1,6 @@
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ 
+-<! $Id$ >
++<!-- $Id$ -->
+ 
+ <HTML>
+ <HEAD>
+
+Index: index2.html
+===================================================================
+RCS file: /cvsroot/fpm/website/index2.html,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -u -d -r1.3 -r1.4
+--- index2.html	30 Aug 2005 01:31:06 -0000	1.3
++++ index2.html	30 Aug 2005 01:33:38 -0000	1.4
+@@ -1,6 +1,6 @@
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+ 
+-<! $Id$ >
++<!-- $Id$ -->
+ 
+ <HTML>
+ <HEAD>
+
+Index: index.html
+===================================================================
+RCS file: /cvsroot/fpm/website/index.html,v
+retrieving revision 1.6
+retrieving revision 1.7
+diff -u -d -r1.6 -r1.7
+--- index.html	22 Aug 2005 23:46:37 -0000	1.6
++++ index.html	30 Aug 2005 01:33:38 -0000	1.7
+@@ -1,6 +1,6 @@
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ 
+-<! $Id$ >
++<!-- $Id$ -->
+ 
+ <HTML>
+     <HEAD>
+
+Index: links.html
+===================================================================
+RCS file: /cvsroot/fpm/website/links.html,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -u -d -r1.3 -r1.4
+--- links.html	22 Aug 2005 01:33:43 -0000	1.3
++++ links.html	30 Aug 2005 01:33:38 -0000	1.4
+@@ -1,6 +1,6 @@
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ 
+-<! $Id$ >
++<!-- $Id$ -->
+ 
+ <HTML>
+ <HEAD>
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 03:36:19 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 03:36:19 +0200
+Subject: [fpm-cvslog] website head.html,1.6,1.7
+Message-ID: <200508300136.j7U1aJ629924@bat.berlios.de>
+
+Update of /cvsroot/fpm/website
+In directory sheep:/tmp/cvs-serv22957
+
+Modified Files:
+	head.html 
+Log Message:
+fix style type. w3c passed validation
+
+
+
+Index: head.html
+===================================================================
+RCS file: /cvsroot/fpm/website/head.html,v
+retrieving revision 1.6
+retrieving revision 1.7
+diff -u -d -r1.6 -r1.7
+--- head.html	30 Aug 2005 01:33:38 -0000	1.6
++++ head.html	30 Aug 2005 01:36:14 -0000	1.7
+@@ -7,7 +7,7 @@
+     <TITLE> Fixed Point Math Macro Library </TITLE>
+     <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+ 
+-    <STYLE>
++    <STYLE TYPE="text/css">
+     A { text-decoration: none; }
+     </STYLE>
+ 
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 03:40:05 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 03:40:05 +0200
+Subject: [fpm-cvslog] website contact.html,1.3,1.4
+Message-ID: <200508300140.j7U1e5629971@bat.berlios.de>
+
+Update of /cvsroot/fpm/website
+In directory sheep:/tmp/cvs-serv24288
+
+Modified Files:
+	contact.html 
+Log Message:
+move height to td instead of table. w3c validation passed
+
+
+
+Index: contact.html
+===================================================================
+RCS file: /cvsroot/fpm/website/contact.html,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -u -d -r1.3 -r1.4
+--- contact.html	30 Aug 2005 01:33:38 -0000	1.3
++++ contact.html	30 Aug 2005 01:40:00 -0000	1.4
+@@ -10,8 +10,8 @@
+ 
+ <BODY BGCOLOR="#ffffff" TEXT="#000000" LINK="#000080" VLINK="#000040" STYLE="font-size: 12pt; margin-left: 64px;">
+ 
+-<TABLE BGCOLOR="#f0f0f0" BORDER="0" CELLSPACING="0" CELLPADDING="16" WIDTH="700" HEIGHT="1000">
+-<TR> <TD VALIGN="TOP">
++<TABLE BGCOLOR="#f0f0f0" BORDER="0" CELLSPACING="0" CELLPADDING="16" WIDTH="700">
++<TR> <TD VALIGN="TOP" HEIGHT="1000">
+ 
+ 
+ <B> CONTACT </B>
+
+
+
+From nobody at sheep.berlios.de  Tue Aug 30 03:45:12 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Tue, 30 Aug 2005 03:45:12 +0200
+Subject: [fpm-cvslog] website cvs.html,1.4,1.5 documentation.html,1.4,1.5 download.html,1.3,1.4 home.html,1.4,1.5 links.html,1.4,1.5
+Message-ID: <200508300145.j7U1jC630073@bat.berlios.de>
+
+Update of /cvsroot/fpm/website
+In directory sheep:/tmp/cvs-serv25973
+
+Modified Files:
+	cvs.html documentation.html download.html home.html links.html 
+Log Message:
+fix table. move height to td. all pass w3c valifation now.
+
+
+
+Index: cvs.html
+===================================================================
+RCS file: /cvsroot/fpm/website/cvs.html,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -u -d -r1.4 -r1.5
+--- cvs.html	30 Aug 2005 01:33:38 -0000	1.4
++++ cvs.html	30 Aug 2005 01:45:07 -0000	1.5
+@@ -10,8 +10,8 @@
+ 
+ <BODY BGCOLOR="#ffffff" TEXT="#000000" LINK="#000080" VLINK="#000040" STYLE="font-size: 12pt; margin-left: 64px;">
+ 
+-<TABLE BGCOLOR="#f0f0f0" BORDER="0" CELLSPACING="0" CELLPADDING="16" WIDTH="700" HEIGHT="1000">
+-<TR> <TD VALIGN="TOP">
++<TABLE BGCOLOR="#f0f0f0" BORDER="0" CELLSPACING="0" CELLPADDING="16" WIDTH="700">
++<TR> <TD VALIGN="TOP" HEIGHT="1000">
+ 
+ 
+ <B> CVS </B>
+
+Index: documentation.html
+===================================================================
+RCS file: /cvsroot/fpm/website/documentation.html,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -u -d -r1.4 -r1.5
+--- documentation.html	30 Aug 2005 01:33:38 -0000	1.4
++++ documentation.html	30 Aug 2005 01:45:07 -0000	1.5
+@@ -10,8 +10,8 @@
+ 
+ <BODY BGCOLOR="#ffffff" TEXT="#000000" LINK="#000080" VLINK="#000080" STYLE="font-size: 12pt; margin-left: 64px;">
+ 
+-<TABLE BGCOLOR="#f0f0f0" BORDER="0" CELLSPACING="0" CELLPADDING="16" WIDTH="700" HEIGHT="1000">
+-<TR> <TD VALIGN="TOP">
++<TABLE BGCOLOR="#f0f0f0" BORDER="0" CELLSPACING="0" CELLPADDING="16" WIDTH="700">
++<TR> <TD VALIGN="TOP" HEIGHT="1000">
+ 
+ <B> DOCUMENTATION </B>
+ <P>
+
+Index: download.html
+===================================================================
+RCS file: /cvsroot/fpm/website/download.html,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -u -d -r1.3 -r1.4
+--- download.html	30 Aug 2005 01:33:38 -0000	1.3
++++ download.html	30 Aug 2005 01:45:07 -0000	1.4
+@@ -10,8 +10,8 @@
+ 
+ <BODY BGCOLOR="#ffffff" TEXT="#000000" LINK="#000080" VLINK="#000040" STYLE="font-size: 12pt; margin-left: 64px;">
+ 
+-<TABLE BGCOLOR="#f0f0f0" BORDER="0" CELLSPACING="0" CELLPADDING="16" WIDTH="700" HEIGHT="1000">
+-<TR> <TD VALIGN="TOP">
++<TABLE BGCOLOR="#f0f0f0" BORDER="0" CELLSPACING="0" CELLPADDING="16" WIDTH="700">
++<TR> <TD VALIGN="TOP" HEIGHT="1000">
+ 
+ 
+ <B> DOWNLOAD </B>
+
+Index: home.html
+===================================================================
+RCS file: /cvsroot/fpm/website/home.html,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -u -d -r1.4 -r1.5
+--- home.html	30 Aug 2005 01:33:38 -0000	1.4
++++ home.html	30 Aug 2005 01:45:07 -0000	1.5
+@@ -10,8 +10,8 @@
+ 
+ <BODY BGCOLOR="#ffffff" TEXT="#000000" LINK="#000080" VLINK="#000040" STYLE="font-size: 12pt; margin-left: 64px;">
+ 
+-<TABLE BGCOLOR="#f0f0f0" BORDER="0" CELLSPACING="0" CELLPADDING="16" WIDTH="700" HEIGHT="1000">
+-<TR> <TD VALIGN="TOP">
++<TABLE BGCOLOR="#f0f0f0" BORDER="0" CELLSPACING="0" CELLPADDING="16" WIDTH="700">
++<TR> <TD VALIGN="TOP" HEIGHT="1000">
+ 
+ <B> HOME </B>
+ <P>
+
+Index: links.html
+===================================================================
+RCS file: /cvsroot/fpm/website/links.html,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -u -d -r1.4 -r1.5
+--- links.html	30 Aug 2005 01:33:38 -0000	1.4
++++ links.html	30 Aug 2005 01:45:07 -0000	1.5
+@@ -10,8 +10,8 @@
+ 
+ <BODY BGCOLOR="#ffffff" TEXT="#000000" LINK="#000080" VLINK="#000040" STYLE="font-size: 12pt; margin-left: 64px;">
+ 
+-<TABLE BGCOLOR="#f0f0f0" BORDER="0" CELLSPACING="0" CELLPADDING="16" WIDTH="700" HEIGHT="1000">
+-<TR> <TD VALIGN="TOP">
++<TABLE BGCOLOR="#f0f0f0" BORDER="0" CELLSPACING="0" CELLPADDING="16" WIDTH="700">
++<TR> <TD VALIGN="TOP" HEIGHT="1000">
+ 
+ 
+ <B> LINKS </B>
+
+
+
+From nobody at sheep.berlios.de  Wed Aug 31 01:05:16 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Wed, 31 Aug 2005 01:05:16 +0200
+Subject: [fpm-cvslog] fpm/docs/xml/en documentation.xml,1.1,1.2 gettingstarted.xml,1.1,1.2 introduction.xml,1.1,1.2
+Message-ID: <200508302305.j7UN5G604138@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm/docs/xml/en
+In directory sheep:/tmp/cvs-serv10689
+
+Modified Files:
+	documentation.xml gettingstarted.xml introduction.xml 
+Log Message:
+added revision tags
+
+
+
+Index: documentation.xml
+===================================================================
+RCS file: /cvsroot/fpm/fpm/docs/xml/en/documentation.xml,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- documentation.xml	30 Aug 2005 00:01:58 -0000	1.1
++++ documentation.xml	30 Aug 2005 23:05:12 -0000	1.2
+@@ -1,5 +1,7 @@
+ <?xml version="1.0" encoding="iso-8859-1"?>
+ 
++<!-- $Revision$ -->
++
+ <bookinfo>
+     <title> Fixed Point Math Macro Library </title>
+     <authorgroup>
+
+Index: gettingstarted.xml
+===================================================================
+RCS file: /cvsroot/fpm/fpm/docs/xml/en/gettingstarted.xml,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- gettingstarted.xml	30 Aug 2005 00:01:58 -0000	1.1
++++ gettingstarted.xml	30 Aug 2005 23:05:12 -0000	1.2
+@@ -1,5 +1,7 @@
+ <?xml version="1.0" encoding="iso-8859-1"?>
+ 
++<!-- $Revision$ -->
++
+ <chapter id="getting-started">
+     <title> Getting started </title>
+ 
+
+Index: introduction.xml
+===================================================================
+RCS file: /cvsroot/fpm/fpm/docs/xml/en/introduction.xml,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- introduction.xml	30 Aug 2005 00:01:58 -0000	1.1
++++ introduction.xml	30 Aug 2005 23:05:12 -0000	1.2
+@@ -1,5 +1,7 @@
+ <?xml version="1.0" encoding="iso-8859-1"?>
+ 
++<!-- $Revision$ -->
++
+ <chapter id="introduction">
+     <title> Introduction </title>
+ 
+
+
+
+From nobody at sheep.berlios.de  Wed Aug 31 03:58:15 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Wed, 31 Aug 2005 03:58:15 +0200
+Subject: [fpm-cvslog] fpm/docs/xml default.css,1.2,1.3
+Message-ID: <200508310158.j7V1wF607742@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm/docs/xml
+In directory sheep:/tmp/cvs-serv22379
+
+Modified Files:
+	default.css 
+Log Message:
+smaller font for <pre>, otherwise it fscks up the witdth of the table
+
+
+
+Index: default.css
+===================================================================
+RCS file: /cvsroot/fpm/fpm/docs/xml/default.css,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- default.css	30 Aug 2005 00:45:33 -0000	1.2
++++ default.css	31 Aug 2005 01:58:09 -0000	1.3
+@@ -34,6 +34,7 @@
+ pre.screen {
+ 	padding: 4px;
+ 	background: #e0e0e0;
++	font-size: 10pt;
+ }
+ 
+ pre.programlisting {
+
+
+
+From nobody at sheep.berlios.de  Wed Aug 31 03:59:23 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Wed, 31 Aug 2005 03:59:23 +0200
+Subject: [fpm-cvslog] fpm/docs/xml html-common.xsl,1.2,1.3
+Message-ID: <200508310159.j7V1xN607768@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm/docs/xml
+In directory sheep:/tmp/cvs-serv23164
+
+Modified Files:
+	html-common.xsl 
+Log Message:
+add application template (bold face)
+
+
+
+Index: html-common.xsl
+===================================================================
+RCS file: /cvsroot/fpm/fpm/docs/xml/html-common.xsl,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- html-common.xsl	30 Aug 2005 00:30:29 -0000	1.2
++++ html-common.xsl	31 Aug 2005 01:59:20 -0000	1.3
+@@ -52,4 +52,8 @@
+       </xsl:text>
+   </xsl:template>
+ 
++  <xsl:template match="application">
++      <b><xsl:apply-templates/></b>
++  </xsl:template>
++
+ </xsl:stylesheet>
+
+
+
+From nobody at sheep.berlios.de  Wed Aug 31 04:01:36 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Wed, 31 Aug 2005 04:01:36 +0200
+Subject: [fpm-cvslog] fpm/docs/xml/en license.xml,NONE,1.1 documentation.xml,1.2,1.3
+Message-ID: <200508310201.j7V21a607880@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm/docs/xml/en
+In directory sheep:/tmp/cvs-serv23686
+
+Modified Files:
+	documentation.xml 
+Added Files:
+	license.xml 
+Log Message:
+no abstract; addition of license.xml and link to it
+
+
+
+--- NEW FILE: license.xml ---
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- $Revision: 1.1 $ -->
+
+<appendix id="license">
+    <title> License </title>
+
+<screen>
+		GNU Free Documentation License
+		  Version 1.2, November 2002
+
+ Copyright (C) 2000,2001,2002  Free Software Foundation, Inc.
+     51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
+
+
+0. PREAMBLE
+
+The purpose of this License is to make a manual, textbook, or other
+functional and useful document "free" in the sense of freedom: to
+assure everyone the effective freedom to copy and redistribute it,
+with or without modifying it, either commercially or noncommercially.
+Secondarily, this License preserves for the author and publisher a way
+to get credit for their work, while not being considered responsible
+for modifications made by others.
+
+This License is a kind of "copyleft", which means that derivative
+works of the document must themselves be free in the same sense.  It
+complements the GNU General Public License, which is a copyleft
+license designed for free software.
+
+We have designed this License in order to use it for manuals for free
+software, because free software needs free documentation: a free
+program should come with manuals providing the same freedoms that the
+software does.  But this License is not limited to software manuals;
+it can be used for any textual work, regardless of subject matter or
+whether it is published as a printed book.  We recommend this License
+principally for works whose purpose is instruction or reference.
+
+
+1. APPLICABILITY AND DEFINITIONS
+
+This License applies to any manual or other work, in any medium, that
+contains a notice placed by the copyright holder saying it can be
+distributed under the terms of this License.  Such a notice grants a
+world-wide, royalty-free license, unlimited in duration, to use that
+work under the conditions stated herein.  The "Document", below,
+refers to any such manual or work.  Any member of the public is a
+licensee, and is addressed as "you".  You accept the license if you
+copy, modify or distribute the work in a way requiring permission
+under copyright law.
+
+A "Modified Version" of the Document means any work containing the
+Document or a portion of it, either copied verbatim, or with
+modifications and/or translated into another language.
+
+A "Secondary Section" is a named appendix or a front-matter section of
+the Document that deals exclusively with the relationship of the
+publishers or authors of the Document to the Document's overall subject
+(or to related matters) and contains nothing that could fall directly
+within that overall subject.  (Thus, if the Document is in part a
+textbook of mathematics, a Secondary Section may not explain any
+mathematics.)  The relationship could be a matter of historical
+connection with the subject or with related matters, or of legal,
+commercial, philosophical, ethical or political position regarding
+them.
+
+The "Invariant Sections" are certain Secondary Sections whose titles
+are designated, as being those of Invariant Sections, in the notice
+that says that the Document is released under this License.  If a
+section does not fit the above definition of Secondary then it is not
+allowed to be designated as Invariant.  The Document may contain zero
+Invariant Sections.  If the Document does not identify any Invariant
+Sections then there are none.
+
+The "Cover Texts" are certain short passages of text that are listed,
+as Front-Cover Texts or Back-Cover Texts, in the notice that says that
+the Document is released under this License.  A Front-Cover Text may
+be at most 5 words, and a Back-Cover Text may be at most 25 words.
+
+A "Transparent" copy of the Document means a machine-readable copy,
+represented in a format whose specification is available to the
+general public, that is suitable for revising the document
+straightforwardly with generic text editors or (for images composed of
+pixels) generic paint programs or (for drawings) some widely available
+drawing editor, and that is suitable for input to text formatters or
+for automatic translation to a variety of formats suitable for input
+to text formatters.  A copy made in an otherwise Transparent file
+format whose markup, or absence of markup, has been arranged to thwart
+or discourage subsequent modification by readers is not Transparent.
+An image format is not Transparent if used for any substantial amount
+of text.  A copy that is not "Transparent" is called "Opaque".
+
+Examples of suitable formats for Transparent copies include plain
+ASCII without markup, Texinfo input format, LaTeX input format, SGML
+or XML using a publicly available DTD, and standard-conforming simple
+HTML, PostScript or PDF designed for human modification.  Examples of
+transparent image formats include PNG, XCF and JPG.  Opaque formats
+include proprietary formats that can be read and edited only by
+proprietary word processors, SGML or XML for which the DTD and/or
+processing tools are not generally available, and the
+machine-generated HTML, PostScript or PDF produced by some word
+processors for output purposes only.
+
+The "Title Page" means, for a printed book, the title page itself,
+plus such following pages as are needed to hold, legibly, the material
+this License requires to appear in the title page.  For works in
+formats which do not have any title page as such, "Title Page" means
+the text near the most prominent appearance of the work's title,
+preceding the beginning of the body of the text.
+
+A section "Entitled XYZ" means a named subunit of the Document whose
+title either is precisely XYZ or contains XYZ in parentheses following
+text that translates XYZ in another language.  (Here XYZ stands for a
+specific section name mentioned below, such as "Acknowledgements",
+"Dedications", "Endorsements", or "History".)  To "Preserve the Title"
+of such a section when you modify the Document means that it remains a
+section "Entitled XYZ" according to this definition.
+
+The Document may include Warranty Disclaimers next to the notice which
+states that this License applies to the Document.  These Warranty
+Disclaimers are considered to be included by reference in this
+License, but only as regards disclaiming warranties: any other
+implication that these Warranty Disclaimers may have is void and has
+no effect on the meaning of this License.
+
+
+2. VERBATIM COPYING
+
+You may copy and distribute the Document in any medium, either
+commercially or noncommercially, provided that this License, the
+copyright notices, and the license notice saying this License applies
+to the Document are reproduced in all copies, and that you add no other
+conditions whatsoever to those of this License.  You may not use
+technical measures to obstruct or control the reading or further
+copying of the copies you make or distribute.  However, you may accept
+compensation in exchange for copies.  If you distribute a large enough
+number of copies you must also follow the conditions in section 3.
+
+You may also lend copies, under the same conditions stated above, and
+you may publicly display copies.
+
+
+3. COPYING IN QUANTITY
+
+If you publish printed copies (or copies in media that commonly have
+printed covers) of the Document, numbering more than 100, and the
+Document's license notice requires Cover Texts, you must enclose the
+copies in covers that carry, clearly and legibly, all these Cover
+Texts: Front-Cover Texts on the front cover, and Back-Cover Texts on
+the back cover.  Both covers must also clearly and legibly identify
+you as the publisher of these copies.  The front cover must present
+the full title with all words of the title equally prominent and
+visible.  You may add other material on the covers in addition.
+Copying with changes limited to the covers, as long as they preserve
+the title of the Document and satisfy these conditions, can be treated
+as verbatim copying in other respects.
+
+If the required texts for either cover are too voluminous to fit
+legibly, you should put the first ones listed (as many as fit
+reasonably) on the actual cover, and continue the rest onto adjacent
+pages.
+
+If you publish or distribute Opaque copies of the Document numbering
+more than 100, you must either include a machine-readable Transparent
+copy along with each Opaque copy, or state in or with each Opaque copy
+a computer-network location from which the general network-using
+public has access to download using public-standard network protocols
+a complete Transparent copy of the Document, free of added material.
+If you use the latter option, you must take reasonably prudent steps,
+when you begin distribution of Opaque copies in quantity, to ensure
+that this Transparent copy will remain thus accessible at the stated
+location until at least one year after the last time you distribute an
+Opaque copy (directly or through your agents or retailers) of that
+edition to the public.
+
+It is requested, but not required, that you contact the authors of the
+Document well before redistributing any large number of copies, to give
+them a chance to provide you with an updated version of the Document.
+
+
+4. MODIFICATIONS
+
+You may copy and distribute a Modified Version of the Document under
+the conditions of sections 2 and 3 above, provided that you release
+the Modified Version under precisely this License, with the Modified
+Version filling the role of the Document, thus licensing distribution
+and modification of the Modified Version to whoever possesses a copy
+of it.  In addition, you must do these things in the Modified Version:
+
+A. Use in the Title Page (and on the covers, if any) a title distinct
+   from that of the Document, and from those of previous versions
+   (which should, if there were any, be listed in the History section
+   of the Document).  You may use the same title as a previous version
+   if the original publisher of that version gives permission.
+B. List on the Title Page, as authors, one or more persons or entities
+   responsible for authorship of the modifications in the Modified
+   Version, together with at least five of the principal authors of the
+   Document (all of its principal authors, if it has fewer than five),
+   unless they release you from this requirement.
+C. State on the Title page the name of the publisher of the
+   Modified Version, as the publisher.
+D. Preserve all the copyright notices of the Document.
+E. Add an appropriate copyright notice for your modifications
+   adjacent to the other copyright notices.
+F. Include, immediately after the copyright notices, a license notice
+   giving the public permission to use the Modified Version under the
+   terms of this License, in the form shown in the Addendum below.
+G. Preserve in that license notice the full lists of Invariant Sections
+   and required Cover Texts given in the Document's license notice.
+H. Include an unaltered copy of this License.
+I. Preserve the section Entitled "History", Preserve its Title, and add
+   to it an item stating at least the title, year, new authors, and
+   publisher of the Modified Version as given on the Title Page.  If
+   there is no section Entitled "History" in the Document, create one
+   stating the title, year, authors, and publisher of the Document as
+   given on its Title Page, then add an item describing the Modified
+   Version as stated in the previous sentence.
+J. Preserve the network location, if any, given in the Document for
+   public access to a Transparent copy of the Document, and likewise
+   the network locations given in the Document for previous versions
+   it was based on.  These may be placed in the "History" section.
+   You may omit a network location for a work that was published at
+   least four years before the Document itself, or if the original
+   publisher of the version it refers to gives permission.
+K. For any section Entitled "Acknowledgements" or "Dedications",
+   Preserve the Title of the section, and preserve in the section all
+   the substance and tone of each of the contributor acknowledgements
+   and/or dedications given therein.
+L. Preserve all the Invariant Sections of the Document,
+   unaltered in their text and in their titles.  Section numbers
+   or the equivalent are not considered part of the section titles.
+M. Delete any section Entitled "Endorsements".  Such a section
+   may not be included in the Modified Version.
+N. Do not retitle any existing section to be Entitled "Endorsements"
+   or to conflict in title with any Invariant Section.
+O. Preserve any Warranty Disclaimers.
+
+If the Modified Version includes new front-matter sections or
+appendices that qualify as Secondary Sections and contain no material
+copied from the Document, you may at your option designate some or all
+of these sections as invariant.  To do this, add their titles to the
+list of Invariant Sections in the Modified Version's license notice.
+These titles must be distinct from any other section titles.
+
+You may add a section Entitled "Endorsements", provided it contains
+nothing but endorsements of your Modified Version by various
+parties--for example, statements of peer review or that the text has
+been approved by an organization as the authoritative definition of a
+standard.
+
+You may add a passage of up to five words as a Front-Cover Text, and a
+passage of up to 25 words as a Back-Cover Text, to the end of the list
+of Cover Texts in the Modified Version.  Only one passage of
+Front-Cover Text and one of Back-Cover Text may be added by (or
+through arrangements made by) any one entity.  If the Document already
+includes a cover text for the same cover, previously added by you or
+by arrangement made by the same entity you are acting on behalf of,
+you may not add another; but you may replace the old one, on explicit
+permission from the previous publisher that added the old one.
+
+The author(s) and publisher(s) of the Document do not by this License
+give permission to use their names for publicity for or to assert or
+imply endorsement of any Modified Version.
+
+
+5. COMBINING DOCUMENTS
+
+You may combine the Document with other documents released under this
+License, under the terms defined in section 4 above for modified
+versions, provided that you include in the combination all of the
+Invariant Sections of all of the original documents, unmodified, and
+list them all as Invariant Sections of your combined work in its
+license notice, and that you preserve all their Warranty Disclaimers.
+
+The combined work need only contain one copy of this License, and
+multiple identical Invariant Sections may be replaced with a single
+copy.  If there are multiple Invariant Sections with the same name but
+different contents, make the title of each such section unique by
+adding at the end of it, in parentheses, the name of the original
+author or publisher of that section if known, or else a unique number.
+Make the same adjustment to the section titles in the list of
+Invariant Sections in the license notice of the combined work.
+
+In the combination, you must combine any sections Entitled "History"
+in the various original documents, forming one section Entitled
+"History"; likewise combine any sections Entitled "Acknowledgements",
+and any sections Entitled "Dedications".  You must delete all sections
+Entitled "Endorsements".
+
+
+6. COLLECTIONS OF DOCUMENTS
+
+You may make a collection consisting of the Document and other documents
+released under this License, and replace the individual copies of this
+License in the various documents with a single copy that is included in
+the collection, provided that you follow the rules of this License for
+verbatim copying of each of the documents in all other respects.
+
+You may extract a single document from such a collection, and distribute
+it individually under this License, provided you insert a copy of this
+License into the extracted document, and follow this License in all
+other respects regarding verbatim copying of that document.
+
+
+7. AGGREGATION WITH INDEPENDENT WORKS
+
+A compilation of the Document or its derivatives with other separate
+and independent documents or works, in or on a volume of a storage or
+distribution medium, is called an "aggregate" if the copyright
+resulting from the compilation is not used to limit the legal rights
+of the compilation's users beyond what the individual works permit.
+When the Document is included in an aggregate, this License does not
+apply to the other works in the aggregate which are not themselves
+derivative works of the Document.
+
+If the Cover Text requirement of section 3 is applicable to these
+copies of the Document, then if the Document is less than one half of
+the entire aggregate, the Document's Cover Texts may be placed on
+covers that bracket the Document within the aggregate, or the
+electronic equivalent of covers if the Document is in electronic form.
+Otherwise they must appear on printed covers that bracket the whole
+aggregate.
+
+
+8. TRANSLATION
+
+Translation is considered a kind of modification, so you may
+distribute translations of the Document under the terms of section 4.
+Replacing Invariant Sections with translations requires special
+permission from their copyright holders, but you may include
+translations of some or all Invariant Sections in addition to the
+original versions of these Invariant Sections.  You may include a
+translation of this License, and all the license notices in the
+Document, and any Warranty Disclaimers, provided that you also include
+the original English version of this License and the original versions
+of those notices and disclaimers.  In case of a disagreement between
+the translation and the original version of this License or a notice
+or disclaimer, the original version will prevail.
+
+If a section in the Document is Entitled "Acknowledgements",
+"Dedications", or "History", the requirement (section 4) to Preserve
+its Title (section 1) will typically require changing the actual
+title.
+
+
+9. TERMINATION
+
+You may not copy, modify, sublicense, or distribute the Document except
+as expressly provided for under this License.  Any other attempt to
+copy, modify, sublicense or distribute the Document is void, and will
+automatically terminate your rights under this License.  However,
+parties who have received copies, or rights, from you under this
+License will not have their licenses terminated so long as such
+parties remain in full compliance.
+
+
+10. FUTURE REVISIONS OF THIS LICENSE
+
+The Free Software Foundation may publish new, revised versions
+of the GNU Free Documentation License from time to time.  Such new
+versions will be similar in spirit to the present version, but may
+differ in detail to address new problems or concerns.  See
+http://www.gnu.org/copyleft/.
+
+Each version of the License is given a distinguishing version number.
+If the Document specifies that a particular numbered version of this
+License "or any later version" applies to it, you have the option of
+following the terms and conditions either of that specified version or
+of any later version that has been published (not as a draft) by the
+Free Software Foundation.  If the Document does not specify a version
+number of this License, you may choose any version ever published (not
+as a draft) by the Free Software Foundation.
+
+
+ADDENDUM: How to use this License for your documents
+
+To use this License in a document you have written, include a copy of
+the License in the document and put the following copyright and
+license notices just after the title page:
+
+    Copyright (c)  YEAR  YOUR NAME.
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.2
+    or any later version published by the Free Software Foundation;
+    with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+    A copy of the license is included in the section entitled "GNU
+    Free Documentation License".
+
+If you have Invariant Sections, Front-Cover Texts and Back-Cover Texts,
+replace the "with...Texts." line with this:
+
+    with the Invariant Sections being LIST THEIR TITLES, with the
+    Front-Cover Texts being LIST, and with the Back-Cover Texts being LIST.
+
+If you have Invariant Sections without Cover Texts, or some other
+combination of the three, merge those two alternatives to suit the
+situation.
+
+If your document contains nontrivial examples of program code, we
+recommend releasing these examples in parallel under your choice of
+free software license, such as the GNU General Public License,
+to permit their use in free software.
+
+    </screen>
+</appendix>
+
+
+Index: documentation.xml
+===================================================================
+RCS file: /cvsroot/fpm/fpm/docs/xml/en/documentation.xml,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- documentation.xml	30 Aug 2005 23:05:12 -0000	1.2
++++ documentation.xml	31 Aug 2005 02:01:33 -0000	1.3
+@@ -18,12 +18,6 @@
+ 
+     <date> August 26, 2005 </date>
+ 
+-    <abstract>
+-        <para>
+-            This is the abstract.
+-        </para>
+-    </abstract>
+-
+     <legalnotice>
+         <title> License </title>
+         <para>
+@@ -32,7 +26,7 @@
+         published by the Free Software Foundation; with no
+         Invariant Sections, with no Front-Cover texts, and with no Back-Cover
+         Texts. A copy of the license can be found at
+-        http://www.fsf.org/copyleft/fdl.html.
++        the end of this document.
+         </para>
+     </legalnotice>
+ 
+@@ -45,4 +39,6 @@
+ 
+ &introduction.xml;
+ &gettingstarted.xml;
++
++&license.xml;
+ 
+
+
+
+From nobody at sheep.berlios.de  Wed Aug 31 04:03:01 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Wed, 31 Aug 2005 04:03:01 +0200
+Subject: [fpm-cvslog] fpm/docs/xml/en gettingstarted.xml,1.2,1.3 introduction.xml,1.2,1.3
+Message-ID: <200508310203.j7V231607900@bat.berlios.de>
+
+Update of /cvsroot/fpm/fpm/docs/xml/en
+In directory sheep:/tmp/cvs-serv24112
+
+Modified Files:
+	gettingstarted.xml introduction.xml 
+Log Message:
+some actual docs instead of the placeholding text
+
+
+
+Index: gettingstarted.xml
+===================================================================
+RCS file: /cvsroot/fpm/fpm/docs/xml/en/gettingstarted.xml,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- gettingstarted.xml	30 Aug 2005 23:05:12 -0000	1.2
++++ gettingstarted.xml	31 Aug 2005 02:02:58 -0000	1.3
+@@ -5,31 +5,143 @@
+ <chapter id="getting-started">
+     <title> Getting started </title>
+ 
+-    <para>
+-        This is getting started.
+-    </para>
+-
+     <sect1 id="system-requirements">
+         <title> System requirements </title>
+         <para>
+-            About system requirements
++            Basically, all you need is a decent C-compiler. If your compiler
++            doesn't accept the -MM command line option for generation of
++            <application>make</application>
++            dependencies, you need to have
++            <application>makedepend</application> installed.
++            Optionally, if you have
++            <application>indent</application> on your system, it is used
++            to process the generated LUT header file.
++        </para>
++        <para>
++            Running benchmarks does not require any other tools, but if you
++            automatically want to generate barcharts of the results, you need
++            <application>gnuplot</application>,
++            <application>awk</application> and
++            <application>fig2dev</application> with PNG support (which
++            requires libpng).
++        </para>
++        <para>
++            For building your own HTML documentation from the XML files
++            that are in CVS, you need docbook,
++            <application>xmllint</application>,
++            <application>xsltproc</application> and
++            the libraries they depend on, like libxml and libxslt.
++        </para>
++        <para>
++            All configure scripts and Makefiles assume that basic programs
++            like
++            <application>sh</application>,
++            <application>sed</application> and
++            <application>cut</application> are available.
+         </para>
+     </sect1>
+ 
+     <sect1 id="compilation-and-installation">
+         <title> Compilation and installation </title>
+         <para>
+-            About compilation and installation
++            Most of the time, the following will work fine:
+ 
+-            <example>
+-                <title> This is an example </title>
+-                <programlisting>
+-                    a = fp16p16sqrt(b);
+-                    prinf("0.8f\n", fp16p16tof(a));
+-                </programlisting>
+-            </example>
++            <screen>
++                ./configure
++                make
++                make install
++            </screen>
++
++            Configure will figure out what tools are available on your system
++            and how to use them.
++            Running make will build the final macro library header files and
++            make install will install them in the default installation
++            directory, which usualy is /usr/local/include. After that, you
++            can start developping your program and use this library.
++        </para>
++        <para>
++            If this doesn't work, or you want a more fine grained control of
++            the build and installation process, you should run:
++
++            <screen>
++                ./configure --help
++            </screen>
++
++            The next section will describe the
++            <application>configure</application>
++            options in more detail.
++        </para>
++    </sect1>
++
++    <sect1 id="tweaking-the-build-process">
++        <title> Tweaking the build process </title>
++
++        <para>
++            By default,
++            <application>gcc</application>
++            is the C-compiler that's used. You can override that by either
++            setting the CC environment variable or by using the --cc command
++            line option of
++            <application>configure</application>.
+ 
++            <screen>
++                CC=/usr/local/intel/bin/icc ./configure
++            </screen>
++            <screen>
++                ./configure --cc=tcc
++            </screen>
++        </para>
++        <para>
++            You can override the default CFLAGS by setting the environment
++            variable of the same name.
++
++            <screen>
++                CFLAGS=-time ./configure
++            </screen>
++
++            If CFLAGS is set by default in your environment and you don't want
++            that, you can specify an empty CFLAGS= on your command line.
++        </para>
++        <para>
++            You can also specify extra directories to look for include files
++            and libraries. If your compiler can't find math.h by default, or
++            fails to link against libm, you can use:
++
++            <screen>
++                ./configure --with-extraincdir=/opt/some/dir/include
++            </screen>
++            <screen>
++                ./configure --with-extralibdir=/opt/some/dir/lib
++            </screen>
++        </para>
++        <para>
++            If certain applications needed for the build process can't be
++            found in your default PATH, but you are sure they are installed
++            on your system, you can pass the absolute pathnames to
++            <application>configure</application>:
++
++            <screen>
++                ./configure --with-makedepend=/not/in/my/path/bin/makedepend
++            </screen>
++
++            Similar options are available for all applications that might
++            be needed for the basic build process or for running benchmarks
++            and generating barcharts. Check ./configure --help for a list
++            of all available options.
++        </para>
++        <para>
++            If you plan to work on the library itself, maybe enhance its
++            functionality or improve the algorithms that are currently in use,
++            you can enable debug symbols and/or all compiler warnings:
++
++            <screen>
++                ./configure --enable-debug
++            </screen>
++            <screen>
++                ./configure --enable-warnings
++            </screen>
+         </para>
+     </sect1>
++
+ </chapter>
+ 
+
+Index: introduction.xml
+===================================================================
+RCS file: /cvsroot/fpm/fpm/docs/xml/en/introduction.xml,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- introduction.xml	30 Aug 2005 23:05:12 -0000	1.2
++++ introduction.xml	31 Aug 2005 02:02:58 -0000	1.3
+@@ -5,14 +5,41 @@
+ <chapter id="introduction">
+     <title> Introduction </title>
+ 
+-    <para>
+-        This is the introduction
+-    </para>
+-
+     <sect1 id="about-this-library">
+         <title> About this library </title>
+         <para>
+-            This library is about...
++            This is a macro library written in the C programming language,
++            and implements fixed point arithmetic. Although current
++            state-of-the-art FPU's are getting faster and faster, it might
++            still be beneficial to implement your algorithms with fixed point
++            arithmetic to gain even higher speeds, although at the cost of
++            precission. Fixed point arithmetic is less precise than floating
++            point arithmetic, but lots of times, the extra precission is
++            not needed.
++        </para>
++        <para>
++            I chose to implement this library as a set of macro's instead of
++            functions, to avoid having the extra overhead of function calls.
++            This might add a little to the codesize of the program that
++            utilizes this library, but assures you that no precious clockcycles
++            are wasted by saving and restoring CPU registers.
++        </para>
++        <para>
++            Possible fields of use are:
++            <itemizedlist>
++                <listitem> <para>
++                        Games
++                </para> </listitem>
++                <listitem> <para>
++                        Embedded systems
++                </para> </listitem>
++                <listitem> <para>
++                        Audio and video filtering
++                </para> </listitem>
++                <listitem> <para>
++                        Optimized codecs
++                </para> </listitem>
++            </itemizedlist>
+         </para>
+     </sect1>
+ 
+
+
+
+From nobody at sheep.berlios.de  Wed Aug 31 04:05:59 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Wed, 31 Aug 2005 04:05:59 +0200
+Subject: [fpm-cvslog] website/docs/HTML/en compilation-and-installation.html,1.1,1.2 default.css,1.2,1.3 getting-started.html,1.1,1.2 index.html,1.1,1.2 introduction.html,1.1,1.2
+Message-ID: <200508310205.j7V25x607945@bat.berlios.de>
+
+Update of /cvsroot/fpm/website/docs/HTML/en
+In directory sheep:/tmp/cvs-serv24819/HTML/en
+
+Modified Files:
+	compilation-and-installation.html default.css 
+	getting-started.html index.html introduction.html 
+Log Message:
+sync with current XML docs
+
+
+
+Index: compilation-and-installation.html
+===================================================================
+RCS file: /cvsroot/fpm/website/docs/HTML/en/compilation-and-installation.html,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- compilation-and-installation.html	30 Aug 2005 00:32:47 -0000	1.1
++++ compilation-and-installation.html	31 Aug 2005 02:05:57 -0000	1.2
+@@ -1,17 +1,35 @@
+-<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>2.2.  Compilation and installation </title><link rel="stylesheet" href="default.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.48"><link rel="home" href="index.html" title=" Fixed Point Math Macro Library "><link rel="up" href="getting-started.html" title="Chapter 2.  Getting started "><link rel="previous" href="getting-started.html" title="Chapter 2.  Getting started "></head><body text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
++<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>2.2.  Compilation and installation </title><link rel="stylesheet" href="default.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.48"><link rel="home" href="index.html" title=" Fixed Point Math Macro Library "><link rel="up" href="getting-started.html" title="Chapter 2.  Getting started "><link rel="previous" href="getting-started.html" title="Chapter 2.  Getting started "><link rel="next" href="tweaking-the-build-process.html" title="2.3.  Tweaking the build process "></head><body text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+           <table bgcolor="#f0f0f0" width="700" border="0" cellspacing="0" cellpadding="16" height="1000" > <tr> <td valign="top" align="left">
+-      <div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="getting-started.html">Prev</a>?</td><th width="60%" align="center">?</th><td width="20%" align="right">?</td></tr></table><hr></div>
++      <div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="getting-started.html">Prev</a>?</td><th width="60%" align="center">?</th><td width="20%" align="right">?<a accesskey="n" href="tweaking-the-build-process.html">Next</a></td></tr></table><hr></div>
+           
+       <div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="compilation-and-installation"></a>2.2.  Compilation and installation </h2></div></div><p>
+-            About compilation and installation
++            Most of the time, the following will work fine:
+ 
+-            <div class="example"><p><b>Example 2.1.  This is an example </b></p><pre class="programlisting">
+-                    a = fp16p16sqrt(b);
+-                    prinf("0.8f\n", fp16p16tof(a));
+-                </pre></div>
++            <pre class="screen">
++                ./configure
++                make
++                make install
++            </pre>
++
++            Configure will figure out what tools are available on your system
++            and how to use them.
++            Running make will build the final macro library header files and
++            make install will install them in the default installation
++            directory, which usualy is /usr/local/include. After that, you
++            can start developping your program and use this library.
++        </p><p>
++            If this doesn't work, or you want a more fine grained control of
++            the build and installation process, you should run:
+ 
++            <pre class="screen">
++                ./configure --help
++            </pre>
++
++            The next section will describe the
++            <b>configure</b>
++            options in more detail.
+         </p></div>
+           
+-      <div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="getting-started.html">Prev</a>?</td><td width="20%" align="center"><a accesskey="u" href="getting-started.html">Up</a></td><td width="40%" align="right">?</td></tr><tr><td width="40%" align="left" valign="top">?</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">?</td></tr></table></div>
++      <div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="getting-started.html">Prev</a>?</td><td width="20%" align="center"><a accesskey="u" href="getting-started.html">Up</a></td><td width="40%" align="right">?<a accesskey="n" href="tweaking-the-build-process.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">?</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">?</td></tr></table></div>
+           </td> </tr> </table>
+       </body></html>
+
+Index: default.css
+===================================================================
+RCS file: /cvsroot/fpm/website/docs/HTML/en/default.css,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- default.css	30 Aug 2005 00:48:41 -0000	1.2
++++ default.css	31 Aug 2005 02:05:57 -0000	1.3
+@@ -34,6 +34,7 @@
+ pre.screen {
+ 	padding: 4px;
+ 	background: #e0e0e0;
++	font-size: 10pt;
+ }
+ 
+ pre.programlisting {
+
+Index: getting-started.html
+===================================================================
+RCS file: /cvsroot/fpm/website/docs/HTML/en/getting-started.html,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- getting-started.html	30 Aug 2005 00:32:47 -0000	1.1
++++ getting-started.html	31 Aug 2005 02:05:57 -0000	1.2
+@@ -2,10 +2,34 @@
+           <table bgcolor="#f0f0f0" width="700" border="0" cellspacing="0" cellpadding="16" height="1000" > <tr> <td valign="top" align="left">
+       <div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="introduction.html">Prev</a>?</td><th width="60%" align="center">?</th><td width="20%" align="right">?<a accesskey="n" href="compilation-and-installation.html">Next</a></td></tr></table><hr></div>
+           
+-      <div class="chapter"><div class="titlepage"><div><h2 class="title"><a name="getting-started"></a>Chapter 2.  Getting started </h2></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt>2.1. <a href="getting-started.html#system-requirements"> System requirements </a></dt><dt>2.2. <a href="compilation-and-installation.html"> Compilation and installation </a></dt></dl></div><p>
+-        This is getting started.
+-    </p><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="system-requirements"></a>2.1.  System requirements </h2></div></div><p>
+-            About system requirements
++      <div class="chapter"><div class="titlepage"><div><h2 class="title"><a name="getting-started"></a>Chapter 2.  Getting started </h2></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt>2.1. <a href="getting-started.html#system-requirements"> System requirements </a></dt><dt>2.2. <a href="compilation-and-installation.html"> Compilation and installation </a></dt><dt>2.3. <a href="tweaking-the-build-process.html"> Tweaking the build process </a></dt></dl></div><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="system-requirements"></a>2.1.  System requirements </h2></div></div><p>
++            Basically, all you need is a decent C-compiler. If your compiler
++            doesn't accept the -MM command line option for generation of
++            <b>make</b>
++            dependencies, you need to have
++            <b>makedepend</b> installed.
++            Optionally, if you have
++            <b>indent</b> on your system, it is used
++            to process the generated LUT header file.
++        </p><p>
++            Running benchmarks does not require any other tools, but if you
++            automatically want to generate barcharts of the results, you need
++            <b>gnuplot</b>,
++            <b>awk</b> and
++            <b>fig2dev</b> with PNG support (which
++            requires libpng).
++        </p><p>
++            For building your own HTML documentation from the XML files
++            that are in CVS, you need docbook,
++            <b>xmllint</b>,
++            <b>xsltproc</b> and
++            the libraries they depend on, like libxml and libxslt.
++        </p><p>
++            All configure scripts and Makefiles assume that basic programs
++            like
++            <b>sh</b>,
++            <b>sed</b> and
++            <b>cut</b> are available.
+         </p></div></div>
+           
+       <div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="introduction.html">Prev</a>?</td><td width="20%" align="center"><a accesskey="u" href="index.html">Up</a></td><td width="40%" align="right">?<a accesskey="n" href="compilation-and-installation.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">?</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">?</td></tr></table></div>
+
+Index: index.html
+===================================================================
+RCS file: /cvsroot/fpm/website/docs/HTML/en/index.html,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- index.html	30 Aug 2005 00:32:47 -0000	1.1
++++ index.html	31 Aug 2005 02:05:57 -0000	1.2
+@@ -10,10 +10,8 @@
+         published by the Free Software Foundation; with no
+         Invariant Sections, with no Front-Cover texts, and with no Back-Cover
+         Texts. A copy of the license can be found at
+-        http://www.fsf.org/copyleft/fdl.html.
+-        </p></div></div><div><div class="abstract"><p><b>Abstract</b></p><p>
+-            This is the abstract.
+-        </p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt>1. <a href="introduction.html"> Introduction </a></dt><dd><dl><dt>1.1. <a href="introduction.html#about-this-library"> About this library </a></dt></dl></dd><dt>2. <a href="getting-started.html"> Getting started </a></dt><dd><dl><dt>2.1. <a href="getting-started.html#system-requirements"> System requirements </a></dt><dt>2.2. <a href="compilation-and-installation.html"> Compilation and installation </a></dt></dl></dd></dl></div></div>
++        the end of this document.
++        </p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt>1. <a href="introduction.html"> Introduction </a></dt><dd><dl><dt>1.1. <a href="introduction.html#about-this-library"> About this library </a></dt></dl></dd><dt>2. <a href="getting-started.html"> Getting started </a></dt><dd><dl><dt>2.1. <a href="getting-started.html#system-requirements"> System requirements </a></dt><dt>2.2. <a href="compilation-and-installation.html"> Compilation and installation </a></dt><dt>2.3. <a href="tweaking-the-build-process.html"> Tweaking the build process </a></dt></dl></dd><dt>A. <a href="license.html"> License </a></dt></dl></div></div>
+           
+       <div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left">?</td><td width="20%" align="center">?</td><td width="40%" align="right">?<a accesskey="n" href="introduction.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">?</td><td width="20%" align="center">?</td><td width="40%" align="right" valign="top">?</td></tr></table></div>
+           </td> </tr> </table>
+
+Index: introduction.html
+===================================================================
+RCS file: /cvsroot/fpm/website/docs/HTML/en/introduction.html,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- introduction.html	30 Aug 2005 00:32:47 -0000	1.1
++++ introduction.html	31 Aug 2005 02:05:57 -0000	1.2
+@@ -2,10 +2,32 @@
+           <table bgcolor="#f0f0f0" width="700" border="0" cellspacing="0" cellpadding="16" height="1000" > <tr> <td valign="top" align="left">
+       <div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="index.html">Prev</a>?</td><th width="60%" align="center">?</th><td width="20%" align="right">?<a accesskey="n" href="getting-started.html">Next</a></td></tr></table><hr></div>
+           
+-      <div class="chapter"><div class="titlepage"><div><h2 class="title"><a name="introduction"></a>Chapter 1.  Introduction </h2></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt>1.1. <a href="introduction.html#about-this-library"> About this library </a></dt></dl></div><p>
+-        This is the introduction
+-    </p><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="about-this-library"></a>1.1.  About this library </h2></div></div><p>
+-            This library is about...
++      <div class="chapter"><div class="titlepage"><div><h2 class="title"><a name="introduction"></a>Chapter 1.  Introduction </h2></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt>1.1. <a href="introduction.html#about-this-library"> About this library </a></dt></dl></div><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="about-this-library"></a>1.1.  About this library </h2></div></div><p>
++            This is a macro library written in the C programming language,
++            and implements fixed point arithmetic. Although current
++            state-of-the-art FPU's are getting faster and faster, it might
++            still be beneficial to implement your algorithms with fixed point
++            arithmetic to gain even higher speeds, although at the cost of
++            precission. Fixed point arithmetic is less precise than floating
++            point arithmetic, but lots of times, the extra precission is
++            not needed.
++        </p><p>
++            I chose to implement this library as a set of macro's instead of
++            functions, to avoid having the extra overhead of function calls.
++            This might add a little to the codesize of the program that
++            utilizes this library, but assures you that no precious clockcycles
++            are wasted by saving and restoring CPU registers.
++        </p><p>
++            Possible fields of use are:
++            <div class="itemizedlist"><ul type="disc"><li><p>
++                        Games
++                </p></li><li><p>
++                        Embedded systems
++                </p></li><li><p>
++                        Audio and video filtering
++                </p></li><li><p>
++                        Optimized codecs
++                </p></li></ul></div>
+         </p></div></div>
+           
+       <div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="index.html">Prev</a>?</td><td width="20%" align="center"><a accesskey="u" href="index.html">Up</a></td><td width="40%" align="right">?<a accesskey="n" href="getting-started.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">?</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">?</td></tr></table></div>
+
+
+
+From nobody at sheep.berlios.de  Wed Aug 31 04:06:00 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Wed, 31 Aug 2005 04:06:00 +0200
+Subject: [fpm-cvslog] website/docs/HTML-single/en default.css,1.2,1.3 index.html,1.1,1.2
+Message-ID: <200508310206.j7V260607949@bat.berlios.de>
+
+Update of /cvsroot/fpm/website/docs/HTML-single/en
+In directory sheep:/tmp/cvs-serv24819/HTML-single/en
+
+Modified Files:
+	default.css index.html 
+Log Message:
+sync with current XML docs
+
+
+
+Index: default.css
+===================================================================
+RCS file: /cvsroot/fpm/website/docs/HTML-single/en/default.css,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -u -d -r1.2 -r1.3
+--- default.css	30 Aug 2005 00:48:42 -0000	1.2
++++ default.css	31 Aug 2005 02:05:57 -0000	1.3
+@@ -34,6 +34,7 @@
+ pre.screen {
+ 	padding: 4px;
+ 	background: #e0e0e0;
++	font-size: 10pt;
+ }
+ 
+ pre.programlisting {
+
+Index: index.html
+===================================================================
+RCS file: /cvsroot/fpm/website/docs/HTML-single/en/index.html,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -u -d -r1.1 -r1.2
+--- index.html	30 Aug 2005 00:33:36 -0000	1.1
++++ index.html	31 Aug 2005 02:05:57 -0000	1.2
+@@ -8,25 +8,545 @@
+         published by the Free Software Foundation; with no
+         Invariant Sections, with no Front-Cover texts, and with no Back-Cover
+         Texts. A copy of the license can be found at
+-        http://www.fsf.org/copyleft/fdl.html.
+-        </p></div></div><div><div class="abstract"><p><b>Abstract</b></p><p>
+-            This is the abstract.
+-        </p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt>1. <a href="#introduction"> Introduction </a></dt><dd><dl><dt>1.1. <a href="#about-this-library"> About this library </a></dt></dl></dd><dt>2. <a href="#getting-started"> Getting started </a></dt><dd><dl><dt>2.1. <a href="#system-requirements"> System requirements </a></dt><dt>2.2. <a href="#compilation-and-installation"> Compilation and installation </a></dt></dl></dd></dl></div><div class="chapter"><div class="titlepage"><div><h2 class="title"><a name="introduction"></a>Chapter 1.  Introduction </h2></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt>1.1. <a href="#about-this-library"> About this library </a></dt></dl></div><p>
+-        This is the introduction
+-    </p><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="about-this-library"></a>1.1.  About this library </h2></div></div><p>
+-            This library is about...
+-        </p></div></div><div class="chapter"><div class="titlepage"><div><h2 class="title"><a name="getting-started"></a>Chapter 2.  Getting started </h2></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt>2.1. <a href="#system-requirements"> System requirements </a></dt><dt>2.2. <a href="#compilation-and-installation"> Compilation and installation </a></dt></dl></div><p>
+-        This is getting started.
+-    </p><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="system-requirements"></a>2.1.  System requirements </h2></div></div><p>
+-            About system requirements
++        the end of this document.
++        </p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt>1. <a href="#introduction"> Introduction </a></dt><dd><dl><dt>1.1. <a href="#about-this-library"> About this library </a></dt></dl></dd><dt>2. <a href="#getting-started"> Getting started </a></dt><dd><dl><dt>2.1. <a href="#system-requirements"> System requirements </a></dt><dt>2.2. <a href="#compilation-and-installation"> Compilation and installation </a></dt><dt>2.3. <a href="#tweaking-the-build-process"> Tweaking the build process </a></dt></dl></dd><dt>A. <a href="#license"> License </a></dt></dl></div><div class="chapter"><div class="titlepage"><div><h2 class="title"><a name="introduction"></a>Chapter 1.  Introduction </h2></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt>1.1. <a href="#about-this-library"> About this library </a></dt></dl></div><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="about-this-library"></a>1.1.  About this library </h2></div></div><p>
++            This is a macro library written in the C programming language,
++            and implements fixed point arithmetic. Although current
++            state-of-the-art FPU's are getting faster and faster, it might
++            still be beneficial to implement your algorithms with fixed point
++            arithmetic to gain even higher speeds, although at the cost of
++            precission. Fixed point arithmetic is less precise than floating
++            point arithmetic, but lots of times, the extra precission is
++            not needed.
++        </p><p>
++            I chose to implement this library as a set of macro's instead of
++            functions, to avoid having the extra overhead of function calls.
++            This might add a little to the codesize of the program that
++            utilizes this library, but assures you that no precious clockcycles
++            are wasted by saving and restoring CPU registers.
++        </p><p>
++            Possible fields of use are:
++            <div class="itemizedlist"><ul type="disc"><li><p>
++                        Games
++                </p></li><li><p>
++                        Embedded systems
++                </p></li><li><p>
++                        Audio and video filtering
++                </p></li><li><p>
++                        Optimized codecs
++                </p></li></ul></div>
++        </p></div></div><div class="chapter"><div class="titlepage"><div><h2 class="title"><a name="getting-started"></a>Chapter 2.  Getting started </h2></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt>2.1. <a href="#system-requirements"> System requirements </a></dt><dt>2.2. <a href="#compilation-and-installation"> Compilation and installation </a></dt><dt>2.3. <a href="#tweaking-the-build-process"> Tweaking the build process </a></dt></dl></div><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="system-requirements"></a>2.1.  System requirements </h2></div></div><p>
++            Basically, all you need is a decent C-compiler. If your compiler
++            doesn't accept the -MM command line option for generation of
++            <b>make</b>
++            dependencies, you need to have
++            <b>makedepend</b> installed.
++            Optionally, if you have
++            <b>indent</b> on your system, it is used
++            to process the generated LUT header file.
++        </p><p>
++            Running benchmarks does not require any other tools, but if you
++            automatically want to generate barcharts of the results, you need
++            <b>gnuplot</b>,
++            <b>awk</b> and
++            <b>fig2dev</b> with PNG support (which
++            requires libpng).
++        </p><p>
++            For building your own HTML documentation from the XML files
++            that are in CVS, you need docbook,
++            <b>xmllint</b>,
++            <b>xsltproc</b> and
++            the libraries they depend on, like libxml and libxslt.
++        </p><p>
++            All configure scripts and Makefiles assume that basic programs
++            like
++            <b>sh</b>,
++            <b>sed</b> and
++            <b>cut</b> are available.
+         </p></div><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="compilation-and-installation"></a>2.2.  Compilation and installation </h2></div></div><p>
+-            About compilation and installation
++            Most of the time, the following will work fine:
+ 
+-            <div class="example"><p><b>Example 2.1.  This is an example </b></p><pre class="programlisting">
+-                    a = fp16p16sqrt(b);
+-                    prinf("0.8f\n", fp16p16tof(a));
+-                </pre></div>
++            <pre class="screen">
++                ./configure
++                make
++                make install
++            </pre>
+ 
+-        </p></div></div></div>
++            Configure will figure out what tools are available on your system
++            and how to use them.
++            Running make will build the final macro library header files and
++            make install will install them in the default installation
++            directory, which usualy is /usr/local/include. After that, you
++            can start developping your program and use this library.
++        </p><p>
++            If this doesn't work, or you want a more fine grained control of
++            the build and installation process, you should run:
++
++            <pre class="screen">
++                ./configure --help
++            </pre>
++
++            The next section will describe the
++            <b>configure</b>
++            options in more detail.
++        </p></div><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="tweaking-the-build-process"></a>2.3.  Tweaking the build process </h2></div></div><p>
++            By default,
++            <b>gcc</b>
++            is the C-compiler that's used. You can override that by either
++            setting the CC environment variable or by using the --cc command
++            line option of
++            <b>configure</b>.
++
++            <pre class="screen">
++                CC=/usr/local/intel/bin/icc ./configure
++            </pre>
++            <pre class="screen">
++                ./configure --cc=tcc
++            </pre>
++        </p><p>
++            You can override the default CFLAGS by setting the environment
++            variable of the same name.
++
++            <pre class="screen">
++                CFLAGS=-time ./configure
++            </pre>
++
++            If CFLAGS is set by default in your environment and you don't want
++            that, you can specify an empty CFLAGS= on your command line.
++        </p><p>
++            You can also specify extra directories to look for include files
++            and libraries. If your compiler can't find math.h by default, or
++            fails to link against libm, you can use:
++
++            <pre class="screen">
++                ./configure --with-extraincdir=/opt/some/dir/include
++            </pre>
++            <pre class="screen">
++                ./configure --with-extralibdir=/opt/some/dir/lib
++            </pre>
++        </p><p>
++            If certain applications needed for the build process can't be
++            found in your default PATH, but you are sure they are installed
++            on your system, you can pass the absolute pathnames to
++            <b>configure</b>:
++
++            <pre class="screen">
++                ./configure --with-makedepend=/not/in/my/path/bin/makedepend
++            </pre>
++
++            Similar options are available for all applications that might
++            be needed for the basic build process or for running benchmarks
++            and generating barcharts. Check ./configure --help for a list
++            of all available options.
++        </p><p>
++            If you plan to work on the library itself, maybe enhance its
++            functionality or improve the algorithms that are currently in use,
++            you can enable debug symbols and/or all compiler warnings:
++
++            <pre class="screen">
++                ./configure --enable-debug
++            </pre>
++            <pre class="screen">
++                ./configure --enable-warnings
++            </pre>
++        </p></div></div><div class="appendix"><div class="titlepage"><div><h2 class="title"><a name="license"></a>Appendix A.  License </h2></div></div><pre class="screen">
++		GNU Free Documentation License
++		  Version 1.2, November 2002
++
++ Copyright (C) 2000,2001,2002  Free Software Foundation, Inc.
++     51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
++ Everyone is permitted to copy and distribute verbatim copies
++ of this license document, but changing it is not allowed.
++
++
++0. PREAMBLE
++
++The purpose of this License is to make a manual, textbook, or other
++functional and useful document "free" in the sense of freedom: to
++assure everyone the effective freedom to copy and redistribute it,
++with or without modifying it, either commercially or noncommercially.
++Secondarily, this License preserves for the author and publisher a way
++to get credit for their work, while not being considered responsible
++for modifications made by others.
++
++This License is a kind of "copyleft", which means that derivative
++works of the document must themselves be free in the same sense.  It
++complements the GNU General Public License, which is a copyleft
++license designed for free software.
++
++We have designed this License in order to use it for manuals for free
++software, because free software needs free documentation: a free
++program should come with manuals providing the same freedoms that the
++software does.  But this License is not limited to software manuals;
++it can be used for any textual work, regardless of subject matter or
++whether it is published as a printed book.  We recommend this License
++principally for works whose purpose is instruction or reference.
++
++
++1. APPLICABILITY AND DEFINITIONS
++
++This License applies to any manual or other work, in any medium, that
++contains a notice placed by the copyright holder saying it can be
++distributed under the terms of this License.  Such a notice grants a
++world-wide, royalty-free license, unlimited in duration, to use that
++work under the conditions stated herein.  The "Document", below,
++refers to any such manual or work.  Any member of the public is a
++licensee, and is addressed as "you".  You accept the license if you
++copy, modify or distribute the work in a way requiring permission
++under copyright law.
++
++A "Modified Version" of the Document means any work containing the
++Document or a portion of it, either copied verbatim, or with
++modifications and/or translated into another language.
++
++A "Secondary Section" is a named appendix or a front-matter section of
++the Document that deals exclusively with the relationship of the
++publishers or authors of the Document to the Document's overall subject
++(or to related matters) and contains nothing that could fall directly
++within that overall subject.  (Thus, if the Document is in part a
++textbook of mathematics, a Secondary Section may not explain any
++mathematics.)  The relationship could be a matter of historical
++connection with the subject or with related matters, or of legal,
++commercial, philosophical, ethical or political position regarding
++them.
++
++The "Invariant Sections" are certain Secondary Sections whose titles
++are designated, as being those of Invariant Sections, in the notice
++that says that the Document is released under this License.  If a
++section does not fit the above definition of Secondary then it is not
++allowed to be designated as Invariant.  The Document may contain zero
++Invariant Sections.  If the Document does not identify any Invariant
++Sections then there are none.
++
++The "Cover Texts" are certain short passages of text that are listed,
++as Front-Cover Texts or Back-Cover Texts, in the notice that says that
++the Document is released under this License.  A Front-Cover Text may
++be at most 5 words, and a Back-Cover Text may be at most 25 words.
++
++A "Transparent" copy of the Document means a machine-readable copy,
++represented in a format whose specification is available to the
++general public, that is suitable for revising the document
++straightforwardly with generic text editors or (for images composed of
++pixels) generic paint programs or (for drawings) some widely available
++drawing editor, and that is suitable for input to text formatters or
++for automatic translation to a variety of formats suitable for input
++to text formatters.  A copy made in an otherwise Transparent file
++format whose markup, or absence of markup, has been arranged to thwart
++or discourage subsequent modification by readers is not Transparent.
++An image format is not Transparent if used for any substantial amount
++of text.  A copy that is not "Transparent" is called "Opaque".
++
++Examples of suitable formats for Transparent copies include plain
++ASCII without markup, Texinfo input format, LaTeX input format, SGML
++or XML using a publicly available DTD, and standard-conforming simple
++HTML, PostScript or PDF designed for human modification.  Examples of
++transparent image formats include PNG, XCF and JPG.  Opaque formats
++include proprietary formats that can be read and edited only by
++proprietary word processors, SGML or XML for which the DTD and/or
++processing tools are not generally available, and the
++machine-generated HTML, PostScript or PDF produced by some word
++processors for output purposes only.
++
++The "Title Page" means, for a printed book, the title page itself,
++plus such following pages as are needed to hold, legibly, the material
++this License requires to appear in the title page.  For works in
++formats which do not have any title page as such, "Title Page" means
++the text near the most prominent appearance of the work's title,
++preceding the beginning of the body of the text.
++
++A section "Entitled XYZ" means a named subunit of the Document whose
++title either is precisely XYZ or contains XYZ in parentheses following
++text that translates XYZ in another language.  (Here XYZ stands for a
++specific section name mentioned below, such as "Acknowledgements",
++"Dedications", "Endorsements", or "History".)  To "Preserve the Title"
++of such a section when you modify the Document means that it remains a
++section "Entitled XYZ" according to this definition.
++
++The Document may include Warranty Disclaimers next to the notice which
++states that this License applies to the Document.  These Warranty
++Disclaimers are considered to be included by reference in this
++License, but only as regards disclaiming warranties: any other
++implication that these Warranty Disclaimers may have is void and has
++no effect on the meaning of this License.
++
++
++2. VERBATIM COPYING
++
++You may copy and distribute the Document in any medium, either
++commercially or noncommercially, provided that this License, the
++copyright notices, and the license notice saying this License applies
++to the Document are reproduced in all copies, and that you add no other
++conditions whatsoever to those of this License.  You may not use
++technical measures to obstruct or control the reading or further
++copying of the copies you make or distribute.  However, you may accept
++compensation in exchange for copies.  If you distribute a large enough
++number of copies you must also follow the conditions in section 3.
++
++You may also lend copies, under the same conditions stated above, and
++you may publicly display copies.
++
++
++3. COPYING IN QUANTITY
++
++If you publish printed copies (or copies in media that commonly have
++printed covers) of the Document, numbering more than 100, and the
++Document's license notice requires Cover Texts, you must enclose the
++copies in covers that carry, clearly and legibly, all these Cover
++Texts: Front-Cover Texts on the front cover, and Back-Cover Texts on
++the back cover.  Both covers must also clearly and legibly identify
++you as the publisher of these copies.  The front cover must present
++the full title with all words of the title equally prominent and
++visible.  You may add other material on the covers in addition.
++Copying with changes limited to the covers, as long as they preserve
++the title of the Document and satisfy these conditions, can be treated
++as verbatim copying in other respects.
++
++If the required texts for either cover are too voluminous to fit
++legibly, you should put the first ones listed (as many as fit
++reasonably) on the actual cover, and continue the rest onto adjacent
++pages.
++
++If you publish or distribute Opaque copies of the Document numbering
++more than 100, you must either include a machine-readable Transparent
++copy along with each Opaque copy, or state in or with each Opaque copy
++a computer-network location from which the general network-using
++public has access to download using public-standard network protocols
++a complete Transparent copy of the Document, free of added material.
++If you use the latter option, you must take reasonably prudent steps,
++when you begin distribution of Opaque copies in quantity, to ensure
++that this Transparent copy will remain thus accessible at the stated
++location until at least one year after the last time you distribute an
++Opaque copy (directly or through your agents or retailers) of that
++edition to the public.
++
++It is requested, but not required, that you contact the authors of the
++Document well before redistributing any large number of copies, to give
++them a chance to provide you with an updated version of the Document.
++
++
++4. MODIFICATIONS
++
++You may copy and distribute a Modified Version of the Document under
++the conditions of sections 2 and 3 above, provided that you release
++the Modified Version under precisely this License, with the Modified
++Version filling the role of the Document, thus licensing distribution
++and modification of the Modified Version to whoever possesses a copy
++of it.  In addition, you must do these things in the Modified Version:
++
++A. Use in the Title Page (and on the covers, if any) a title distinct
++   from that of the Document, and from those of previous versions
++   (which should, if there were any, be listed in the History section
++   of the Document).  You may use the same title as a previous version
++   if the original publisher of that version gives permission.
++B. List on the Title Page, as authors, one or more persons or entities
++   responsible for authorship of the modifications in the Modified
++   Version, together with at least five of the principal authors of the
++   Document (all of its principal authors, if it has fewer than five),
++   unless they release you from this requirement.
++C. State on the Title page the name of the publisher of the
++   Modified Version, as the publisher.
++D. Preserve all the copyright notices of the Document.
++E. Add an appropriate copyright notice for your modifications
++   adjacent to the other copyright notices.
++F. Include, immediately after the copyright notices, a license notice
++   giving the public permission to use the Modified Version under the
++   terms of this License, in the form shown in the Addendum below.
++G. Preserve in that license notice the full lists of Invariant Sections
++   and required Cover Texts given in the Document's license notice.
++H. Include an unaltered copy of this License.
++I. Preserve the section Entitled "History", Preserve its Title, and add
++   to it an item stating at least the title, year, new authors, and
++   publisher of the Modified Version as given on the Title Page.  If
++   there is no section Entitled "History" in the Document, create one
++   stating the title, year, authors, and publisher of the Document as
++   given on its Title Page, then add an item describing the Modified
++   Version as stated in the previous sentence.
++J. Preserve the network location, if any, given in the Document for
++   public access to a Transparent copy of the Document, and likewise
++   the network locations given in the Document for previous versions
++   it was based on.  These may be placed in the "History" section.
++   You may omit a network location for a work that was published at
++   least four years before the Document itself, or if the original
++   publisher of the version it refers to gives permission.
++K. For any section Entitled "Acknowledgements" or "Dedications",
++   Preserve the Title of the section, and preserve in the section all
++   the substance and tone of each of the contributor acknowledgements
++   and/or dedications given therein.
++L. Preserve all the Invariant Sections of the Document,
++   unaltered in their text and in their titles.  Section numbers
++   or the equivalent are not considered part of the section titles.
++M. Delete any section Entitled "Endorsements".  Such a section
++   may not be included in the Modified Version.
++N. Do not retitle any existing section to be Entitled "Endorsements"
++   or to conflict in title with any Invariant Section.
++O. Preserve any Warranty Disclaimers.
++
++If the Modified Version includes new front-matter sections or
++appendices that qualify as Secondary Sections and contain no material
++copied from the Document, you may at your option designate some or all
++of these sections as invariant.  To do this, add their titles to the
++list of Invariant Sections in the Modified Version's license notice.
++These titles must be distinct from any other section titles.
++
++You may add a section Entitled "Endorsements", provided it contains
++nothing but endorsements of your Modified Version by various
++parties--for example, statements of peer review or that the text has
++been approved by an organization as the authoritative definition of a
++standard.
++
++You may add a passage of up to five words as a Front-Cover Text, and a
++passage of up to 25 words as a Back-Cover Text, to the end of the list
++of Cover Texts in the Modified Version.  Only one passage of
++Front-Cover Text and one of Back-Cover Text may be added by (or
++through arrangements made by) any one entity.  If the Document already
++includes a cover text for the same cover, previously added by you or
++by arrangement made by the same entity you are acting on behalf of,
++you may not add another; but you may replace the old one, on explicit
++permission from the previous publisher that added the old one.
++
++The author(s) and publisher(s) of the Document do not by this License
++give permission to use their names for publicity for or to assert or
++imply endorsement of any Modified Version.
++
++
++5. COMBINING DOCUMENTS
++
++You may combine the Document with other documents released under this
++License, under the terms defined in section 4 above for modified
++versions, provided that you include in the combination all of the
++Invariant Sections of all of the original documents, unmodified, and
++list them all as Invariant Sections of your combined work in its
++license notice, and that you preserve all their Warranty Disclaimers.
++
++The combined work need only contain one copy of this License, and
++multiple identical Invariant Sections may be replaced with a single
++copy.  If there are multiple Invariant Sections with the same name but
++different contents, make the title of each such section unique by
++adding at the end of it, in parentheses, the name of the original
++author or publisher of that section if known, or else a unique number.
++Make the same adjustment to the section titles in the list of
++Invariant Sections in the license notice of the combined work.
++
++In the combination, you must combine any sections Entitled "History"
++in the various original documents, forming one section Entitled
++"History"; likewise combine any sections Entitled "Acknowledgements",
++and any sections Entitled "Dedications".  You must delete all sections
++Entitled "Endorsements".
++
++
++6. COLLECTIONS OF DOCUMENTS
++
++You may make a collection consisting of the Document and other documents
++released under this License, and replace the individual copies of this
++License in the various documents with a single copy that is included in
++the collection, provided that you follow the rules of this License for
++verbatim copying of each of the documents in all other respects.
++
++You may extract a single document from such a collection, and distribute
++it individually under this License, provided you insert a copy of this
++License into the extracted document, and follow this License in all
++other respects regarding verbatim copying of that document.
++
++
++7. AGGREGATION WITH INDEPENDENT WORKS
++
++A compilation of the Document or its derivatives with other separate
++and independent documents or works, in or on a volume of a storage or
++distribution medium, is called an "aggregate" if the copyright
++resulting from the compilation is not used to limit the legal rights
++of the compilation's users beyond what the individual works permit.
++When the Document is included in an aggregate, this License does not
++apply to the other works in the aggregate which are not themselves
++derivative works of the Document.
++
++If the Cover Text requirement of section 3 is applicable to these
++copies of the Document, then if the Document is less than one half of
++the entire aggregate, the Document's Cover Texts may be placed on
++covers that bracket the Document within the aggregate, or the
++electronic equivalent of covers if the Document is in electronic form.
++Otherwise they must appear on printed covers that bracket the whole
++aggregate.
++
++
++8. TRANSLATION
++
++Translation is considered a kind of modification, so you may
++distribute translations of the Document under the terms of section 4.
++Replacing Invariant Sections with translations requires special
++permission from their copyright holders, but you may include
++translations of some or all Invariant Sections in addition to the
++original versions of these Invariant Sections.  You may include a
++translation of this License, and all the license notices in the
++Document, and any Warranty Disclaimers, provided that you also include
++the original English version of this License and the original versions
++of those notices and disclaimers.  In case of a disagreement between
++the translation and the original version of this License or a notice
++or disclaimer, the original version will prevail.
++
++If a section in the Document is Entitled "Acknowledgements",
++"Dedications", or "History", the requirement (section 4) to Preserve
++its Title (section 1) will typically require changing the actual
++title.
++
++
++9. TERMINATION
++
++You may not copy, modify, sublicense, or distribute the Document except
++as expressly provided for under this License.  Any other attempt to
++copy, modify, sublicense or distribute the Document is void, and will
++automatically terminate your rights under this License.  However,
++parties who have received copies, or rights, from you under this
++License will not have their licenses terminated so long as such
++parties remain in full compliance.
++
++
++10. FUTURE REVISIONS OF THIS LICENSE
++
++The Free Software Foundation may publish new, revised versions
++of the GNU Free Documentation License from time to time.  Such new
++versions will be similar in spirit to the present version, but may
++differ in detail to address new problems or concerns.  See
++http://www.gnu.org/copyleft/.
++
++Each version of the License is given a distinguishing version number.
++If the Document specifies that a particular numbered version of this
++License "or any later version" applies to it, you have the option of
++following the terms and conditions either of that specified version or
++of any later version that has been published (not as a draft) by the
++Free Software Foundation.  If the Document does not specify a version
++number of this License, you may choose any version ever published (not
++as a draft) by the Free Software Foundation.
++
++
++ADDENDUM: How to use this License for your documents
++
++To use this License in a document you have written, include a copy of
++the License in the document and put the following copyright and
++license notices just after the title page:
++
++    Copyright (c)  YEAR  YOUR NAME.
++    Permission is granted to copy, distribute and/or modify this document
++    under the terms of the GNU Free Documentation License, Version 1.2
++    or any later version published by the Free Software Foundation;
++    with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
++    A copy of the license is included in the section entitled "GNU
++    Free Documentation License".
++
++If you have Invariant Sections, Front-Cover Texts and Back-Cover Texts,
++replace the "with...Texts." line with this:
++
++    with the Invariant Sections being LIST THEIR TITLES, with the
++    Front-Cover Texts being LIST, and with the Back-Cover Texts being LIST.
++
++If you have Invariant Sections without Cover Texts, or some other
++combination of the three, merge those two alternatives to suit the
++situation.
++
++If your document contains nontrivial examples of program code, we
++recommend releasing these examples in parallel under your choice of
++free software license, such as the GNU General Public License,
++to permit their use in free software.
++
++    </pre></div></div>
+           </td> </tr> </table>
+       </body></html>
+
+
+
+From nobody at sheep.berlios.de  Wed Aug 31 04:11:30 2005
+From: nobody at sheep.berlios.de (ivop)
+Date: Wed, 31 Aug 2005 04:11:30 +0200
+Subject: [fpm-cvslog] website/docs/HTML/en license.html,NONE,1.1 tweaking-the-build-process.html,NONE,1.1
+Message-ID: <200508310211.j7V2BU608037@bat.berlios.de>
+
+Update of /cvsroot/fpm/website/docs/HTML/en
+In directory sheep:/tmp/cvs-serv25130/HTML/en
+
+Added Files:
+	license.html tweaking-the-build-process.html 
+Log Message:
+new files
+
+
+
+--- NEW FILE: license.html ---
+(This appears to be a binary file; contents omitted.)
+
+--- NEW FILE: tweaking-the-build-process.html ---
+(This appears to be a binary file; contents omitted.)
+
+
+
